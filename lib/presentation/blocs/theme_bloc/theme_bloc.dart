@@ -1,0 +1,223 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import '../../../data/models/theme_model.dart';
+import '../../../data/content/theme1_content.dart';
+import '../../../core/services/hive_service.dart';
+
+// Events
+abstract class ThemeEvent extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class LoadThemesEvent extends ThemeEvent {}
+class UnlockThemeEvent extends ThemeEvent {
+  final String themeId;
+  UnlockThemeEvent(this.themeId);
+  @override
+  List<Object?> get props => [themeId];
+}
+class UpdateThemeProgressEvent extends ThemeEvent {
+  final String themeId;
+  final double progress;
+  UpdateThemeProgressEvent(this.themeId, this.progress);
+  @override
+  List<Object?> get props => [themeId, progress];
+}
+
+// States
+abstract class ThemeState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class ThemeInitial extends ThemeState {}
+class ThemeLoading extends ThemeState {}
+class ThemeLoaded extends ThemeState {
+  final List<ThemeModel> themes;
+  ThemeLoaded(this.themes);
+  @override
+  List<Object?> get props => [themes];
+}
+class ThemeError extends ThemeState {
+  final String message;
+  ThemeError(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+// BLoC
+class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
+  ThemeBloc() : super(ThemeInitial()) {
+    on<LoadThemesEvent>(_onLoadThemes);
+    on<UnlockThemeEvent>(_onUnlockTheme);
+    on<UpdateThemeProgressEvent>(_onUpdateProgress);
+  }
+
+  Future<void> _onLoadThemes(
+    LoadThemesEvent event,
+    Emitter<ThemeState> emit,
+  ) async {
+    emit(ThemeLoading());
+    try {
+      final box = HiveService.themeBox;
+      
+      // Seed data nếu chưa có
+      if (box.isEmpty) {
+        await _seedThemes(box);
+      }
+
+      final themes = box.values.toList()
+        ..sort((a, b) => a.themeNumber.compareTo(b.themeNumber));
+      emit(ThemeLoaded(themes));
+    } catch (e) {
+      emit(ThemeError(e.toString()));
+    }
+  }
+
+  Future<void> _seedThemes(dynamic box) async {
+    final allThemes = _getAllThemes();
+    for (final theme in allThemes) {
+      await box.put(theme.id, theme);
+    }
+  }
+
+  List<ThemeModel> _getAllThemes() => [
+        Theme1Content.theme,
+        ThemeModel(
+          id: 'theme_02_general_business',
+          themeNumber: 2,
+          titleEn: 'General Business',
+          titleVi: 'Thương Mại Tổng Quát',
+          description: 'Bán hàng, tiếp thị, lập kế hoạch, đàm phán, hợp đồng...',
+          iconEmoji: '💼',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_03_technical',
+          themeNumber: 3,
+          titleEn: 'Technical Areas',
+          titleVi: 'Các Vấn Đề Kỹ Thuật',
+          description: 'Công nghệ, máy tính, thiết bị điện tử, phòng thí nghiệm...',
+          iconEmoji: '💻',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_04_travel',
+          themeNumber: 4,
+          titleEn: 'Travel',
+          titleVi: 'Đi Lại và Công Tác',
+          description: 'Phương tiện giao thông, mua vé, lịch trình, thuê xe...',
+          iconEmoji: '✈️',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_05_entertainment',
+          themeNumber: 5,
+          titleEn: 'Entertainment',
+          titleVi: 'Giải Trí và Chiêu Đãi',
+          description: 'Rạp hát, xem phim, bảo tàng, triển lãm...',
+          iconEmoji: '🎭',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_06_purchasing',
+          themeNumber: 6,
+          titleEn: 'Purchasing',
+          titleVi: 'Mua Sắm Doanh Nghiệp',
+          description: 'Đặt mua hàng, cung ứng, hóa đơn mua bán...',
+          iconEmoji: '🛒',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_07_dining',
+          themeNumber: 7,
+          titleEn: 'Dining Out',
+          titleVi: 'Đi Ăn Nhà Hàng',
+          description: 'Bữa ăn với khách, đặt bàn, lễ tân, khánh tiết...',
+          iconEmoji: '🍽️',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_08_personnel',
+          themeNumber: 8,
+          titleEn: 'Personnel',
+          titleVi: 'Nhân Sự',
+          description: 'Tuyển dụng, lương bổng, thăng tiến, đơn xin việc...',
+          iconEmoji: '👥',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_09_finance',
+          themeNumber: 9,
+          titleEn: 'Finance & Budgeting',
+          titleVi: 'Tài Chính và Ngân Sách',
+          description: 'Ngân hàng, đầu tư, kế toán, hóa đơn, thuế...',
+          iconEmoji: '💰',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_10_corporate',
+          themeNumber: 10,
+          titleEn: 'Corporate Development',
+          titleVi: 'Phát Triển Doanh Nghiệp',
+          description: 'Nghiên cứu và phát triển sản phẩm...',
+          iconEmoji: '📈',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_11_manufacturing',
+          themeNumber: 11,
+          titleEn: 'Manufacturing',
+          titleVi: 'Sản Xuất',
+          description: 'Dây chuyền sản xuất, quản lý chất lượng...',
+          iconEmoji: '🏭',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_12_housing',
+          themeNumber: 12,
+          titleEn: 'Housing/Corporate Property',
+          titleVi: 'Nhà Đất và Tài Sản',
+          description: 'Mua bán, thuê mướn tài sản, xây dựng...',
+          iconEmoji: '🏠',
+          isUnlocked: false,
+        ),
+        ThemeModel(
+          id: 'theme_13_health',
+          themeNumber: 13,
+          titleEn: 'Health',
+          titleVi: 'Sức Khỏe và Y Tế',
+          description: 'Thăm khám bác sỹ, bảo hiểm y tế, bệnh viện...',
+          iconEmoji: '🏥',
+          isUnlocked: false,
+        ),
+      ];
+
+  Future<void> _onUnlockTheme(
+    UnlockThemeEvent event,
+    Emitter<ThemeState> emit,
+  ) async {
+    final box = HiveService.themeBox;
+    final theme = box.get(event.themeId);
+    if (theme != null) {
+      theme.isUnlocked = true;
+      await theme.save();
+    }
+    add(LoadThemesEvent());
+  }
+
+  Future<void> _onUpdateProgress(
+    UpdateThemeProgressEvent event,
+    Emitter<ThemeState> emit,
+  ) async {
+    final box = HiveService.themeBox;
+    final theme = box.get(event.themeId);
+    if (theme != null) {
+      theme.progressPercent = event.progress;
+      theme.lastStudiedAt = DateTime.now();
+      await theme.save();
+    }
+    add(LoadThemesEvent());
+  }
+}
