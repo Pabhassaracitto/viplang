@@ -11,7 +11,6 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
-.backups/
 
 # IntelliJ related
 *.iml
@@ -44,3 +43,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#Me:
+.backups/
+Note.txt
+.gitignore

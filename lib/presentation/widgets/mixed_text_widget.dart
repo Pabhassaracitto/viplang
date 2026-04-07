@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_text_styles.dart';
-import '../../presentation/screens/lesson/phases/phase_mind_game_screen.dart';
+import '../../data/models/mixed_segment_model.dart';
 
 class MixedTextWidget extends StatefulWidget {
-  final dynamic paragraph;
+  final MixedParagraph paragraph;
   final Function(int correct, int total)? onComplete;
 
   const MixedTextWidget({super.key, required this.paragraph, this.onComplete});
@@ -21,7 +22,7 @@ class _MixedTextWidgetState extends State<MixedTextWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final segments = (widget.paragraph as dynamic).segments as List;
+    final segments = widget.paragraph.segments;
     final vietnameseCount = segments.where((s) => s.isVietnamese).length;
     final allRevealed = _revealedIndices.length >= vietnameseCount;
 
@@ -63,7 +64,7 @@ class _MixedTextWidgetState extends State<MixedTextWidget> {
     );
   }
 
-  Widget _buildVietnameseSegment(dynamic segment, int index) {
+  Widget _buildVietnameseSegment(MixedSegment segment, int index) {
     final isRevealed = _revealedIndices.contains(index);
 
     return GestureDetector(

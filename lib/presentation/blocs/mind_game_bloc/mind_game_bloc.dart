@@ -1,5 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../data/models/mixed_segment_model.dart';
 
 // Events
@@ -23,7 +24,9 @@ class RevealAnswerEvent extends MindGameEvent {
 }
 
 class RevealAllEvent extends MindGameEvent {}
+
 class ResetGameEvent extends MindGameEvent {}
+
 class MarkCorrectEvent extends MindGameEvent {
   final int segmentIndex;
   MarkCorrectEvent(this.segmentIndex);
@@ -61,11 +64,11 @@ class MindGameActive extends MindGameState {
 
   @override
   List<Object?> get props => [
-        segments,
-        revealedIndices,
-        correctIndices,
-        progressPercent,
-      ];
+    segments,
+    revealedIndices,
+    correctIndices,
+    progressPercent,
+  ];
 }
 
 class MindGameCompleted extends MindGameState {
@@ -99,10 +102,8 @@ class MindGameBloc extends Bloc<MindGameEvent, MindGameState> {
   void _onLoad(LoadMindGameEvent event, Emitter<MindGameState> emit) {
     _segments = event.segments;
     _revealed = {};
-    _correct = {};
-    _totalVi = _segments
-        .where((s) => s.segmentType == SegmentType.vietnamese)
-        .length;
+    _correct = {}; // Reset correct count
+    _totalVi = _segments.where((s) => s.isVietnamese).length;
     emit(_buildActiveState());
   }
 
@@ -113,7 +114,7 @@ class MindGameBloc extends Bloc<MindGameEvent, MindGameState> {
 
   void _onRevealAll(RevealAllEvent event, Emitter<MindGameState> emit) {
     for (int i = 0; i < _segments.length; i++) {
-      if (_segments[i].segmentType == SegmentType.vietnamese) {
+      if (_segments[i].isVietnamese) {
         _revealed.add(i);
       }
     }
@@ -124,11 +125,13 @@ class MindGameBloc extends Bloc<MindGameEvent, MindGameState> {
     _correct.add(event.segmentIndex);
     final progress = _totalVi == 0 ? 0.0 : _correct.length / _totalVi;
     if (_correct.length >= _totalVi) {
-      emit(MindGameCompleted(
-        correctCount: _correct.length,
-        totalCount: _totalVi,
-        score: progress,
-      ));
+      emit(
+        MindGameCompleted(
+          correctCount: _correct.length,
+          totalCount: _totalVi,
+          score: progress,
+        ),
+      );
     } else {
       emit(_buildActiveState());
     }

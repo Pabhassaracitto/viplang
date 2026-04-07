@@ -3,7 +3,6 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
-import '../../../../data/models/mixed_segment_model.dart';
 
 class PhaseTranslateScreen extends StatefulWidget {
   final int dayNumber;

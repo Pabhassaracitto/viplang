@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -161,7 +162,11 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               // Known counter
               Row(
                 children: [
-                  Icon(Icons.check_circle, color: AppColors.success, size: 16),
+                  const Icon(
+                    Icons.check_circle,
+                    color: AppColors.success,
+                    size: 16,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     '$_knownCount thuộc',
@@ -328,7 +333,6 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
     final total = _vocabCards.length;
     final known = _knownIndices.length;
     final needReview = _reviewIndices.length;
-    final skipped = total - known - needReview;
     final pct = (known / total * 100).round();
 
     return SingleChildScrollView(

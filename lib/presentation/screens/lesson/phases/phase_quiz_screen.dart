@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -202,8 +203,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
               const Spacer(),
               // Score
               Row(
+                // Không được dùng 'const' ở đây vì nó chứa biến $_correctCount
                 children: [
-                  Icon(Icons.check_circle, color: AppColors.success, size: 16),
+                  const Icon(
+                    Icons.check_circle,
+                    color: AppColors.success,
+                    size: 16,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     '$_correctCount',
@@ -338,7 +344,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                   ),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.headphones,
                         color: AppColors.primary,
                         size: 16,
@@ -568,12 +574,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
 
   List<_PracticeSet> _buildPracticeSets() {
     return [
-      _PracticeSet(
+      const _PracticeSet(
         title: 'Conversation',
         description: 'Nghe hội thoại 2 người & trả lời câu hỏi',
         icon: '💬',
         questions: [
-          _QuizQuestion(
+          // Added const to _QuizQuestion constructors
+          const _QuizQuestion(
             questionText: 'Why is the woman calling the man?',
             options: [
               'To place an order',
@@ -587,7 +594,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             explanation:
                 'Jane gọi điện để báo máy phô-tô bị hỏng và cần kỹ thuật viên tới sửa.',
           ),
-          _QuizQuestion(
+          const _QuizQuestion(
             questionText: 'Why can\'t the man send a technician right now?',
             options: [
               'They are all very busy.',
@@ -599,7 +606,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             explanation:
                 'Người đàn ông nói "all our technicians are on jobs right now" - tất cả kỹ thuật viên đều đang bận.',
           ),
-          _QuizQuestion(
+          const _QuizQuestion(
             questionText: 'What does the man offer to do?',
             options: [
               'Buy a new fax machine',
@@ -613,12 +620,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
           ),
         ],
       ),
-      _PracticeSet(
+      const _PracticeSet(
         title: 'Short Talk 1',
         description: 'Nghe thông báo ngắn & trả lời câu hỏi',
         icon: '📻',
         questions: [
-          _QuizQuestion(
+          // Added const to _QuizQuestion constructors
+          const _QuizQuestion(
             questionText: 'Where is Mr. James this week?',
             options: [
               'On vacation',
@@ -631,7 +639,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             explanation:
                 '"I will be out of the office all week at a teachers\' conference."',
           ),
-          _QuizQuestion(
+          const _QuizQuestion(
             questionText: 'What is probably Mr. James\' job?',
             options: [
               'Teacher',
@@ -643,7 +651,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             explanation:
                 'Anh James đến "teachers\' conference" và có "teaching assistant" → anh ấy là giáo viên.',
           ),
-          _QuizQuestion(
+          const _QuizQuestion(
             questionText: 'What is Ms. Clarke\'s extension number?',
             options: ['71', '17', '117', '171'],
             correctIndex: 0,
@@ -652,12 +660,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
           ),
         ],
       ),
-      _PracticeSet(
+      const _PracticeSet(
         title: 'Short Talk 2',
         description: 'Nghe bài phát biểu & trả lời câu hỏi',
         icon: '🎙️',
         questions: [
-          _QuizQuestion(
+          // Added const to _QuizQuestion constructors
+          const _QuizQuestion(
             questionText: 'Where is the speech being made?',
             options: [
               'In a bank',
@@ -671,7 +680,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             explanation:
                 'Diễn giả đề cập đến "our office", "third floor of the building", "desks".',
           ),
-          _QuizQuestion(
+          const _QuizQuestion(
             questionText: 'Why is space limited?',
             options: [
               'Because the new room is too small.',
@@ -683,7 +692,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             explanation:
                 '"we added 5 new members to the marketing team" → tăng lên 20 người → thiếu không gian.',
           ),
-          _QuizQuestion(
+          const _QuizQuestion(
             questionText: 'What is the audience asked to do?',
             options: [
               'Move to a different room',

@@ -1,37 +1,23 @@
-import 'package:hive/hive.dart';
-
-part 'mixed_segment_model.g.dart';
-
-enum SegmentType { english, vietnamese }
-
-@HiveType(typeId: 2)
 class MixedSegment {
-  @HiveField(0)
   final String text;
-
-  @HiveField(1)
-  final String segmentTypeStr; // 'english' | 'vietnamese'
-
-  @HiveField(2)
-  final String? answerEn; // Đáp án tiếng Anh
-
-  SegmentType get segmentType =>
-      segmentTypeStr == 'vietnamese' ? SegmentType.vietnamese : SegmentType.english;
+  final bool isVietnamese;
+  final String? answer; // Only for Vietnamese segments
 
   const MixedSegment({
     required this.text,
-    required this.segmentTypeStr,
-    this.answerEn,
+    this.isVietnamese = false,
+    this.answer,
   });
 
-  factory MixedSegment.english(String text) => MixedSegment(
-        text: text,
-        segmentTypeStr: 'english',
-      );
+  // Factory constructors for convenience and const correctness
+  const MixedSegment.english(String text)
+    : this(text: text, isVietnamese: false);
+  const MixedSegment.vietnamese(String text, String answer)
+    : this(text: text, isVietnamese: true, answer: answer);
+}
 
-  factory MixedSegment.vietnamese(String text, String answer) => MixedSegment(
-        text: text,
-        segmentTypeStr: 'vietnamese',
-        answerEn: answer,
-      );
+class MixedParagraph {
+  final List<MixedSegment> segments;
+
+  const MixedParagraph({required this.segments});
 }

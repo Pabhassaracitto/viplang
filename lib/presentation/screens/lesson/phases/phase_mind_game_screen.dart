@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../data/models/mixed_segment_model.dart'; // Import the new model
 import '../../../widgets/mixed_text_widget.dart';
 
 class PhaseMindGameScreen extends StatefulWidget {
@@ -23,48 +25,49 @@ class PhaseMindGameScreen extends StatefulWidget {
 
 class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
   int _currentIndex = 0;
-  int _correctCount = 0;
 
-  final List<_MixedParagraph> _paragraphs = [
-    _MixedParagraph(
+  final List<MixedParagraph> _paragraphs = [
+    const MixedParagraph(
+      // Use const MixedParagraph
       segments: [
-        _Segment('This familiar theme ', false, null),
-        _Segment('sẽ xuất hiện', true, 'will occur'),
-        _Segment(' in ', false, null),
-        _Segment('tất cả bảy phần', true, 'all seven sections'),
-        _Segment(' of the TOEIC test.', false, null),
+        MixedSegment.english('This familiar theme '),
+        MixedSegment.vietnamese('sẽ xuất hiện', 'will occur'),
+        MixedSegment.english(' in '),
+        MixedSegment.vietnamese('tất cả bảy phần', 'all seven sections'),
+        MixedSegment.english(' of the TOEIC test.'),
       ],
     ),
-    _MixedParagraph(
+    const MixedParagraph(
+      // Use const MixedParagraph
       segments: [
-        _Segment('It is generally about ', false, null),
-        _Segment('các tình huống văn phòng', true, 'office situations'),
-        _Segment(' such as ', false, null),
-        _Segment('các cuộc họp', true, 'meetings'),
-        _Segment(', conferences, ', false, null),
-        _Segment('thiết bị văn phòng', true, 'office equipment'),
-        _Segment('.', false, null),
+        MixedSegment.english('It is generally about '),
+        MixedSegment.vietnamese(
+          'các tình huống văn phòng',
+          'office situations',
+        ),
+        MixedSegment.english(' such as '),
+        MixedSegment.vietnamese('các cuộc họp', 'meetings'),
+        MixedSegment.english(', conferences, '),
+        MixedSegment.vietnamese('thiết bị văn phòng', 'office equipment'),
+        MixedSegment.english('.'),
       ],
     ),
-    _MixedParagraph(
+    const MixedParagraph(
+      // Use const MixedParagraph
       segments: [
-        _Segment('Ở trong văn phòng', true, 'In the office'),
-        _Segment(', situations will be about all ', false, null),
-        _Segment('các thông báo nội bộ', true, 'memos'),
-        _Segment(', letters, faxes, emails, ', false, null),
-        _Segment('các phòng ban', true, 'departments'),
-        _Segment('.', false, null),
+        MixedSegment.vietnamese('Ở trong văn phòng', 'In the office'),
+        MixedSegment.english(', situations will be about all '),
+        MixedSegment.vietnamese('các thông báo nội bộ', 'memos'),
+        MixedSegment.english(', letters, faxes, emails, '),
+        MixedSegment.vietnamese('các phòng ban', 'departments'),
+        MixedSegment.english('.'),
       ],
     ),
   ];
 
   bool get _isLastParagraph => _currentIndex >= _paragraphs.length - 1;
 
-  void _onParagraphComplete(int correct, int total) {
-    setState(() {
-      _correctCount += correct;
-    });
-  }
+  void _onParagraphComplete(int correct, int total) {}
 
   void _nextParagraph() {
     if (_isLastParagraph) {
@@ -224,17 +227,4 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
       ],
     );
   }
-}
-
-// Data classes
-class _MixedParagraph {
-  final List<_Segment> segments;
-  const _MixedParagraph({required this.segments});
-}
-
-class _Segment {
-  final String text;
-  final bool isVietnamese;
-  final String? answer;
-  const _Segment(this.text, this.isVietnamese, this.answer);
 }
