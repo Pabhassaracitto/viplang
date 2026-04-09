@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -73,7 +74,7 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
 
           // Audio Player
           AudioPlayerWidget(
-            audioUrl: 'assets/audio/theme1_day1.mp3',
+            audioUrl: 'assets/audio/theme1_track03.mp3', // Tên file bạn đặt vào
             title: 'Track 03 - Listening 1.1',
             onPlayComplete: () {
               setState(() => _hasListened = true);

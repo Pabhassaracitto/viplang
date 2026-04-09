@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/constants/app_colors.dart';
+import 'core/constants/app_constants.dart';
 import 'presentation/blocs/mind_game_bloc/mind_game_bloc.dart';
 // Import các Bloc/Provider của dự án viplang
 import 'presentation/blocs/theme_bloc/theme_bloc.dart';
@@ -28,7 +29,11 @@ void main() async {
 
   // Khởi tạo Hive
   await Hive.initFlutter();
-  // Mở các box cần thiết ở đây (ví dụ: VocabBox)
+
+  await Hive.openBox(AppConstants.themeBox);
+  await Hive.openBox(AppConstants.vocabBox);
+  await Hive.openBox(AppConstants.progressBox);
+  await Hive.openBox(AppConstants.settingsBox);
 
   runApp(const VipLangApp());
 }

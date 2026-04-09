@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../lesson/lesson_day_screen.dart';
+import '../progress/progress_screen.dart';
 import '../themes/theme_list_screen.dart';
 import '../vocab/srs_review_screen.dart';
-import '../progress/progress_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -292,10 +293,60 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: AppConstants.paddingM),
           Row(
             children: [
-              _GoalItem(icon: '📖', label: 'Đọc bài', isDone: false),
-              _GoalItem(icon: '🎧', label: 'Nghe', isDone: false),
-              _GoalItem(icon: '🎮', label: 'Trò chơi', isDone: false),
-              _GoalItem(icon: '🃏', label: 'Ôn từ', isDone: false),
+              _GoalItem(
+                icon: '📖',
+                label: 'Đọc bài',
+                isDone: false,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const LessonDayScreen(
+                      dayNumber: 1,
+                      themeId: 'theme_01',
+                      themeTitle: 'Offices - Văn phòng',
+                    ),
+                  ),
+                ),
+              ),
+              _GoalItem(
+                icon: '🎧',
+                label: 'Nghe',
+                isDone: false,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const LessonDayScreen(
+                      dayNumber: 1,
+                      themeId: 'theme_01',
+                      themeTitle: 'Offices - Văn phòng',
+                    ),
+                  ),
+                ),
+              ),
+              _GoalItem(
+                icon: '🎮',
+                label: 'Trò chơi',
+                isDone: false,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const LessonDayScreen(
+                      dayNumber: 1,
+                      themeId: 'theme_01',
+                      themeTitle: 'Offices - Văn phòng',
+                    ),
+                  ),
+                ),
+              ),
+              _GoalItem(
+                icon: '🃏',
+                label: 'Ôn từ',
+                isDone: false,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const SrsReviewScreen()),
+                ),
+              ),
             ],
           ),
         ],
@@ -497,46 +548,56 @@ class _GoalItem extends StatelessWidget {
   final String icon;
   final String label;
   final bool isDone;
+  final VoidCallback? onTap;
 
   const _GoalItem({
     required this.icon,
     required this.label,
     required this.isDone,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: isDone
-                  ? AppColors.success.withValues(alpha: 0.15)
-                  : AppColors.background,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: isDone ? AppColors.success : AppColors.border,
-                width: 1.5,
+      child: GestureDetector(
+        onTap: onTap,
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: isDone
+                    ? AppColors.success.withValues(alpha: 0.15)
+                    : AppColors.background,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isDone ? AppColors.success : AppColors.border,
+                  width: 1.5,
+                ),
+              ),
+              child: Center(
+                child: isDone
+                    ? const Icon(
+                        Icons.check,
+                        color: AppColors.success,
+                        size: 18,
+                      )
+                    : Text(icon, style: const TextStyle(fontSize: 18)),
               ),
             ),
-            child: Center(
-              child: isDone
-                  ? const Icon(Icons.check, color: AppColors.success, size: 18)
-                  : Text(icon, style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: AppTextStyles.caption.copyWith(
+                color: isDone ? AppColors.success : AppColors.textHint,
+                fontSize: 10,
+              ),
             ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: AppTextStyles.caption.copyWith(
-              color: isDone ? AppColors.success : AppColors.textHint,
-              fontSize: 10,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
