@@ -8,7 +8,7 @@ part of 'vocab_model.dart';
 
 class VocabModelAdapter extends TypeAdapter<VocabModel> {
   @override
-  final int typeId = 4;
+  final int typeId = 2;
 
   @override
   VocabModel read(BinaryReader reader) {
@@ -23,10 +23,12 @@ class VocabModelAdapter extends TypeAdapter<VocabModel> {
       pronunciation: fields[3] as String,
       partOfSpeech: fields[4] as String,
       themeId: fields[5] as String,
-      repetitionCount: fields[7] as int,
-      easeFactor: fields[8] as double,
-      intervalDays: fields[9] as int,
-      nextReview: fields[10] as DateTime?,
+      exampleEn: fields[6] as String?,
+      exampleVi: fields[7] as String?,
+      repetitionCount: fields[8] as int,
+      easeFactor: fields[9] as double,
+      intervalDays: fields[10] as int,
+      nextReview: fields[11] as DateTime?,
     );
   }
 
@@ -48,15 +50,15 @@ class VocabModelAdapter extends TypeAdapter<VocabModel> {
       ..write(obj.themeId)
       ..writeByte(6)
       ..write(obj.exampleEn)
-      ..writeByte(11)
-      ..write(obj.exampleVi)
       ..writeByte(7)
-      ..write(obj.repetitionCount)
+      ..write(obj.exampleVi)
       ..writeByte(8)
-      ..write(obj.easeFactor)
+      ..write(obj.repetitionCount)
       ..writeByte(9)
-      ..write(obj.intervalDays)
+      ..write(obj.easeFactor)
       ..writeByte(10)
+      ..write(obj.intervalDays)
+      ..writeByte(11)
       ..write(obj.nextReview);
   }
 

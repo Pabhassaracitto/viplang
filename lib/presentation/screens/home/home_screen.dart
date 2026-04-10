@@ -302,7 +302,7 @@ class _HomeTab extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => const LessonDayScreen(
                       dayNumber: 1,
-                      themeId: 'theme_01',
+                      themeId: 'theme_01_offices',
                       themeTitle: 'Offices - Văn phòng',
                     ),
                   ),
@@ -317,7 +317,7 @@ class _HomeTab extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => const LessonDayScreen(
                       dayNumber: 1,
-                      themeId: 'theme_01',
+                      themeId: 'theme_01_offices',
                       themeTitle: 'Offices - Văn phòng',
                     ),
                   ),
@@ -332,7 +332,7 @@ class _HomeTab extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (_) => const LessonDayScreen(
                       dayNumber: 1,
-                      themeId: 'theme_01',
+                      themeId: 'theme_01_offices',
                       themeTitle: 'Offices - Văn phòng',
                     ),
                   ),
@@ -616,7 +616,7 @@ class _CurrentLessonCard extends StatelessWidget {
         MaterialPageRoute(
           builder: (_) => const LessonDayScreen(
             dayNumber: 1,
-            themeId: 'theme_01',
+            themeId: 'theme_01_offices',
             themeTitle: 'Offices - Văn phòng',
           ),
         ),

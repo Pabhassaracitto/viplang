@@ -1,7 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/content/all_themes_registry.dart';
 import '../../../data/models/lesson_model.dart';
-import '../../../data/content/theme1_content.dart';
+import '../../../data/content/all_themes_registry.dart';
 
 // Events
 abstract class LessonEvent extends Equatable {
@@ -25,6 +27,7 @@ class CompletePhaseEvent extends LessonEvent {
 }
 
 class NextPhaseEvent extends LessonEvent {}
+
 class PreviousPhaseEvent extends LessonEvent {}
 
 // States
@@ -34,6 +37,7 @@ abstract class LessonState extends Equatable {
 }
 
 class LessonInitial extends LessonState {}
+
 class LessonLoading extends LessonState {}
 
 class LessonLoaded extends LessonState {
@@ -47,11 +51,9 @@ class LessonLoaded extends LessonState {
     this.isCompleted = false,
   });
 
-  LessonPhase get currentPhase =>
-      lessonDay.phases[currentPhaseIndex];
+  LessonPhase get currentPhase => lessonDay.phases[currentPhaseIndex];
 
-  bool get isLastPhase =>
-      currentPhaseIndex >= lessonDay.phases.length - 1;
+  bool get isLastPhase => currentPhaseIndex >= lessonDay.phases.length - 1;
 
   bool get isFirstPhase => currentPhaseIndex == 0;
 
@@ -87,25 +89,31 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
     LoadLessonEvent event,
     Emitter<LessonState> emit,
   ) async {
+    // ✅ Reset hoàn toàn về Initial trước
+    emit(LessonInitial());
     emit(LessonLoading());
+
     try {
-      LessonDay? lesson;
-      if (event.themeId == 'theme_01_offices') {
-        lesson = event.dayNumber == 1
-            ? Theme1Content.day1
-            : Theme1Content.day2;
+      final lesson = AllThemesRegistry.getLesson(
+        event.themeId,
+        event.dayNumber,
+      );
+      if (lesson == null) {
+        throw Exception('Nội dung đang được phát triển!');
       }
-      if (lesson == null) throw Exception('Lesson not found');
+
+      // ✅ Reset tất cả phases về chưa hoàn thành
+      for (final phase in lesson.phases) {
+        phase.isCompleted = false;
+      }
+
       emit(LessonLoaded(lessonDay: lesson, currentPhaseIndex: 0));
     } catch (e) {
       emit(LessonError(e.toString()));
     }
   }
 
-  void _onCompletePhase(
-    CompletePhaseEvent event,
-    Emitter<LessonState> emit,
-  ) {
+  void _onCompletePhase(CompletePhaseEvent event, Emitter<LessonState> emit) {
     final state = this.state;
     if (state is LessonLoaded) {
       final phases = state.lessonDay.phases;
@@ -113,10 +121,12 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
       if (idx != -1) {
         phases[idx].isCompleted = true;
       }
-      emit(LessonLoaded(
-        lessonDay: state.lessonDay,
-        currentPhaseIndex: state.currentPhaseIndex,
-      ));
+      emit(
+        LessonLoaded(
+          lessonDay: state.lessonDay,
+          currentPhaseIndex: state.currentPhaseIndex,
+        ),
+      );
     }
   }
 
@@ -126,10 +136,12 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
       if (state.isLastPhase) {
         emit(LessonCompleted(state.lessonDay, _calcXP(state.lessonDay)));
       } else {
-        emit(LessonLoaded(
-          lessonDay: state.lessonDay,
-          currentPhaseIndex: state.currentPhaseIndex + 1,
-        ));
+        emit(
+          LessonLoaded(
+            lessonDay: state.lessonDay,
+            currentPhaseIndex: state.currentPhaseIndex + 1,
+          ),
+        );
       }
     }
   }
@@ -137,10 +149,12 @@ class LessonBloc extends Bloc<LessonEvent, LessonState> {
   void _onPreviousPhase(PreviousPhaseEvent event, Emitter<LessonState> emit) {
     final state = this.state;
     if (state is LessonLoaded && !state.isFirstPhase) {
-      emit(LessonLoaded(
-        lessonDay: state.lessonDay,
-        currentPhaseIndex: state.currentPhaseIndex - 1,
-      ));
+      emit(
+        LessonLoaded(
+          lessonDay: state.lessonDay,
+          currentPhaseIndex: state.currentPhaseIndex - 1,
+        ),
+      );
     }
   }
 

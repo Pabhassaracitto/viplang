@@ -1,5 +1,8 @@
+// lib/presentation/widgets/audio_player_widget.dart
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_text_styles.dart';
@@ -21,12 +24,12 @@ class AudioPlayerWidget extends StatefulWidget {
 }
 
 class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
-  late AudioPlayer _player;
-  bool _isLoading = true;
+  late final AudioPlayer _player;
+  bool _isPlaying = false;
+  bool _isLoading = false;
   bool _hasError = false;
   Duration _duration = Duration.zero;
   Duration _position = Duration.zero;
-  bool _isPlaying = false;
   double _speed = 1.0;
 
   @override
@@ -34,62 +37,92 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     super.initState();
     _player = AudioPlayer();
     _initAudio();
-    _setupListeners();
   }
 
   Future<void> _initAudio() async {
-    try {
-      // Hỗ trợ cả asset và network URL
-      if (widget.audioUrl.startsWith('http')) {
-        await _player.setUrl(widget.audioUrl);
-      } else {
-        await _player.setAsset(widget.audioUrl);
-      }
-      if (mounted) {
-        setState(() {
-          _duration = _player.duration ?? Duration.zero;
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-          _hasError = true;
-        });
-      }
-      debugPrint('Audio error: $e');
-    }
-  }
-
-  void _setupListeners() {
-    // Lắng nghe vị trí hiện tại
-    _player.positionStream.listen((position) {
-      if (mounted) {
-        setState(() => _position = position);
-      }
-    });
-
     // Lắng nghe trạng thái phát
     _player.playerStateStream.listen((state) {
-      if (mounted) {
-        setState(() => _isPlaying = state.playing);
-
-        // Khi phát xong
-        if (state.processingState == ProcessingState.completed) {
-          _player.seek(Duration.zero);
-          _player.stop();
-          widget.onPlayComplete?.call();
-        }
+      if (!mounted) return;
+      setState(() {
+        _isPlaying = state.playing;
+        _isLoading =
+            state.processingState == ProcessingState.loading ||
+            state.processingState == ProcessingState.buffering;
+      });
+      // Gọi callback khi phát xong
+      if (state.processingState == ProcessingState.completed) {
+        widget.onPlayComplete?.call();
+        setState(() => _isPlaying = false);
       }
     });
 
     // Lắng nghe duration
-    _player.durationStream.listen((duration) {
-      if (mounted && duration != null) {
-        setState(() => _duration = duration);
-      }
+    _player.durationStream.listen((d) {
+      if (!mounted) return;
+      setState(() => _duration = d ?? Duration.zero);
     });
+
+    // Lắng nghe position
+    _player.positionStream.listen((p) {
+      if (!mounted) return;
+      setState(() => _position = p);
+    });
+
+    // Load audio
+    await _loadAudio();
+  }
+
+  Future<void> _loadAudio() async {
+    if (widget.audioUrl.isEmpty) return;
+
+    setState(() {
+      _isLoading = true;
+      _hasError = false;
+    });
+
+    try {
+      if (widget.audioUrl.startsWith('http')) {
+        await _player.setUrl(widget.audioUrl);
+      } else {
+        // Asset audio
+        await _player.setAsset(widget.audioUrl);
+      }
+      setState(() => _isLoading = false);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        _hasError = true;
+      });
+      debugPrint('AudioPlayer error: $e');
+    }
+  }
+
+  Future<void> _togglePlay() async {
+    if (_hasError) {
+      await _loadAudio();
+      return;
+    }
+    if (_isPlaying) {
+      await _player.pause();
+    } else {
+      // Nếu đã phát xong thì seek về đầu
+      if (_player.processingState == ProcessingState.completed) {
+        await _player.seek(Duration.zero);
+      }
+      await _player.play();
+    }
+  }
+
+  Future<void> _setSpeed(double speed) async {
+    setState(() => _speed = speed);
+    await _player.setSpeed(speed);
+  }
+
+  String _formatDuration(Duration d) {
+    final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$m:$s';
   }
 
   @override
@@ -98,275 +131,197 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     super.dispose();
   }
 
-  void _togglePlay() async {
-    if (_isPlaying) {
-      await _player.pause();
-    } else {
-      await _player.play();
-    }
-  }
-
-  void _seekBackward() async {
-    final newPos = _position - const Duration(seconds: 10);
-    await _player.seek(newPos < Duration.zero ? Duration.zero : newPos);
-  }
-
-  void _seekForward() async {
-    final newPos = _position + const Duration(seconds: 10);
-    await _player.seek(newPos > _duration ? _duration : newPos);
-  }
-
-  void _changeSpeed() async {
-    final speeds = [0.75, 1.0, 1.25, 1.5];
-    final currentIdx = speeds.indexOf(_speed);
-    final nextIdx = (currentIdx + 1) % speeds.length;
-    setState(() => _speed = speeds[nextIdx]);
-    await _player.setSpeed(_speed);
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-    return '$minutes:$seconds';
-  }
-
-  double get _progressValue {
-    if (_duration.inMilliseconds == 0) return 0.0;
-    return (_position.inMilliseconds / _duration.inMilliseconds).clamp(
-      0.0,
-      1.0,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: AppColors.primary.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(AppConstants.radiusL),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title Row
+          // ── Title row ────────────────────────────────────────
           Row(
             children: [
               Container(
-                width: 40,
-                height: 40,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingS,
+                  vertical: 2,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                  borderRadius: BorderRadius.circular(AppConstants.radiusXS),
                 ),
-                child: const Icon(
-                  Icons.headphones,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: AppConstants.paddingM),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title,
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      _isLoading
-                          ? 'Đang tải...'
-                          : _hasError
-                          ? 'Không tải được audio'
-                          : _formatDuration(_duration),
-                      style: AppTextStyles.caption.copyWith(
-                        color: _hasError
-                            ? AppColors.error
-                            : AppColors.textSecondary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Speed Button
-              if (!_isLoading && !_hasError)
-                GestureDetector(
-                  onTap: _changeSpeed,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.paddingS,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                    ),
-                    child: Text(
-                      '${_speed}x',
-                      style: AppTextStyles.caption.copyWith(
-                        color: AppColors.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                child: Text(
+                  '🎵 ${widget.title}',
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
+              ),
+              const Spacer(),
+              // Speed selector
+              _buildSpeedSelector(),
             ],
           ),
 
           const SizedBox(height: AppConstants.paddingM),
 
-          // Error State
-          if (_hasError)
-            Container(
-              padding: const EdgeInsets.all(AppConstants.paddingM),
-              decoration: BoxDecoration(
-                color: AppColors.error.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(AppConstants.radiusM),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.error_outline,
-                    color: AppColors.error,
-                    size: 20,
-                  ),
-                  const SizedBox(width: AppConstants.paddingS),
-                  Expanded(
-                    child: Text(
-                      'Không tìm thấy file audio: ${widget.audioUrl}',
-                      style: AppTextStyles.caption.copyWith(
-                        color: AppColors.error,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-          // Loading State
-          if (_isLoading)
-            const Padding(
-              padding: EdgeInsets.all(AppConstants.paddingM),
-              child: CircularProgressIndicator(),
-            ),
-
-          // Player Controls
-          if (!_isLoading && !_hasError) ...[
-            // Progress Slider
-            Column(
-              children: [
-                SliderTheme(
-                  data: SliderThemeData(
-                    thumbShape: const RoundSliderThumbShape(
-                      enabledThumbRadius: 6,
-                    ),
-                    overlayShape: const RoundSliderOverlayShape(
-                      overlayRadius: 12,
-                    ),
-                    activeTrackColor: AppColors.primary,
-                    inactiveTrackColor: AppColors.border,
-                    thumbColor: AppColors.primary,
-                    overlayColor: AppColors.primary.withValues(alpha: 0.2),
-                    trackHeight: 3,
-                  ),
-                  child: Slider(
-                    value: _progressValue,
-                    onChanged: (value) {
-                      final newPos = Duration(
-                        milliseconds: (value * _duration.inMilliseconds)
-                            .round(),
-                      );
-                      _player.seek(newPos);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.paddingS,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        _formatDuration(_position),
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.textHint,
-                        ),
-                      ),
-                      Text(
-                        _formatDuration(_duration),
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.textHint,
-                        ),
+          // ── Controls row ──────────────────────────────────────
+          Row(
+            children: [
+              // Play/Pause button
+              GestureDetector(
+                onTap: _isLoading ? null : _togglePlay,
+                child: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: _hasError ? AppColors.error : AppColors.primary,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: 0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: AppConstants.paddingS),
-
-            // Buttons Row
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Rewind 10s
-                IconButton(
-                  onPressed: _seekBackward,
-                  icon: const Icon(Icons.replay_10),
-                  color: AppColors.textSecondary,
-                ),
-                const SizedBox(width: AppConstants.paddingM),
-
-                // Play/Pause
-                GestureDetector(
-                  onTap: _togglePlay,
-                  child: Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary,
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.3),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                  child: _isLoading
+                      ? const Padding(
+                          padding: EdgeInsets.all(14),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : Icon(
+                          _hasError
+                              ? Icons.refresh_rounded
+                              : _isPlaying
+                              ? Icons.pause_rounded
+                              : Icons.play_arrow_rounded,
+                          color: Colors.white,
+                          size: 28,
                         ),
-                      ],
-                    ),
-                    child: Icon(
-                      _isPlaying ? Icons.pause : Icons.play_arrow,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
                 ),
-                const SizedBox(width: AppConstants.paddingM),
+              ),
 
-                // Forward 10s
-                IconButton(
-                  onPressed: _seekForward,
-                  icon: const Icon(Icons.forward_10),
-                  color: AppColors.textSecondary,
+              const SizedBox(width: AppConstants.paddingM),
+
+              // Progress + Duration
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Slider
+                    SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 3,
+                        thumbShape: const RoundSliderThumbShape(
+                          enabledThumbRadius: 6,
+                        ),
+                        overlayShape: const RoundSliderOverlayShape(
+                          overlayRadius: 12,
+                        ),
+                        activeTrackColor: AppColors.primary,
+                        inactiveTrackColor: AppColors.border,
+                        thumbColor: AppColors.primary,
+                        overlayColor: AppColors.primary.withValues(alpha: 0.15),
+                      ),
+                      child: Slider(
+                        value: _duration.inMilliseconds > 0
+                            ? (_position.inMilliseconds /
+                                      _duration.inMilliseconds)
+                                  .clamp(0.0, 1.0)
+                            : 0.0,
+                        onChanged: _duration.inMilliseconds > 0
+                            ? (v) {
+                                final pos = Duration(
+                                  milliseconds: (v * _duration.inMilliseconds)
+                                      .round(),
+                                );
+                                _player.seek(pos);
+                              }
+                            : null,
+                      ),
+                    ),
+
+                    // Time labels
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.paddingXS,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            _formatDuration(_position),
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.textSecondary,
+                              fontSize: 10,
+                            ),
+                          ),
+                          if (_hasError)
+                            Text(
+                              'File chưa có - nhấn để thử lại',
+                              style: AppTextStyles.caption.copyWith(
+                                color: AppColors.error,
+                                fontSize: 10,
+                              ),
+                            )
+                          else
+                            Text(
+                              _formatDuration(_duration),
+                              style: AppTextStyles.caption.copyWith(
+                                color: AppColors.textSecondary,
+                                fontSize: 10,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSpeedSelector() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [0.75, 1.0, 1.25].map((speed) {
+        final isSelected = _speed == speed;
+        return GestureDetector(
+          onTap: () => _setSpeed(speed),
+          child: Container(
+            margin: const EdgeInsets.only(left: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? AppColors.primary
+                  : AppColors.primary.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(AppConstants.radiusXS),
+            ),
+            child: Text(
+              '${speed}x',
+              style: AppTextStyles.caption.copyWith(
+                color: isSelected ? Colors.white : AppColors.primary,
+                fontWeight: FontWeight.w700,
+                fontSize: 10,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

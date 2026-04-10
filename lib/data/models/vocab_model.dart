@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'vocab_model.g.dart';
 
-@HiveType(typeId: 4)
+@HiveType(typeId: 2)
 class VocabModel extends HiveObject {
   @HiveField(0)
   final String id;

@@ -1,25 +1,33 @@
+// lib/presentation/screens/lesson/lesson_complete_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import 'lesson_day_screen.dart';
 
 class LessonCompleteScreen extends StatefulWidget {
   final int dayNumber;
+  final String themeId;
   final String themeTitle;
   final int totalWords;
   final int correctAnswers;
   final int totalQuestions;
   final int xpEarned;
+  final int? nextDayNumber;
 
   const LessonCompleteScreen({
     super.key,
     required this.dayNumber,
+    required this.themeId,
     required this.themeTitle,
     required this.totalWords,
     required this.correctAnswers,
     required this.totalQuestions,
     required this.xpEarned,
+    this.nextDayNumber,
   });
 
   @override
@@ -71,28 +79,19 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
       backgroundColor: AppColors.background,
       body: Stack(
         children: [
-          // Background decoration
           Positioned.fill(child: CustomPaint(painter: _BackgroundPainter())),
-
           SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(AppConstants.paddingM),
               child: Column(
                 children: [
                   const SizedBox(height: AppConstants.paddingXL),
-
-                  // Trophy Animation
                   _buildTrophy(),
-
                   const SizedBox(height: AppConstants.paddingL),
-
-                  // Title
                   if (_showContent) ...[
                     Text(
                       'Bài học hoàn thành!',
-                      style: AppTextStyles.h1.copyWith(
-                        color: AppColors.textPrimary,
-                      ),
+                      style: AppTextStyles.h1,
                       textAlign: TextAlign.center,
                     ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.3),
 
@@ -108,7 +107,6 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
 
                     const SizedBox(height: AppConstants.paddingL),
 
-                    // Grade Card
                     _buildGradeCard()
                         .animate()
                         .fadeIn(delay: 300.ms)
@@ -116,18 +114,15 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
 
                     const SizedBox(height: AppConstants.paddingL),
 
-                    // Stats Row
                     _buildStatsRow().animate().fadeIn(delay: 500.ms),
 
                     const SizedBox(height: AppConstants.paddingL),
 
-                    // Motivation Message
                     _buildMotivationCard().animate().fadeIn(delay: 600.ms),
 
                     const SizedBox(height: AppConstants.paddingXL),
 
-                    // Buttons
-                    _buildButtons().animate().fadeIn(delay: 700.ms),
+                    _buildButtons(context).animate().fadeIn(delay: 700.ms),
 
                     const SizedBox(height: AppConstants.paddingXL),
                   ],
@@ -139,6 +134,8 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
       ),
     );
   }
+
+  // ── Trophy ──────────────────────────────────────────────────────
 
   Widget _buildTrophy() {
     return Container(
@@ -172,6 +169,8 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
         )
         .fadeIn(duration: 400.ms);
   }
+
+  // ── Grade Card ──────────────────────────────────────────────────
 
   Widget _buildGradeCard() {
     return Container(
@@ -219,6 +218,8 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
     );
   }
 
+  // ── Stats Row ───────────────────────────────────────────────────
+
   Widget _buildStatsRow() {
     return Row(
       children: [
@@ -251,6 +252,8 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
       ],
     );
   }
+
+  // ── Motivation Card ─────────────────────────────────────────────
 
   Widget _buildMotivationCard() {
     return Container(
@@ -296,15 +299,53 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
     );
   }
 
-  Widget _buildButtons() {
+  // ── Buttons ─────────────────────────────────────────────────────
+
+  Widget _buildButtons(BuildContext context) {
     return Column(
       children: [
+        // ✅ Nút 1: Học Day tiếp theo (nếu có)
+        if (widget.nextDayNumber != null) ...[
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => LessonDayScreen(
+                      dayNumber: widget.nextDayNumber!,
+                      themeId: widget.themeId,
+                      themeTitle: widget.themeTitle,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.arrow_forward_rounded),
+              label: Text('Học Day ${widget.nextDayNumber} →'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.success,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingM),
+        ],
+
+        // ✅ Nút 2: Về trang chủ
         SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.popUntil(context, (route) => route.isFirst);
             },
             icon: const Icon(Icons.home_rounded),
             label: const Text('Về trang chủ'),
@@ -322,13 +363,14 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
             ),
           ),
         ),
+
         const SizedBox(height: AppConstants.paddingM),
+
+        // ✅ Nút 3: Học lại
         SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.replay_rounded),
             label: const Text('Học lại bài này'),
             style: OutlinedButton.styleFrom(
@@ -350,7 +392,7 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
   }
 }
 
-// ─── Sub-widgets ────────────────────────────────────────────────────────────
+// ── Sub-widgets (TOP-LEVEL, ngoài class) ─────────────────────────────────────
 
 class _CompleteStat extends StatelessWidget {
   final String icon;

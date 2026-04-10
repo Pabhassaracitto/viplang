@@ -1,19 +1,21 @@
+// lib/presentation/screens/lesson/phases/phase_quiz_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../data/models/lesson_model.dart';
+import '../../../widgets/audio_player_widget.dart';
 
 class PhaseQuizScreen extends StatefulWidget {
-  final int dayNumber;
-  final String themeId;
+  final LessonPhase phase;
   final VoidCallback onComplete;
 
   const PhaseQuizScreen({
     super.key,
-    required this.dayNumber,
-    required this.themeId,
+    required this.phase,
     required this.onComplete,
   });
 
@@ -27,17 +29,43 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   int? _selectedAnswerIndex;
   bool _hasAnswered = false;
   int _correctCount = 0;
-  int _currentPracticeSet = 0;
+
+  // ✅ FIX 1: Track audio đã phát cho mỗi practice
+  String? _currentPracticeNumber;
+  bool _audioPlayedForCurrentPractice = false;
 
   late AnimationController _resultController;
   late Animation<double> _resultAnimation;
 
-  late final List<_PracticeSet> _practiceSets;
+  List<QuizQuestion> get _questions => widget.phase.questions ?? [];
+  QuizQuestion get _currentQuestion => _questions[_currentQuestionIndex];
+  bool get _isLastQuestion => _currentQuestionIndex >= _questions.length - 1;
+
+  // ✅ FIX 2: Lấy audio từ question thay vì phase
+  String get _currentAudioPath {
+    final trackKey = _currentQuestion.audioTrackKey;
+    return _resolveAudioPath(trackKey);
+  }
+
+  String _resolveAudioPath(String? trackKey) {
+    const map = {
+      // Theme 1
+      'track_03': 'assets/audio/theme1_track03.mp3',
+      'track_04': 'assets/audio/theme1_track04.mp3',
+      'track_05': 'assets/audio/theme1_track05.mp3',
+      'track_06': 'assets/audio/theme1_track06.mp3',
+      // Theme 2
+      'track_07': 'assets/audio/theme2_track07.mp3',
+      'track_08': 'assets/audio/theme2_track08.mp3',
+      'track_09': 'assets/audio/theme2_track09.mp3',
+      'track_10': 'assets/audio/theme2_track10.mp3',
+    };
+    return map[trackKey] ?? '';
+  }
 
   @override
   void initState() {
     super.initState();
-    _practiceSets = _buildPracticeSets();
     _resultController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -46,6 +74,11 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       parent: _resultController,
       curve: Curves.elasticOut,
     );
+
+    // ✅ FIX 3: Initialize practice tracking
+    if (_questions.isNotEmpty) {
+      _currentPracticeNumber = _currentQuestion.practiceNumber;
+    }
   }
 
   @override
@@ -54,116 +87,225 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     super.dispose();
   }
 
-  _PracticeSet get _currentSet => _practiceSets[_currentPracticeSet];
-
-  _QuizQuestion get _currentQuestion =>
-      _currentSet.questions[_currentQuestionIndex];
-
-  bool get _isLastQuestion =>
-      _currentQuestionIndex >= _currentSet.questions.length - 1;
-
-  bool get _isLastSet => _currentPracticeSet >= _practiceSets.length - 1;
-
   void _selectAnswer(int index) {
-    if (_hasAnswered) return;
+    // ✅ FIX 4: Double-check hasAnswered để tránh chọn lại
+    if (_hasAnswered || _selectedAnswerIndex != null) return;
 
     setState(() {
       _selectedAnswerIndex = index;
       _hasAnswered = true;
-      if (index == _currentQuestion.correctIndex) {
-        _correctCount++;
-      }
+      if (index == _currentQuestion.correctIndex) _correctCount++;
     });
     _resultController.forward(from: 0);
   }
 
   void _nextQuestion() {
     if (_isLastQuestion) {
-      if (_isLastSet) {
-        widget.onComplete();
-      } else {
-        _showSetComplete();
-      }
+      widget.onComplete();
       return;
     }
 
+    final nextQuestion = _questions[_currentQuestionIndex + 1];
+    final isNewPractice = nextQuestion.practiceNumber != _currentPracticeNumber;
+
     setState(() {
       _currentQuestionIndex++;
+      // ✅ FIX 5: Reset state hoàn toàn khi chuyển câu
       _selectedAnswerIndex = null;
       _hasAnswered = false;
+
+      // ✅ FIX 6: Reset audio khi chuyển practice mới
+      if (isNewPractice) {
+        _currentPracticeNumber = nextQuestion.practiceNumber;
+        _audioPlayedForCurrentPractice = false;
+      }
     });
     _resultController.reset();
   }
 
-  void _showSetComplete() {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => _SetCompleteDialog(
-        setNumber: _currentPracticeSet + 1,
-        correct: _correctCount,
-        total: _currentSet.questions.length,
-        onContinue: () {
-          Navigator.pop(context);
-          setState(() {
-            _currentPracticeSet++;
-            _currentQuestionIndex = 0;
-            _selectedAnswerIndex = null;
-            _hasAnswered = false;
-            _correctCount = 0;
-          });
-          _resultController.reset();
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    final totalQuestions = _currentSet.questions.length;
-    final progress = (_currentQuestionIndex + 1) / totalQuestions;
+    if (_questions.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(
+              Icons.quiz_outlined,
+              size: 48,
+              color: AppColors.textTertiary,
+            ),
+            const SizedBox(height: AppConstants.paddingM),
+            Text('Không có câu hỏi', style: AppTextStyles.bodyMedium),
+            const SizedBox(height: AppConstants.paddingM),
+            ElevatedButton(
+              onPressed: widget.onComplete,
+              child: const Text('Tiếp tục'),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final progress = (_currentQuestionIndex + 1) / _questions.length;
 
     return Column(
       children: [
-        // Header
-        _buildHeader(progress, totalQuestions),
-
-        // Content
+        _buildHeader(progress),
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppConstants.paddingM),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Practice Set Label
+                // ✅ FIX 7: Audio section với key để rebuild khi đổi practice
+                _buildAudioSection(),
+                const SizedBox(height: AppConstants.paddingM),
                 _buildPracticeLabel(),
                 const SizedBox(height: AppConstants.paddingM),
-
-                // Question Card
                 _buildQuestionCard(),
                 const SizedBox(height: AppConstants.paddingL),
-
-                // Answer Options
                 ..._buildAnswerOptions(),
-
-                const SizedBox(height: AppConstants.paddingL),
-
-                // Explanation (after answering)
-                if (_hasAnswered) _buildExplanation(),
-
-                const SizedBox(height: AppConstants.paddingXL),
+                if (_hasAnswered) ...[
+                  const SizedBox(height: AppConstants.paddingM),
+                  _buildExplanation(),
+                ],
+                const SizedBox(height: 100),
               ],
             ),
           ),
         ),
-
-        // Bottom Action
         if (_hasAnswered) _buildNextButton(),
       ],
     );
   }
 
-  Widget _buildHeader(double progress, int total) {
+  // ─── Audio Section ────────────────────────────────────────────
+  Widget _buildAudioSection() {
+    final audioPath = _currentAudioPath;
+    final practiceLabel = _currentQuestion.practiceNumber.replaceAll(
+      'practice',
+      'Practice ',
+    );
+
+    return Container(
+      // ✅ FIX 8: Key để rebuild AudioPlayer khi đổi practice
+      key: ValueKey('audio_${_currentQuestion.practiceNumber}'),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppConstants.paddingM,
+              AppConstants.paddingM,
+              AppConstants.paddingM,
+              AppConstants.paddingS,
+            ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.headphones,
+                  color: AppColors.primary,
+                  size: 18,
+                ),
+                const SizedBox(width: AppConstants.paddingS),
+                Expanded(
+                  child: Text(
+                    '🎧 $practiceLabel',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+                // ✅ FIX 9: Hiển thị track đang phát
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusXS),
+                  ),
+                  child: Text(
+                    _currentQuestion.audioTrackKey?.toUpperCase() ?? 'N/A',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.warning,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (audioPath.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppConstants.paddingS,
+                0,
+                AppConstants.paddingS,
+                AppConstants.paddingS,
+              ),
+              child: AudioPlayerWidget(
+                // ✅ FIX 10: Key để rebuild khi đổi audio
+                key: ValueKey(audioPath),
+                audioUrl: audioPath,
+                title:
+                    _currentQuestion.audioTrackKey
+                        ?.replaceAll('_', ' ')
+                        .toUpperCase() ??
+                    'Audio',
+                onPlayComplete: () {
+                  setState(() => _audioPlayedForCurrentPractice = true);
+                },
+              ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.paddingM),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.warning_amber_rounded,
+                    color: AppColors.warning,
+                    size: 16,
+                  ),
+                  const SizedBox(width: AppConstants.paddingS),
+                  Expanded(
+                    child: Text(
+                      'File audio "${_currentQuestion.audioTrackKey}" chưa sẵn sàng',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() => _audioPlayedForCurrentPractice = true);
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: const Size(60, 28),
+                    ),
+                    child: const Text('Bỏ qua'),
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    ).animate().fadeIn(duration: 300.ms);
+  }
+
+  // ─── Header ───────────────────────────────────────────────────
+  Widget _buildHeader(double progress) {
     return Container(
       padding: const EdgeInsets.fromLTRB(
         AppConstants.paddingM,
@@ -201,9 +343,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                 ),
               ),
               const Spacer(),
-              // Score
               Row(
-                // Không được dùng 'const' ở đây vì nó chứa biến $_correctCount
                 children: [
                   const Icon(
                     Icons.check_circle,
@@ -220,7 +360,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                   ),
                   const SizedBox(width: AppConstants.paddingM),
                   Text(
-                    '${_currentQuestionIndex + 1}/$total',
+                    '${_currentQuestionIndex + 1}/${_questions.length}',
                     style: AppTextStyles.caption.copyWith(
                       color: AppColors.textSecondary,
                     ),
@@ -246,8 +386,18 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     );
   }
 
+  // ─── Practice Label ───────────────────────────────────────────
   Widget _buildPracticeLabel() {
-    final setData = _currentSet;
+    final q = _currentQuestion;
+    final practiceLabel = q.practiceNumber.replaceAll('practice', 'Practice ');
+
+    // ✅ FIX 11: Hiển thị câu hỏi số mấy trong practice
+    final questionsInPractice = _questions
+        .where((q) => q.practiceNumber == _currentQuestion.practiceNumber)
+        .toList();
+    final questionIndexInPractice =
+        questionsInPractice.indexOf(_currentQuestion) + 1;
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
       decoration: BoxDecoration(
@@ -257,21 +407,21 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       ),
       child: Row(
         children: [
-          Text(setData.icon, style: const TextStyle(fontSize: 24)),
-          const SizedBox(width: AppConstants.paddingM),
+          const Text('📝', style: TextStyle(fontSize: 20)),
+          const SizedBox(width: AppConstants.paddingS),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Practice ${_currentPracticeSet + 1}: ${setData.title}',
+                  practiceLabel,
                   style: AppTextStyles.bodyMedium.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.primary,
                   ),
                 ),
                 Text(
-                  setData.description,
+                  'Câu $questionIndexInPractice/${questionsInPractice.length}',
                   style: AppTextStyles.caption.copyWith(
                     color: AppColors.textSecondary,
                   ),
@@ -284,6 +434,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     ).animate().fadeIn(duration: 300.ms);
   }
 
+  // ─── Question Card ────────────────────────────────────────────
   Widget _buildQuestionCard() {
     return Container(
           width: double.infinity,
@@ -302,28 +453,22 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.paddingS,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.warning.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(
-                        AppConstants.radiusXS,
-                      ),
-                    ),
-                    child: Text(
-                      'Câu ${_currentQuestionIndex + 1}',
-                      style: AppTextStyles.caption.copyWith(
-                        color: AppColors.warning,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingS,
+                  vertical: 2,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.warning.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(AppConstants.radiusXS),
+                ),
+                child: Text(
+                  'Question ${_currentQuestionIndex + 1}',
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.warning,
+                    fontWeight: FontWeight.w700,
                   ),
-                ],
+                ),
               ),
               const SizedBox(height: AppConstants.paddingM),
               Text(
@@ -334,35 +479,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                   fontSize: 15,
                 ),
               ),
-              if (_currentQuestion.audioNote != null) ...[
-                const SizedBox(height: AppConstants.paddingM),
-                Container(
-                  padding: const EdgeInsets.all(AppConstants.paddingS),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.headphones,
-                        color: AppColors.primary,
-                        size: 16,
-                      ),
-                      const SizedBox(width: AppConstants.paddingS),
-                      Expanded(
-                        child: Text(
-                          _currentQuestion.audioNote!,
-                          style: AppTextStyles.caption.copyWith(
-                            color: AppColors.primary,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
             ],
           ),
         )
@@ -371,11 +487,12 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
         .slideX(begin: 0.05);
   }
 
+  // ─── Answer Options ───────────────────────────────────────────
   List<Widget> _buildAnswerOptions() {
     return List.generate(_currentQuestion.options.length, (index) {
       final isSelected = _selectedAnswerIndex == index;
       final isCorrect = index == _currentQuestion.correctIndex;
-      final label = String.fromCharCode(65 + index); // A, B, C, D
+      final label = String.fromCharCode(65 + index); // A B C D
 
       Color bgColor = AppColors.surface;
       Color borderColor = AppColors.border;
@@ -471,9 +588,9 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     });
   }
 
+  // ─── Explanation ──────────────────────────────────────────────
   Widget _buildExplanation() {
     final isCorrect = _selectedAnswerIndex == _currentQuestion.correctIndex;
-
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
       decoration: BoxDecoration(
@@ -490,27 +607,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text(
-                isCorrect ? '🎉 Chính xác!' : '❌ Chưa đúng',
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: isCorrect ? AppColors.success : AppColors.error,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          if (_currentQuestion.explanation != null) ...[
-            const SizedBox(height: AppConstants.paddingS),
-            Text(
-              _currentQuestion.explanation!,
-              style: AppTextStyles.bodySmall.copyWith(
-                color: AppColors.textSecondary,
-                height: 1.5,
-              ),
+          Text(
+            isCorrect ? '🎉 Chính xác!' : '❌ Chưa đúng',
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: isCorrect ? AppColors.success : AppColors.error,
+              fontWeight: FontWeight.w700,
             ),
-          ],
+          ),
           if (!isCorrect) ...[
             const SizedBox(height: AppConstants.paddingS),
             Text(
@@ -528,6 +631,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.1);
   }
 
+  // ─── Next Button ──────────────────────────────────────────────
   Widget _buildNextButton() {
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -557,303 +661,12 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
               elevation: 0,
             ),
             child: Text(
-              _isLastQuestion && _isLastSet
-                  ? '✅ Hoàn thành Quiz'
-                  : _isLastQuestion
-                  ? '📊 Xem kết quả Practice ${_currentPracticeSet + 1}'
-                  : '➡️ Câu tiếp theo',
+              _isLastQuestion ? '✅ Hoàn thành' : '➡️ Câu tiếp theo',
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
             ),
           ),
         ),
       ),
     ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.3);
-  }
-
-  // ─── Mock Data ─────────────────────────────────────────────────────────────
-
-  List<_PracticeSet> _buildPracticeSets() {
-    return [
-      const _PracticeSet(
-        title: 'Conversation',
-        description: 'Nghe hội thoại 2 người & trả lời câu hỏi',
-        icon: '💬',
-        questions: [
-          // Added const to _QuizQuestion constructors
-          const _QuizQuestion(
-            questionText: 'Why is the woman calling the man?',
-            options: [
-              'To place an order',
-              'To ask about a report',
-              'To arrange an interview',
-              'To ask for assistance with a broken machine',
-            ],
-            correctIndex: 3,
-            audioNote:
-                'Track 04 – Nghe đoạn hội thoại giữa Jane và nhân viên bảo trì',
-            explanation:
-                'Jane gọi điện để báo máy phô-tô bị hỏng và cần kỹ thuật viên tới sửa.',
-          ),
-          const _QuizQuestion(
-            questionText: 'Why can\'t the man send a technician right now?',
-            options: [
-              'They are all very busy.',
-              'It is a national holiday.',
-              'They are on a weekend trip.',
-              'The office is too far away.',
-            ],
-            correctIndex: 0,
-            explanation:
-                'Người đàn ông nói "all our technicians are on jobs right now" - tất cả kỹ thuật viên đều đang bận.',
-          ),
-          const _QuizQuestion(
-            questionText: 'What does the man offer to do?',
-            options: [
-              'Buy a new fax machine',
-              'Send someone in the afternoon',
-              'Do the repairs all on his own',
-              'Give the office a discount',
-            ],
-            correctIndex: 2,
-            explanation:
-                '"I guess I will have to go there and fix it myself" - anh ta tự mình đến sửa.',
-          ),
-        ],
-      ),
-      const _PracticeSet(
-        title: 'Short Talk 1',
-        description: 'Nghe thông báo ngắn & trả lời câu hỏi',
-        icon: '📻',
-        questions: [
-          // Added const to _QuizQuestion constructors
-          const _QuizQuestion(
-            questionText: 'Where is Mr. James this week?',
-            options: [
-              'On vacation',
-              'In his office',
-              'At a conference',
-              'Visiting Ms. Clarke',
-            ],
-            correctIndex: 2,
-            audioNote: 'Track 05 – Nghe hộp thư thoại của Brian James',
-            explanation:
-                '"I will be out of the office all week at a teachers\' conference."',
-          ),
-          const _QuizQuestion(
-            questionText: 'What is probably Mr. James\' job?',
-            options: [
-              'Teacher',
-              'Office assistant',
-              'Telephone operator',
-              'Mail carrier',
-            ],
-            correctIndex: 0,
-            explanation:
-                'Anh James đến "teachers\' conference" và có "teaching assistant" → anh ấy là giáo viên.',
-          ),
-          const _QuizQuestion(
-            questionText: 'What is Ms. Clarke\'s extension number?',
-            options: ['71', '17', '117', '171'],
-            correctIndex: 0,
-            explanation:
-                '"please call my teaching assistant Ms. Clarke at extension 71."',
-          ),
-        ],
-      ),
-      const _PracticeSet(
-        title: 'Short Talk 2',
-        description: 'Nghe bài phát biểu & trả lời câu hỏi',
-        icon: '🎙️',
-        questions: [
-          // Added const to _QuizQuestion constructors
-          const _QuizQuestion(
-            questionText: 'Where is the speech being made?',
-            options: [
-              'In a bank',
-              'In a school',
-              'In an office',
-              'In a library',
-            ],
-            correctIndex: 2,
-            audioNote:
-                'Track 06 – Nghe bài phát biểu về vấn đề không gian văn phòng',
-            explanation:
-                'Diễn giả đề cập đến "our office", "third floor of the building", "desks".',
-          ),
-          const _QuizQuestion(
-            questionText: 'Why is space limited?',
-            options: [
-              'Because the new room is too small.',
-              'Because there are five new employees.',
-              'Because the meeting area is too large.',
-              'Because the extra desks have not been removed yet.',
-            ],
-            correctIndex: 1,
-            explanation:
-                '"we added 5 new members to the marketing team" → tăng lên 20 người → thiếu không gian.',
-          ),
-          const _QuizQuestion(
-            questionText: 'What is the audience asked to do?',
-            options: [
-              'Move to a different room',
-              'Get rid of unneeded books',
-              'Move desks to the back of the room',
-              'Move the meeting area to another room',
-            ],
-            correctIndex: 1,
-            explanation:
-                '"we will need to get rid of all the files and books that we no longer need."',
-          ),
-        ],
-      ),
-    ];
-  }
-}
-
-// ─── Data Classes ───────────────────────────────────────────────────────────
-
-class _PracticeSet {
-  final String title;
-  final String description;
-  final String icon;
-  final List<_QuizQuestion> questions;
-
-  const _PracticeSet({
-    required this.title,
-    required this.description,
-    required this.icon,
-    required this.questions,
-  });
-}
-
-class _QuizQuestion {
-  final String questionText;
-  final List<String> options;
-  final int correctIndex;
-  final String? audioNote;
-  final String? explanation;
-
-  const _QuizQuestion({
-    required this.questionText,
-    required this.options,
-    required this.correctIndex,
-    this.audioNote,
-    this.explanation,
-  });
-}
-
-// ─── Dialog ─────────────────────────────────────────────────────────────────
-
-class _SetCompleteDialog extends StatelessWidget {
-  final int setNumber;
-  final int correct;
-  final int total;
-  final VoidCallback onContinue;
-
-  const _SetCompleteDialog({
-    required this.setNumber,
-    required this.correct,
-    required this.total,
-    required this.onContinue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final pct = (correct / total * 100).round();
-    final emoji = pct == 100
-        ? '🏆'
-        : pct >= 67
-        ? '👍'
-        : '💪';
-
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppConstants.radiusXL),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(AppConstants.paddingXL),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              emoji,
-              style: const TextStyle(fontSize: 48),
-            ).animate().scale(duration: 400.ms, curve: Curves.elasticOut),
-            const SizedBox(height: AppConstants.paddingM),
-            Text(
-              'Practice $setNumber hoàn thành!',
-              style: AppTextStyles.h3,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: AppConstants.paddingS),
-            Text(
-              '$correct/$total câu đúng ($pct%)',
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
-              ),
-            ),
-            const SizedBox(height: AppConstants.paddingL),
-            _ScoreBar(value: pct / 100),
-            const SizedBox(height: AppConstants.paddingXL),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: onContinue,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                ),
-                child: const Text(
-                  'Tiếp tục Practice tiếp theo →',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ScoreBar extends StatelessWidget {
-  final double value;
-
-  const _ScoreBar({required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    final color = value >= 0.8
-        ? AppColors.success
-        : value >= 0.6
-        ? AppColors.warning
-        : AppColors.error;
-
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(AppConstants.radiusS),
-          child: LinearProgressIndicator(
-            value: value,
-            backgroundColor: AppColors.border,
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-            minHeight: 10,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          value >= 0.8
-              ? 'Xuất sắc! 🌟'
-              : value >= 0.6
-              ? 'Khá tốt! Cố lên!'
-              : 'Cần luyện thêm! 💪',
-          style: AppTextStyles.caption.copyWith(color: color),
-        ),
-      ],
-    );
   }
 }

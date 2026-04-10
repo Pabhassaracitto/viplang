@@ -4,17 +4,17 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../data/models/lesson_model.dart';
 import '../../../widgets/audio_player_widget.dart';
 
 class PhaseReadListenScreen extends StatefulWidget {
-  final int dayNumber;
-  final String themeId;
+  // ✅ Fix: Nhận LessonPhase thay vì dayNumber + themeId
+  final LessonPhase phase;
   final VoidCallback onComplete;
 
   const PhaseReadListenScreen({
     super.key,
-    required this.dayNumber,
-    required this.themeId,
+    required this.phase,
     required this.onComplete,
   });
 
@@ -25,14 +25,34 @@ class PhaseReadListenScreen extends StatefulWidget {
 class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
   bool _hasListened = false;
 
+  // Map audioTrackKey → tên file thực
+  String _resolveAudioPath(String? trackKey) {
+    const map = {
+      // Theme 1
+      'track_03': 'assets/audio/theme1_track03.mp3',
+      'track_04': 'assets/audio/theme1_track04.mp3',
+      'track_05': 'assets/audio/theme1_track05.mp3',
+      'track_06': 'assets/audio/theme1_track06.mp3',
+      // Theme 2
+      'track_07': 'assets/audio/theme2_track07.mp3',
+      'track_08': 'assets/audio/theme2_track08.mp3',
+      'track_09': 'assets/audio/theme2_track09.mp3',
+      'track_10': 'assets/audio/theme2_track10.mp3',
+    };
+    return map[trackKey] ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final phase = widget.phase;
+    final audioPath = _resolveAudioPath(phase.audioTrackKey);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppConstants.paddingM),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Instruction
+          // ── Instruction banner ──────────────────────────────
           Container(
             padding: const EdgeInsets.all(AppConstants.paddingM),
             decoration: BoxDecoration(
@@ -51,14 +71,14 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bước 1: Đọc & Nghe',
+                        phase.titleVi ?? 'Bước 1: Đọc & Nghe',
                         style: AppTextStyles.bodyMedium.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.primary,
                         ),
                       ),
                       Text(
-                        'Nghe kỹ rồi mới nói to theo',
+                        'Nghe kỹ rồi đọc to theo',
                         style: AppTextStyles.caption.copyWith(
                           color: AppColors.textSecondary,
                         ),
@@ -72,23 +92,59 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
 
           const SizedBox(height: AppConstants.paddingL),
 
-          // Audio Player
-          AudioPlayerWidget(
-            audioUrl: 'assets/audio/theme1_track03.mp3', // Tên file bạn đặt vào
-            title: 'Track 03 - Listening 1.1',
-            onPlayComplete: () {
-              setState(() => _hasListened = true);
-            },
-          ),
+          // ── Audio Player ────────────────────────────────────
+          if (audioPath.isNotEmpty)
+            AudioPlayerWidget(
+              audioUrl: audioPath,
+              title:
+                  phase.audioTrackKey?.replaceAll('_', ' ').toUpperCase() ??
+                  'Audio',
+              onPlayComplete: () {
+                setState(() => _hasListened = true);
+              },
+            )
+          else
+            // Nếu chưa có file audio, cho phép bỏ qua
+            Container(
+              padding: const EdgeInsets.all(AppConstants.paddingM),
+              decoration: BoxDecoration(
+                color: AppColors.warningSurface,
+                borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                border: Border.all(
+                  color: AppColors.warning.withValues(alpha: 0.3),
+                ),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.warning_amber_rounded,
+                    color: AppColors.warning,
+                  ),
+                  const SizedBox(width: AppConstants.paddingS),
+                  Expanded(
+                    child: Text(
+                      'File audio chưa sẵn sàng. Bạn có thể đọc bài trước.',
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.warning,
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => setState(() => _hasListened = true),
+                    child: const Text('Bỏ qua'),
+                  ),
+                ],
+              ),
+            ),
 
           const SizedBox(height: AppConstants.paddingL),
 
-          // Reading Content
-          _buildReadingContent(),
+          // ── Reading Content ─────────────────────────────────
+          _buildReadingContent(phase),
 
           const SizedBox(height: AppConstants.paddingXL),
 
-          // Complete Button
+          // ── Complete Button ─────────────────────────────────
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -118,7 +174,17 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
     );
   }
 
-  Widget _buildReadingContent() {
+  Widget _buildReadingContent(LessonPhase phase) {
+    // ✅ Fix: Dùng content từ LessonPhase data, KHÔNG hardcode
+    final paragraphsEn = (phase.contentEn ?? '')
+        .split('\n\n')
+        .where((s) => s.trim().isNotEmpty)
+        .toList();
+    final paragraphsVi = (phase.contentVi ?? '')
+        .split('\n\n')
+        .where((s) => s.trim().isNotEmpty)
+        .toList();
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingL),
       decoration: BoxDecoration(
@@ -135,48 +201,63 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.paddingS,
-                  vertical: 2,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                ),
-                child: Text(
-                  '📖 Bài đọc',
-                  style: AppTextStyles.caption.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
+          // Label
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingS,
+              vertical: 2,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppConstants.radiusS),
+            ),
+            child: Text(
+              '📖 Bài đọc',
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: AppConstants.paddingM),
+
+          // ✅ Render TẤT CẢ đoạn văn từ data
+          ...List.generate(paragraphsEn.length, (i) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Tiếng Anh
+                Text(
+                  paragraphsEn[i].trim(),
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    height: 1.8,
+                    color: AppColors.textPrimary,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppConstants.paddingM),
-          Text(
-            'This familiar theme will occur in all seven sections of the TOEIC test. '
-            'It is generally about office situations such as meetings, conferences, '
-            'office equipment, policies and procedures and is related directly to both '
-            'the Personnel and Purchasing themes.',
-            style: AppTextStyles.bodyMedium.copyWith(
-              height: 1.8,
-              color: AppColors.textPrimary,
-            ),
-          ),
-          const SizedBox(height: AppConstants.paddingM),
-          Text(
-            'In the office, situations will be about all kinds of meetings, memos, letters, '
-            'faxes, emails, departments, all kinds of equipment that has to be looked after '
-            'such as photocopiers, fax machines, computers, air conditioners, telephones.',
-            style: AppTextStyles.bodyMedium.copyWith(
-              height: 1.8,
-              color: AppColors.textPrimary,
-            ),
-          ),
+                // Tiếng Việt (nếu có)
+                if (i < paragraphsVi.length) ...[
+                  const SizedBox(height: AppConstants.paddingS),
+                  Container(
+                    padding: const EdgeInsets.all(AppConstants.paddingS),
+                    decoration: BoxDecoration(
+                      color: AppColors.primarySurface,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                    ),
+                    child: Text(
+                      paragraphsVi[i].trim(),
+                      style: AppTextStyles.bodySmall.copyWith(
+                        height: 1.7,
+                        color: AppColors.primary,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ),
+                ],
+                const SizedBox(height: AppConstants.paddingM),
+              ],
+            );
+          }),
         ],
       ),
     ).animate().fadeIn(delay: 200.ms);

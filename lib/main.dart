@@ -1,25 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/constants/app_colors.dart';
-import 'core/constants/app_constants.dart';
+import 'core/services/hive_service.dart';
+import 'presentation/blocs/lesson_bloc/lesson_bloc.dart';
 import 'presentation/blocs/mind_game_bloc/mind_game_bloc.dart';
-// Import các Bloc/Provider của dự án viplang
 import 'presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'presentation/screens/home/home_screen.dart';
-// import 'firebase_options.dart'; // Bỏ comment nếu bạn đã chạy flutterfire configure
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Khởi tạo Firebase
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // Cấu hình hướng màn hình và thanh trạng thái
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -27,27 +20,24 @@ void main() async {
     ),
   );
 
-  // Khởi tạo Hive
-  await Hive.initFlutter();
-
-  await Hive.openBox(AppConstants.themeBox);
-  await Hive.openBox(AppConstants.vocabBox);
-  await Hive.openBox(AppConstants.progressBox);
-  await Hive.openBox(AppConstants.settingsBox);
+  // ✅ Fix 1: Dùng HiveService.init() - đăng ký adapters + mở typed boxes
+  // KHÔNG mở box thủ công ở đây nữa
+  await HiveService.init();
 
   runApp(const VipLangApp());
 }
 
 class VipLangApp extends StatelessWidget {
-  const VipLangApp({Key? key}) : super(key: key);
+  const VipLangApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // Khai báo các Bloc bạn đang dùng trong dự án
-        BlocProvider(create: (context) => ThemeBloc()),
-        BlocProvider(create: (context) => MindGameBloc()),
+        BlocProvider(create: (_) => ThemeBloc()),
+        BlocProvider(create: (_) => MindGameBloc()),
+        // ✅ Fix 2: Thêm LessonBloc vào global providers
+        BlocProvider(create: (_) => LessonBloc()),
       ],
       child: MaterialApp(
         title: 'VipLang',

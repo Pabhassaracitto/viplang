@@ -1,4 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
+
 import '../../data/models/theme_model.dart';
 import '../../data/models/vocab_model.dart';
 import '../../data/models/user_progress_model.dart';
@@ -8,17 +9,33 @@ class HiveService {
   static Future<void> init() async {
     await Hive.initFlutter();
 
-    // Register Adapters
-    Hive.registerAdapter(ThemeModelAdapter());
-    Hive.registerAdapter(VocabModelAdapter());
-    Hive.registerAdapter(UserProgressModelAdapter());
-    Hive.registerAdapter(UserGoalAdapter());
+    // ✅ Fix: Đăng ký adapters (kiểm tra chưa đăng ký để tránh duplicate)
+    if (!Hive.isAdapterRegistered(0)) {
+      Hive.registerAdapter(ThemeModelAdapter());
+    }
+    if (!Hive.isAdapterRegistered(1)) {
+      Hive.registerAdapter(VocabModelAdapter());
+    }
+    if (!Hive.isAdapterRegistered(6)) {
+      Hive.registerAdapter(UserGoalAdapter());
+    }
+    if (!Hive.isAdapterRegistered(7)) {
+      Hive.registerAdapter(UserProgressModelAdapter());
+    }
 
-    // Open Boxes
-    await Hive.openBox<ThemeModel>(AppConstants.themeBox);
-    await Hive.openBox<VocabModel>(AppConstants.vocabBox);
-    await Hive.openBox<UserProgressModel>(AppConstants.progressBox);
-    await Hive.openBox(AppConstants.settingsBox);
+    // ✅ Fix: Kiểm tra box đã mở chưa trước khi mở
+    if (!Hive.isBoxOpen(AppConstants.themeBox)) {
+      await Hive.openBox<ThemeModel>(AppConstants.themeBox);
+    }
+    if (!Hive.isBoxOpen(AppConstants.vocabBox)) {
+      await Hive.openBox<VocabModel>(AppConstants.vocabBox);
+    }
+    if (!Hive.isBoxOpen(AppConstants.progressBox)) {
+      await Hive.openBox<UserProgressModel>(AppConstants.progressBox);
+    }
+    if (!Hive.isBoxOpen(AppConstants.settingsBox)) {
+      await Hive.openBox(AppConstants.settingsBox);
+    }
   }
 
   static Box<ThemeModel> get themeBox =>
