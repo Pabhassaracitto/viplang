@@ -29,13 +29,16 @@ class PhaseMindGameScreen extends StatefulWidget {
 
 class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
   int _currentIndex = 0;
-  // Track xem paragraph hiện tại đã reveal hết chưa
   bool _currentParagraphDone = false;
   int _currentCorrect = 0;
   int _currentTotal = 0;
 
+  // ✅ GlobalKey để gọi revealAll() trực tiếp trên MixedTextWidget
+  final GlobalKey<MixedTextWidgetState> _mixedTextKey =
+      GlobalKey<MixedTextWidgetState>();
+
   /// Chia segments thành paragraphs dựa trên '\n\n'
-  /// Mỗi paragraph tối đa 6 Vietnamese segments để tránh quá tải
+  /// Mỗi paragraph tối đa 8 Vietnamese segments để tránh quá tải
   List<MixedParagraph> _splitToParagraphs(List<MixedSegment> segments) {
     if (segments.isEmpty) return [];
 
@@ -43,7 +46,9 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
     final List<List<MixedSegment>> rawGroups = [];
     List<MixedSegment> current = [];
 
-    for (final seg in segments) {
+    for (int i = 0; i < segments.length; i++) {
+      final seg = segments[i];
+
       if (!seg.isVietnamese && seg.text.contains('\n\n')) {
         final parts = seg.text.split('\n\n');
 
@@ -57,30 +62,48 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
         }
 
         // Phần sau \n\n
-        if (parts.length > 1 && parts[1].trim().isNotEmpty) {
-          current.add(MixedSegment(text: parts[1]));
+        for (int j = 1; j < parts.length; j++) {
+          if (parts[j].trim().isNotEmpty) {
+            if (j < parts.length - 1) {
+              // Nếu còn nhiều phần, tạo group riêng
+              rawGroups.add([MixedSegment(text: parts[j])]);
+            } else {
+              // Phần cuối, thêm vào current
+              current.add(MixedSegment(text: parts[j]));
+            }
+          }
         }
       } else {
         current.add(seg);
       }
     }
+
     if (current.isNotEmpty) {
       rawGroups.add(List.from(current));
     }
 
-    // Bước 2: Nếu không có \n\n, chia theo số VI segments (tối đa 6/nhóm)
+    // Bước 2: Nếu không có \n\n, chia theo số VI segments
     if (rawGroups.isEmpty) {
-      return _chunkByViCount(segments, maxViPerChunk: 6);
+      return _chunkByViCount(segments, maxViPerChunk: 8);
     }
 
     // Bước 3: Nếu nhóm quá nhiều VI segments, chia nhỏ thêm
     final result = <MixedParagraph>[];
     for (final group in rawGroups) {
       final viCount = group.where((s) => s.isVietnamese).length;
-      if (viCount > 8) {
-        result.addAll(_chunkByViCount(group, maxViPerChunk: 6));
-      } else {
+      if (viCount > 10) {
+        result.addAll(_chunkByViCount(group, maxViPerChunk: 8));
+      } else if (viCount > 0) {
         result.add(MixedParagraph(segments: group));
+      } else {
+        // Group chỉ có text EN, gộp vào group tiếp theo hoặc tạo mới
+        if (result.isNotEmpty) {
+          final lastSegments = List<MixedSegment>.from(result.last.segments);
+          lastSegments.addAll(group);
+          result[result.length - 1] = MixedParagraph(segments: lastSegments);
+        } else {
+          result.add(MixedParagraph(segments: group));
+        }
       }
     }
 
@@ -90,7 +113,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
   /// Chia segments thành các nhóm, mỗi nhóm tối đa [maxViPerChunk] VI segments
   List<MixedParagraph> _chunkByViCount(
     List<MixedSegment> segs, {
-    int maxViPerChunk = 6,
+    int maxViPerChunk = 8,
   }) {
     final result = <MixedParagraph>[];
     List<MixedSegment> chunk = [];
@@ -116,6 +139,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
   }
 
   void _onParagraphComplete(int correct, int total) {
+    if (!mounted) return;
     setState(() {
       _currentParagraphDone = true;
       _currentCorrect = correct;
@@ -134,6 +158,20 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
         _currentTotal = 0;
       });
     }
+  }
+
+  void _previousParagraph() {
+    if (_currentIndex <= 0) return;
+    setState(() {
+      _currentIndex--;
+      _currentParagraphDone = false;
+      _currentCorrect = 0;
+      _currentTotal = 0;
+    });
+  }
+
+  void _revealAll() {
+    _mixedTextKey.currentState?.revealAll();
   }
 
   @override
@@ -164,6 +202,9 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
 
         final progress = (_currentIndex + 1) / paragraphs.length;
         final isLast = _currentIndex >= paragraphs.length - 1;
+        final currentViCount = paragraphs[_currentIndex].segments
+            .where((s) => s.isVietnamese)
+            .length;
 
         return Column(
           children: [
@@ -191,7 +232,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                           const SizedBox(width: AppConstants.paddingS),
                           Expanded(
                             child: Text(
-                              'Chạm vào cụm từ tiếng Việt → NÓI TO bằng tiếng Anh → Tap lần nữa để xem đáp án!',
+                              'Nhấn chip 🟡 → Nói to bằng tiếng Anh → Chip đổi sang 🟢 là đáp án!',
                               style: AppTextStyles.bodySmall.copyWith(
                                 color: AppColors.warning,
                                 fontWeight: FontWeight.w600,
@@ -228,7 +269,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                         ),
                         const SizedBox(width: AppConstants.paddingS),
                         Text(
-                          '${paragraphs[_currentIndex].segments.where((s) => s.isVietnamese).length} cụm từ',
+                          '$currentViCount cụm từ cần dịch',
                           style: AppTextStyles.caption.copyWith(
                             color: AppColors.textSecondary,
                           ),
@@ -240,7 +281,10 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
 
                     // Mixed Text Widget
                     MixedTextWidget(
-                      key: ValueKey(_currentIndex),
+                      // ✅ FIX: Sử dụng ValueKey để reset hoàn toàn trạng thái chip khi sang đoạn mới
+                      key: ValueKey(
+                        'para_theme_${widget.themeId}_day_${widget.dayNumber}_idx_$_currentIndex',
+                      ),
                       paragraph: paragraphs[_currentIndex],
                       onComplete: _onParagraphComplete,
                     ),
@@ -273,30 +317,79 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
         children: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.paddingS,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                ),
-                child: Row(
-                  children: [
-                    const Text('🎮', style: TextStyle(fontSize: 14)),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Trò chơi tư duy',
-                      style: AppTextStyles.caption.copyWith(
-                        color: AppColors.warning,
-                        fontWeight: FontWeight.w700,
+              // ✅ FIX: Sử dụng Expanded để tránh lỗi gạch sọc đen vàng khi text quá dài trong Row
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(AppConstants.paddingM),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Text('🎮', style: TextStyle(fontSize: 18)),
+                          const SizedBox(width: AppConstants.paddingS),
+                          Text(
+                            'CHƠI TRÒ CHƠI TƯ DUY',
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: AppColors.warning,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: AppConstants.paddingS),
+                      Text(
+                        'Hãy NÓI TO những cụm từ tiếng Việt 🟡 thành tiếng Anh dựa vào bài đọc trước. '
+                        'Nhấn vào chip để kiểm tra đáp án 🟢.\n\n'
+                        '⚠️ Nếu bạn nói thầm hoặc chỉ nhìn bằng mắt, bạn sẽ không đạt tiến bộ đáng kể!',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.warning,
+                          fontWeight: FontWeight.w500,
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Spacer(),
+              ).animate().fadeIn(),
+              const SizedBox(width: AppConstants.paddingS),
+              // Nút quay lại đoạn trước
+              if (_currentIndex > 0)
+                GestureDetector(
+                  onTap: _previousParagraph,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppConstants.paddingS,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.surfaceVariant,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.arrow_back_ios,
+                          size: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                        const SizedBox(width: 2),
+                        Text(
+                          'Đoạn trước',
+                          style: AppTextStyles.caption.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              if (_currentIndex > 0)
+                const SizedBox(width: AppConstants.paddingS),
               Text(
                 '${_currentIndex + 1}/$total đoạn',
                 style: AppTextStyles.caption.copyWith(
@@ -355,7 +448,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Đoạn này: $_currentCorrect/$_currentTotal cụm từ đúng ($pct%)',
+                  '$_currentCorrect/$_currentTotal từ đã reveal ($pct%)',
                   style: AppTextStyles.bodyMedium.copyWith(
                     color: color,
                     fontWeight: FontWeight.w700,
@@ -363,7 +456,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                 ),
                 Text(
                   pct >= 80
-                      ? 'Xuất sắc! Sẵn sàng qua đoạn tiếp!'
+                      ? 'Xuất sắc! Nhấn tiếp tục!'
                       : 'Hãy thử lại đoạn này trước khi tiếp tục!',
                   style: AppTextStyles.caption.copyWith(
                     color: AppColors.textSecondary,
@@ -401,10 +494,18 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                 padding: const EdgeInsets.only(bottom: AppConstants.paddingS),
                 child: SizedBox(
                   width: double.infinity,
-                  child: OutlinedButton(
+                  child: OutlinedButton.icon(
                     onPressed: () {
-                      context.read<MindGameBloc>().add(RevealAllEvent());
+                      _revealAllCurrentParagraph(paragraphs);
                     },
+                    icon: const Icon(Icons.visibility, size: 16),
+                    label: const Text(
+                      'Xem tất cả đáp án',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.warning,
                       side: const BorderSide(color: AppColors.warning),
@@ -413,13 +514,6 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                         borderRadius: BorderRadius.circular(
                           AppConstants.radiusM,
                         ),
-                      ),
-                    ),
-                    child: const Text(
-                      '👁️ Xem tất cả đáp án',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -434,7 +528,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _currentParagraphDone
                       ? AppColors.primary
-                      : AppColors.textTertiary,
+                      : AppColors.primary.withValues(alpha: 0.5),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
@@ -454,6 +548,19 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
         ),
       ),
     );
+  }
+
+  void _revealAllCurrentParagraph(List<MixedParagraph> paragraphs) {
+    final currentPara = paragraphs[_currentIndex];
+    final totalVi = currentPara.segments.where((s) => s.isVietnamese).length;
+
+    setState(() {
+      _currentParagraphDone = true;
+      _currentCorrect = totalVi;
+      _currentTotal = totalVi;
+    });
+    // ✅ Chỉ reveal đoạn hiện tại, không ảnh hưởng đến logic dữ liệu của Bloc
+    _revealAll();
   }
 
   List<MixedParagraph> _getFallbackParagraphs() {

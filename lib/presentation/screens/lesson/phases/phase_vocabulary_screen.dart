@@ -4,6 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../data/content/all_themes_registry.dart';
+import '../../../../data/models/vocab_model.dart';
 
 class PhaseVocabularyScreen extends StatefulWidget {
   final int dayNumber;

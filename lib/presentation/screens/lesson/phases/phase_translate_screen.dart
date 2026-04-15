@@ -9,14 +9,12 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../data/models/lesson_model.dart';
 
 class PhaseTranslateScreen extends StatefulWidget {
-  final int dayNumber;
-  final String themeId;
+  final LessonPhase phase;
   final VoidCallback onComplete;
 
   const PhaseTranslateScreen({
     super.key,
-    required this.dayNumber,
-    required this.themeId,
+    required this.phase,
     required this.onComplete,
   });
 
@@ -28,15 +26,42 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
   int _currentIndex = 0;
   bool _isRevealed = false;
   int _correctCount = 0;
-
-  // Lấy content từ LessonPhase thông qua themeId + dayNumber
-  // Tạm thời dùng data từ Theme1Content
   late final List<_TranslateItem> _items;
 
   @override
   void initState() {
     super.initState();
-    _items = _buildItems();
+    _items = _buildItemsFromPhase(widget.phase);
+  }
+
+  List<_TranslateItem> _buildItemsFromPhase(LessonPhase phase) {
+    final enSentences = (phase.contentEn ?? '')
+        .split('\n\n')
+        .where((s) => s.trim().isNotEmpty)
+        .toList();
+    final viSentences = (phase.contentVi ?? '')
+        .split('\n\n')
+        .where((s) => s.trim().isNotEmpty)
+        .toList();
+
+    if (enSentences.isEmpty) return _getFallbackItems();
+
+    return List.generate(
+      enSentences.length,
+      (i) => _TranslateItem(
+        english: enSentences[i].trim(),
+        vietnamese: i < viSentences.length ? viSentences[i].trim() : '',
+      ),
+    );
+  }
+
+  List<_TranslateItem> _getFallbackItems() {
+    return const [
+      _TranslateItem(
+        english: 'No content available.',
+        vietnamese: 'Chưa có nội dung.',
+      ),
+    ];
   }
 
   bool get _isLastItem => _currentIndex >= _items.length - 1;
@@ -61,8 +86,23 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
     });
   }
 
+  void _previous() {
+    if (_currentIndex <= 0) return;
+    setState(() {
+      _currentIndex--;
+      _isRevealed = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_items.isEmpty)
+      return Center(
+        child: ElevatedButton(
+          onPressed: widget.onComplete,
+          child: const Text('Tiếp tục'),
+        ),
+      );
     final progress = (_currentIndex + 1) / _items.length;
     final item = _items[_currentIndex];
 
@@ -94,7 +134,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                       const SizedBox(width: AppConstants.paddingS),
                       Expanded(
                         child: Text(
-                          'Nghe lại audio rồi dịch câu tiếng Anh sang tiếng Việt!',
+                          'Nghe lại audio rồi dịch đoạn tiếng Anh sang tiếng Việt!',
                           style: AppTextStyles.bodySmall.copyWith(
                             color: AppColors.secondary,
                             fontWeight: FontWeight.w600,
@@ -160,7 +200,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                         ],
                       ),
                     )
-                    .animate(key: ValueKey(_currentIndex))
+                    .animate(key: ValueKey('en_$_currentIndex'))
                     .fadeIn()
                     .slideX(begin: 0.05),
 
@@ -365,24 +405,55 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
             ),
             child: SafeArea(
               top: false,
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _reveal,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.secondary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
+              child: Row(
+                children: [
+                  if (_currentIndex > 0)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: AppConstants.paddingS,
+                      ),
+                      child: OutlinedButton(
+                        onPressed: _previous,
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.textSecondary,
+                          side: const BorderSide(color: AppColors.border),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 14,
+                            horizontal: AppConstants.paddingM,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              AppConstants.radiusM,
+                            ),
+                          ),
+                        ),
+                        child: const Icon(Icons.arrow_back_ios, size: 16),
+                      ),
                     ),
-                    elevation: 0,
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: _reveal,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.secondary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.radiusM,
+                          ),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        '👁️ Xem bản dịch',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                   ),
-                  child: const Text(
-                    '👁️ Xem bản dịch',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-                  ),
-                ),
+                ],
               ),
             ),
           ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.3),

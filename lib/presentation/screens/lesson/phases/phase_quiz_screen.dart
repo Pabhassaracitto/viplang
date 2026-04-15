@@ -29,10 +29,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   int? _selectedAnswerIndex;
   bool _hasAnswered = false;
   int _correctCount = 0;
-
-  // ✅ FIX 1: Track audio đã phát cho mỗi practice
   String? _currentPracticeNumber;
-  bool _audioPlayedForCurrentPractice = false;
 
   late AnimationController _resultController;
   late Animation<double> _resultAnimation;
@@ -41,11 +38,8 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   QuizQuestion get _currentQuestion => _questions[_currentQuestionIndex];
   bool get _isLastQuestion => _currentQuestionIndex >= _questions.length - 1;
 
-  // ✅ FIX 2: Lấy audio từ question thay vì phase
-  String get _currentAudioPath {
-    final trackKey = _currentQuestion.audioTrackKey;
-    return _resolveAudioPath(trackKey);
-  }
+  String get _currentAudioPath =>
+      _resolveAudioPath(_currentQuestion.audioTrackKey);
 
   String _resolveAudioPath(String? trackKey) {
     const map = {
@@ -59,6 +53,11 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       'track_08': 'assets/audio/theme2_track08.mp3',
       'track_09': 'assets/audio/theme2_track09.mp3',
       'track_10': 'assets/audio/theme2_track10.mp3',
+      // Theme 3
+      'track_11': 'assets/audio/theme3_track11.mp3',
+      'track_12': 'assets/audio/theme3_track12.mp3',
+      'track_13': 'assets/audio/theme3_track13.mp3',
+      'track_14': 'assets/audio/theme3_track14.mp3',
     };
     return map[trackKey] ?? '';
   }
@@ -75,10 +74,28 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       curve: Curves.elasticOut,
     );
 
-    // ✅ FIX 3: Initialize practice tracking
-    if (_questions.isNotEmpty) {
-      _currentPracticeNumber = _currentQuestion.practiceNumber;
+    _resetAllState();
+  }
+
+  @override
+  void didUpdateWidget(covariant PhaseQuizScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.phase.id != widget.phase.id) {
+      _resetAllState();
     }
+  }
+
+  void _resetAllState() {
+    setState(() {
+      _currentQuestionIndex = 0;
+      _selectedAnswerIndex = null;
+      _hasAnswered = false;
+      _correctCount = 0;
+      _currentPracticeNumber = _questions.isNotEmpty
+          ? _questions.first.practiceNumber
+          : null;
+    });
+    _resultController.reset();
   }
 
   @override
@@ -88,8 +105,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   }
 
   void _selectAnswer(int index) {
-    // ✅ FIX 4: Double-check hasAnswered để tránh chọn lại
-    if (_hasAnswered || _selectedAnswerIndex != null) return;
+    if (_hasAnswered) return;
 
     setState(() {
       _selectedAnswerIndex = index;
@@ -105,20 +121,22 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       return;
     }
 
-    final nextQuestion = _questions[_currentQuestionIndex + 1];
-    final isNewPractice = nextQuestion.practiceNumber != _currentPracticeNumber;
-
     setState(() {
       _currentQuestionIndex++;
-      // ✅ FIX 5: Reset state hoàn toàn khi chuyển câu
       _selectedAnswerIndex = null;
       _hasAnswered = false;
+      _currentPracticeNumber = _currentQuestion.practiceNumber;
+    });
+    _resultController.reset();
+  }
 
-      // ✅ FIX 6: Reset audio khi chuyển practice mới
-      if (isNewPractice) {
-        _currentPracticeNumber = nextQuestion.practiceNumber;
-        _audioPlayedForCurrentPractice = false;
-      }
+  void _previousQuestion() {
+    if (_currentQuestionIndex <= 0) return;
+    setState(() {
+      _currentQuestionIndex--;
+      _selectedAnswerIndex = null;
+      _hasAnswered = false;
+      _currentPracticeNumber = _currentQuestion.practiceNumber;
     });
     _resultController.reset();
   }
@@ -158,7 +176,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ✅ FIX 7: Audio section với key để rebuild khi đổi practice
                 _buildAudioSection(),
                 const SizedBox(height: AppConstants.paddingM),
                 _buildPracticeLabel(),
@@ -169,6 +186,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                 if (_hasAnswered) ...[
                   const SizedBox(height: AppConstants.paddingM),
                   _buildExplanation(),
+                  _buildTranscript(),
                 ],
                 const SizedBox(height: 100),
               ],
@@ -223,7 +241,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                     ),
                   ),
                 ),
-                // ✅ FIX 9: Hiển thị track đang phát
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -254,17 +271,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                 AppConstants.paddingS,
               ),
               child: AudioPlayerWidget(
-                // ✅ FIX 10: Key để rebuild khi đổi audio
-                key: ValueKey(audioPath),
+                key: ValueKey('player_$audioPath'),
                 audioUrl: audioPath,
                 title:
                     _currentQuestion.audioTrackKey
                         ?.replaceAll('_', ' ')
                         .toUpperCase() ??
                     'Audio',
-                onPlayComplete: () {
-                  setState(() => _audioPlayedForCurrentPractice = true);
-                },
               ),
             )
           else
@@ -285,16 +298,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                         color: AppColors.warning,
                       ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() => _audioPlayedForCurrentPractice = true);
-                    },
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(60, 28),
-                    ),
-                    child: const Text('Bỏ qua'),
                   ),
                 ],
               ),
@@ -391,7 +394,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     final q = _currentQuestion;
     final practiceLabel = q.practiceNumber.replaceAll('practice', 'Practice ');
 
-    // ✅ FIX 11: Hiển thị câu hỏi số mấy trong practice
     final questionsInPractice = _questions
         .where((q) => q.practiceNumber == _currentQuestion.practiceNumber)
         .toList();
@@ -482,7 +484,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
             ],
           ),
         )
-        .animate(key: ValueKey(_currentQuestionIndex))
+        .animate(key: ValueKey('q_${_currentQuestion.id}'))
         .fadeIn()
         .slideX(begin: 0.05);
   }
@@ -522,68 +524,79 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
 
       return Padding(
         padding: const EdgeInsets.only(bottom: AppConstants.paddingS),
-        child: GestureDetector(
-          onTap: () => _selectAnswer(index),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.all(AppConstants.paddingM),
-            decoration: BoxDecoration(
-              color: bgColor,
-              borderRadius: BorderRadius.circular(AppConstants.radiusM),
-              border: Border.all(color: borderColor, width: 1.5),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: _hasAnswered && isCorrect
-                        ? AppColors.success
-                        : _hasAnswered && isSelected && !isCorrect
-                        ? AppColors.error
-                        : AppColors.primary.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      label,
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color:
-                            _hasAnswered &&
-                                (isCorrect || (isSelected && !isCorrect))
-                            ? Colors.white
-                            : AppColors.primary,
-                        fontWeight: FontWeight.w700,
-                      ),
+        child:
+            GestureDetector(
+                  onTap: _hasAnswered ? null : () => _selectAnswer(index),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.all(AppConstants.paddingM),
+                    decoration: BoxDecoration(
+                      color: bgColor,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                      border: Border.all(color: borderColor, width: 1.5),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: _hasAnswered && isCorrect
+                                ? AppColors.success
+                                : _hasAnswered && isSelected && !isCorrect
+                                ? AppColors.error
+                                : AppColors.primary.withValues(alpha: 0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              label,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                color:
+                                    _hasAnswered &&
+                                        (isCorrect ||
+                                            (isSelected && !isCorrect))
+                                    ? Colors.white
+                                    : AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: AppConstants.paddingM),
+                        Expanded(
+                          child: Text(
+                            _currentQuestion.options[index],
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: textColor,
+                              fontWeight:
+                                  isSelected || (_hasAnswered && isCorrect)
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                        if (trailingIcon != null)
+                          ScaleTransition(
+                            scale: _resultAnimation,
+                            child: Icon(
+                              trailingIcon,
+                              color: isCorrect
+                                  ? AppColors.success
+                                  : AppColors.error,
+                              size: 22,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                ),
-                const SizedBox(width: AppConstants.paddingM),
-                Expanded(
-                  child: Text(
-                    _currentQuestion.options[index],
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: textColor,
-                      fontWeight: isSelected || (_hasAnswered && isCorrect)
-                          ? FontWeight.w600
-                          : FontWeight.normal,
-                    ),
-                  ),
-                ),
-                if (trailingIcon != null)
-                  ScaleTransition(
-                    scale: _resultAnimation,
-                    child: Icon(
-                      trailingIcon,
-                      color: isCorrect ? AppColors.success : AppColors.error,
-                      size: 22,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-        ).animate(delay: (index * 80).ms).fadeIn().slideX(begin: 0.05),
+                )
+                .animate(
+                  key: ValueKey('opt_${_currentQuestion.id}_$index'),
+                  delay: (index * 80).ms,
+                )
+                .fadeIn(duration: 200.ms)
+                .slideX(begin: 0.05),
       );
     });
   }
@@ -631,6 +644,49 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
     ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.1);
   }
 
+  Widget _buildTranscript() {
+    final q = _currentQuestion;
+    if (q.transcriptEn == null) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(top: AppConstants.paddingM),
+      padding: const EdgeInsets.all(AppConstants.paddingM),
+      decoration: BoxDecoration(
+        color: AppColors.primarySurface,
+        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '📄 Transcript',
+            style: AppTextStyles.caption.copyWith(
+              color: AppColors.primary,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingS),
+          Text(
+            q.transcriptEn!,
+            style: AppTextStyles.bodySmall.copyWith(height: 1.6),
+          ),
+          if (q.transcriptVi != null) ...[
+            const Divider(height: AppConstants.paddingM),
+            Text(
+              q.transcriptVi!,
+              style: AppTextStyles.bodySmall.copyWith(
+                height: 1.6,
+                color: AppColors.primary,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+          ],
+        ],
+      ),
+    ).animate().fadeIn(duration: 300.ms);
+  }
+
   // ─── Next Button ──────────────────────────────────────────────
   Widget _buildNextButton() {
     return Container(
@@ -647,24 +703,49 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       ),
       child: SafeArea(
         top: false,
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: _nextQuestion,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        child: Row(
+          children: [
+            if (_currentQuestionIndex > 0)
+              Padding(
+                padding: const EdgeInsets.only(right: AppConstants.paddingS),
+                child: OutlinedButton(
+                  onPressed: _previousQuestion,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.textSecondary,
+                    side: const BorderSide(color: AppColors.border),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 14,
+                      horizontal: AppConstants.paddingM,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                    ),
+                  ),
+                  child: const Icon(Icons.arrow_back_ios, size: 16),
+                ),
               ),
-              elevation: 0,
+            Expanded(
+              child: ElevatedButton(
+                onPressed: _nextQuestion,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                  ),
+                  elevation: 0,
+                ),
+                child: Text(
+                  _isLastQuestion ? '✅ Hoàn thành' : '➡️ Câu tiếp theo',
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
             ),
-            child: Text(
-              _isLastQuestion ? '✅ Hoàn thành' : '➡️ Câu tiếp theo',
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-            ),
-          ),
+          ],
         ),
       ),
     ).animate().fadeIn(duration: 300.ms).slideY(begin: 0.3);

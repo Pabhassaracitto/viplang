@@ -38,6 +38,11 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
       'track_08': 'assets/audio/theme2_track08.mp3',
       'track_09': 'assets/audio/theme2_track09.mp3',
       'track_10': 'assets/audio/theme2_track10.mp3',
+      // Theme 3
+      'track_11': 'assets/audio/theme3_track11.mp3',
+      'track_12': 'assets/audio/theme3_track12.mp3',
+      'track_13': 'assets/audio/theme3_track13.mp3',
+      'track_14': 'assets/audio/theme3_track14.mp3',
     };
     return map[trackKey] ?? '';
   }

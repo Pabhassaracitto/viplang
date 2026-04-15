@@ -1,15 +1,10 @@
 import 'package:hive/hive.dart';
+
 import 'mixed_segment_model.dart';
 
 part 'lesson_model.g.dart';
 
-enum PhaseType {
-  readListen,
-  translate,
-  mindGame,
-  vocabulary,
-  listeningQuiz,
-}
+enum PhaseType { readListen, translate, mindGame, vocabulary, listeningQuiz }
 
 @HiveType(typeId: 3)
 class QuizQuestion {
@@ -31,6 +26,12 @@ class QuizQuestion {
   @HiveField(5)
   final String practiceNumber; // 'practice1', 'practice2', 'practice3'
 
+  @HiveField(6)
+  final String? transcriptEn;
+
+  @HiveField(7)
+  final String? transcriptVi;
+
   const QuizQuestion({
     required this.id,
     required this.questionText,
@@ -38,6 +39,8 @@ class QuizQuestion {
     required this.correctIndex,
     this.audioTrackKey,
     required this.practiceNumber,
+    this.transcriptEn,
+    this.transcriptVi,
   });
 }
 
@@ -73,6 +76,15 @@ class LessonPhase {
   @HiveField(9)
   bool isCompleted;
 
+  @HiveField(10)
+  final List<dynamic>? fabVocab; // List<FabVocabItem>
+
+  @HiveField(11)
+  final List<dynamic>? fabPhrases; // List<FabPhraseItem>
+
+  @HiveField(12)
+  final List<dynamic>? fabAnswers; // List<FabAnswerItem>
+
   PhaseType get phaseType {
     switch (phaseTypeStr) {
       case 'read_listen':
@@ -101,6 +113,9 @@ class LessonPhase {
     this.mixedSegments,
     this.questions,
     this.isCompleted = false,
+    this.fabVocab,
+    this.fabPhrases,
+    this.fabAnswers,
   });
 }
 
@@ -141,6 +156,46 @@ class LessonDay {
     this.currentPhaseIndex = 0,
   });
 
-  double get progressPercent =>
-      phases.isEmpty ? 0 : phases.where((p) => p.isCompleted).length / phases.length;
+  double get progressPercent => phases.isEmpty
+      ? 0
+      : phases.where((p) => p.isCompleted).length / phases.length;
+}
+
+@HiveType(typeId: 8)
+class FabVocabItem {
+  @HiveField(0)
+  final String wordEn;
+  @HiveField(1)
+  final String wordVi;
+  @HiveField(2)
+  final String pronunciation;
+  @HiveField(3)
+  final String partOfSpeech;
+
+  const FabVocabItem({
+    required this.wordEn,
+    required this.wordVi,
+    required this.pronunciation,
+    required this.partOfSpeech,
+  });
+}
+
+@HiveType(typeId: 9)
+class FabPhraseItem {
+  @HiveField(0)
+  final String phrase;
+  @HiveField(1)
+  final String meaning;
+
+  const FabPhraseItem({required this.phrase, required this.meaning});
+}
+
+@HiveType(typeId: 10)
+class FabAnswerItem {
+  @HiveField(0)
+  final String en;
+  @HiveField(1)
+  final String vi;
+
+  const FabAnswerItem({required this.en, required this.vi});
 }

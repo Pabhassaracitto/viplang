@@ -50,3 +50,4 @@ Note.txt
 .gitignore
 /assets/audio/
 gitignore
+.ai_handoff/

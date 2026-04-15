@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
@@ -24,6 +25,10 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   int _sessionCorrect = 0;
   int _sessionTotal = 0;
 
+  // ✅ Track phản hồi đã chọn
+  SrsQuality? _selectedQuality;
+  bool _isProcessing = false; // Tránh double-tap
+
   // Mock data - sau này lấy từ Hive + SRS queue
   final List<VocabModel> _reviewCards = _buildMockVocabs();
 
@@ -46,7 +51,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   }
 
   void _flipCard() {
-    if (!_isFlipped) {
+    if (!_isFlipped && !_isProcessing) {
       _flipController.forward();
       setState(() {
         _isFlipped = true;
@@ -55,25 +60,43 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     }
   }
 
-  void _rateCard(SrsQuality quality) {
+  void _rateCard(SrsQuality quality) async {
+    if (_isProcessing) return;
+
+    setState(() {
+      _isProcessing = true;
+      _selectedQuality = quality;
+    });
+
+    // ✅ Visual feedback delay
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (!mounted) return;
+
     final card = _reviewCards[_currentIndex];
     // Apply SRS algorithm
-    SrsAlgorithm.calculateNextReview(card, quality.index);
+    SrsAlgorithm.calculateNextReview(card, quality.value);
 
     if (quality == SrsQuality.good || quality == SrsQuality.easy) {
       _sessionCorrect++;
     }
     _sessionTotal++;
 
-    setState(() {
-      _isFlipped = false;
-      _showRating = false;
-    });
-    _flipController.reset();
-
     if (_currentIndex < _reviewCards.length - 1) {
-      setState(() => _currentIndex++);
+      setState(() {
+        _currentIndex++;
+        _isFlipped = false;
+        _showRating = false;
+        _selectedQuality = null;
+        _isProcessing = false;
+      });
+      _flipController.reset();
     } else {
+      setState(() {
+        _isFlipped = false;
+        _showRating = false;
+        _isProcessing = false;
+        _selectedQuality = null;
+      });
       _showSessionComplete();
     }
   }
@@ -183,7 +206,12 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
             ),
           ),
 
-          const SizedBox(height: AppConstants.paddingL),
+          const SizedBox(height: AppConstants.paddingM),
+
+          // ✅ NEW: Mini vocab reference bar
+          _buildVocabQuickRef(card),
+
+          const SizedBox(height: AppConstants.paddingS),
 
           // Flashcard
           Expanded(
@@ -228,6 +256,74 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     );
   }
 
+  Widget _buildVocabQuickRef(VocabModel vocab) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConstants.paddingM,
+        vertical: AppConstants.paddingS,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Text(
+              vocab.partOfSpeech,
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          const SizedBox(width: AppConstants.paddingS),
+          Text(
+            vocab.pronunciation,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const Spacer(),
+          // ✅ Nút nghe phiên âm (placeholder)
+          GestureDetector(
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('🔊 ${vocab.wordEn} - ${vocab.pronunciation}'),
+                  duration: const Duration(seconds: 1),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: AppColors.primary,
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(AppConstants.radiusS),
+              ),
+              child: const Icon(
+                Icons.volume_up,
+                size: 16,
+                color: AppColors.primary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildFrontCard(VocabModel vocab) {
     return Container(
       width: double.infinity,
@@ -258,15 +354,9 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
               color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppConstants.radiusS),
             ),
-            child: Text(
-              vocab.partOfSpeech,
-              style: AppTextStyles.caption.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: const Text('🤔', style: TextStyle(fontSize: 32)),
           ),
-          const SizedBox(height: AppConstants.paddingL),
+          const SizedBox(height: AppConstants.paddingM),
           Text(
             vocab.wordEn,
             style: AppTextStyles.h1.copyWith(
@@ -290,7 +380,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
               Icon(Icons.touch_app, color: AppColors.textHint, size: 18),
               const SizedBox(width: 6),
               Text(
-                'Chạm để lật thẻ',
+                'Nhớ lại nghĩa → Nhấn để lật thẻ',
                 style: AppTextStyles.caption.copyWith(
                   color: AppColors.textHint,
                 ),
@@ -360,14 +450,29 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                   color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(AppConstants.radiusM),
                 ),
-                child: Text(
-                  vocab.exampleEn!,
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: Colors.white.withValues(alpha: 0.9),
-                    fontStyle: FontStyle.italic,
-                    height: 1.5,
-                  ),
-                  textAlign: TextAlign.center,
+                child: Column(
+                  children: [
+                    Text(
+                      vocab.exampleEn!,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: Colors.white.withValues(alpha: 0.9),
+                        fontStyle: FontStyle.italic,
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    if (vocab.exampleVi != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        vocab.exampleVi!,
+                        style: AppTextStyles.caption.copyWith(
+                          color: Colors.white.withValues(alpha: 0.7),
+                          height: 1.4,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),
@@ -389,7 +494,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
               color: AppColors.textSecondary,
             ),
           ),
-          const SizedBox(height: AppConstants.paddingM),
+          const SizedBox(height: AppConstants.paddingS),
           Row(
             children: [
               Expanded(
@@ -398,6 +503,8 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                   sublabel: 'Ôn lại ngay',
                   color: AppColors.error,
                   icon: '😔',
+                  isSelected: _selectedQuality == SrsQuality.blackout,
+                  isProcessing: _isProcessing,
                   onTap: () => _rateCard(SrsQuality.blackout),
                 ),
               ),
@@ -408,6 +515,8 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                   sublabel: 'Ôn lại sớm',
                   color: AppColors.warning,
                   icon: '🤔',
+                  isSelected: _selectedQuality == SrsQuality.hard,
+                  isProcessing: _isProcessing,
                   onTap: () => _rateCard(SrsQuality.hard),
                 ),
               ),
@@ -418,6 +527,8 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                   sublabel: 'Tiếp tục tốt',
                   color: AppColors.success,
                   icon: '😊',
+                  isSelected: _selectedQuality == SrsQuality.good,
+                  isProcessing: _isProcessing,
                   onTap: () => _rateCard(SrsQuality.good),
                 ),
               ),
@@ -428,6 +539,8 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                   sublabel: 'Tuyệt vời!',
                   color: AppColors.primary,
                   icon: '🚀',
+                  isSelected: _selectedQuality == SrsQuality.easy,
+                  isProcessing: _isProcessing,
                   onTap: () => _rateCard(SrsQuality.easy),
                 ),
               ),
@@ -443,7 +556,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       key: const ValueKey('hint'),
       padding: const EdgeInsets.all(AppConstants.paddingM),
       child: Text(
-        '💡 Hãy nhớ lại nghĩa của từ trước khi lật thẻ',
+        '💡 Nhớ lại nghĩa của từ trước khi lật thẻ',
         style: AppTextStyles.bodySmall.copyWith(
           color: AppColors.textHint,
           fontStyle: FontStyle.italic,
@@ -589,6 +702,8 @@ class _RatingButton extends StatelessWidget {
   final String sublabel;
   final Color color;
   final String icon;
+  final bool isSelected;
+  final bool isProcessing;
   final VoidCallback onTap;
 
   const _RatingButton({
@@ -596,31 +711,55 @@ class _RatingButton extends StatelessWidget {
     required this.sublabel,
     required this.color,
     required this.icon,
+    required this.isSelected,
+    required this.isProcessing,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
-      child: Container(
+      onTap: isProcessing ? null : onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(
           vertical: AppConstants.paddingS,
           horizontal: AppConstants.paddingXS,
         ),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
+          color: isSelected ? color : color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(AppConstants.radiusM),
-          border: Border.all(color: color.withValues(alpha: 0.3)),
+          border: Border.all(
+            color: isSelected ? color : color.withValues(alpha: 0.3),
+            width: isSelected ? 2 : 1,
+          ),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: color.withValues(alpha: 0.4),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ]
+              : null,
         ),
         child: Column(
           children: [
-            Text(icon, style: const TextStyle(fontSize: 20)),
+            isSelected && isProcessing
+                ? const SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
+                  )
+                : Text(icon, style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 4),
             Text(
               label,
               style: AppTextStyles.caption.copyWith(
-                color: color,
+                color: isSelected ? Colors.white : color,
                 fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
@@ -628,7 +767,9 @@ class _RatingButton extends StatelessWidget {
             Text(
               sublabel,
               style: AppTextStyles.caption.copyWith(
-                color: color.withValues(alpha: 0.7),
+                color: isSelected
+                    ? Colors.white.withValues(alpha: 0.8)
+                    : color.withValues(alpha: 0.7),
                 fontSize: 9,
               ),
               textAlign: TextAlign.center,
@@ -729,4 +870,12 @@ class _SessionCompleteDialog extends StatelessWidget {
   }
 }
 
-enum SrsQuality { blackout, hard, good, easy }
+enum SrsQuality {
+  blackout(0),
+  hard(2),
+  good(4),
+  easy(5);
+
+  final int value;
+  const SrsQuality(this.value);
+}

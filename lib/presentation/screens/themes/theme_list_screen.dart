@@ -7,7 +7,7 @@ import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../data/models/theme_model.dart';
 import '../../blocs/theme_bloc/theme_bloc.dart';
-import '../lesson/lesson_day_screen.dart';
+import '../lesson/lesson_selector_screen.dart';
 
 class ThemeListScreen extends StatefulWidget {
   const ThemeListScreen({super.key});
@@ -123,12 +123,12 @@ class _ThemeListScreenState extends State<ThemeListScreen> {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: AppConstants.paddingM),
-          child: _ThemeCard(theme: themes[index], index: index)
-              .animate()
-              .fadeIn(
-                delay: Duration(milliseconds: index * 60),
-                duration: 400.ms,
-              ),
+          child: index < 5
+              ? _ThemeCard(theme: themes[index], index: index).animate().fadeIn(
+                  delay: Duration(milliseconds: index * 60),
+                  duration: 250.ms,
+                )
+              : _ThemeCard(theme: themes[index], index: index),
         );
       },
     );
@@ -296,17 +296,10 @@ class _ThemeCard extends StatelessWidget {
   }
 
   void _navigateToLesson(BuildContext context) {
+    // ✅ THAY ĐỔI: Mở LessonSelectorScreen thay vì LessonDayScreen trực tiếp
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => LessonDayScreen(
-          themeId: theme.id,
-          themeTitle: theme.titleEn,
-          dayNumber: theme.completedDays < theme.totalDays
-              ? theme.completedDays + 1
-              : 1,
-        ),
-      ),
+      MaterialPageRoute(builder: (_) => LessonSelectorScreen(theme: theme)),
     );
   }
 
