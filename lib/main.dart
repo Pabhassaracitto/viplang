@@ -20,11 +20,13 @@ void main() async {
     ),
   );
 
-  // ✅ Fix 1: Dùng HiveService.init() - đăng ký adapters + mở typed boxes
-  // KHÔNG mở box thủ công ở đây nữa
-  await HiveService.init();
-
-  runApp(const VipLangApp());
+  try {
+    await HiveService.init();
+    runApp(const VipLangApp());
+  } catch (e, stackTrace) {
+    debugPrint("LỖI KHỞI TẠO: $e");
+    debugPrint(stackTrace.toString());
+  }
 }
 
 class VipLangApp extends StatelessWidget {
@@ -36,7 +38,6 @@ class VipLangApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeBloc()),
         BlocProvider(create: (_) => MindGameBloc()),
-        // ✅ Fix 2: Thêm LessonBloc vào global providers
         BlocProvider(create: (_) => LessonBloc()),
       ],
       child: MaterialApp(
