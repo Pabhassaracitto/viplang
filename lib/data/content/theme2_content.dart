@@ -27,7 +27,8 @@ class Theme2Content {
       partOfSpeech: 'n',
       themeId: 'theme_02_general_business',
       exampleEn: 'This theme will introduce negotiations and legal contracts.',
-      exampleVi: 'Chuyên đề này sẽ giới thiệu các cuộc đàm phán và hợp đồng pháp lý.',
+      exampleVi:
+          'Chuyên đề này sẽ giới thiệu các cuộc đàm phán và hợp đồng pháp lý.',
     ),
     VocabModel(
       id: 'v02_02',
@@ -37,7 +38,8 @@ class Theme2Content {
       partOfSpeech: 'n',
       themeId: 'theme_02_general_business',
       exampleEn: 'Mergers and acquisitions are common in corporate business.',
-      exampleVi: 'Mua bán và sáp nhập doanh nghiệp rất phổ biến trong kinh doanh tập đoàn.',
+      exampleVi:
+          'Mua bán và sáp nhập doanh nghiệp rất phổ biến trong kinh doanh tập đoàn.',
     ),
     VocabModel(
       id: 'v02_03',
@@ -47,7 +49,8 @@ class Theme2Content {
       partOfSpeech: 'n',
       themeId: 'theme_02_general_business',
       exampleEn: 'The company expanded through franchises across Asia.',
-      exampleVi: 'Công ty mở rộng thông qua nhượng quyền thương mại khắp châu Á.',
+      exampleVi:
+          'Công ty mở rộng thông qua nhượng quyền thương mại khắp châu Á.',
     ),
     VocabModel(
       id: 'v02_04',
@@ -136,7 +139,8 @@ class Theme2Content {
       pronunciation: '/ˈkwɔːrtər/',
       partOfSpeech: 'n',
       themeId: 'theme_02_general_business',
-      exampleEn: 'Training sessions are held at the beginning of every quarter.',
+      exampleEn:
+          'Training sessions are held at the beginning of every quarter.',
       exampleVi: 'Các buổi huấn luyện được tổ chức vào đầu mỗi quý.',
     ),
     VocabModel(
@@ -167,7 +171,8 @@ class Theme2Content {
       partOfSpeech: 'n',
       themeId: 'theme_02_general_business',
       exampleEn: 'She works for ADC Corporation, a leading consulting firm.',
-      exampleVi: 'Cô ấy làm việc cho tập đoàn ADC, một công ty tư vấn hàng đầu.',
+      exampleVi:
+          'Cô ấy làm việc cho tập đoàn ADC, một công ty tư vấn hàng đầu.',
     ),
   ];
 
@@ -250,7 +255,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.english(" 'corporate' business "),
     const MixedSegment.vietnamese('hơn là', 'rather than'),
     const MixedSegment.english(
-        ' small entrepreneurial businesses. This theme will introduce '),
+      ' small entrepreneurial businesses. This theme will introduce ',
+    ),
     const MixedSegment.vietnamese('các cuộc đàm phán', 'negotiations'),
     const MixedSegment.english(', mergers, acquisitions, '),
     const MixedSegment.vietnamese('các hợp đồng pháp lý', 'legal contracts'),
@@ -259,12 +265,12 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.english(', marketing strategies, '),
     const MixedSegment.vietnamese('hiệu quả bán hàng', 'sales performance'),
     const MixedSegment.english(', labour relations, '),
-    const MixedSegment.vietnamese(
-        'việc nhượng quyền kinh doanh', 'franchises'),
+    const MixedSegment.vietnamese('việc nhượng quyền kinh doanh', 'franchises'),
     const MixedSegment.english(', consultancy, '),
     const MixedSegment.vietnamese('thôn tính doanh nghiệp', 'buy-outs'),
     const MixedSegment.english(
-        ', take-overs. There will often be references to the '),
+      ', take-overs. There will often be references to the ',
+    ),
     const MixedSegment.vietnamese('nghề luật', 'legal profession'),
     const MixedSegment.english(' such as '),
     const MixedSegment.vietnamese('luật sư', 'lawyer'),
@@ -274,7 +280,9 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.vietnamese('chi nhánh', 'subsidiary'),
     const MixedSegment.english(', headquarters, '),
     const MixedSegment.vietnamese(
-        'tổng giám đốc điều hành', 'chief executive officer'),
+      'tổng giám đốc điều hành',
+      'chief executive officer',
+    ),
     const MixedSegment.english(', chief financial officer, chairman, '),
     const MixedSegment.vietnamese('ban giám đốc', 'board of directors'),
     const MixedSegment.english(', mutual funds, bonds, '),
@@ -283,7 +291,9 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.vietnamese('Doanh nghiệp lớn', 'Corporate business'),
     const MixedSegment.english(' tends to be national and '),
     const MixedSegment.vietnamese('quốc tế', 'international'),
-    const MixedSegment.english(' rather than local and students will need to understand '),
+    const MixedSegment.english(
+      ' rather than local and students will need to understand ',
+    ),
     const MixedSegment.vietnamese('những thuật ngữ như là', 'such terms as'),
     const MixedSegment.english(' divisions, '),
     const MixedSegment.vietnamese('các phòng ban', 'departments'),
@@ -293,17 +303,25 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.vietnamese('một doanh nghiệp lớn', 'a large enterprise'),
     const MixedSegment.english(' works. Small business conversations '),
     const MixedSegment.vietnamese(
-        'cũng sẽ được nghe thấy', 'will also be heard'),
-    const MixedSegment.english(" but these usually come under different themes such as '"),
+      'cũng sẽ được nghe thấy',
+      'will also be heard',
+    ),
+    const MixedSegment.english(
+      " but these usually come under different themes such as '",
+    ),
     const MixedSegment.vietnamese('Bán lẻ', 'Retailing'),
     const MixedSegment.english("' or '"),
     const MixedSegment.vietnamese('Văn phòng', 'Offices'),
     const MixedSegment.english("' and relate to "),
     const MixedSegment.vietnamese(
-        'các doanh nghiệp địa phương', 'local businesses'),
+      'các doanh nghiệp địa phương',
+      'local businesses',
+    ),
     const MixedSegment.english('. Conversations here '),
     const MixedSegment.vietnamese('thường là về', 'are usually about'),
-    const MixedSegment.english(' small meetings, computers or photocopiers that '),
+    const MixedSegment.english(
+      ' small meetings, computers or photocopiers that ',
+    ),
     const MixedSegment.vietnamese('cần được sửa', 'need fixing'),
     const MixedSegment.english(', small advertisements for '),
     const MixedSegment.vietnamese('các tờ báo địa phương', 'local newspapers'),
@@ -385,7 +403,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
   // ─── PRACTICE 1 QUESTIONS ─────────────────────────────────────
   static List<QuizQuestion> get _practice1Questions => [
     QuizQuestion(
-      id: 'q02_p1_1',
+      id: 'theme02_q01',
       questionText: 'What is this conversation about?',
       options: [
         'A clarification of the terms of the contract',
@@ -398,7 +416,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       practiceNumber: 'practice1',
     ),
     QuizQuestion(
-      id: 'q02_p1_2',
+      id: 'theme02_q02',
       questionText: 'What does the woman want to know?',
       options: [
         'The duration of the contract',
@@ -411,7 +429,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       practiceNumber: 'practice1',
     ),
     QuizQuestion(
-      id: 'q02_p1_3',
+      id: 'theme02_q03',
       questionText: 'What is true about the contract?',
       options: [
         'It can be cancelled given 30 days of prior notice.',
@@ -428,7 +446,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
   // ─── PRACTICE 2 QUESTIONS ─────────────────────────────────────
   static List<QuizQuestion> get _practice2Questions => [
     QuizQuestion(
-      id: 'q02_p2_1',
+      id: 'theme02_q04',
       questionText: 'What will the company do to improve their sales?',
       options: [
         'Produce better quality products',
@@ -441,7 +459,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       practiceNumber: 'practice2',
     ),
     QuizQuestion(
-      id: 'q02_p2_2',
+      id: 'theme02_q05',
       questionText: 'How often will the training sessions be held?',
       options: [
         'Once a week',
@@ -454,7 +472,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       practiceNumber: 'practice2',
     ),
     QuizQuestion(
-      id: 'q02_p2_3',
+      id: 'theme02_q06',
       questionText: 'When do they hope to obtain their sales target?',
       options: [
         'By the end of the month',
@@ -471,7 +489,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
   // ─── PRACTICE 3 QUESTIONS ─────────────────────────────────────
   static List<QuizQuestion> get _practice3Questions => [
     QuizQuestion(
-      id: 'q02_p3_1',
+      id: 'theme02_q07',
       questionText: 'Who is most likely the audience of this speech?',
       options: [
         'School teachers',
@@ -484,7 +502,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       practiceNumber: 'practice3',
     ),
     QuizQuestion(
-      id: 'q02_p3_2',
+      id: 'theme02_q08',
       questionText: 'What is the subject of the workshop?',
       options: [
         'How to travel in Asian countries',
@@ -497,7 +515,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       practiceNumber: 'practice3',
     ),
     QuizQuestion(
-      id: 'q02_p3_3',
+      id: 'theme02_q09',
       questionText: 'According to the talk, what is true about Lee Kim?',
       options: [
         'She is from Korea.',
@@ -520,7 +538,10 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.english('. Can you help me '),
     const MixedSegment.vietnamese('làm rõ', 'clear up'),
     const MixedSegment.english(' a few things? There are '),
-    const MixedSegment.vietnamese('vài điểm quan trọng', 'some important points'),
+    const MixedSegment.vietnamese(
+      'vài điểm quan trọng',
+      'some important points',
+    ),
     const MixedSegment.english(' that seem to be '),
     const MixedSegment.vietnamese('còn thiếu', 'missing'),
     const MixedSegment.english('.\n\nM: Sure. It is '),
@@ -535,7 +556,9 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.vietnamese('đã đồng ý', 'has agreed'),
     const MixedSegment.english(' to do, will there be '),
     const MixedSegment.vietnamese('bất cứ hình phạt nào', 'any penalties'),
-    const MixedSegment.english(' imposed?\n\nM: Of course there are. It says here that if one side '),
+    const MixedSegment.english(
+      ' imposed?\n\nM: Of course there are. It says here that if one side ',
+    ),
     const MixedSegment.vietnamese('không tuân thủ', 'fails to uphold'),
     const MixedSegment.english(' the contract, '),
     const MixedSegment.vietnamese('bên còn lại', 'the other side'),
@@ -546,23 +569,33 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
   static List<MixedSegment> get _day2ShortTalk1Segments => [
     const MixedSegment.english('Attention everybody. I have '),
     const MixedSegment.vietnamese(
-        'một thông báo quan trọng', 'an important announcement'),
+      'một thông báo quan trọng',
+      'an important announcement',
+    ),
     const MixedSegment.english(' to make. In a meeting with '),
     const MixedSegment.vietnamese('các nhà quản lý khác', 'the other managers'),
     const MixedSegment.english(' yesterday, we '),
-    const MixedSegment.vietnamese('đã đi đến kết luận', 'came to the conclusion'),
+    const MixedSegment.vietnamese(
+      'đã đi đến kết luận',
+      'came to the conclusion',
+    ),
     const MixedSegment.english(' that we must do everything to '),
     const MixedSegment.vietnamese(
-        'tăng doanh số bán hàng của chúng ta', 'increase our sales'),
+      'tăng doanh số bán hàng của chúng ta',
+      'increase our sales',
+    ),
     const MixedSegment.english(' this year. It is '),
     const MixedSegment.vietnamese('một thực tế rõ ràng', 'a known fact'),
     const MixedSegment.english(' that '),
     const MixedSegment.vietnamese(
-        'một đội ngũ bán hàng mạnh', 'a strong sales team'),
+      'một đội ngũ bán hàng mạnh',
+      'a strong sales team',
+    ),
     const MixedSegment.english(' is '),
     const MixedSegment.vietnamese('sức mạnh', 'the force'),
     const MixedSegment.english(
-        ' behind any successful company, especially companies like us. What good is a great product if '),
+      ' behind any successful company, especially companies like us. What good is a great product if ',
+    ),
     const MixedSegment.vietnamese('những người bán hàng', 'the salespeople'),
     const MixedSegment.english(' do not '),
     const MixedSegment.vietnamese('xắn tay áo họ lên', 'roll up their sleeves'),
@@ -571,86 +604,135 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.english(' to do something to help you '),
     const MixedSegment.vietnamese('đạt doanh số bán hàng', 'get the sales'),
     const MixedSegment.english(
-        ' you want. From now to the end of the year, you will be going to '),
+      ' you want. From now to the end of the year, you will be going to ',
+    ),
     const MixedSegment.vietnamese('trụ sở chính', 'the head office'),
     const MixedSegment.english(' for a week '),
     const MixedSegment.vietnamese(
-        'vào đầu mỗi quý', 'at the beginning of every quarter'),
+      'vào đầu mỗi quý',
+      'at the beginning of every quarter',
+    ),
     const MixedSegment.english(' to '),
     const MixedSegment.vietnamese(
-        'nhận được sự huấn luyện thích hợp', 'get the proper training'),
+      'nhận được sự huấn luyện thích hợp',
+      'get the proper training',
+    ),
     const MixedSegment.english(' you need to improve '),
     const MixedSegment.vietnamese(
-        'thành tích bán hàng của bạn', 'your sales performance'),
+      'thành tích bán hàng của bạn',
+      'your sales performance',
+    ),
     const MixedSegment.english('. You will be trained by '),
     const MixedSegment.vietnamese(
-        'những chuyên gia bán hàng hàng đầu', 'the top sales experts'),
+      'những chuyên gia bán hàng hàng đầu',
+      'the top sales experts',
+    ),
     const MixedSegment.english(
-        ' in the industry to get the skills you need, and I believe that will '),
+      ' in the industry to get the skills you need, and I believe that will ',
+    ),
     const MixedSegment.vietnamese(
-        'tạo ra mọi sự khác biệt', 'make all the difference'),
+      'tạo ra mọi sự khác biệt',
+      'make all the difference',
+    ),
     const MixedSegment.english(
-        '. We are hoping that by December of this year, we '),
+      '. We are hoping that by December of this year, we ',
+    ),
     const MixedSegment.vietnamese(
-        'sẽ có thể đạt được mục tiêu', 'will be able to reach the goal'),
+      'sẽ có thể đạt được mục tiêu',
+      'will be able to reach the goal',
+    ),
     const MixedSegment.english(
-        ' we set for ourselves at the beginning of this year.'),
+      ' we set for ourselves at the beginning of this year.',
+    ),
   ];
 
   // ─── DAY 2 MIND GAME: SHORT TALK 2 ───────────────────────────
   static List<MixedSegment> get _day2ShortTalk2Segments => [
-    const MixedSegment.english('Good morning, everybody and welcome all of you to '),
+    const MixedSegment.english(
+      'Good morning, everybody and welcome all of you to ',
+    ),
     const MixedSegment.vietnamese(
-        'buổi hội thảo ngày hôm nay', "today's workshop"),
+      'buổi hội thảo ngày hôm nay',
+      "today's workshop",
+    ),
     const MixedSegment.english('. Before we start, I '),
     const MixedSegment.vietnamese('muốn lưu ý', 'would like to remind'),
     const MixedSegment.english(' you that we are going to be busy '),
-    const MixedSegment.vietnamese('trong ba ngày tới', 'for the next three days'),
+    const MixedSegment.vietnamese(
+      'trong ba ngày tới',
+      'for the next three days',
+    ),
     const MixedSegment.english(' and I hope everyone will '),
     const MixedSegment.vietnamese(
-        'có được điều gì đó mới mẻ và hữu ích',
-        'have something new and useful'),
+      'có được điều gì đó mới mẻ và hữu ích',
+      'have something new and useful',
+    ),
     const MixedSegment.english(' to take away to '),
     const MixedSegment.vietnamese(
-        'nâng cao thành tích của bạn', 'improve your performance'),
+      'nâng cao thành tích của bạn',
+      'improve your performance',
+    ),
     const MixedSegment.english(' in '),
     const MixedSegment.vietnamese(
-        'đàm phán các hợp đồng quốc tế', 'negotiating international contracts'),
-    const MixedSegment.english('. Over the next three days, we will be working on '),
+      'đàm phán các hợp đồng quốc tế',
+      'negotiating international contracts',
+    ),
+    const MixedSegment.english(
+      '. Over the next three days, we will be working on ',
+    ),
     const MixedSegment.vietnamese(
-        'giao tiếp thương mại quốc tế', 'international business communications'),
+      'giao tiếp thương mại quốc tế',
+      'international business communications',
+    ),
     const MixedSegment.english(', and will be focusing on '),
     const MixedSegment.vietnamese(
-        'việc giao tiếp hiệu quả', 'effective communication'),
+      'việc giao tiếp hiệu quả',
+      'effective communication',
+    ),
     const MixedSegment.english(' with business people in Asia, '),
     const MixedSegment.vietnamese('đặc biệt là', 'especially'),
     const MixedSegment.english(
-        ' those who come from Japan, India, and China. Some of you might think you already know how to '),
+      ' those who come from Japan, India, and China. Some of you might think you already know how to ',
+    ),
     const MixedSegment.vietnamese(
-        'giao tiếp một cách hiệu quả', 'communicate effectively'),
+      'giao tiếp một cách hiệu quả',
+      'communicate effectively',
+    ),
     const MixedSegment.english(' in whatever situation you are in, but I '),
     const MixedSegment.vietnamese('biết chắc chắn', 'know for sure'),
     const MixedSegment.english(', everyone will '),
     const MixedSegment.vietnamese('bị ngạc nhiên', 'be surprised'),
     const MixedSegment.english(
-        ' by something we learn over the next few days. Lee Kim, '),
+      ' by something we learn over the next few days. Lee Kim, ',
+    ),
     const MixedSegment.vietnamese('một chuyên gia về', 'an expert on'),
-    const MixedSegment.english(' international business communication will be '),
-    const MixedSegment.vietnamese(
-        'diễn giả chính của chúng ta', 'our keynote speaker'),
     const MixedSegment.english(
-        ' and trainer in this workshop. Ms. Kim has more than 15 years of experience in '),
-    const MixedSegment.vietnamese('kinh doanh quốc tế', 'international business'),
+      ' international business communication will be ',
+    ),
+    const MixedSegment.vietnamese(
+      'diễn giả chính của chúng ta',
+      'our keynote speaker',
+    ),
+    const MixedSegment.english(
+      ' and trainer in this workshop. Ms. Kim has more than 15 years of experience in ',
+    ),
+    const MixedSegment.vietnamese(
+      'kinh doanh quốc tế',
+      'international business',
+    ),
     const MixedSegment.english(' and has worked '),
     const MixedSegment.vietnamese('ở nhiều thành phố', 'in various cities'),
     const MixedSegment.english(
-        ' including Beijing, Jakarta, Adelaide, Seoul and Hiroshima '),
+      ' including Beijing, Jakarta, Adelaide, Seoul and Hiroshima ',
+    ),
     const MixedSegment.vietnamese('chỉ là vài ví dụ', 'just to name a few'),
     const MixedSegment.english('. She is now '),
     const MixedSegment.vietnamese('đang làm việc cho', 'working for'),
     const MixedSegment.english(' ADC Corporation, '),
     const MixedSegment.vietnamese(
-        'một công ty tư vấn hàng đầu', 'a leading consulting firm'),
+      'một công ty tư vấn hàng đầu',
+      'a leading consulting firm',
+    ),
     const MixedSegment.english(' located in Tokyo.'),
   ];
 }

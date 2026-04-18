@@ -34,6 +34,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
   int _currentTotal = 0;
 
   // ✅ GlobalKey để gọi revealAll() trực tiếp trên MixedTextWidget
+
   final GlobalKey<MixedTextWidgetState> _mixedTextKey =
       GlobalKey<MixedTextWidgetState>();
 
@@ -281,10 +282,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
 
                     // Mixed Text Widget
                     MixedTextWidget(
-                      // ✅ FIX: Sử dụng ValueKey để reset hoàn toàn trạng thái chip khi sang đoạn mới
-                      key: ValueKey(
-                        'para_theme_${widget.themeId}_day_${widget.dayNumber}_idx_$_currentIndex',
-                      ),
+                      key: _mixedTextKey,
                       paragraph: paragraphs[_currentIndex],
                       onComplete: _onParagraphComplete,
                     ),

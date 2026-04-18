@@ -31,6 +31,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
   @override
   void initState() {
     super.initState();
+    // ✅ FIX: Đọc từ phase.contentEn/Vi (đã đúng), xóa _buildItems() hardcode
     _items = _buildItemsFromPhase(widget.phase);
   }
 
@@ -68,14 +69,18 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
 
   void _reveal() => setState(() => _isRevealed = true);
 
+  // ✅ FIX: Tăng counter TRƯỚC, hiện animation, rồi mới next sau delay
   void _markCorrect() {
     setState(() => _correctCount++);
-    _next();
+    Future.delayed(const Duration(milliseconds: 500), _next);
   }
 
-  void _markWrong() => _next();
+  void _markWrong() {
+    Future.delayed(const Duration(milliseconds: 300), _next);
+  }
 
   void _next() {
+    if (!mounted) return;
     if (_isLastItem) {
       widget.onComplete();
       return;
@@ -96,22 +101,21 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_items.isEmpty)
+    if (_items.isEmpty) {
       return Center(
         child: ElevatedButton(
           onPressed: widget.onComplete,
           child: const Text('Tiếp tục'),
         ),
       );
+    }
+
     final progress = (_currentIndex + 1) / _items.length;
     final item = _items[_currentIndex];
 
     return Column(
       children: [
-        // ── Header ──────────────────────────────────────────────
         _buildHeader(progress),
-
-        // ── Content ─────────────────────────────────────────────
         Expanded(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -146,6 +150,41 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                 ).animate().fadeIn(duration: 300.ms),
 
                 const SizedBox(height: AppConstants.paddingL),
+
+                // ✅ Thêm tiêu đề bài: phase.titleVi
+                if (widget.phase.titleVi != null)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: AppConstants.paddingM,
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.paddingM,
+                        vertical: AppConstants.paddingS,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusM,
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const Text('📖', style: TextStyle(fontSize: 16)),
+                          const SizedBox(width: AppConstants.paddingS),
+                          Expanded(
+                            child: Text(
+                              widget.phase.titleVi!,
+                              style: AppTextStyles.bodyMedium.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
 
                 // English Text Card
                 Container(
@@ -182,7 +221,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                               ),
                             ),
                             child: Text(
-                              '🇬🇧 Tiếng Anh',
+                              '🇬🇧 Tiếng Anh - Đoạn ${_currentIndex + 1}/${_items.length}',
                               style: AppTextStyles.caption.copyWith(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.w700,
@@ -212,8 +251,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                   crossFadeState: _isRevealed
                       ? CrossFadeState.showSecond
                       : CrossFadeState.showFirst,
-                  firstChild: // Placeholder khi chưa reveal
-                  GestureDetector(
+                  firstChild: GestureDetector(
                     onTap: _reveal,
                     child: Container(
                       width: double.infinity,
@@ -225,7 +263,6 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                         ),
                         border: Border.all(
                           color: AppColors.viChipBorder.withValues(alpha: 0.5),
-                          style: BorderStyle.solid,
                         ),
                       ),
                       child: Column(
@@ -253,8 +290,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                       ),
                     ),
                   ),
-                  secondChild: // Bản dịch khi đã reveal
-                  Container(
+                  secondChild: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(AppConstants.paddingL),
                     decoration: BoxDecoration(
@@ -302,7 +338,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
 
                 const SizedBox(height: AppConstants.paddingXL),
 
-                // Self-assessment buttons (chỉ hiện khi đã reveal)
+                // Self-assessment buttons
                 if (_isRevealed) ...[
                   Text(
                     'Bạn dịch có đúng không?',
@@ -389,7 +425,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
           ),
         ),
 
-        // ── Reveal Button (khi chưa reveal) ────────────────────
+        // Reveal Button
         if (!_isRevealed)
           Container(
             padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -460,8 +496,6 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
       ],
     );
   }
-
-  // ── Header ───────────────────────────────────────────────────
 
   Widget _buildHeader(double progress) {
     return Container(
@@ -543,50 +577,10 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
       ),
     );
   }
-
-  // ── Data ─────────────────────────────────────────────────────
-
-  List<_TranslateItem> _buildItems() {
-    return const [
-      _TranslateItem(
-        english:
-            'This familiar theme will occur in all seven sections of the TOEIC test.',
-        vietnamese:
-            'Chủ đề quen thuộc này sẽ xuất hiện ở tất cả bảy phần của bài thi TOEIC.',
-      ),
-      _TranslateItem(
-        english:
-            'It is generally about office situations such as meetings, conferences, office equipment, policies and procedures.',
-        vietnamese:
-            'Chủ đề này nói về các tình huống trong văn phòng nói chung như là các cuộc họp, hội nghị, trang thiết bị trong văn phòng, các chính sách và các quy trình.',
-      ),
-      _TranslateItem(
-        english:
-            'In the office, situations will be about all kinds of meetings, memos, letters, faxes, emails, departments.',
-        vietnamese:
-            'Trong văn phòng, các tình huống sẽ là về các vấn đề gồm họp hành, thông báo nội bộ, thư tín, bản fax, thư điện tử, các phòng ban.',
-      ),
-      _TranslateItem(
-        english:
-            'It is helpful to understand collocations such as "to hold a meeting" or "to downsize a department".',
-        vietnamese:
-            'Sẽ rất hữu ích khi hiểu về các cách kết hợp từ như "to hold a meeting" (tổ chức họp) hay "to downsize a department" (cắt giảm nhân viên).',
-      ),
-      _TranslateItem(
-        english:
-            'The office theme also uses verbal announcements and written memos to communicate important news to the employees.',
-        vietnamese:
-            'Chuyên đề Văn phòng này cũng sử dụng các thông báo bằng lời và các thông báo nội bộ dưới dạng viết để truyền tải những tin tức quan trọng tới nhân viên.',
-      ),
-    ];
-  }
 }
-
-// ── Data Model ───────────────────────────────────────────────────────────────
 
 class _TranslateItem {
   final String english;
   final String vietnamese;
-
   const _TranslateItem({required this.english, required this.vietnamese});
 }

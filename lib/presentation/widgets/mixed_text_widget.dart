@@ -53,7 +53,7 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
   @override
   void didUpdateWidget(covariant MixedTextWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.key != widget.key) {
+    if (oldWidget.paragraph != widget.paragraph) {
       setState(() => _initRevealed());
     }
   }

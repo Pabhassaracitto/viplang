@@ -31,12 +31,16 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
   final Set<int> _reviewIndices = {};
   bool _isSessionDone = false;
 
-  late final List<_VocabCard> _vocabCards;
+  // ✅ FIX: Flip state per card
+  final Map<int, bool> _flippedMap = {};
+
+  late final List<VocabModel> _vocabList;
 
   @override
   void initState() {
     super.initState();
-    _vocabCards = _buildVocabCards();
+    // ✅ FIX: Đọc từ AllThemesRegistry thay vì hardcode
+    _vocabList = AllThemesRegistry.getVocabulary(widget.themeId);
   }
 
   @override
@@ -64,7 +68,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
   }
 
   void _goNext() {
-    if (_currentIndex < _vocabCards.length - 1) {
+    if (_currentIndex < _vocabList.length - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -83,41 +87,53 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
     }
   }
 
+  void _toggleFlip(int index) {
+    setState(() {
+      _flippedMap[index] = !(_flippedMap[index] ?? false);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_vocabList.isEmpty) {
+      return Center(
+        child: ElevatedButton(
+          onPressed: widget.onComplete,
+          child: const Text('Tiếp tục'),
+        ),
+      );
+    }
+
     if (_isSessionDone) {
       return _buildSummaryScreen();
     }
 
-    final progress = (_currentIndex + 1) / _vocabCards.length;
+    final progress = (_currentIndex + 1) / _vocabList.length;
 
     return Column(
       children: [
-        // Header
         _buildHeader(progress),
-
-        // Page View
         Expanded(
           child: PageView.builder(
             controller: _pageController,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: _vocabCards.length,
+            itemCount: _vocabList.length,
             onPageChanged: (i) => setState(() => _currentIndex = i),
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(AppConstants.paddingM),
                 child: _VocabCardWidget(
-                  card: _vocabCards[index],
+                  vocab: _vocabList[index],
                   index: index,
                   isKnown: _knownIndices.contains(index),
                   isMarkedReview: _reviewIndices.contains(index),
+                  isFlipped: _flippedMap[index] ?? false,
+                  onFlip: () => _toggleFlip(index),
                 ),
               );
             },
           ),
         ),
-
-        // Action Buttons
         _buildActionButtons(),
       ],
     );
@@ -161,14 +177,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                 ),
               ),
               const Spacer(),
-              // Known counter
               Row(
                 children: [
-                  const Icon(
-                    Icons.check_circle,
-                    color: AppColors.success,
-                    size: 16,
-                  ),
+                  const Icon(Icons.check_circle, color: AppColors.success, size: 16),
                   const SizedBox(width: 4),
                   Text(
                     '$_knownCount thuộc',
@@ -179,7 +190,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                   ),
                   const SizedBox(width: AppConstants.paddingM),
                   Text(
-                    '${_currentIndex + 1}/${_vocabCards.length}',
+                    '${_currentIndex + 1}/${_vocabList.length}',
                     style: AppTextStyles.caption.copyWith(
                       color: AppColors.textSecondary,
                     ),
@@ -194,9 +205,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
             child: LinearProgressIndicator(
               value: progress,
               backgroundColor: AppColors.border,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primary,
-              ),
+              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
               minHeight: 5,
             ),
           ),
@@ -222,7 +231,6 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
         top: false,
         child: Column(
           children: [
-            // Navigation hint
             Text(
               'Đánh giá mức độ thuộc của bạn:',
               style: AppTextStyles.caption.copyWith(color: AppColors.textHint),
@@ -230,12 +238,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
             const SizedBox(height: AppConstants.paddingS),
             Row(
               children: [
-                // Prev
                 if (_currentIndex > 0)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      right: AppConstants.paddingS,
-                    ),
+                    padding: const EdgeInsets.only(right: AppConstants.paddingS),
                     child: GestureDetector(
                       onTap: _goPrev,
                       child: Container(
@@ -243,9 +248,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                         height: 44,
                         decoration: BoxDecoration(
                           color: AppColors.background,
-                          borderRadius: BorderRadius.circular(
-                            AppConstants.radiusM,
-                          ),
+                          borderRadius: BorderRadius.circular(AppConstants.radiusM),
                           border: Border.all(color: AppColors.border),
                         ),
                         child: const Icon(
@@ -256,8 +259,6 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                       ),
                     ),
                   ),
-
-                // Need Review
                 Expanded(
                   child: GestureDetector(
                     onTap: _markReview,
@@ -265,9 +266,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
                         color: AppColors.warning.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusM,
-                        ),
+                        borderRadius: BorderRadius.circular(AppConstants.radiusM),
                         border: Border.all(
                           color: AppColors.warning.withValues(alpha: 0.4),
                         ),
@@ -288,10 +287,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                     ),
                   ),
                 ),
-
                 const SizedBox(width: AppConstants.paddingS),
-
-                // Known
                 Expanded(
                   flex: 2,
                   child: GestureDetector(
@@ -300,9 +296,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
                         color: AppColors.success.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusM,
-                        ),
+                        borderRadius: BorderRadius.circular(AppConstants.radiusM),
                         border: Border.all(
                           color: AppColors.success.withValues(alpha: 0.4),
                         ),
@@ -332,37 +326,25 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
   }
 
   Widget _buildSummaryScreen() {
-    final total = _vocabCards.length;
+    final total = _vocabList.length;
     final known = _knownIndices.length;
     final needReview = _reviewIndices.length;
-    final pct = (known / total * 100).round();
+    final pct = total > 0 ? (known / total * 100).round() : 0;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppConstants.paddingM),
       child: Column(
         children: [
           const SizedBox(height: AppConstants.paddingL),
-
-          // Trophy
           Text(
-            pct >= 80
-                ? '🏆'
-                : pct >= 60
-                ? '👍'
-                : '💪',
+            pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '💪',
             style: const TextStyle(fontSize: 64),
           ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
-
           const SizedBox(height: AppConstants.paddingM),
-
-          Text(
-            'Tổng kết từ vựng',
-            style: AppTextStyles.h2,
-          ).animate().fadeIn(delay: 200.ms),
-
+          Text('Tổng kết từ vựng', style: AppTextStyles.h2)
+              .animate()
+              .fadeIn(delay: 200.ms),
           const SizedBox(height: AppConstants.paddingL),
-
-          // Stats
           Row(
             children: [
               Expanded(
@@ -393,10 +375,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               ),
             ],
           ).animate().fadeIn(delay: 300.ms),
-
           const SizedBox(height: AppConstants.paddingL),
-
-          // Progress bar
           Container(
             padding: const EdgeInsets.all(AppConstants.paddingM),
             decoration: BoxDecoration(
@@ -436,8 +415,8 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                   pct >= 80
                       ? '🌟 Xuất sắc! Tiếp tục duy trì nhé!'
                       : pct >= 60
-                      ? '👍 Tốt lắm! Ôn thêm những từ chưa thuộc!'
-                      : '💪 Cần cố gắng hơn! Ôn lại SRS mỗi ngày!',
+                          ? '👍 Tốt lắm! Ôn thêm những từ chưa thuộc!'
+                          : '💪 Cần cố gắng hơn! Ôn lại SRS mỗi ngày!',
                   style: AppTextStyles.caption.copyWith(
                     color: AppColors.textSecondary,
                     fontStyle: FontStyle.italic,
@@ -446,10 +425,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               ],
             ),
           ).animate().fadeIn(delay: 400.ms),
-
           const SizedBox(height: AppConstants.paddingL),
-
-          // SRS Reminder
           Container(
             padding: const EdgeInsets.all(AppConstants.paddingM),
             decoration: BoxDecoration(
@@ -468,14 +444,14 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bí mật #3: Lặp lại nhiều bối cảnh',
+                        'Lặp lại nhiều bối cảnh',
                         style: AppTextStyles.caption.copyWith(
                           color: AppColors.primary,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
                       Text(
-                        '$needReview từ đã được thêm vào hàng đợi ôn tập SRS của bạn.',
+                        '$needReview từ đã được thêm vào hàng đợi ôn tập SRS.',
                         style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.textSecondary,
                           height: 1.4,
@@ -487,10 +463,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               ],
             ),
           ).animate().fadeIn(delay: 500.ms),
-
           const SizedBox(height: AppConstants.paddingXL),
-
-          // Complete Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -510,135 +483,31 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               ),
             ),
           ).animate().fadeIn(delay: 600.ms),
-
           const SizedBox(height: AppConstants.paddingXL),
         ],
       ),
     );
   }
-
-  // ─── Mock Data ─────────────────────────────────────────────────────────────
-
-  List<_VocabCard> _buildVocabCards() {
-    return [
-      _VocabCard(
-        wordEn: 'familiar',
-        wordVi: 'quen thuộc',
-        pronunciation: '/fəˈmɪliər/',
-        partOfSpeech: 'adj',
-        example: 'This familiar theme will occur in all seven sections.',
-        exampleVi: 'Chủ đề quen thuộc này sẽ xuất hiện ở tất cả bảy phần.',
-        synonyms: ['common', 'well-known', 'recognized'],
-        tip:
-            'Family → familiar: những gì thuộc về "gia đình" thì rất quen thuộc!',
-      ),
-      _VocabCard(
-        wordEn: 'conference',
-        wordVi: 'hội nghị, hội thảo',
-        pronunciation: '/ˈkɒnfərəns/',
-        partOfSpeech: 'n',
-        example:
-            'I will be out of the office all week at a teachers\' conference.',
-        exampleVi:
-            'Tôi sẽ không có ở văn phòng cả tuần để tham dự hội nghị giáo viên.',
-        synonyms: ['meeting', 'summit', 'convention'],
-        tip: 'Con + ference → nhiều người cùng (con) bàn luận (ference)',
-      ),
-      _VocabCard(
-        wordEn: 'procedure',
-        wordVi: 'quy trình, thủ tục',
-        pronunciation: '/prəˈsiːdʒər/',
-        partOfSpeech: 'n',
-        example: 'Office situations include policies and procedures.',
-        exampleVi: 'Các tình huống văn phòng bao gồm chính sách và quy trình.',
-        synonyms: ['process', 'method', 'protocol'],
-        tip: 'Pro + cede + ure → tiến hành theo bước',
-      ),
-      _VocabCard(
-        wordEn: 'terminate',
-        wordVi: 'chấm dứt, kết thúc',
-        pronunciation: '/ˈtɜːrmɪneɪt/',
-        partOfSpeech: 'v',
-        example: 'All of which mean to terminate someone\'s employment.',
-        exampleVi: 'Tất cả đều có nghĩa là chấm dứt việc làm của ai đó.',
-        synonyms: ['end', 'dismiss', 'fire', 'sack'],
-        tip: 'Terminal = trạm cuối → terminate = kết thúc',
-      ),
-      _VocabCard(
-        wordEn: 'collocation',
-        wordVi: 'cách kết hợp từ',
-        pronunciation: '/ˌkɒləˈkeɪʃən/',
-        partOfSpeech: 'n',
-        example:
-            'It is helpful to understand collocations such as "to hold a meeting".',
-        exampleVi:
-            'Sẽ rất hữu ích khi hiểu về các cách kết hợp từ như "to hold a meeting".',
-        synonyms: ['word combination', 'phrase pattern'],
-        tip: 'Co + locate → những từ thường "cùng vị trí" với nhau',
-      ),
-      _VocabCard(
-        wordEn: 'comprehend',
-        wordVi: 'hiểu, nắm bắt',
-        pronunciation: '/ˌkɒmprɪˈhend/',
-        partOfSpeech: 'v',
-        example: 'These would tend to be less difficult to comprehend.',
-        exampleVi: 'Những thông báo này có xu hướng dễ hiểu hơn.',
-        synonyms: ['understand', 'grasp', 'perceive'],
-        tip: 'Comprehend → comprehension (bài đọc hiểu) mà bạn hay gặp!',
-      ),
-      _VocabCard(
-        wordEn: 'maintenance',
-        wordVi: 'bảo trì, bảo dưỡng',
-        pronunciation: '/ˈmeɪntənəns/',
-        partOfSpeech: 'n',
-        example: 'Technicians from the maintenance department.',
-        exampleVi: 'Các kỹ thuật viên từ phòng bảo trì.',
-        synonyms: ['upkeep', 'servicing', 'repair'],
-        tip: 'Maintain (duy trì) → maintenance (sự duy trì/bảo trì)',
-      ),
-      _VocabCard(
-        wordEn: 'available',
-        wordVi: 'sẵn sàng, rảnh rỗi',
-        pronunciation: '/əˈveɪləbl/',
-        partOfSpeech: 'adj',
-        example: 'Are there any technicians available?',
-        exampleVi: 'Có kỹ thuật viên nào rảnh không?',
-        synonyms: ['free', 'accessible', 'on hand'],
-        tip: 'Avail (lợi ích) + able → có thể sử dụng được → sẵn sàng',
-      ),
-    ];
-  }
 }
 
-// ─── VocabCard Widget ────────────────────────────────────────────────────────
+// ─── VocabCard Widget (Flip Card) ────────────────────────────────────────────
 
-class _VocabCardWidget extends StatefulWidget {
-  final _VocabCard card;
+class _VocabCardWidget extends StatelessWidget {
+  final VocabModel vocab;
   final int index;
   final bool isKnown;
   final bool isMarkedReview;
+  final bool isFlipped;
+  final VoidCallback onFlip;
 
   const _VocabCardWidget({
-    required this.card,
+    required this.vocab,
     required this.index,
     required this.isKnown,
     required this.isMarkedReview,
+    required this.isFlipped,
+    required this.onFlip,
   });
-
-  @override
-  State<_VocabCardWidget> createState() => _VocabCardWidgetState();
-}
-
-class _VocabCardWidgetState extends State<_VocabCardWidget> {
-  bool _showDetails = false;
-
-  @override
-  void didUpdateWidget(covariant _VocabCardWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.index != widget.index) {
-      setState(() => _showDetails = false);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -646,27 +515,27 @@ class _VocabCardWidgetState extends State<_VocabCardWidget> {
       child: Column(
         children: [
           // Status badge
-          if (widget.isKnown || widget.isMarkedReview)
+          if (isKnown || isMarkedReview)
             Container(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppConstants.paddingM,
                 vertical: AppConstants.paddingXS,
               ),
               decoration: BoxDecoration(
-                color: widget.isKnown
+                color: isKnown
                     ? AppColors.success.withValues(alpha: 0.1)
                     : AppColors.warning.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppConstants.radiusL),
                 border: Border.all(
-                  color: widget.isKnown
+                  color: isKnown
                       ? AppColors.success.withValues(alpha: 0.3)
                       : AppColors.warning.withValues(alpha: 0.3),
                 ),
               ),
               child: Text(
-                widget.isKnown ? '✅ Đã thuộc' : '🔄 Cần ôn thêm',
+                isKnown ? '✅ Đã thuộc' : '🔄 Cần ôn thêm',
                 style: AppTextStyles.caption.copyWith(
-                  color: widget.isKnown ? AppColors.success : AppColors.warning,
+                  color: isKnown ? AppColors.success : AppColors.warning,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -674,322 +543,227 @@ class _VocabCardWidgetState extends State<_VocabCardWidget> {
 
           const SizedBox(height: AppConstants.paddingS),
 
-          // Main Card
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(AppConstants.paddingXL),
-            decoration: BoxDecoration(
-              color: AppColors.surface,
-              borderRadius: BorderRadius.circular(AppConstants.radiusXL),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  blurRadius: 20,
-                  offset: const Offset(0, 6),
-                ),
-              ],
-              border: Border.all(
-                color: AppColors.primary.withValues(alpha: 0.15),
+          // ✅ FIX: Flip Card - nhấn để lật Việt↔Anh↔Việt
+          GestureDetector(
+            onTap: onFlip,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 350),
+              transitionBuilder: (child, anim) => ScaleTransition(
+                scale: anim,
+                child: child,
               ),
+              child: isFlipped
+                  ? _buildVietnameseSide()
+                  : _buildEnglishSide(),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // POS badge
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.paddingS,
-                    vertical: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                  ),
-                  child: Text(
-                    widget.card.partOfSpeech,
+          ),
+
+          const SizedBox(height: AppConstants.paddingS),
+
+          // Flip hint
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.touch_app, size: 14, color: AppColors.textHint),
+              const SizedBox(width: 4),
+              Text(
+                isFlipped
+                    ? 'Nhấn để xem tiếng Anh'
+                    : 'Nhấn thẻ để xem tiếng Việt',
+                style: AppTextStyles.caption.copyWith(
+                  color: AppColors.textHint,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: AppConstants.paddingM),
+
+          // Example box (luôn hiện)
+          if (vocab.exampleEn != null || vocab.exampleVi != null)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppConstants.paddingM),
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '📝 Ví dụ:',
                     style: AppTextStyles.caption.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.w700,
+                      color: AppColors.textHint,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                ),
-
-                const SizedBox(height: AppConstants.paddingM),
-
-                // Word
-                Text(
-                  widget.card.wordEn,
-                  style: AppTextStyles.h1.copyWith(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w900,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-
-                const SizedBox(height: AppConstants.paddingXS),
-
-                // Pronunciation
-                Text(
-                  widget.card.pronunciation,
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-
-                const SizedBox(height: AppConstants.paddingM),
-
-                // Meaning
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.paddingL,
-                    vertical: AppConstants.paddingS,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.secondary.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                  ),
-                  child: Text(
-                    widget.card.wordVi,
-                    style: AppTextStyles.h3.copyWith(
-                      color: AppColors.secondary,
+                  const SizedBox(height: 4),
+                  if (vocab.exampleEn != null)
+                    Text(
+                      vocab.exampleEn!,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        fontStyle: FontStyle.italic,
+                        height: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-
-                const SizedBox(height: AppConstants.paddingL),
-
-                // Example
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(AppConstants.paddingM),
-                  decoration: BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '📝 Ví dụ:',
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.textHint,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.card.example,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textPrimary,
-                          fontStyle: FontStyle.italic,
-                          height: 1.5,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        widget.card.exampleVi,
+                  if (vocab.exampleVi != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        vocab.exampleVi!,
                         style: AppTextStyles.caption.copyWith(
                           color: AppColors.textSecondary,
                           height: 1.4,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: AppConstants.paddingM),
-
-          // Expand Details Button
-          GestureDetector(
-            onTap: () => setState(() => _showDetails = !_showDetails),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                vertical: AppConstants.paddingS,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                border: Border.all(color: AppColors.border),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    _showDetails
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
-                    color: AppColors.textSecondary,
-                    size: 20,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    _showDetails
-                        ? 'Ẩn chi tiết'
-                        : 'Xem thêm: Từ đồng nghĩa & Mẹo nhớ',
-                    style: AppTextStyles.caption.copyWith(
-                      color: AppColors.textSecondary,
-                      fontWeight: FontWeight.w600,
                     ),
-                  ),
                 ],
               ),
             ),
-          ),
-
-          // Details
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: _showDetails
-                ? Padding(
-                    key: const ValueKey('details'),
-                    padding: const EdgeInsets.only(top: AppConstants.paddingM),
-                    child: Column(
-                      children: [
-                        // Synonyms
-                        _buildSynonyms(),
-                        const SizedBox(height: AppConstants.paddingS),
-                        // Memory Tip
-                        _buildMemoryTip(),
-                      ],
-                    ),
-                  )
-                : const SizedBox.shrink(key: ValueKey('empty')),
-          ),
-
-          const SizedBox(height: AppConstants.paddingM),
         ],
       ),
     );
   }
 
-  Widget _buildSynonyms() {
+  Widget _buildEnglishSide() {
     return Container(
+      key: const ValueKey('en'),
       width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.paddingM),
+      padding: const EdgeInsets.all(AppConstants.paddingXL),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(AppConstants.radiusXL),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            '🔤 Từ đồng nghĩa (Synonyms)',
-            style: AppTextStyles.caption.copyWith(
-              fontWeight: FontWeight.w700,
-              color: AppColors.textSecondary,
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppConstants.radiusS),
             ),
+            child: Text(
+              vocab.partOfSpeech,
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingM),
+          Text(
+            vocab.wordEn,
+            style: AppTextStyles.h1.copyWith(
+              fontSize: 38,
+              fontWeight: FontWeight.w900,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: AppConstants.paddingXS),
+          Text(
+            vocab.pronunciation,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.textSecondary,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingM),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingL,
+              vertical: AppConstants.paddingXS,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+            ),
+            child: Text(
+              '🇻🇳 Nhấn để xem nghĩa',
+              style: AppTextStyles.caption.copyWith(color: AppColors.warning),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVietnameseSide() {
+    return Container(
+      key: const ValueKey('vi'),
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppConstants.paddingXL),
+      decoration: BoxDecoration(
+        color: AppColors.successSurface,
+        borderRadius: BorderRadius.circular(AppConstants.radiusXL),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.success.withValues(alpha: 0.15),
+            blurRadius: 20,
+            offset: const Offset(0, 6),
+          ),
+        ],
+        border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: AppColors.success.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(AppConstants.radiusS),
+            ),
+            child: Text(
+              vocab.partOfSpeech,
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.success,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingM),
+          Text(
+            vocab.wordEn,
+            style: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.success.withValues(alpha: 0.7),
+              fontWeight: FontWeight.w600,
+            ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: AppConstants.paddingS),
-          Wrap(
-            spacing: AppConstants.paddingS,
-            runSpacing: AppConstants.paddingS,
-            children: widget.card.synonyms
-                .map(
-                  (s) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.paddingS,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.success.withValues(alpha: 0.08),
-                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                      border: Border.all(
-                        color: AppColors.success.withValues(alpha: 0.25),
-                      ),
-                    ),
-                    child: Text(
-                      s,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: AppColors.success,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
+          Text(
+            vocab.wordVi,
+            style: AppTextStyles.h2.copyWith(
+              color: AppColors.success,
+              fontWeight: FontWeight.w900,
+            ),
+            textAlign: TextAlign.center,
           ),
-        ],
-      ),
-    ).animate().fadeIn(duration: 250.ms);
-  }
-
-  Widget _buildMemoryTip() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(AppConstants.paddingM),
-      decoration: BoxDecoration(
-        color: AppColors.warning.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        border: Border.all(color: AppColors.warning.withValues(alpha: 0.25)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('🧠', style: TextStyle(fontSize: 20)),
-          const SizedBox(width: AppConstants.paddingS),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Mẹo nhớ nhanh',
-                  style: AppTextStyles.caption.copyWith(
-                    color: AppColors.warning,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  widget.card.tip,
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textSecondary,
-                    height: 1.5,
-                  ),
-                ),
-              ],
+          const SizedBox(height: AppConstants.paddingXS),
+          Text(
+            vocab.pronunciation,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.success.withValues(alpha: 0.7),
+              fontStyle: FontStyle.italic,
             ),
           ),
         ],
       ),
-    ).animate().fadeIn(delay: 100.ms);
+    );
   }
 }
 
-// ─── Data Classes ───────────────────────────────────────────────────────────
-
-class _VocabCard {
-  final String wordEn;
-  final String wordVi;
-  final String pronunciation;
-  final String partOfSpeech;
-  final String example;
-  final String exampleVi;
-  final List<String> synonyms;
-  final String tip;
-
-  const _VocabCard({
-    required this.wordEn,
-    required this.wordVi,
-    required this.pronunciation,
-    required this.partOfSpeech,
-    required this.example,
-    required this.exampleVi,
-    required this.synonyms,
-    required this.tip,
-  });
-}
-
-// ─── Summary Stat Widget ────────────────────────────────────────────────────
+// ─── Summary Stat Widget ─────────────────────────────────────────────────────
 
 class _SummaryStat extends StatelessWidget {
   final String icon;

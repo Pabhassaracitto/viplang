@@ -186,25 +186,22 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     final phase = state.currentPhase;
     final allVocabs = AllThemesRegistry.getVocabulary(widget.themeId);
 
-    // Lấy dữ liệu FAB từ phase hiện tại
     final fabVocab = phase.fabVocab?.cast<FabVocabItem>() ?? [];
     final fabPhrases = phase.fabPhrases?.cast<FabPhraseItem>() ?? [];
     final fabAnswers = phase.fabAnswers?.cast<FabAnswerItem>() ?? [];
 
-    // ✅ FIX: Sắp xếp lại thứ tự Tab theo yêu cầu: Từ vựng -> Từ khóa -> Cấu trúc -> Đáp án
-    final List<Tab> tabs = [const Tab(text: ' Từ vựng')];
-    if (fabVocab.isNotEmpty) tabs.add(const Tab(text: '🔑 Từ khóa'));
-    if (fabPhrases.isNotEmpty) tabs.add(const Tab(text: '💬 Cấu trúc & Cụm'));
-    if (fabAnswers.isNotEmpty) tabs.add(const Tab(text: '✅ Đáp án'));
+    // Kiểm tra phase hiện tại có data riêng không
+    final hasPhaseData =
+        fabVocab.isNotEmpty || fabPhrases.isNotEmpty || fabAnswers.isNotEmpty;
 
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (ctx) => DraggableScrollableSheet(
-        initialChildSize: 0.6,
+        initialChildSize: 0.7,
         minChildSize: 0.4,
-        maxChildSize: 0.92,
+        maxChildSize: 0.95,
         builder: (_, scrollController) => Container(
           decoration: const BoxDecoration(
             color: AppColors.surface,
@@ -216,7 +213,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
             children: [
               // Handle
               Container(
-                margin: const EdgeInsets.only(top: 12),
+                margin: const EdgeInsets.only(top: 12, bottom: 4),
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
@@ -225,36 +222,64 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                 ),
               ),
 
-              // Tab Bar Content
+              // ── 2-section tab: BÀI NÀY vs TỦ SÁCH ──────────────
               DefaultTabController(
-                length: tabs.length,
+                length: 2,
                 child: Expanded(
                   child: Column(
                     children: [
-                      TabBar(
-                        isScrollable: true,
-                        labelColor: AppColors.primary,
-                        unselectedLabelColor: AppColors.textSecondary,
-                        indicatorColor: AppColors.primary,
-                        tabs: tabs,
+                      // Section switcher
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: AppConstants.paddingM,
+                          vertical: AppConstants.paddingS,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.background,
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.radiusM,
+                          ),
+                        ),
+                        child: TabBar(
+                          dividerColor: Colors.transparent,
+                          indicator: BoxDecoration(
+                            color: AppColors.primary,
+                            borderRadius: BorderRadius.circular(
+                              AppConstants.radiusM,
+                            ),
+                          ),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          labelColor: Colors.white,
+                          unselectedLabelColor: AppColors.textSecondary,
+                          labelStyle: AppTextStyles.bodySmall.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                          tabs: const [
+                            Tab(text: '🎯 Bài này'),
+                            Tab(text: '📖 Tủ sách'),
+                          ],
+                        ),
                       ),
+
                       Expanded(
                         child: TabBarView(
                           children: [
-                            // Tab 1: Toàn bộ từ vựng chủ đề
-                            _buildAllVocabList(allVocabs, scrollController),
+                            // ── TAB 1: BÀI NÀY ──────────────────
+                            _buildCurrentPhaseContent(
+                              context,
+                              phase,
+                              fabVocab,
+                              fabPhrases,
+                              fabAnswers,
+                              hasPhaseData,
+                              scrollController,
+                            ),
 
-                            // Tab 2: Từ khóa chi tiết (nếu có)
-                            if (fabVocab.isNotEmpty)
-                              _buildFabVocabList(fabVocab, scrollController),
-
-                            // Tab 3: Cấu trúc & Cụm từ (nếu có)
-                            if (fabPhrases.isNotEmpty)
-                              _buildFabPhraseList(fabPhrases, scrollController),
-
-                            // Tab 4: Đáp án tham khảo (nếu có)
-                            if (fabAnswers.isNotEmpty)
-                              _buildFabAnswerList(fabAnswers, scrollController),
+                            // ── TAB 2: TỦ SÁCH ──────────────────
+                            _buildGlobalVocabLibrary(
+                              allVocabs,
+                              scrollController,
+                            ),
                           ],
                         ),
                       ),
@@ -266,6 +291,135 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  // ── TAB 1: Bài này - có sub-tabs ─────────────────────────────────
+  Widget _buildCurrentPhaseContent(
+    BuildContext context,
+    LessonPhase phase,
+    List<FabVocabItem> fabVocab,
+    List<FabPhraseItem> fabPhrases,
+    List<FabAnswerItem> fabAnswers,
+    bool hasPhaseData,
+    ScrollController scrollController,
+  ) {
+    // Không có data riêng → hiển thị thông báo
+    if (!hasPhaseData) {
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('📭', style: TextStyle(fontSize: 40)),
+            const SizedBox(height: AppConstants.paddingM),
+            Text(
+              'Phần này không có từ khóa riêng.',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: AppConstants.paddingS),
+            Text(
+              'Xem "Tủ sách" để tra cứu từ vựng chủ đề.',
+              style: AppTextStyles.caption.copyWith(color: AppColors.textHint),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Xây dựng sub-tabs chỉ cho những tab có data
+    final subTabs = <Tab>[];
+    final subViews = <Widget>[];
+
+    if (fabVocab.isNotEmpty) {
+      subTabs.add(const Tab(text: '🔑 Từ khóa'));
+      subViews.add(_buildFabVocabList(fabVocab, scrollController));
+    }
+    if (fabPhrases.isNotEmpty) {
+      subTabs.add(const Tab(text: '💬 Cấu trúc'));
+      subViews.add(_buildFabPhraseList(fabPhrases, scrollController));
+    }
+    if (fabAnswers.isNotEmpty) {
+      subTabs.add(const Tab(text: '✅ Đáp án'));
+      subViews.add(_buildFabAnswerList(fabAnswers, scrollController));
+    }
+
+    // Tiêu đề phase
+    final phaseTitle = phase.titleVi ?? phase.titleEn ?? '';
+
+    return Column(
+      children: [
+        // Phase label
+        if (phaseTitle.isNotEmpty)
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingM,
+              vertical: AppConstants.paddingXS,
+            ),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingM,
+              vertical: AppConstants.paddingS,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+              border: Border.all(
+                color: AppColors.warning.withValues(alpha: 0.25),
+              ),
+            ),
+            child: Row(
+              children: [
+                const Text('📌', style: TextStyle(fontSize: 14)),
+                const SizedBox(width: AppConstants.paddingS),
+                Expanded(
+                  child: Text(
+                    phaseTitle,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.warning,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+        // Sub-tabs
+        DefaultTabController(
+          length: subTabs.length,
+          child: Expanded(
+            child: Column(
+              children: [
+                TabBar(
+                  isScrollable: subTabs.length > 2,
+                  tabAlignment: subTabs.length > 2
+                      ? TabAlignment.start
+                      : TabAlignment.fill,
+                  labelColor: AppColors.primary,
+                  unselectedLabelColor: AppColors.textSecondary,
+                  indicatorColor: AppColors.primary,
+                  indicatorSize: TabBarIndicatorSize.label,
+                  tabs: subTabs,
+                ),
+                Expanded(child: TabBarView(children: subViews)),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ── TAB 2: Tủ sách - Toàn bộ từ vựng với search ─────────────────
+  Widget _buildGlobalVocabLibrary(
+    List<VocabModel> vocabs,
+    ScrollController scrollController,
+  ) {
+    return _VocabLibraryWidget(
+      vocabs: vocabs,
+      scrollController: scrollController,
     );
   }
 
@@ -1018,6 +1172,376 @@ class _VocabListTile extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Tủ sách với search + filter loại từ
+class _VocabLibraryWidget extends StatefulWidget {
+  final List<VocabModel> vocabs;
+  final ScrollController scrollController;
+
+  const _VocabLibraryWidget({
+    required this.vocabs,
+    required this.scrollController,
+  });
+
+  @override
+  State<_VocabLibraryWidget> createState() => _VocabLibraryWidgetState();
+}
+
+class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
+  final TextEditingController _searchController = TextEditingController();
+  String _query = '';
+  String _selectedPos = 'all'; // filter loại từ
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<VocabModel> get _filtered {
+    return widget.vocabs.where((v) {
+      final matchQuery =
+          _query.isEmpty ||
+          v.wordEn.toLowerCase().contains(_query.toLowerCase()) ||
+          v.wordVi.toLowerCase().contains(_query.toLowerCase());
+      final matchPos = _selectedPos == 'all' || v.partOfSpeech == _selectedPos;
+      return matchQuery && matchPos;
+    }).toList();
+  }
+
+  // Lấy danh sách loại từ unique
+  List<String> get _posList {
+    final pos = widget.vocabs.map((v) => v.partOfSpeech).toSet().toList()
+      ..sort();
+    return ['all', ...pos];
+  }
+
+  Color _posColor(String pos) {
+    switch (pos) {
+      case 'n':
+      case 'np':
+        return AppColors.primary;
+      case 'v':
+      case 'vp':
+        return AppColors.success;
+      case 'adj':
+        return AppColors.warning;
+      case 'adv':
+        return AppColors.secondary;
+      default:
+        return AppColors.textSecondary;
+    }
+  }
+
+  String _posLabel(String pos) {
+    switch (pos) {
+      case 'all':
+        return 'Tất cả';
+      case 'n':
+        return 'Danh từ';
+      case 'np':
+        return 'Cụm DT';
+      case 'v':
+        return 'Động từ';
+      case 'vp':
+        return 'Cụm ĐT';
+      case 'adj':
+        return 'Tính từ';
+      case 'adv':
+        return 'Trạng từ';
+      default:
+        return pos;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = _filtered;
+
+    return Column(
+      children: [
+        // ── Search bar ────────────────────────────────────────
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingM,
+            AppConstants.paddingS,
+            AppConstants.paddingM,
+            AppConstants.paddingXS,
+          ),
+          child: TextField(
+            controller: _searchController,
+            onChanged: (v) => setState(() => _query = v),
+            decoration: InputDecoration(
+              hintText: 'Tìm từ bằng tiếng Anh hoặc tiếng Việt...',
+              hintStyle: AppTextStyles.bodySmall.copyWith(
+                color: AppColors.textHint,
+              ),
+              prefixIcon: const Icon(
+                Icons.search,
+                color: AppColors.textHint,
+                size: 20,
+              ),
+              suffixIcon: _query.isNotEmpty
+                  ? IconButton(
+                      icon: const Icon(Icons.clear, size: 18),
+                      onPressed: () {
+                        _searchController.clear();
+                        setState(() => _query = '');
+                      },
+                    )
+                  : null,
+              filled: true,
+              fillColor: AppColors.background,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingM,
+                vertical: AppConstants.paddingS,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+        ),
+
+        // ── POS Filter chips ──────────────────────────────────
+        SizedBox(
+          height: 36,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingM,
+            ),
+            itemCount: _posList.length,
+            itemBuilder: (_, i) {
+              final pos = _posList[i];
+              final isSelected = _selectedPos == pos;
+              final color = pos == 'all'
+                  ? AppColors.textPrimary
+                  : _posColor(pos);
+              return Padding(
+                padding: const EdgeInsets.only(right: AppConstants.paddingS),
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedPos = pos),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppConstants.paddingS,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? color.withValues(alpha: 0.15)
+                          : AppColors.background,
+                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                      border: Border.all(
+                        color: isSelected ? color : AppColors.border,
+                        width: isSelected ? 1.5 : 1,
+                      ),
+                    ),
+                    child: Text(
+                      _posLabel(pos),
+                      style: AppTextStyles.caption.copyWith(
+                        color: isSelected ? color : AppColors.textSecondary,
+                        fontWeight: isSelected
+                            ? FontWeight.w700
+                            : FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+
+        const SizedBox(height: AppConstants.paddingXS),
+
+        // ── Result count ─────────────────────────────────────
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppConstants.paddingM,
+            vertical: AppConstants.paddingXS,
+          ),
+          child: Row(
+            children: [
+              Text(
+                '${filtered.length} từ',
+                style: AppTextStyles.caption.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // ── Vocab list ───────────────────────────────────────
+        Expanded(
+          child: filtered.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('🔍', style: TextStyle(fontSize: 32)),
+                      const SizedBox(height: AppConstants.paddingS),
+                      Text(
+                        'Không tìm thấy từ nào.',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  controller: widget.scrollController,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.paddingM,
+                  ),
+                  itemCount: filtered.length,
+                  itemBuilder: (_, i) => _VocabLibraryTile(
+                    vocab: filtered[i],
+                    posColor: _posColor(filtered[i].partOfSpeech),
+                  ),
+                ),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Tile nâng cao cho Tủ sách ────────────────────────────────────
+class _VocabLibraryTile extends StatelessWidget {
+  final VocabModel vocab;
+  final Color posColor;
+
+  const _VocabLibraryTile({required this.vocab, required this.posColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.all(AppConstants.paddingM),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // POS badge có màu
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: posColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  vocab.partOfSpeech,
+                  style: AppTextStyles.caption.copyWith(
+                    color: posColor,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+              const SizedBox(width: AppConstants.paddingS),
+
+              // Word EN + pronunciation
+              Expanded(
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: vocab.wordEn,
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '  ${vocab.pronunciation}',
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.textSecondary,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Nút loa
+              GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        '${vocab.wordEn}  ${vocab.pronunciation}',
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      duration: const Duration(seconds: 2),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusM,
+                        ),
+                      ),
+                      margin: const EdgeInsets.all(AppConstants.paddingM),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                  ),
+                  child: const Icon(
+                    Icons.volume_up,
+                    size: 15,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 4),
+
+          // Word VI
+          Text(
+            vocab.wordVi,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.secondary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+
+          // Example (nếu có) - thu gọn
+          if (vocab.exampleEn != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: Text(
+                vocab.exampleEn!,
+                style: AppTextStyles.caption.copyWith(
+                  color: AppColors.textHint,
+                  fontStyle: FontStyle.italic,
+                  height: 1.4,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
         ],
       ),
     );

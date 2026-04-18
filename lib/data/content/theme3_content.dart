@@ -1,11 +1,11 @@
-import '../models/mixed_segment_model.dart';
 import '../models/lesson_model.dart';
+import '../models/mixed_segment_model.dart';
 import '../models/theme_model.dart';
 import '../models/vocab_model.dart';
 
 class Theme3Content {
   static ThemeModel get theme => ThemeModel(
-    id: 'theme_03_technical',
+    id: 'theme_03_technical_areas',
     themeNumber: 3,
     titleEn: 'Technical Areas',
     titleVi: 'Các Vấn Đề Kỹ Thuật',
@@ -27,7 +27,7 @@ class Theme3Content {
       wordVi: 'phòng thí nghiệm',
       pronunciation: '/ˈlæbrətɔːri/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'The scientists conduct experiments in the laboratory every day.',
       exampleVi:
@@ -39,7 +39,7 @@ class Theme3Content {
       wordVi: 'lỗi kỹ thuật, trục trặc',
       pronunciation: '/mælˈfʌŋkʃən/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'The printer malfunction caused a delay in the report submission.',
       exampleVi:
@@ -51,7 +51,7 @@ class Theme3Content {
       wordVi: 'kỹ thuật viên',
       pronunciation: '/tekˈnɪʃən/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'The technician will be here tomorrow to fix the server.',
       exampleVi: 'Kỹ thuật viên sẽ tới đây vào ngày mai để sửa máy chủ.',
     ),
@@ -61,7 +61,7 @@ class Theme3Content {
       wordVi: 'phần mềm',
       pronunciation: '/ˈsɔːftwer/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'We need to update the software to the latest version.',
       exampleVi: 'Chúng ta cần cập nhật phần mềm lên phiên bản mới nhất.',
     ),
@@ -71,7 +71,7 @@ class Theme3Content {
       wordVi: 'phần cứng',
       pronunciation: '/ˈhɑːrdwer/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'The hardware components need to be replaced every few years.',
       exampleVi: 'Các bộ phận phần cứng cần được thay thế vài năm một lần.',
     ),
@@ -81,7 +81,7 @@ class Theme3Content {
       wordVi: 'sự cố kỹ thuật nhỏ',
       pronunciation: '/ɡlɪtʃ/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'There was a minor glitch in the system, but it has been fixed.',
       exampleVi:
@@ -93,7 +93,7 @@ class Theme3Content {
       wordVi: 'khởi động lại',
       pronunciation: '/ˌriːˈbuːt/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Please reboot your computer and try again.',
       exampleVi: 'Xin hãy khởi động lại máy tính của bạn và thử lại.',
     ),
@@ -103,7 +103,7 @@ class Theme3Content {
       wordVi: 'tương thích',
       pronunciation: '/kəmˈpætɪbəl/',
       partOfSpeech: 'adj',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'This application is not compatible with the old operating system.',
       exampleVi: 'Ứng dụng này không tương thích với hệ điều hành cũ.',
@@ -114,7 +114,7 @@ class Theme3Content {
       wordVi: 'kính hiển vi',
       pronunciation: '/ˈmaɪkrəskoʊp/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'The lab technician examined the sample under the microscope.',
       exampleVi:
           'Kỹ thuật viên phòng thí nghiệm đã kiểm tra mẫu vật dưới kính hiển vi.',
@@ -125,7 +125,7 @@ class Theme3Content {
       wordVi: 'đặc điểm kỹ thuật',
       pronunciation: '/ˌspesɪfɪˈkeɪʃən/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'Please check the specifications before purchasing the equipment.',
       exampleVi:
@@ -137,7 +137,7 @@ class Theme3Content {
       wordVi: 'nền tảng',
       pronunciation: '/ˈplætfɔːrm/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'The company launched a new digital platform for online sales.',
       exampleVi:
@@ -149,7 +149,7 @@ class Theme3Content {
       wordVi: 'ứng dụng phần mềm',
       pronunciation: '/ˌæplɪˈkeɪʃən/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'You can download the application from the company website.',
       exampleVi: 'Bạn có thể tải ứng dụng từ trang web của công ty.',
     ),
@@ -159,7 +159,7 @@ class Theme3Content {
       wordVi: 'rủi ro, mối nguy hiểm',
       pronunciation: '/ˈhæzərd/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'Working with chemicals without proper equipment is a serious hazard.',
       exampleVi:
@@ -171,7 +171,7 @@ class Theme3Content {
       wordVi: 'giải quyết (vấn đề)',
       pronunciation: '/rɪˈzɑːlv/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'The IT department worked hard to resolve the network issue.',
       exampleVi: 'Phòng IT đã làm việc chăm chỉ để giải quyết vấn đề mạng.',
     ),
@@ -181,7 +181,7 @@ class Theme3Content {
       wordVi: 'sập, ngừng hoạt động',
       pronunciation: '/kræʃ/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'The server crashed during the software update.',
       exampleVi: 'Máy chủ đã sập trong quá trình cập nhật phần mềm.',
     ),
@@ -193,7 +193,7 @@ class Theme3Content {
       wordVi: 'hệ điều hành',
       pronunciation: '/ˈɑːpəreɪtɪŋ ˈsɪstəm/',
       partOfSpeech: 'np',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'It has the latest operating system available.',
       exampleVi: 'Nó sử dụng hệ điều hành mới nhất hiện có.',
     ),
@@ -203,7 +203,7 @@ class Theme3Content {
       wordVi: 'chương trình nền',
       pronunciation: '/ˈbækɡraʊnd ˈproʊɡræmz/',
       partOfSpeech: 'np',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Too many background programs slow down your computer.',
       exampleVi: 'Quá nhiều chương trình nền làm chậm máy tính của bạn.',
     ),
@@ -213,7 +213,7 @@ class Theme3Content {
       wordVi: 'chương trình xử lý văn bản',
       pronunciation: '/wɜːrd ˈprɑːsesɪŋ ˈproʊɡræm/',
       partOfSpeech: 'np',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'I know how to use a word processing program.',
       exampleVi: 'Tôi biết sử dụng chương trình xử lý văn bản.',
     ),
@@ -225,7 +225,7 @@ class Theme3Content {
       wordVi: 'tổng đài viên',
       pronunciation: '/ˈɑːpəreɪtər/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'All of our operators are busy at the moment.',
       exampleVi: 'Tất cả tổng đài viên của chúng tôi hiện đang bận.',
     ),
@@ -235,7 +235,7 @@ class Theme3Content {
       wordVi: 'đường dây nóng hỗ trợ kỹ thuật',
       pronunciation: '/ˈmeɪntənəns ˈhɑːtlaɪn/',
       partOfSpeech: 'np',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Thank you for calling the maintenance hotline.',
       exampleVi: 'Cảm ơn bạn đã gọi tới đường dây nóng hỗ trợ kỹ thuật.',
     ),
@@ -245,7 +245,7 @@ class Theme3Content {
       wordVi: 'sự miêu tả, mô tả',
       pronunciation: '/dɪˈskrɪpʃən/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Leave a message with a description of your problem.',
       exampleVi: 'Để lại lời nhắn cùng với mô tả vấn đề của bạn.',
     ),
@@ -257,7 +257,7 @@ class Theme3Content {
       wordVi: 'thay thế',
       pronunciation: '/rɪˈpleɪs/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'We need to replace the old computers with new ones.',
       exampleVi:
           'Chúng ta cần thay thế những chiếc máy tính cũ bằng những chiếc mới.',
@@ -268,7 +268,7 @@ class Theme3Content {
       wordVi: 'chuyển, chuyển sang',
       pronunciation: '/trænsˈfɜːr/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Please transfer all your files to the central computer.',
       exampleVi: 'Xin hãy chuyển tất cả tài liệu sang máy tính trung tâm.',
     ),
@@ -278,7 +278,7 @@ class Theme3Content {
       wordVi: 'quy trình, thủ tục',
       pronunciation: '/prəˈsiːdʒər/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'All employees must follow the security procedures.',
       exampleVi: 'Tất cả nhân viên phải tuân theo các quy trình an ninh.',
     ),
@@ -288,7 +288,7 @@ class Theme3Content {
       wordVi: 'xác định vị trí',
       pronunciation: '/ˈloʊkeɪt/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'First, you must locate your important data in your computer.',
       exampleVi:
           'Trước hết, bạn phải xác định vị trí dữ liệu quan trọng trong máy tính.',
@@ -299,7 +299,7 @@ class Theme3Content {
       wordVi: 'máy tính trung tâm',
       pronunciation: '/ˈsentrəl kəmˈpjuːtər/',
       partOfSpeech: 'np',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Transfer your files to the central computer.',
       exampleVi: 'Chuyển tài liệu của bạn sang máy tính trung tâm.',
     ),
@@ -309,7 +309,7 @@ class Theme3Content {
       wordVi: 'tiểu thư mục, thư mục con',
       pronunciation: '/sʌb ˈfoʊldər/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Create a sub-folder under your name within the main folder.',
       exampleVi:
           'Tạo một tiểu thư mục với tên của bạn bên trong thư mục chính.',
@@ -320,7 +320,7 @@ class Theme3Content {
       wordVi: 'ổ cứng',
       pronunciation: '/hɑːrd dɪsk/',
       partOfSpeech: 'np',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Back up those files by copying them to the hard disk.',
       exampleVi: 'Sao lưu tài liệu bằng cách sao chép chúng sang ổ cứng.',
     ),
@@ -330,7 +330,7 @@ class Theme3Content {
       wordVi: 'bị hỏng',
       pronunciation: '/breɪk daʊn/',
       partOfSpeech: 'vp',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'A lot of our computers have been breaking down recently.',
       exampleVi: 'Rất nhiều máy tính của chúng ta gần đây đã bị hỏng.',
     ),
@@ -340,7 +340,7 @@ class Theme3Content {
       wordVi: 'loại bỏ',
       pronunciation: '/ɡet rɪd ɑːv/',
       partOfSpeech: 'vp',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Now is a good time to get rid of these computers.',
       exampleVi:
           'Bây giờ là thời điểm tốt để loại bỏ những chiếc máy tính này.',
@@ -353,7 +353,7 @@ class Theme3Content {
       wordVi: 'lập trình viên',
       pronunciation: '/ˈproʊɡræmər/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'The programmer fixed the bug in the code within two hours.',
       exampleVi: 'Lập trình viên đã sửa lỗi trong mã nguồn trong vòng hai giờ.',
     ),
@@ -363,7 +363,7 @@ class Theme3Content {
       wordVi: 'đồ điện tử',
       pronunciation: '/ˌelɪkˈtrɑːnɪks/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'The company specializes in manufacturing consumer electronics.',
       exampleVi: 'Công ty chuyên sản xuất đồ điện tử tiêu dùng.',
@@ -374,7 +374,7 @@ class Theme3Content {
       wordVi: 'nhà khoa học',
       pronunciation: '/ˈsaɪəntɪst/',
       partOfSpeech: 'n',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn:
           'The scientist published research results in an international journal.',
       exampleVi:
@@ -386,7 +386,7 @@ class Theme3Content {
       wordVi: 'quét (virus)',
       pronunciation: '/skæn/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'Make sure to scan your computer for viruses regularly.',
       exampleVi: 'Hãy đảm bảo quét virus cho máy tính thường xuyên.',
     ),
@@ -396,7 +396,7 @@ class Theme3Content {
       wordVi: 'dọn dẹp, loại bỏ',
       pronunciation: '/pɜːrdʒ/',
       partOfSpeech: 'v',
-      themeId: 'theme_03_technical',
+      themeId: 'theme_03_technical_areas',
       exampleEn: 'You should purge unnecessary files to free up disk space.',
       exampleVi:
           'Bạn nên dọn dẹp các tệp không cần thiết để giải phóng dung lượng.',
@@ -1001,7 +1001,7 @@ class Theme3Content {
   static LessonDay get day1 => LessonDay(
     id: 'theme03_day1',
     dayNumber: 1,
-    themeId: 'theme_03_technical',
+    themeId: 'theme_03_technical_areas',
     titleVi: 'Phần 1: Giới thiệu chung về chuyên đề',
     phases: [
       // ── PHASE 1: READ & LISTEN ──
@@ -1141,7 +1141,7 @@ Từ vựng thông dụng: nhà khoa học, kỹ thuật viên phòng thí nghi�
   static LessonDay get day2 => LessonDay(
     id: 'theme03_day2',
     dayNumber: 2,
-    themeId: 'theme_03_technical',
+    themeId: 'theme_03_technical_areas',
     titleVi: 'Phần 2: Nghe và Luyện Trí Nhớ',
     phases: [
       // ── PHASE 1: LISTENING QUIZ - Practice 1 (Conversation) ──
@@ -1283,7 +1283,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
 
   static List<QuizQuestion> get _practice1Questions => [
     QuizQuestion(
-      id: 'q03_p1_1',
+      id: 'theme03_q01',
       questionText: 'What is the woman\'s problem?',
       options: [
         '(A) Her computer won\'t start.',
@@ -1296,7 +1296,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       practiceNumber: 'practice1',
     ),
     QuizQuestion(
-      id: 'q03_p1_2',
+      id: 'theme03_q02',
       questionText: 'What does the man say about the woman\'s computer?',
       options: [
         '(A) It is too old.',
@@ -1309,7 +1309,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       practiceNumber: 'practice1',
     ),
     QuizQuestion(
-      id: 'q03_p1_3',
+      id: 'theme03_q03',
       questionText: 'What does the man offer to do?',
       options: [
         '(A) Help the woman run a virus check.',
@@ -1325,7 +1325,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
 
   static List<QuizQuestion> get _practice2Questions => [
     QuizQuestion(
-      id: 'q03_p2_1',
+      id: 'theme03_q04',
       questionText: 'Who is this message aimed at?',
       options: [
         '(A) Telephone operators.',
@@ -1338,7 +1338,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       practiceNumber: 'practice2',
     ),
     QuizQuestion(
-      id: 'q03_p2_2',
+      id: 'theme03_q05',
       questionText: 'What will happen if you press 2?',
       options: [
         '(A) You may explain the computer problem.',
@@ -1351,7 +1351,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       practiceNumber: 'practice2',
     ),
     QuizQuestion(
-      id: 'q03_p2_3',
+      id: 'theme03_q06',
       questionText:
           'In which language is this message available besides English?',
       options: [
@@ -1368,7 +1368,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
 
   static List<QuizQuestion> get _practice3Questions => [
     QuizQuestion(
-      id: 'q03_p3_1',
+      id: 'theme03_q07',
       questionText: 'What are these instructions about?',
       options: [
         '(A) How to fix broken computers.',
@@ -1381,7 +1381,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       practiceNumber: 'practice3',
     ),
     QuizQuestion(
-      id: 'q03_p3_2',
+      id: 'theme03_q08',
       questionText: 'What are the listeners asked to do?',
       options: [
         '(A) Fix the broken computers.',
@@ -1394,7 +1394,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       practiceNumber: 'practice3',
     ),
     QuizQuestion(
-      id: 'q03_p3_3',
+      id: 'theme03_q09',
       questionText: 'Why would the listeners need to use the hard disk?',
       options: [
         '(A) It is the cheapest way to store data.',
