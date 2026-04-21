@@ -339,67 +339,67 @@ class Theme7Content {
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'banquet',
       wordVi: 'Bữa đại tiệc',
       pronunciation: '/ˈbæŋkwɪt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'reservation',
       wordVi: 'Đặt chỗ trước',
       pronunciation: '/ˌrezərˈveɪʃn/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'appetizer',
       wordVi: 'Món khai vị',
       pronunciation: '/ˈæpɪtaɪzər/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'dessert',
       wordVi: 'Món tráng miệng',
       pronunciation: '/dɪˈzɜːrt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'receipt',
       wordVi: 'Biên lai',
       pronunciation: '/rɪˈsiːt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'ambience',
       wordVi: 'Không khí',
       pronunciation: '/ˈæmbiəns/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'complimentary',
       wordVi: 'Miễn phí',
       pronunciation: '/ˌkɑːmplɪˈmentri/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'aromatic',
       wordVi: 'Thơm',
       pronunciation: '/ˌærəˈmætɪk/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'spicy',
       wordVi: 'Nhiều gia vị',
       pronunciation: '/ˈspaɪsi/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'roast',
       wordVi: 'Quay',
       pronunciation: '/roʊst/',
       partOfSpeech: 'v/adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'recipe',
       wordVi: 'Công thức nấu ăn',
       pronunciation: '/ˈresəpi/',
@@ -408,63 +408,72 @@ class Theme7Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(phrase: 'Make reservations', meaning: 'Đặt chỗ trước'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Make reservations', meaning: 'Đặt chỗ trước'),
+    const FabPhraseItem(
       phrase: 'Order food and drink',
       meaning: 'Gọi đồ ăn và thức uống',
     ),
-    FabPhraseItem(phrase: 'Pay the bill', meaning: 'Thanh toán hoá đơn'),
-    FabPhraseItem(phrase: 'A variety of + N', meaning: 'Phong phú/đa dạng'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Pay the bill', meaning: 'Thanh toán hoá đơn'),
+    const FabPhraseItem(
+      phrase: 'A variety of + N',
+      meaning: 'Phong phú/đa dạng',
+    ),
+    const FabPhraseItem(
       phrase: 'Plan an event',
       meaning: 'Lên kế hoạch cho một sự kiện',
     ),
-    FabPhraseItem(phrase: 'Interact with', meaning: 'Tương tác/tiếp xúc với'),
-    FabPhraseItem(phrase: 'Make a request', meaning: 'Đưa ra một yêu cầu'),
+    const FabPhraseItem(
+      phrase: 'Interact with',
+      meaning: 'Tương tác/tiếp xúc với',
+    ),
+    const FabPhraseItem(
+      phrase: 'Make a request',
+      meaning: 'Đưa ra một yêu cầu',
+    ),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
-    FabAnswerItem(vi: 'Sẽ xuất hiện', en: 'will appear'),
-    FabAnswerItem(vi: 'Sẽ trang trọng hơn', en: 'will be more formal'),
-    FabAnswerItem(vi: 'Các tình huống', en: 'the situations'),
+  static List<FabAnswerItem> get readingAnswers => const [
+    FabAnswerItem(vi: 'sẽ xuất hiện', en: 'will appear'),
+    FabAnswerItem(vi: 'sẽ trang trọng hơn', en: 'will be more formal'),
+    FabAnswerItem(vi: 'các tình huống', en: 'the situations'),
     FabAnswerItem(
-      vi: 'Trong một bối cảnh thương mại',
+      vi: 'trong một bối cảnh thương mại',
       en: 'in a business setting',
     ),
-    FabAnswerItem(vi: 'Các buổi đại tiệc', en: 'banquets'),
+    FabAnswerItem(vi: 'các buổi đại tiệc', en: 'banquets'),
     FabAnswerItem(
-      vi: 'Cũng như là các nhà hàng thực tế',
+      vi: 'cũng như là các nhà hàng thực tế',
       en: 'as well as actual restaurants',
     ),
-    FabAnswerItem(vi: 'Việc đặt chỗ trước', en: 'making reservations'),
-    FabAnswerItem(vi: 'Từ một thực đơn', en: 'from a menu'),
-    FabAnswerItem(vi: 'Thanh toán hóa đơn', en: 'paying the bill'),
-    FabAnswerItem(vi: 'Món khai vị', en: 'appetizer'),
-    FabAnswerItem(vi: 'Nhân viên phục vụ rượu', en: 'wine steward'),
-    FabAnswerItem(vi: 'Ẩm thực', en: 'cuisine'),
-    FabAnswerItem(vi: 'Người ăn chay', en: 'vegetarian'),
-    FabAnswerItem(vi: 'Các đồ uống', en: 'beverages'),
-    FabAnswerItem(vi: 'Biên lai', en: 'receipt'),
-    FabAnswerItem(vi: 'Gọi món', en: 'order'),
-    FabAnswerItem(vi: 'Đặt chỗ trước', en: 'reserve'),
-    FabAnswerItem(vi: 'Hủy', en: 'cancel'),
-    FabAnswerItem(vi: 'Ký tên', en: 'sign'),
-    FabAnswerItem(vi: 'Không khí', en: 'ambience'),
-    FabAnswerItem(vi: 'Miễn phí', en: 'complimentary'),
-    FabAnswerItem(vi: 'Cay', en: 'hot'),
-    FabAnswerItem(vi: 'Một con vịt quay', en: 'a roast duck'),
-    FabAnswerItem(vi: 'Một công thức nấu ăn cụ thể', en: 'a particular recipe'),
-    FabAnswerItem(vi: 'Lên kế hoạch một sự kiện', en: 'planning an event'),
+    FabAnswerItem(vi: 'việc đặt chỗ trước', en: 'making reservations'),
+    FabAnswerItem(vi: 'từ một thực đơn', en: 'from a menu'),
+    FabAnswerItem(vi: 'thanh toán hóa đơn', en: 'paying the bill'),
+    FabAnswerItem(vi: 'món khai vị', en: 'appetizer'),
+    FabAnswerItem(vi: 'nhân viên phục vụ rượu', en: 'wine steward'),
+    FabAnswerItem(vi: 'ẩm thực', en: 'cuisine'),
+    FabAnswerItem(vi: 'người ăn chay', en: 'vegetarian'),
+    FabAnswerItem(vi: 'các đồ uống', en: 'beverages'),
+    FabAnswerItem(vi: 'biên lai', en: 'receipt'),
+    FabAnswerItem(vi: 'gọi món', en: 'order'),
+    FabAnswerItem(vi: 'đặt chỗ trước', en: 'reserve'),
+    FabAnswerItem(vi: 'hủy', en: 'cancel'),
+    FabAnswerItem(vi: 'ký tên', en: 'sign'),
+    FabAnswerItem(vi: 'không khí', en: 'ambience'),
+    FabAnswerItem(vi: 'miễn phí', en: 'complimentary'),
+    FabAnswerItem(vi: 'cay', en: 'hot'),
+    FabAnswerItem(vi: 'một con vịt quay', en: 'a roast duck'),
+    FabAnswerItem(vi: 'một công thức nấu ăn cụ thể', en: 'a particular recipe'),
+    FabAnswerItem(vi: 'lên kế hoạch một sự kiện', en: 'planning an event'),
     FabAnswerItem(
-      vi: 'Tương tác với nhân viên nhà hàng',
+      vi: 'tương tác với nhân viên nhà hàng',
       en: 'interacting with restaurant staff',
     ),
-    FabAnswerItem(vi: 'Việc giới thiệu đồ uống', en: 'beverage recommendation'),
+    FabAnswerItem(vi: 'việc giới thiệu đồ uống', en: 'beverage recommendation'),
     FabAnswerItem(
-      vi: 'Một yêu cầu đặc biệt về đồ ăn',
+      vi: 'một yêu cầu đặc biệt về đồ ăn',
       en: 'a special food request',
     ),
-    FabAnswerItem(vi: 'Gây khó hiểu', en: 'confusing'),
+    FabAnswerItem(vi: 'gây khó hiểu', en: 'confusing'),
     FabAnswerItem(vi: 'Bạn gợi ý món gì?', en: 'What do you recommend?'),
     FabAnswerItem(vi: 'Hôm nay có gì ngon?', en: 'What\'s good today?'),
   ];
@@ -473,31 +482,31 @@ class Theme7Content {
   // FAB - Day 2 MindGame: Conversation
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'appealing',
       wordVi: 'Hấp dẫn',
       pronunciation: '/əˈpiːlɪŋ/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'particularly',
       wordVi: 'Đặc biệt',
       pronunciation: '/pərˈtɪkjələrli/',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'exceptionally',
       wordVi: 'Cực kỳ',
       pronunciation: '/ɪkˈsepʃənəli/',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'dessert',
       wordVi: 'Món tráng miệng',
       pronunciation: '/dɪˈzɜːrt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'main course',
       wordVi: 'Món chính',
       pronunciation: '/ˈmeɪn kɔːrs/',
@@ -506,65 +515,68 @@ class Theme7Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(phrase: 'What to order', meaning: 'Gọi món gì'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'What to order', meaning: 'Gọi món gì'),
+    const FabPhraseItem(
       phrase: 'Not up to normal standards',
       meaning: 'Không ngon như thường ngày',
     ),
-    FabPhraseItem(phrase: 'Be right back', meaning: 'Trở lại ngay'),
-    FabPhraseItem(phrase: 'Lose a bit of weight', meaning: 'Giảm cân một chút'),
+    const FabPhraseItem(phrase: 'Be right back', meaning: 'Trở lại ngay'),
+    const FabPhraseItem(
+      phrase: 'Lose a bit of weight',
+      meaning: 'Giảm cân một chút',
+    ),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
-    FabAnswerItem(vi: 'Món gì để gọi', en: 'what to order'),
-    FabAnswerItem(vi: 'Trông hấp dẫn quá', en: 'looks so appealing'),
-    FabAnswerItem(vi: 'Thật lòng mà nói', en: 'honestly'),
-    FabAnswerItem(vi: 'Đặc biệt gợi ý', en: 'particularly recommend'),
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(vi: 'món gì để gọi', en: 'what to order'),
+    FabAnswerItem(vi: 'trông hấp dẫn quá', en: 'looks so appealing'),
+    FabAnswerItem(vi: 'thật lòng mà nói', en: 'honestly'),
+    FabAnswerItem(vi: 'đặc biệt gợi ý', en: 'particularly recommend'),
     FabAnswerItem(
-      vi: 'Không ngon được như thường ngày',
+      vi: 'không ngon được như thường ngày',
       en: 'not up to normal standards',
     ),
-    FabAnswerItem(vi: 'Cực kỳ ngon', en: 'exceptionally good'),
-    FabAnswerItem(vi: 'Cho món tráng miệng', en: 'for dessert'),
+    FabAnswerItem(vi: 'cực kỳ ngon', en: 'exceptionally good'),
+    FabAnswerItem(vi: 'cho món tráng miệng', en: 'for dessert'),
     FabAnswerItem(
-      vi: 'Món tráng miệng nổi tiếng nhất của chúng tôi',
+      vi: 'món tráng miệng nổi tiếng nhất của chúng tôi',
       en: 'our most popular dessert',
     ),
-    FabAnswerItem(vi: 'Nghe có vẻ ngon', en: 'sounds delicious'),
-    FabAnswerItem(vi: 'Giảm cân một chút', en: 'lose a bit of weight'),
-    FabAnswerItem(vi: 'Cho món chính', en: 'for the main course'),
-    FabAnswerItem(vi: 'Trở lại ngay', en: 'be right back'),
+    FabAnswerItem(vi: 'nghe có vẻ ngon', en: 'sounds delicious'),
+    FabAnswerItem(vi: 'giảm cân một chút', en: 'lose a bit of weight'),
+    FabAnswerItem(vi: 'cho món chính', en: 'for the main course'),
+    FabAnswerItem(vi: 'trở lại ngay', en: 'be right back'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 MindGame: Short Talk 1 (Alessandro's)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'faithfully',
       wordVi: 'Tận tình',
       pronunciation: '/ˈfeɪθfəli/',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'accept',
       wordVi: 'Chấp nhận',
       pronunciation: '/əkˈsept/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'reservation',
       wordVi: 'Đặt bàn',
       pronunciation: '/ˌrezərˈveɪʃn/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'exact',
       wordVi: 'Chính xác',
       pronunciation: '/ɪɡˈzækt/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'contact',
       wordVi: 'Liên lạc',
       pronunciation: '/ˈkɑːntækt/',
@@ -573,74 +585,77 @@ class Theme7Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'At no additional charge',
       meaning: 'Không mất thêm phí',
     ),
-    FabPhraseItem(phrase: 'Please be informed that', meaning: 'Xin lưu ý rằng'),
-    FabPhraseItem(phrase: 'When necessary', meaning: 'Khi cần'),
-    FabPhraseItem(phrase: 'To make a reservation', meaning: 'Để đặt bàn'),
+    const FabPhraseItem(
+      phrase: 'Please be informed that',
+      meaning: 'Xin lưu ý rằng',
+    ),
+    const FabPhraseItem(phrase: 'When necessary', meaning: 'Khi cần'),
+    const FabPhraseItem(phrase: 'To make a reservation', meaning: 'Để đặt bàn'),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(vi: 'Tận tình phục vụ', en: 'faithfully serve'),
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(vi: 'tận tình phục vụ', en: 'faithfully serve'),
     FabAnswerItem(
-      vi: 'Gồm cả các ngày nghỉ lễ và cuối tuần',
+      vi: 'gồm cả các ngày nghỉ lễ và cuối tuần',
       en: 'including holidays and weekends',
     ),
-    FabAnswerItem(vi: 'Giờ ăn trưa', en: 'lunch time'),
-    FabAnswerItem(vi: 'Được phục vụ', en: 'is served'),
+    FabAnswerItem(vi: 'giờ ăn trưa', en: 'lunch time'),
+    FabAnswerItem(vi: 'được phục vụ', en: 'is served'),
     FabAnswerItem(
-      vi: 'Cứ hai tuần một lần vào cuối tuần',
+      vi: 'cứ hai tuần một lần vào cuối tuần',
       en: 'Every other weekend',
     ),
-    FabAnswerItem(vi: 'Những buổi hòa nhạc đặc biệt', en: 'special concerts'),
-    FabAnswerItem(vi: 'Mà không tính thêm phí', en: 'at no additional charge'),
+    FabAnswerItem(vi: 'những buổi hòa nhạc đặc biệt', en: 'special concerts'),
+    FabAnswerItem(vi: 'mà không tính thêm phí', en: 'at no additional charge'),
     FabAnswerItem(
-      vi: 'Chấp nhận việc đặt bàn trước',
+      vi: 'chấp nhận việc đặt bàn trước',
       en: 'accept reservations',
     ),
     FabAnswerItem(vi: 'Để đặt bàn', en: 'To make a reservation'),
-    FabAnswerItem(vi: 'Để lại tên của mình', en: 'leave your name'),
-    FabAnswerItem(vi: 'Việc đặt bàn của quý vị', en: 'your reservation'),
+    FabAnswerItem(vi: 'để lại tên của mình', en: 'leave your name'),
+    FabAnswerItem(vi: 'việc đặt bàn của quý vị', en: 'your reservation'),
     FabAnswerItem(
-      vi: 'Số lượng người chính xác',
+      vi: 'số lượng người chính xác',
       en: 'the exact number of people',
     ),
-    FabAnswerItem(vi: 'Bữa ăn', en: 'the meal'),
-    FabAnswerItem(vi: 'Để liên lạc', en: 'to contact'),
-    FabAnswerItem(vi: 'Khi cần', en: 'when necessary'),
+    FabAnswerItem(vi: 'bữa ăn', en: 'the meal'),
+    FabAnswerItem(vi: 'để liên lạc', en: 'to contact'),
+    FabAnswerItem(vi: 'khi cần', en: 'when necessary'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 MindGame: Short Talk 2 (Vine and Dine)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'dressing',
       wordVi: 'Nước sốt',
       pronunciation: '/ˈdresɪŋ/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'purchased fresh',
       wordVi: 'Mua khi còn tươi',
       pronunciation: '/ˈpɜːrtʃəst freʃ/',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'local farmers',
       wordVi: 'Nông dân địa phương',
       pronunciation: '/ˈloʊkəl ˈfɑːrmərz/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'look over',
       wordVi: 'Xem qua',
       pronunciation: '/lʊk ˈoʊvər/',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'decision',
       wordVi: 'Quyết định',
       pronunciation: '/dɪˈsɪʒən/',
@@ -649,50 +664,50 @@ class Theme7Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'It\'s totally up to you',
       meaning: 'Hoàn toàn tuỳ vào bạn',
     ),
-    FabPhraseItem(phrase: 'To start off', meaning: 'Để khởi đầu'),
-    FabPhraseItem(phrase: 'Take your time', meaning: 'Cứ thong thả'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'To start off', meaning: 'Để khởi đầu'),
+    const FabPhraseItem(phrase: 'Take your time', meaning: 'Cứ thong thả'),
+    const FabPhraseItem(
       phrase: 'What would you like to drink?',
       meaning: 'Quý vị muốn uống gì?',
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
+  static List<FabAnswerItem> get shortTalk2Answers => const [
     FabAnswerItem(
-      vi: 'Ăn tối cùng chúng tôi đêm nay',
+      vi: 'ăn tối cùng chúng tôi đêm nay',
       en: 'dining with us tonight',
     ),
     FabAnswerItem(vi: 'Để khởi đầu', en: 'To start off'),
     FabAnswerItem(
-      vi: 'Sự lựa chọn nước sốt riêng của quý vị',
+      vi: 'sự lựa chọn nước sốt riêng của quý vị',
       en: 'your choice of dressing',
     ),
-    FabAnswerItem(vi: 'Những loại chính', en: 'main kinds'),
+    FabAnswerItem(vi: 'những loại chính', en: 'main kinds'),
     FabAnswerItem(
-      vi: 'Điều đó hoàn toàn tùy vào quý vị',
+      vi: 'điều đó hoàn toàn tùy vào quý vị',
       en: 'it\'s totally up to you',
     ),
-    FabAnswerItem(vi: 'Được mua khi vẫn còn tươi', en: 'are purchased fresh'),
+    FabAnswerItem(vi: 'được mua khi vẫn còn tươi', en: 'are purchased fresh'),
     FabAnswerItem(
-      vi: 'Những món đặc biệt cho món chính',
+      vi: 'những món đặc biệt cho món chính',
       en: 'main course specials',
     ),
     FabAnswerItem(
-      vi: 'Dành cho quý vị thêm một chút thời gian',
+      vi: 'dành cho quý vị thêm một chút thời gian',
       en: 'give you a little more time',
     ),
-    FabAnswerItem(vi: 'Xem qua', en: 'look over'),
+    FabAnswerItem(vi: 'xem qua', en: 'look over'),
     FabAnswerItem(
-      vi: 'Đưa ra những quyết định của mình',
+      vi: 'đưa ra những quyết định của mình',
       en: 'make your decisions',
     ),
-    FabAnswerItem(vi: 'Hãy cứ thong thả', en: 'take your time'),
+    FabAnswerItem(vi: 'hãy cứ thong thả', en: 'take your time'),
     FabAnswerItem(
-      vi: 'Quý vị muốn uống gì?',
+      vi: 'quý vị muốn uống gì?',
       en: 'what would you like to drink?',
     ),
   ];
@@ -840,7 +855,7 @@ Các đoạn hội thoại thường nói về việc lên kế hoạch cho mộ
     ),
     const MixedSegment.english(' or making '),
     const MixedSegment.vietnamese(
-      'một yêu câu đặc biệt về đồ ân',
+      'một yêu cầu đặc biệt về đồ ăn',
       'a special food request',
     ),
     const MixedSegment.english(
@@ -873,6 +888,20 @@ Các đoạn hội thoại thường nói về việc lên kế hoạch cho mộ
         titleVi: 'Luyện tập 1: Hội thoại',
         audioTrackKey: 'track_28',
         questions: _practice1Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (A): M nói "I\'ll be right back with your food" = Trong một nhà hàng.',
+            en: 'Q1 (A): M says "I\'ll be right back with your food" = In a restaurant.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (B): W hỏi "Is there anything that you\'d particularly recommend?" = Nhờ gợi ý món ăn.',
+            en: 'Q2 (B): W asks "Is there anything that you\'d particularly recommend?" = Suggest some food.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (C): M nói "the Roasted Chicken is not up to normal standards today" = Không gợi ý món gà quay.',
+            en: 'Q3 (C): M says "the Roasted Chicken is not up to normal standards today" = The Roasted Chicken.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme07_day2_quiz2',
@@ -881,6 +910,20 @@ Các đoạn hội thoại thường nói về việc lên kế hoạch cho mộ
         titleVi: 'Luyện tập 2: Bài ngắn - Đặt bàn',
         audioTrackKey: 'track_29',
         questions: _practice2Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (C): Bài nói nhắc đến "lunch time", "dinner" và "reservations" = Nhà hàng.',
+            en: 'Q4 (C): The talk mentions "lunch time", "dinner", and "reservations" = A restaurant.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (D): "we only accept reservations for parties of 15 people or more" = Ít nhất 15 người.',
+            en: 'Q5 (D): "we only accept reservations for parties of 15 people or more" = 15.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (A): "a number we could use to contact you when necessary" = Số điện thoại.',
+            en: 'Q6 (A): "a number we could use to contact you when necessary" = A telephone number.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme07_day2_quiz3',
@@ -889,6 +932,20 @@ Các đoạn hội thoại thường nói về việc lên kế hoạch cho mộ
         titleVi: 'Luyện tập 3: Bài ngắn - Chào đón & gọi đồ uống',
         audioTrackKey: 'track_30',
         questions: _practice3Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (D): Người nói giới thiệu thực đơn, gợi ý món ăn và hỏi đồ uống = Nữ bồi bàn.',
+            en: 'Q7 (D): The speaker introduces the menu, suggests dishes, and asks for drinks = A waitress.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (B): "all of our garden vegetables are purchased fresh from local farmers" = Rau trồng tại địa phương.',
+            en: 'Q8 (B): "all of our garden vegetables are purchased fresh from local farmers" = They are locally grown.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (D): "Now before I go, what would you like to drink?" = Hỏi món đồ uống.',
+            en: 'Q9 (D): "Now before I go, what would you like to drink?" = A beverage order.',
+          ),
+        ],
       ),
 
       LessonPhase(
@@ -966,7 +1023,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
 
   // QUIZ
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q01',
       questionText: 'Where is the conversation taking place?',
       options: [
@@ -979,7 +1036,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
       audioTrackKey: 'track_28',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q02',
       questionText: 'What does the woman ask the man to do?',
       options: [
@@ -992,7 +1049,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
       audioTrackKey: 'track_28',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q03',
       questionText: 'What does the man NOT recommend?',
       options: [
@@ -1008,7 +1065,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q04',
       questionText: 'What kind of business is Alessandro\'s?',
       options: [
@@ -1021,7 +1078,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
       audioTrackKey: 'track_29',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q05',
       questionText:
           'What is the minimum number of customers required to make a reservation?',
@@ -1030,7 +1087,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
       audioTrackKey: 'track_29',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q06',
       questionText: 'Which of the following is needed to make a reservation?',
       options: [
@@ -1046,7 +1103,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q07',
       questionText: 'Who most likely is the speaker?',
       options: [
@@ -1059,7 +1116,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
       audioTrackKey: 'track_30',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q08',
       questionText: 'What does the speaker say about the vegetables?',
       options: [
@@ -1072,7 +1129,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
       audioTrackKey: 'track_30',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme07_q09',
       questionText: 'What does the speaker ask for?',
       options: [
@@ -1144,7 +1201,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
     const MixedSegment.vietnamese('được phục vụ', 'is served'),
     const MixedSegment.english(' from 5 p.m. until 11 p.m. '),
     const MixedSegment.vietnamese(
-      'cứ hai tuần một lần vào cuối tuân',
+      'cứ hai tuần một lần vào cuối tuần',
       'Every other weekend',
     ),
     const MixedSegment.english(', we have '),
@@ -1181,7 +1238,7 @@ M: Vâng được thưa bà. Tôi sẽ mang đồ ăn lại cho bà ngay.''',
     const MixedSegment.english(' and a number we could use '),
     const MixedSegment.vietnamese('để liên lạc', 'to contact'),
     const MixedSegment.english(' you '),
-    const MixedSegment.vietnamese('khi cân', 'when necessary'),
+    const MixedSegment.vietnamese('khi cần', 'when necessary'),
     const MixedSegment.english('. Thank you for choosing us.'),
   ];
 

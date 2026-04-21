@@ -17,8 +17,8 @@ class ProgressScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Tiến độ học tập', style: AppTextStyles.h1),
-              Text(
+              const Text('Tiến độ học tập', style: AppTextStyles.h1),
+              const Text(
                 'Theo dõi hành trình của bạn',
                 style: AppTextStyles.bodyMedium,
               ),
@@ -43,11 +43,11 @@ class ProgressScreen extends StatelessWidget {
   }
 
   Widget _buildStatsOverview() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Tổng quan', style: AppTextStyles.h3),
-        const SizedBox(height: AppConstants.paddingS),
+        SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
             Expanded(
@@ -58,7 +58,7 @@ class ProgressScreen extends StatelessWidget {
                 color: AppColors.secondary,
               ),
             ),
-            const SizedBox(width: AppConstants.paddingS),
+            SizedBox(width: AppConstants.paddingS),
             Expanded(
               child: _StatCard(
                 icon: '📚',
@@ -69,7 +69,7 @@ class ProgressScreen extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: AppConstants.paddingS),
+        SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
             Expanded(
@@ -80,7 +80,7 @@ class ProgressScreen extends StatelessWidget {
                 color: AppColors.warning,
               ),
             ),
-            const SizedBox(width: AppConstants.paddingS),
+            SizedBox(width: AppConstants.paddingS),
             Expanded(
               child: _StatCard(
                 icon: '⏱️',
@@ -115,7 +115,7 @@ class ProgressScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('13 Bí mật', style: AppTextStyles.h3),
+        const Text('13 Bí mật', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         Container(
           decoration: BoxDecoration(
@@ -133,7 +133,7 @@ class ProgressScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: secrets.length,
-            separatorBuilder: (_, __) => Divider(
+            separatorBuilder: (_, __) => const Divider(
               height: 1,
               color: AppColors.border,
               indent: 16,
@@ -171,12 +171,12 @@ class ProgressScreen extends StatelessWidget {
                   ),
                 ),
                 trailing: isUnlocked
-                    ? Icon(
+                    ? const Icon(
                         Icons.check_circle,
                         color: AppColors.success,
                         size: 20,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.lock_outline,
                         color: AppColors.textHint,
                         size: 18,
@@ -191,42 +191,42 @@ class ProgressScreen extends StatelessWidget {
 
   Widget _buildBadges() {
     final badges = [
-      _BadgeData(
+      const _BadgeData(
         icon: '🌟',
         title: 'Người khởi đầu',
         desc: 'Hoàn thành bài học đầu tiên',
         isEarned: true,
         color: AppColors.warning,
       ),
-      _BadgeData(
+      const _BadgeData(
         icon: '🔥',
         title: 'Kiên trì 7 ngày',
         desc: 'Học 7 ngày liên tiếp',
         isEarned: false,
         color: AppColors.secondary,
       ),
-      _BadgeData(
+      const _BadgeData(
         icon: '🏢',
         title: 'Bậc thầy Văn phòng',
         desc: 'Hoàn thành Theme 1',
         isEarned: false,
         color: AppColors.primary,
       ),
-      _BadgeData(
+      const _BadgeData(
         icon: '📖',
         title: 'Đa bối cảnh',
         desc: 'Gặp 1 từ trong 5 bối cảnh',
         isEarned: false,
         color: AppColors.success,
       ),
-      _BadgeData(
+      const _BadgeData(
         icon: '🎯',
         title: 'Siêu chính xác',
         desc: 'Đạt 100% trong 1 bài quiz',
         isEarned: false,
         color: AppColors.primary,
       ),
-      _BadgeData(
+      const _BadgeData(
         icon: '🚀',
         title: 'Vô địch trí nhớ',
         desc: 'Hoàn thành tất cả 13 chủ đề',
@@ -238,7 +238,7 @@ class ProgressScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Huy hiệu thành tích', style: AppTextStyles.h3),
+        const Text('Huy hiệu thành tích', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         GridView.builder(
           shrinkWrap: true,

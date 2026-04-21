@@ -1,8 +1,33 @@
 import '../models/lesson_model.dart';
-import '../models/mixed_segment_model.dart';
+
+class ContentValidationResult {
+  final String label;
+  final List<String> errors;
+  final List<String> warnings;
+
+  const ContentValidationResult({
+    required this.label,
+    required this.errors,
+    required this.warnings,
+  });
+
+  bool get hasErrors => errors.isNotEmpty;
+  bool get hasWarnings => warnings.isNotEmpty;
+}
 
 class ContentValidator {
-  static void validateLessonDay(LessonDay day, {String? label}) {
+  /// Validate 1 LessonDay.
+  ///
+  /// - [printResult] = true -> in log ngay cho day này
+  /// - [throwOnError] = true -> throw ngay nếu day này có lỗi
+  ///
+  /// Mặc định KHÔNG throw để có thể quét hết toàn bộ content.
+  static ContentValidationResult validateLessonDay(
+    LessonDay day, {
+    String? label,
+    bool printResult = true,
+    bool throwOnError = false,
+  }) {
     final dayLabel = label ?? day.id;
     final errors = <String>[];
     final warnings = <String>[];
@@ -18,21 +43,90 @@ class ContentValidator {
       }
     }
 
-    if (warnings.isNotEmpty) {
-      // ignore: avoid_print
-      print('[ContentValidator][WARN][$dayLabel]\n- ${warnings.join('\n- ')}');
+    final result = ContentValidationResult(
+      label: dayLabel,
+      errors: List.unmodifiable(errors),
+      warnings: List.unmodifiable(warnings),
+    );
+
+    if (printResult) {
+      _printDayResult(result);
     }
 
-    if (errors.isNotEmpty) {
+    if (throwOnError && result.hasErrors) {
+      throw AssertionError(_buildDayErrorMessage(result));
+    }
+
+    return result;
+  }
+
+  /// Validate toàn bộ các LessonDay và chỉ throw 1 lần ở cuối.
+  static List<ContentValidationResult> validateAllLessonDays(
+    Iterable<LessonDay> days, {
+    String batchLabel = 'ALL_DAYS',
+    bool printPerDay = true,
+    bool printSummary = true,
+    bool throwOnAnyError = true,
+  }) {
+    final results = <ContentValidationResult>[];
+
+    for (final day in days) {
+      final result = validateLessonDay(
+        day,
+        printResult: printPerDay,
+        throwOnError: false,
+      );
+      results.add(result);
+    }
+
+    final allErrors = <String>[];
+    final allWarnings = <String>[];
+
+    for (final result in results) {
+      allErrors.addAll(result.errors);
+      allWarnings.addAll(result.warnings);
+    }
+
+    if (printSummary) {
+      // ignore: avoid_print
+      print(
+        '[ContentValidator][SUMMARY][$batchLabel] '
+        'days=${results.length}, warnings=${allWarnings.length}, errors=${allErrors.length}',
+      );
+    }
+
+    if (throwOnAnyError && allErrors.isNotEmpty) {
       final msg =
-          '[ContentValidator][ERROR][$dayLabel]\n- ${errors.join('\n- ')}';
+          '[ContentValidator][SUMMARY_ERROR][$batchLabel]\n- ${allErrors.join('\n- ')}';
       // ignore: avoid_print
       print(msg);
       throw AssertionError(msg);
+    }
+
+    return results;
+  }
+
+  static void _printDayResult(ContentValidationResult result) {
+    if (result.hasWarnings) {
+      // ignore: avoid_print
+      print(
+        '[ContentValidator][WARN][${result.label}]\n- ${result.warnings.join('\n- ')}',
+      );
+    }
+
+    if (result.hasErrors) {
+      // ignore: avoid_print
+      print(
+        '[ContentValidator][ERROR][${result.label}]\n- ${result.errors.join('\n- ')}',
+      );
     } else {
       // ignore: avoid_print
-      print('[ContentValidator][OK] $dayLabel');
+      print('[ContentValidator][OK] ${result.label}');
     }
+  }
+
+  static String _buildDayErrorMessage(ContentValidationResult result) {
+    return '[ContentValidator][ERROR][${result.label}]\n- ${result.errors.join('\n- ')}';
   }
 
   static void _validateMindGamePhase(
@@ -85,17 +179,20 @@ class ContentValidator {
     for (final a in fabAnswers) {
       final key = a.vi.trim();
       final val = a.en.trim();
+
       if (key.isEmpty || val.isEmpty) {
         errors.add(
           '$phaseLabel: FabAnswerItem has empty vi/en: vi="${a.vi}", en="${a.en}".',
         );
         continue;
       }
+
       if (map.containsKey(key) && map[key] != val) {
         errors.add(
           '$phaseLabel: Duplicate FabAnswerItem.vi="$key" with different en values.',
         );
       }
+
       map[key] = val;
     }
 
@@ -103,6 +200,7 @@ class ContentValidator {
     for (final s in viSegments) {
       final key = s.text.trim();
       final expected = map[key];
+
       if (expected == null) {
         errors.add(
           '$phaseLabel: Missing FabAnswerItem for Vietnamese segment "$key".',

@@ -326,61 +326,61 @@ class Theme9Content {
   // FAB - Day 1 Reading Vocabulary
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'finance',
       wordVi: 'Tài chính',
       pronunciation: '/ˈfaɪnæns/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'accounting',
       wordVi: 'Kế toán',
       pronunciation: '/əˈkaʊntɪŋ/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'profit',
       wordVi: 'Lợi nhuận',
       pronunciation: '/ˈprɑːfɪt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'loss',
       wordVi: 'Thua lỗ',
       pronunciation: '/lɔːs/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'revenue',
       wordVi: 'Doanh thu',
       pronunciation: '/ˈrevənuː/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'calculate',
       wordVi: 'Tính toán',
       pronunciation: '/ˈkælkjuleɪt/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'figure',
       wordVi: 'Số liệu',
       pronunciation: '/ˈfɪɡər/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'report',
       wordVi: 'Báo cáo',
       pronunciation: '/rɪˈpɔːrt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'accountant',
       wordVi: 'Nhân viên kế toán',
       pronunciation: '/əˈkaʊntənt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'statement',
       wordVi: 'Báo cáo',
       pronunciation: '/ˈsteɪtmənt/',
@@ -389,80 +389,80 @@ class Theme9Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(phrase: 'Make calculations', meaning: 'Tính toán'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Make calculations', meaning: 'Tính toán'),
+    const FabPhraseItem(
       phrase: 'Play a significant role',
       meaning: 'Đóng vai trò quan trọng',
     ),
-    FabPhraseItem(phrase: 'Differentiate between', meaning: 'Phân biệt giữa'),
-    FabPhraseItem(phrase: 'Be engaged in', meaning: 'Tham gia vào'),
-    FabPhraseItem(phrase: 'Get used to', meaning: 'Làm quen với'),
-    FabPhraseItem(phrase: 'Analyze a report', meaning: 'Phân tích báo cáo'),
-    FabPhraseItem(phrase: 'Facts and figures', meaning: 'Dữ kiện và số liệu'),
+    const FabPhraseItem(
+      phrase: 'Differentiate between',
+      meaning: 'Phân biệt giữa',
+    ),
+    const FabPhraseItem(phrase: 'Be engaged in', meaning: 'Tham gia vào'),
+    const FabPhraseItem(phrase: 'Get used to', meaning: 'Làm quen với'),
+    const FabPhraseItem(
+      phrase: 'Analyze a report',
+      meaning: 'Phân tích báo cáo',
+    ),
+    const FabPhraseItem(
+      phrase: 'Facts and figures',
+      meaning: 'Dữ kiện và số liệu',
+    ),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
-    FabAnswerItem(vi: 'Từ vựng', en: 'Lexicon'),
-    FabAnswerItem(vi: 'Rất quan trọng', en: 'very important'),
-    FabAnswerItem(vi: 'Liên quan trực tiếp đến', en: 'related directly to'),
-    FabAnswerItem(vi: 'Tài chính', en: 'finance'),
-    FabAnswerItem(vi: 'Ngân hàng', en: 'banking'),
-    FabAnswerItem(vi: 'Kế toán', en: 'accounting'),
-    FabAnswerItem(vi: 'Lập hoá đơn', en: 'invoicing'),
-    FabAnswerItem(vi: 'Đầu tư', en: 'investments'),
-    FabAnswerItem(vi: 'Cổ phiếu', en: 'stocks'),
-    FabAnswerItem(vi: 'Thuế', en: 'taxes'),
-    FabAnswerItem(vi: 'Phải tính toán', en: 'may have to make calculations'),
-    FabAnswerItem(vi: 'Đóng vai trò quan trọng', en: 'play a significant role'),
-    FabAnswerItem(vi: 'Có khả năng phân biệt', en: 'be able to differentiate'),
-    FabAnswerItem(vi: 'Bảy mươi', en: 'seventy'),
-    FabAnswerItem(vi: 'Mười bảy', en: 'seventeen'),
-    FabAnswerItem(vi: 'Trong các bản ghi âm', en: 'on the recordings'),
-    FabAnswerItem(vi: 'Sự khác biệt', en: 'the difference'),
-    FabAnswerItem(vi: 'Tham gia vào', en: 'are engaged in'),
-    FabAnswerItem(vi: 'Tốc độ hội thoại', en: 'conversational rate of speech'),
-    FabAnswerItem(vi: 'Cao tương đương với', en: 'as high as'),
-    FabAnswerItem(vi: 'Làm quen với', en: 'get used to'),
-    FabAnswerItem(vi: 'Đạt mức trung bình', en: 'averages'),
-    FabAnswerItem(vi: 'Các số liệu', en: 'figures'),
-    FabAnswerItem(vi: 'Cột', en: 'column'),
-    FabAnswerItem(vi: 'Lợi nhuận', en: 'profit'),
-    FabAnswerItem(vi: 'Thua lỗ', en: 'loss'),
-    FabAnswerItem(vi: 'Báo cáo tài chính', en: 'financial statement'),
-    FabAnswerItem(vi: 'Tín dụng', en: 'credit'),
-    FabAnswerItem(vi: 'Ghi nợ', en: 'debit'),
-    FabAnswerItem(vi: 'Hoá đơn', en: 'bill'),
+  static List<FabAnswerItem> get readingAnswers => const [
+    FabAnswerItem(vi: 'chuyên đề này', en: 'this theme'),
+    FabAnswerItem(vi: 'sẽ nghe thấy', en: 'will hear'),
+    FabAnswerItem(vi: 'liên quan trực tiếp đến', en: 'related directly to'),
+    FabAnswerItem(vi: 'ngân hàng', en: 'banking'),
+    FabAnswerItem(vi: 'kế toán', en: 'accounting'),
+    FabAnswerItem(vi: 'việc lập hoá đơn', en: 'invoicing'),
+    FabAnswerItem(vi: 'đầu tư', en: 'investments'),
+    FabAnswerItem(vi: 'cổ phiếu', en: 'stocks'),
+    FabAnswerItem(vi: 'thuế', en: 'taxes'),
+    FabAnswerItem(vi: 'phải tính toán', en: 'may have to make calculations'),
+    FabAnswerItem(vi: 'đóng vai trò đáng kể', en: 'play a significant role'),
+    FabAnswerItem(vi: 'có khả năng phân biệt', en: 'be able to differentiate'),
+    FabAnswerItem(vi: 'bảy mươi', en: 'seventy'),
+    FabAnswerItem(vi: 'mười bảy', en: 'seventeen'),
+    FabAnswerItem(vi: 'trong các bản ghi âm', en: 'on the recordings'),
+    FabAnswerItem(vi: 'sự khác biệt', en: 'the difference'),
+    FabAnswerItem(vi: 'tham gia vào', en: 'are engaged in'),
+    FabAnswerItem(vi: 'tốc độ hội thoại', en: 'conversational rate of speech'),
+    FabAnswerItem(vi: 'cao tương đương với', en: 'as high as'),
+    FabAnswerItem(vi: 'cần làm quen với', en: 'need to get used to'),
+    FabAnswerItem(vi: 'đạt mức trung bình là', en: 'averages'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation Vocabulary
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'copies',
       wordVi: 'Bản sao',
       pronunciation: '/ˈkɑːpiz/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'alterations',
       wordVi: 'Thay đổi',
       pronunciation: '/ˌɔːltəˈreɪʃənz/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'shareholders',
       wordVi: 'Cổ đông',
       pronunciation: '/ˈʃeərhoʊldərz/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'mistake',
       wordVi: 'Sai sót',
       pronunciation: '/mɪˈsteɪk/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'corrections',
       wordVi: 'Chỉnh sửa',
       pronunciation: '/kəˈrekʃənz/',
@@ -471,71 +471,69 @@ class Theme9Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(phrase: 'Make copies', meaning: 'Phô-tô bản'),
-    FabPhraseItem(phrase: 'Financial report', meaning: 'Báo cáo tài chính'),
-    FabPhraseItem(phrase: 'Make alterations', meaning: 'Thực hiện thay đổi'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Make copies', meaning: 'Phô-tô bản'),
+    const FabPhraseItem(
+      phrase: 'Financial report',
+      meaning: 'Báo cáo tài chính',
+    ),
+    const FabPhraseItem(
+      phrase: 'Make alterations',
+      meaning: 'Thực hiện thay đổi',
+    ),
+    const FabPhraseItem(
       phrase: 'Deliver to shareholders',
       meaning: 'Chuyển tới cổ đông',
     ),
-    FabPhraseItem(phrase: 'Make a mistake', meaning: 'Mắc sai sót'),
+    const FabPhraseItem(phrase: 'Make a mistake', meaning: 'Mắc sai sót'),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(vi: 'bản sao', en: 'the copies'),
     FabAnswerItem(
-      vi: 'Bản báo cáo tài chính quý trước',
+      vi: 'bản báo cáo tài chính quý trước',
       en: 'the last quarter financial report',
     ),
-    FabAnswerItem(vi: 'Cuộc họp', en: 'our meeting'),
-    FabAnswerItem(vi: 'Thực hiện thay đổi', en: 'make a few alterations'),
-    FabAnswerItem(
-      vi: 'Chuyển tới cổ đông',
-      en: 'is delivered to the shareholders',
-    ),
-    FabAnswerItem(vi: 'Sẵn sàng', en: 'ready'),
-    FabAnswerItem(vi: 'Chưa phô-tô', en: 'haven\'t made any copies'),
-    FabAnswerItem(vi: 'Thực hiện bất kỳ thay đổi', en: 'make any changes'),
-    FabAnswerItem(vi: 'Nên thực hiện ngay', en: 'we\'d better do it now'),
-    FabAnswerItem(vi: 'Mắc sai sót', en: 'made a mistake'),
-    FabAnswerItem(vi: 'Tổng doanh thu', en: 'the total revenue'),
-    FabAnswerItem(vi: 'Dẫn đến', en: 'resulted in'),
-    FabAnswerItem(vi: 'Đưa lại báo cáo', en: 'giving back the report'),
-    FabAnswerItem(vi: 'Phòng kế toán', en: 'the accounting department'),
-    FabAnswerItem(vi: 'Chỉnh sửa', en: 'make the corrections'),
-    FabAnswerItem(vi: 'Làm ngay', en: 'do it right away'),
-    FabAnswerItem(vi: 'Gửi bản sao', en: 'send you a copy of the report'),
-    FabAnswerItem(vi: 'Hoàn thành', en: 'is finished'),
+    FabAnswerItem(vi: 'cuộc họp', en: 'our meeting'),
+    FabAnswerItem(vi: 'chưa phô-tô', en: 'haven\'t made any copies'),
+    FabAnswerItem(vi: 'thực hiện thay đổi', en: 'make any changes'),
+    FabAnswerItem(vi: 'mắc sai sót', en: 'made a mistake'),
+    FabAnswerItem(vi: 'tổng doanh thu', en: 'the total revenue'),
+    FabAnswerItem(vi: 'đưa lại báo cáo', en: 'giving back the report'),
+    FabAnswerItem(vi: 'chỉnh sửa', en: 'make the corrections'),
+    FabAnswerItem(vi: 'làm ngay', en: 'do it right away'),
+    FabAnswerItem(vi: 'gửi bản sao', en: 'send you a copy of the report'),
+    FabAnswerItem(vi: 'hoàn thành', en: 'finished'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 Vocabulary (Stock Market)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'stock market',
       wordVi: 'Thị trường chứng khoán',
       pronunciation: '/ˈstɑːk ˈmɑːrkɪt/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'shares dropped',
       wordVi: 'Giá giảm',
       pronunciation: '/ʃerz drɑːpt/',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'revenue expectations',
       wordVi: 'Kỳ vọng doanh thu',
       pronunciation: '/ˈrevənuː ɪkˌspektˈeɪʃənz/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'percentage',
       wordVi: 'Phần trăm',
       pronunciation: '/pərˈsentɪdʒ/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'decline',
       wordVi: 'Sụt giảm',
       pronunciation: '/dɪˈklaɪn/',
@@ -544,62 +542,75 @@ class Theme9Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(phrase: 'Stock prices dropped', meaning: 'Giá cổ phiếu giảm'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Stock prices dropped',
+      meaning: 'Giá cổ phiếu giảm',
+    ),
+    const FabPhraseItem(
       phrase: 'Miss revenue expectations',
       meaning: 'Không đạt kỳ vọng doanh thu',
     ),
-    FabPhraseItem(phrase: 'Cut back prediction', meaning: 'Cắt giảm dự báo'),
-    FabPhraseItem(phrase: 'Close at a price', meaning: 'Chốt phiên ở mức giá'),
-    FabPhraseItem(phrase: 'Previous low', meaning: 'Mức thấp trước'),
+    const FabPhraseItem(
+      phrase: 'Cut back prediction',
+      meaning: 'Cắt giảm dự báo',
+    ),
+    const FabPhraseItem(
+      phrase: 'Close at a price',
+      meaning: 'Chốt phiên ở mức giá',
+    ),
+    const FabPhraseItem(phrase: 'Previous low', meaning: 'Mức thấp trước'),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(vi: 'Đài phát thanh', en: 'radio station'),
-    FabAnswerItem(vi: 'Tin tức mới nhất', en: 'the latest news'),
-    FabAnswerItem(vi: 'Thị trường chứng khoán', en: 'the stock market'),
-    FabAnswerItem(vi: 'Cổ phiếu', en: 'shares'),
-    FabAnswerItem(vi: 'Mức giá thấp nhất', en: 'their lowest price'),
-    FabAnswerItem(vi: 'Không đạt kỳ vọng', en: 'missed revenue expectations'),
-    FabAnswerItem(vi: 'Cắt giảm dự báo', en: 'cut back its prediction'),
-    FabAnswerItem(vi: 'Giảm xuống', en: 'dropped'),
-    FabAnswerItem(vi: 'Chốt phiên', en: 'to close at'),
-    FabAnswerItem(vi: 'Mức thấp trước', en: 'previous low'),
-    FabAnswerItem(vi: 'Giảm xuống', en: 'have gone down'),
-    FabAnswerItem(vi: 'Báo cáo sụt giảm', en: 'reported a decline'),
-    FabAnswerItem(vi: 'Doanh thu quý 2', en: 'second-quarter revenue'),
-    FabAnswerItem(vi: 'Hạ thấp mục tiêu', en: 'reduce its target'),
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(vi: 'đài phát thanh NCC', en: 'NCC radio station'),
+    FabAnswerItem(vi: 'bản tin mới nhất', en: 'the latest news'),
+    FabAnswerItem(vi: 'thị trường chứng khoán', en: 'the stock market'),
+    FabAnswerItem(vi: 'cổ phiếu', en: 'shares'),
+    FabAnswerItem(vi: 'giảm xuống', en: 'dropped'),
+    FabAnswerItem(vi: 'mức giá thấp nhất', en: 'their lowest price'),
+    FabAnswerItem(
+      vi: 'không đạt kỳ vọng doanh thu',
+      en: 'missed revenue expectations',
+    ),
+    FabAnswerItem(vi: 'cắt giảm dự báo', en: 'cut back its prediction'),
+    FabAnswerItem(vi: 'giảm', en: 'dropped'),
+    FabAnswerItem(vi: 'chốt ở mức', en: 'close at'),
+    FabAnswerItem(vi: 'mức thấp', en: 'low'),
+    FabAnswerItem(vi: 'giảm xuống', en: 'have gone down'),
+    FabAnswerItem(vi: 'báo cáo sụt giảm', en: 'reported a decline'),
+    FabAnswerItem(vi: 'doanh thu quý 2', en: 'second-quarter revenue'),
+    FabAnswerItem(vi: 'hạ thấp mục tiêu', en: 'reduce its target'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 Vocabulary (Mortgage)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'mortgage',
       wordVi: 'Khoản vay thế chấp',
       pronunciation: '/ˈmɔːrɡɪdʒ/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'down payment',
       wordVi: 'Thanh toán trước',
       pronunciation: '/ˈdaʊn ˈpeɪmənt/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'savings account',
       wordVi: 'Tài khoản tiết kiệm',
       pronunciation: '/ˈseɪvɪŋz əˈkaʊnt/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'monthly income',
       wordVi: 'Thu nhập hàng tháng',
       pronunciation: '/ˈmʌnθli ˈɪŋkəm/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'lender',
       wordVi: 'Bên cho vay',
       pronunciation: '/ˈlendər/',
@@ -608,36 +619,39 @@ class Theme9Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Qualify for a mortgage',
       meaning: 'Đủ tiêu chuẩn vay thế chấp',
     ),
-    FabPhraseItem(phrase: 'Meet requirements', meaning: 'Đáp ứng yêu cầu'),
-    FabPhraseItem(phrase: 'Make a down payment', meaning: 'Thanh toán trước'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Meet requirements',
+      meaning: 'Đáp ứng yêu cầu',
+    ),
+    const FabPhraseItem(
+      phrase: 'Make a down payment',
+      meaning: 'Thanh toán trước',
+    ),
+    const FabPhraseItem(
       phrase: 'Show proof of income',
       meaning: 'Chứng minh thu nhập',
     ),
-    FabPhraseItem(phrase: 'In a timely manner', meaning: 'Đúng hạn'),
+    const FabPhraseItem(phrase: 'In a timely manner', meaning: 'Đúng hạn'),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Khoản vay thế chấp mua nhà', en: 'a home mortgage'),
-    FabAnswerItem(vi: 'Đáp ứng yêu cầu', en: 'meet a few requirements'),
-    FabAnswerItem(vi: 'Thanh toán trước', en: 'make a down payment'),
-    FabAnswerItem(vi: 'Chứng minh', en: 'show that'),
-    FabAnswerItem(vi: 'Công việc hiện tại', en: 'your current job'),
-    FabAnswerItem(vi: 'Ít nhất', en: 'at least'),
-    FabAnswerItem(vi: 'Địa chỉ hiện tại', en: 'your current address'),
-    FabAnswerItem(vi: 'Tài khoản tiết kiệm', en: 'a savings account'),
-    FabAnswerItem(vi: 'Số dư', en: 'a balance'),
-    FabAnswerItem(vi: 'Thu nhập hàng tháng', en: 'your monthly income'),
-    FabAnswerItem(vi: 'Đảm bảo', en: 'assure the lender'),
-    FabAnswerItem(
-      vi: 'Thanh toán hàng tháng',
-      en: 'make your monthly mortgage payments',
-    ),
-    FabAnswerItem(vi: 'Đúng hạn', en: 'in a timely manner'),
+  static List<FabAnswerItem> get shortTalk2Answers => const [
+    FabAnswerItem(vi: 'một khoản vay thế chấp mua nhà', en: 'a home mortgage'),
+    FabAnswerItem(vi: 'đáp ứng yêu cầu', en: 'meet a few requirements'),
+    FabAnswerItem(vi: 'thanh toán trước', en: 'make a down payment'),
+    FabAnswerItem(vi: 'chứng minh', en: 'show that'),
+    FabAnswerItem(vi: 'công việc hiện tại', en: 'current job'),
+    FabAnswerItem(vi: 'ít nhất', en: 'at least'),
+    FabAnswerItem(vi: 'địa chỉ hiện tại', en: 'current address'),
+    FabAnswerItem(vi: 'một tài khoản tiết kiệm', en: 'a savings account'),
+    FabAnswerItem(vi: 'một số dư', en: 'a balance'),
+    FabAnswerItem(vi: 'thu nhập hàng tháng', en: 'monthly income'),
+    FabAnswerItem(vi: 'đảm bảo', en: 'assure'),
+    FabAnswerItem(vi: 'thanh toán hàng tháng', en: 'monthly mortgage payments'),
+    FabAnswerItem(vi: 'đúng hạn', en: 'a timely manner'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
@@ -755,7 +769,7 @@ Các bài hội thoại thường là giữa một người giám sát hoặc ng
     const MixedSegment.english(
       ' 250 or even 300 words per minute, students will ',
     ),
-    const MixedSegment.vietnamese('cẩn làm quen với', 'need to get used to'),
+    const MixedSegment.vietnamese('cần làm quen với', 'need to get used to'),
     const MixedSegment.english(
       ' listening to tape scripts in which the rate of speech ',
     ),
@@ -779,6 +793,20 @@ Các bài hội thoại thường là giữa một người giám sát hoặc ng
         titleVi: 'Luyện tập 1: Hội thoại - Báo cáo tài chính',
         audioTrackKey: 'track_36',
         questions: _practice1Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (A): M nói "copies... for our meeting tomorrow" = Trong một văn phòng.',
+            en: 'Q1 (A): M says "copies... for our meeting tomorrow" = In an office.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (C): M nói "accountant made a mistake when she calculated... resulted in several incorrect numbers" = Có sai sót trong báo cáo.',
+            en: 'Q2 (C): M says "accountant made a mistake when she calculated... resulted in several incorrect numbers" = There are errors in it.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (D): M đề nghị "giving back the report to the accounting department" = Đưa báo cáo lại phòng kế toán.',
+            en: 'Q3 (D): M suggests "giving back the report to the accounting department" = Bring the report to the accounting department.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme09_day2_quiz2',
@@ -787,6 +815,20 @@ Các bài hội thoại thường là giữa một người giám sát hoặc ng
         titleVi: 'Luyện tập 2: Bài ngắn - Tin thị trường chứng khoán',
         audioTrackKey: 'track_37',
         questions: _practice2Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (A): "shares of AAS Technologies dropped to their lowest price in two years" = Mức thấp nhất trong 2 năm.',
+            en: 'Q4 (A): "shares of AAS Technologies dropped to their lowest price in two years" = They are at their lowest level in two years.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (D): "company missed revenue expectations and cut back its prediction" = Doanh thu thấp hơn dự đoán.',
+            en: 'Q5 (D): "company missed revenue expectations and cut back its prediction" = Their revenues will be lower than expected.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (C): "close at forty-five dollar and fifty cents" = 45.50 đô-la.',
+            en: 'Q6 (C): "close at forty-five dollar and fifty cents" = \$45.50.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme09_day2_quiz3',
@@ -795,6 +837,20 @@ Các bài hội thoại thường là giữa một người giám sát hoặc ng
         titleVi: 'Luyện tập 3: Bài ngắn - Yêu cầu khoản vay thế chấp',
         audioTrackKey: 'track_38',
         questions: _practice3Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (B): Bài nói về quy trình "qualify for a home mortgage" = Những người muốn vay tiền mua nhà.',
+            en: 'Q7 (B): The talk discusses how to "qualify for a home mortgage" = People who want to borrow money.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (D): "you have to be able to make a down payment of 20 percent" = 20 phần trăm.',
+            en: 'Q8 (D): "you have to be able to make a down payment of 20 percent" = 20 percent.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (B): "living at your current address for over five years" = Một địa chỉ hiện tại (ổn định).',
+            en: 'Q9 (B): "living at your current address for over five years" = A current address.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme09_day2_translate1',
@@ -872,7 +928,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
   // QUIZ QUESTIONS
   // ═══════════════════════════════════════════════════════════════
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q01',
       questionText: 'Where is this conversation taking place?',
       options: [
@@ -885,7 +941,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
       audioTrackKey: 'track_36',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q02',
       questionText: 'Why do they need to make changes to the report?',
       options: [
@@ -898,7 +954,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
       audioTrackKey: 'track_36',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q03',
       questionText: 'What is the woman going to do next?',
       options: [
@@ -914,7 +970,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q04',
       questionText: 'What is true about AAS Technologies share prices?',
       options: [
@@ -927,7 +983,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
       audioTrackKey: 'track_37',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q05',
       questionText: 'What did AAS Technologies announce?',
       options: [
@@ -940,7 +996,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
       audioTrackKey: 'track_37',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q06',
       questionText: 'What was the final price for shares of AAS Technologies?',
       options: ['(A) \$0.75', '(B) \$1.70', '(C) \$45.50', '(D) \$46.15'],
@@ -951,7 +1007,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q07',
       questionText: 'Who is this talk intended for?',
       options: [
@@ -964,7 +1020,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
       audioTrackKey: 'track_38',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q08',
       questionText: 'How big a down payment is required?',
       options: [
@@ -977,7 +1033,7 @@ W: Vâng, được ạ. Tôi sẽ làm ngay và sẽ gửi ông bản sao của 
       audioTrackKey: 'track_38',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme09_q09',
       questionText: 'Which of the following is a requirement?',
       options: [

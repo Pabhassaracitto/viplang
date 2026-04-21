@@ -216,7 +216,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
       isUnlocked: true,
     ),
     ThemeModel(
-      id: 'theme_12_housing',
+      id: 'theme_12_housing_property',
       themeNumber: 12,
       titleEn: 'Housing/Corporate Property',
       titleVi: 'Nhà Đất và Tài Sản',

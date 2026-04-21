@@ -72,7 +72,7 @@ class _ThemeListScreenState extends State<ThemeListScreen> {
       ),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -183,7 +183,7 @@ class _ThemeCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: isLocked
-                      ? Icon(
+                      ? const Icon(
                           Icons.lock_rounded,
                           color: AppColors.textTertiary,
                           size: 28,

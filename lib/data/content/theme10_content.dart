@@ -359,61 +359,61 @@ class Theme10Content {
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'corporate development',
       wordVi: 'Phát triển sản phẩm trong doanh nghiệp',
       pronunciation: '/ˈkɔːrpərət dɪˈveləpmənt/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'customer feedback',
       wordVi: 'Phản hồi của khách hàng',
       pronunciation: '/ˈkʌstəmər ˈfiːdbæk/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'marketing strategy',
       wordVi: 'Chiến lược tiếp thị',
       pronunciation: '/ˈmɑːrkɪtɪŋ ˈstrætədʒi/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'advertising campaign',
       wordVi: 'Chiến dịch quảng cáo',
       pronunciation: '/ˈædvərtaɪzɪŋ kæmˈpeɪn/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'competitor',
       wordVi: 'Đối thủ cạnh tranh',
       pronunciation: '/kəmˈpetɪtər/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'upgrade',
       wordVi: 'Sự nâng cấp',
       pronunciation: '/ˈʌpɡreɪd/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'modify',
       wordVi: 'Sửa đổi',
       pronunciation: '/ˈmɑːdɪfaɪ/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'initiate',
       wordVi: 'Khởi xướng',
       pronunciation: '/ɪˈnɪʃieɪt/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'concept',
       wordVi: 'Khái niệm',
       pronunciation: '/ˈkɑːnsept/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'passage',
       wordVi: 'Đoạn văn',
       pronunciation: '/ˈpæsɪdʒ/',
@@ -422,95 +422,98 @@ class Theme10Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Apply to companies',
       meaning: 'Áp dụng đối với công ty',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Research and development',
       meaning: 'Nghiên cứu và phát triển',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'It will be easier to follow',
       meaning: 'Sẽ dễ dàng hơn khi theo dõi',
     ),
-    FabPhraseItem(phrase: 'Either...or', meaning: 'Hoặc...hoặc'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Either...or', meaning: 'Hoặc...hoặc'),
+    const FabPhraseItem(
       phrase: 'Goes about developing',
       meaning: 'Thực hiện việc phát triển',
     ),
-    FabPhraseItem(phrase: 'Double passages', meaning: 'Bài đọc hai đoạn văn'),
+    const FabPhraseItem(
+      phrase: 'Double passages',
+      meaning: 'Bài đọc hai đoạn văn',
+    ),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
-    FabAnswerItem(vi: 'Các cấu trúc ngôn ngữ', en: 'language structures'),
-    FabAnswerItem(vi: 'Việc nghiên cứu', en: 'research'),
-    FabAnswerItem(vi: 'Phản hồi của khách hàng', en: 'customer feedback'),
+  static List<FabAnswerItem> get readingAnswers => const [
+    FabAnswerItem(vi: 'các cấu trúc ngôn ngữ', en: 'language structures'),
+    FabAnswerItem(vi: 'việc nghiên cứu', en: 'research'),
+    FabAnswerItem(vi: 'phản hồi của khách hàng', en: 'customer feedback'),
     FabAnswerItem(
-      vi: 'Các sản phẩm hiện có hay sản phẩm mới',
+      vi: 'các sản phẩm hiện có hay sản phẩm mới',
       en: 'existing or new products',
     ),
-    FabAnswerItem(vi: 'Cũng áp dụng với', en: 'also applies to'),
+    FabAnswerItem(vi: 'cũng áp dụng với', en: 'also applies to'),
     FabAnswerItem(
-      vi: 'Một sản phẩm được sản xuất',
+      vi: 'một sản phẩm được sản xuất',
       en: 'a manufactured product',
     ),
     FabAnswerItem(
-      vi: 'Nghiên cứu và phát triển',
+      vi: 'nghiên cứu và phát triển',
       en: 'research and development',
     ),
-    FabAnswerItem(vi: 'Chiến dịch quảng cáo', en: 'advertising campaign'),
-    FabAnswerItem(vi: 'Việc nâng cấp', en: 'upgrade'),
-    FabAnswerItem(vi: 'Đối thủ cạnh tranh', en: 'competitor'),
-    FabAnswerItem(vi: 'Thiết kế', en: 'design'),
-    FabAnswerItem(vi: 'Sửa đổi', en: 'modify'),
-    FabAnswerItem(vi: 'Giới thiệu', en: 'introduce'),
-    FabAnswerItem(vi: 'Khái niệm', en: 'concept'),
+    FabAnswerItem(vi: 'chiến dịch quảng cáo', en: 'advertising campaign'),
+    FabAnswerItem(vi: 'việc nâng cấp', en: 'upgrade'),
+    FabAnswerItem(vi: 'đối thủ cạnh tranh', en: 'competitor'),
+    FabAnswerItem(vi: 'thiết kế', en: 'design'),
+    FabAnswerItem(vi: 'sửa đổi', en: 'modify'),
+    FabAnswerItem(vi: 'giới thiệu', en: 'introduce'),
+    FabAnswerItem(vi: 'khái niệm', en: 'concept'),
     FabAnswerItem(
-      vi: 'Việc phát triển hoặc cải tiến',
+      vi: 'việc phát triển hoặc cải tiến',
       en: 'developing or improving',
     ),
     FabAnswerItem(
-      vi: 'Tại sao điều này lại quan trọng',
+      vi: 'tại sao điều này lại quan trọng',
       en: 'why this is important',
     ),
-    FabAnswerItem(vi: 'Trong các buổi họp', en: 'in meetings'),
-    FabAnswerItem(vi: 'Hai người nói', en: 'two speakers'),
-    FabAnswerItem(vi: 'Sẽ dễ dàng hơn', en: 'will be easier'),
-    FabAnswerItem(vi: 'Những bài đọc kép', en: 'double passages'),
-    FabAnswerItem(vi: 'Thường là', en: 'commonly'),
-    FabAnswerItem(vi: 'Một chuyên đề chính', en: 'a major theme'),
+    FabAnswerItem(vi: 'trong các buổi họp', en: 'in meetings'),
+    FabAnswerItem(vi: 'hai người nói', en: 'two speakers'),
+    FabAnswerItem(vi: 'sẽ dễ dàng hơn', en: 'will be easier'),
+    FabAnswerItem(vi: 'những bài đọc kép', en: 'double passages'),
+    FabAnswerItem(vi: 'thường là', en: 'commonly'),
+    FabAnswerItem(vi: 'một chuyên đề chính', en: 'a major theme'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'outperform',
       wordVi: 'Vượt mặt, vượt trội hơn',
       pronunciation: '/ˌaʊtpərˈfɔːrm/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'marketing campaign',
       wordVi: 'Chiến dịch tiếp thị',
       pronunciation: '/ˈmɑːrkɪtɪŋ kæmˈpeɪn/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'strong point',
       wordVi: 'Điểm mạnh',
       pronunciation: '/strɔːŋ pɔɪnt/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'emphasize',
       wordVi: 'Nhấn mạnh',
       pronunciation: '/ˈemfəsaɪz/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'promote',
       wordVi: 'Quảng bá',
       pronunciation: '/prəˈmoʊt/',
@@ -519,88 +522,94 @@ class Theme10Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Outperform competitors',
       meaning: 'Vượt mặt đối thủ cạnh tranh',
     ),
-    FabPhraseItem(phrase: 'Focus on prices', meaning: 'Tập trung vào giá cả'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Focus on prices',
+      meaning: 'Tập trung vào giá cả',
+    ),
+    const FabPhraseItem(
       phrase: 'Promote our strong point',
       meaning: 'Quảng bá điểm mạnh của chúng ta',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Start developing advertisements',
       meaning: 'Bắt đầu phát triển quảng cáo',
     ),
-    FabPhraseItem(phrase: 'Focus more on', meaning: 'Tập trung nhiều hơn vào'),
+    const FabPhraseItem(
+      phrase: 'Focus more on',
+      meaning: 'Tập trung nhiều hơn vào',
+    ),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
-    FabAnswerItem(vi: 'Các sản phẩm của chúng ta', en: 'our products'),
-    FabAnswerItem(vi: 'Một chất lượng cao hơn', en: 'a higher quality'),
-    FabAnswerItem(vi: 'Trên thị trường', en: 'in the market'),
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(vi: 'các sản phẩm của chúng ta', en: 'our products'),
+    FabAnswerItem(vi: 'một chất lượng cao hơn', en: 'a higher quality'),
+    FabAnswerItem(vi: 'trên thị trường', en: 'in the market'),
     FabAnswerItem(
-      vi: 'Những đối thủ cạnh tranh lớn nhất của chúng ta',
+      vi: 'những đối thủ cạnh tranh lớn nhất của chúng ta',
       en: 'our biggest competitors',
     ),
-    FabAnswerItem(vi: 'Vượt mặt chúng ta', en: 'outperform us'),
+    FabAnswerItem(vi: 'vượt mặt chúng ta', en: 'outperform us'),
     FabAnswerItem(vi: 'Chắc phải có điều gì đó', en: 'There must be something'),
-    FabAnswerItem(vi: 'Đã và đang làm sai', en: 'have been doing wrong'),
+    FabAnswerItem(vi: 'đã và đang làm sai', en: 'have been doing wrong'),
     FabAnswerItem(
-      vi: 'Các chiến dịch tiếp thị của chúng ta',
+      vi: 'các chiến dịch tiếp thị của chúng ta',
       en: 'our marketing campaigns',
     ),
-    FabAnswerItem(vi: 'Giá cả', en: 'prices'),
+    FabAnswerItem(vi: 'giá cả', en: 'prices'),
     FabAnswerItem(
-      vi: 'Sẽ luôn cao hơn so với',
+      vi: 'sẽ luôn cao hơn so với',
       en: 'are always going to be higher than',
     ),
-    FabAnswerItem(vi: 'Lý do tại sao', en: 'the reason why'),
+    FabAnswerItem(vi: 'lý do tại sao', en: 'the reason why'),
     FabAnswerItem(
-      vi: 'Chọn các sản phẩm của chúng ta',
+      vi: 'chọn các sản phẩm của chúng ta',
       en: 'choose our products',
     ),
     FabAnswerItem(
-      vi: 'Nên tập trung nhiều hơn vào',
+      vi: 'nên tập trung nhiều hơn vào',
       en: 'should focus more on',
     ),
     FabAnswerItem(
-      vi: 'Những sản phẩm chất lượng tốt hơn nhiều',
+      vi: 'những sản phẩm chất lượng tốt hơn nhiều',
       en: 'much better quality products',
     ),
-    FabAnswerItem(vi: 'Phải quảng bá', en: 'have to promote'),
-    FabAnswerItem(vi: 'Bắt đầu phát triển', en: 'start developing'),
+    FabAnswerItem(vi: 'phải quảng bá', en: 'have to promote'),
+    FabAnswerItem(vi: 'bắt đầu phát triển', en: 'start developing'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 (Planet Pizza)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'director of marketing',
       wordVi: 'Giám đốc tiếp thị',
       pronunciation: '/dɪˈrektər əv ˈmɑːrkɪtɪŋ/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'pizza chain',
       wordVi: 'Chuỗi cửa hàng pizza',
       pronunciation: '/ˈpiːtsə tʃeɪn/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'franchise owner',
       wordVi: 'Chủ sở hữu cửa hàng nhượng quyền',
       pronunciation: '/ˈfræntʃaɪz ˈoʊnər/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'shopping mall',
       wordVi: 'Trung tâm thương mại',
       pronunciation: '/ˈʃɑːpɪŋ mɔːl/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'decade',
       wordVi: 'Thập kỷ',
       pronunciation: '/ˈdekeɪd/',
@@ -609,83 +618,86 @@ class Theme10Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Set a goal to do sth',
       meaning: 'Đặt ra mục tiêu làm gì',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'By the end of the decade',
       meaning: 'Tính đến cuối thập kỷ này',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Be interested in',
       meaning: 'Quan tâm đến, có hứng thú với',
     ),
-    FabPhraseItem(phrase: 'Get into detail', meaning: 'Đi vào chi tiết'),
-    FabPhraseItem(phrase: 'Expand nationwide', meaning: 'Mở rộng ra toàn quốc'),
+    const FabPhraseItem(phrase: 'Get into detail', meaning: 'Đi vào chi tiết'),
+    const FabPhraseItem(
+      phrase: 'Expand nationwide',
+      meaning: 'Mở rộng ra toàn quốc',
+    ),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(vi: 'Giám đốc tiếp thị', en: 'director of marketing'),
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(vi: 'giám đốc tiếp thị', en: 'director of marketing'),
     FabAnswerItem(
-      vi: 'Những chuỗi pizza thành công nhất',
+      vi: 'những chuỗi pizza thành công nhất',
       en: 'most successful pizza chains',
     ),
-    FabAnswerItem(vi: 'Đã mở được', en: 'have opened'),
-    FabAnswerItem(vi: 'Ở khu vực phía Bắc', en: 'in the Northern region'),
-    FabAnswerItem(vi: 'Mở rộng ra toàn quốc', en: 'expand nationwide'),
-    FabAnswerItem(vi: 'Đặt một mục tiêu', en: 'set a goal'),
+    FabAnswerItem(vi: 'đã mở được', en: 'have opened'),
+    FabAnswerItem(vi: 'ở khu vực phía Bắc', en: 'in the Northern region'),
+    FabAnswerItem(vi: 'mở rộng ra toàn quốc', en: 'expand nationwide'),
+    FabAnswerItem(vi: 'đặt một mục tiêu', en: 'set a goal'),
     FabAnswerItem(
-      vi: 'Ở mọi trung tâm thương mại',
+      vi: 'ở mọi trung tâm thương mại',
       en: 'in every shopping mall',
     ),
     FabAnswerItem(
-      vi: 'Tính đến cuối thập kỷ này',
+      vi: 'tính đến cuối thập kỷ này',
       en: 'by the end of the decade',
     ),
-    FabAnswerItem(vi: 'Trên khắp đất nước', en: 'all over the country'),
-    FabAnswerItem(vi: 'Có hứng thú với', en: 'are interested in'),
+    FabAnswerItem(vi: 'trên khắp đất nước', en: 'all over the country'),
+    FabAnswerItem(vi: 'có hứng thú với', en: 'are interested in'),
     FabAnswerItem(
-      vi: 'Một người sở hữu cửa hàng nhượng quyền',
+      vi: 'một người sở hữu cửa hàng nhượng quyền',
       en: 'a franchise owner',
     ),
     FabAnswerItem(
-      vi: 'Công việc kinh doanh phát triển nhanh chóng',
+      vi: 'công việc kinh doanh phát triển nhanh chóng',
       en: 'rapidly-expanding business',
     ),
-    FabAnswerItem(vi: 'Kiếm tiền', en: 'make money'),
-    FabAnswerItem(vi: 'Đi vào chi tiết', en: 'get into detail'),
+    FabAnswerItem(vi: 'kiếm tiền', en: 'make money'),
+    FabAnswerItem(vi: 'đi vào chi tiết', en: 'get into detail'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 (Sales Strategy)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'worthwhile',
       wordVi: 'Đáng giá, có giá trị',
       pronunciation: '/ˌwɜːrθˈwaɪl/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'inspire',
       wordVi: 'Truyền cảm hứng',
       pronunciation: '/ɪnˈspaɪər/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'unique',
       wordVi: 'Độc đáo, duy nhất',
       pronunciation: '/juːˈniːk/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'representation',
       wordVi: 'Bài giới thiệu, sự trình bày',
       pronunciation: '/ˌreprɪzenˈteɪʃən/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'convince',
       wordVi: 'Thuyết phục',
       pronunciation: '/kənˈvɪns/',
@@ -694,69 +706,69 @@ class Theme10Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Keep in mind (that)',
       meaning: 'Ghi nhớ, hãy lưu tâm (rằng)',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Attract new customers',
       meaning: 'Thu hút khách hàng mới',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Offer something worthwhile',
       meaning: 'Mang lại điều gì đó đáng giá',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Make their own comparison',
       meaning: 'Tự đưa ra so sánh của riêng họ',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Best representation possible',
       meaning: 'Bài giới thiệu tốt nhất có thể',
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Ghi nhớ', en: 'keep in mind'),
+  static List<FabAnswerItem> get shortTalk2Answers => const [
+    FabAnswerItem(vi: 'ghi nhớ', en: 'keep in mind'),
     FabAnswerItem(
-      vi: 'Để thu hút khách hàng mới',
+      vi: 'để thu hút khách hàng mới',
       en: 'to attract new customers',
     ),
     FabAnswerItem(
-      vi: 'Mang lại điều gì đó đáng giá',
+      vi: 'mang lại điều gì đó đáng giá',
       en: 'offer something worthwhile',
     ),
-    FabAnswerItem(vi: 'Cần phải truyền cảm hứng', en: 'need to inspire'),
+    FabAnswerItem(vi: 'cần phải truyền cảm hứng', en: 'need to inspire'),
     FabAnswerItem(
-      vi: 'Thử những sản phẩm hay dịch vụ của chúng ta',
+      vi: 'thử những sản phẩm hay dịch vụ của chúng ta',
       en: 'try our products or services',
     ),
     FabAnswerItem(
-      vi: 'Tự đưa ra so sánh của riêng họ',
+      vi: 'tự đưa ra so sánh của riêng họ',
       en: 'make their own comparison',
     ),
-    FabAnswerItem(vi: 'Sẽ thuyết phục', en: 'will persuade'),
+    FabAnswerItem(vi: 'sẽ thuyết phục', en: 'will persuade'),
     FabAnswerItem(
-      vi: 'Những đối thủ cạnh tranh của chúng ta',
+      vi: 'những đối thủ cạnh tranh của chúng ta',
       en: 'our competitors',
     ),
     FabAnswerItem(
-      vi: 'Khiến chúng ta trở nên khác biệt',
+      vi: 'khiến chúng ta trở nên khác biệt',
       en: 'makes us unique',
     ),
     FabAnswerItem(
-      vi: 'Trong suốt buổi hội thảo của chúng ta',
+      vi: 'trong suốt buổi hội thảo của chúng ta',
       en: 'during our workshop',
     ),
-    FabAnswerItem(vi: 'Không dừng lại ở đó', en: 'doesn\'t stop there'),
-    FabAnswerItem(vi: 'Nghĩ về', en: 'think about'),
+    FabAnswerItem(vi: 'không dừng lại ở đó', en: 'doesn\'t stop there'),
+    FabAnswerItem(vi: 'nghĩ về', en: 'think about'),
     FabAnswerItem(
-      vi: 'Quảng bá các sản phẩm của chúng ta tốt nhất',
+      vi: 'quảng bá các sản phẩm của chúng ta tốt nhất',
       en: 'best promote our products',
     ),
-    FabAnswerItem(vi: 'Các khách hàng ở cửa hàng', en: 'store clients'),
+    FabAnswerItem(vi: 'các khách hàng ở cửa hàng', en: 'store clients'),
     FabAnswerItem(
-      vi: 'Bài giới thiệu tốt nhất có thể',
+      vi: 'bài giới thiệu tốt nhất có thể',
       en: 'the best representation possible',
     ),
   ];
@@ -801,8 +813,22 @@ Phát triển sản phẩm trong doanh nghiệp không phải là một chuyên 
         titleEn: 'Step 2: Listen & Translate',
         titleVi: 'Bước 2: Nghe và Dịch',
         audioTrackKey: 'track_39',
-        contentEn: null,
-        contentVi: null,
+        contentEn:
+            '''This theme includes language structures used to describe research into products, customer feedback, marketing strategy and the development of existing or new products. Note that Corporate Development also applies to companies that supply a 'service' instead of a manufactured product.
+
+        Key lexicon for this theme will include words related to research and development such as: (nouns) advertising campaign, component, procedure, requirement, schedule, upgrade, warranty, customer feedback questionnaire, competitor; (verbs) initiate, design, survey, modify, poll, introduce, respond.
+
+        The student will also need to understand the concept of how a company goes about developing or improving a service or product and why this is important. In the listening, conversations will often be in meetings but usually only two speakers are involved so it will be easier to follow what is being said. In the reading, there will be either single or double passages and these are commonly emails or memos.
+
+        Corporate Development is not a major theme of the TOEIC test but each test will certainly include three or four references to it.''',
+        contentVi:
+            '''Chuyên đề này bao gồm các cấu trúc ngôn ngữ được sử dụng để miêu tả các nghiên cứu về sản phẩm, phản hồi của khách hàng, chiến lược marketing và sự phát triển các sản phẩm hiện có hoặc sản phẩm mới. Cần chú ý rằng phát triển sản phẩm trong doanh nghiệp cũng áp dụng cho các công ty cung cấp 'dịch vụ' thay vì những sản phẩm sản xuất.
+
+        Từ vựng chủ yếu cho chuyên đề này gồm các từ liên quan tới nghiên cứu và phát triển như là: (danh từ) chiến dịch quảng cáo, cấu kiện sản phẩm, quy trình, yêu cầu, lịch trình, nâng cấp, bảo hành, bản câu hỏi khảo sát phản hồi khách hàng, đối thủ cạnh tranh; (động từ) khởi xướng, thiết kế, khảo sát, sửa đổi, thăm dò ý kiến, giới thiệu, phản hồi.
+
+        Học viên cũng cần hiểu khái niệm về cách mà một công ty thực hiện việc phát triển hay cải tiến một sản phẩm hoặc dịch vụ và vì sao điều này lại quan trọng. Trong phần nghe, các đoạn hội thoại thường là trong bối cảnh của các cuộc họp nhưng chỉ hai người nói tham gia vào và vì vậy cũng sẽ dễ dàng hơn khi theo dõi những gì đang được trao đổi. Trong phần đọc, sẽ có cả loại bài đọc một đoạn văn và bài đọc hai đoạn văn và thường là các bức thư điện tử và các thông báo nội bộ.
+
+        Phát triển sản phẩm trong doanh nghiệp không phải là một chuyên đề chính của bài thi TOEIC, nhưng mỗi bài thi chắc chắn sẽ có khoảng ba đến bốn câu liên quan đến chuyên đề này.''',
       ),
       LessonPhase(
         id: 'theme10_day1_phase3',
@@ -938,27 +964,22 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
         questions: _practice1Questions,
         fabVocab: Theme10Content.conversationVocab,
         fabPhrases: Theme10Content.conversationPhrases,
-        fabAnswers: [
+        fabAnswers: const [
           FabAnswerItem(
-            questionNumber: '1',
-            correctAnswer: 'C',
-            explanation:
-                'Họ đang nói về việc theo kịp cạnh tranh - M nói đối thủ vẫn outperform them.',
+            vi: 'Câu 1 (C): Họ đang nói về việc theo kịp cạnh tranh - M nói đối thủ vẫn "outperform us every year".',
+            en: 'Q1 (C): They discuss keeping up with competitors - M says rivals "outperform us every year".',
           ),
           FabAnswerItem(
-            questionNumber: '2',
-            correctAnswer: 'C',
-            explanation:
-                'W nói "our marketing campaigns have been focusing on prices" = dựa trên giá cả.',
+            vi: 'Câu 2 (C): W nói "our marketing campaigns have been focusing on prices" = Dựa trên giá cả.',
+            en: 'Q2 (C): W says "our marketing campaigns have been focusing on prices" = Based on price.',
           ),
           FabAnswerItem(
-            questionNumber: '3',
-            correctAnswer: 'D',
-            explanation:
-                'M đề nghị "focus more on quality" và W đồng ý phát triển quảng cáo nhấn mạnh chất lượng.',
+            vi: 'Câu 3 (D): M đề nghị "focus more on quality" và W đồng ý phát triển quảng cáo nhấn mạnh chất lượng.',
+            en: 'Q3 (D): M suggests "focus more on quality" and W agrees to develop ads emphasizing quality.',
           ),
         ],
       ),
+
       // ── Phase 2: Mind Game (Practice 1) ──
       LessonPhase(
         id: 'theme10_day2_mindgame1',
@@ -970,6 +991,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
         fabPhrases: Theme10Content.conversationPhrases,
         fabAnswers: Theme10Content.conversationAnswers,
       ),
+
       // ── Phase 3: Listening Quiz (Practice 2 - Short Talk 1) ──
       LessonPhase(
         id: 'theme10_day2_quiz2',
@@ -984,27 +1006,22 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
         questions: _practice2Questions,
         fabVocab: Theme10Content.shortTalk1Vocab,
         fabPhrases: Theme10Content.shortTalk1Phrases,
-        fabAnswers: [
+        fabAnswers: const [
           FabAnswerItem(
-            questionNumber: '4',
-            correctAnswer: 'C',
-            explanation:
-                'Bài nói hướng đến người muốn trở thành "franchise owner" = Potential franchisees.',
+            vi: 'Câu 4 (C): Bài nói hướng đến người muốn trở thành "franchise owner" = Chủ nhượng quyền tiềm năng.',
+            en: 'Q4 (C): The talk targets people interested in becoming "franchise owner" = Potential franchisees.',
           ),
           FabAnswerItem(
-            questionNumber: '5',
-            correctAnswer: 'C',
-            explanation:
-                'Elizabeth Harris nói Planet Pizza là "one of the nation\'s most successful pizza chains" = A restaurant chain.',
+            vi: 'Câu 5 (C): Elizabeth Harris nói Planet Pizza là "one of the nation\'s most successful pizza chains" = Chuỗi nhà hàng.',
+            en: 'Q5 (C): Elizabeth Harris says Planet Pizza is "one of the nation\'s most successful pizza chains" = A restaurant chain.',
           ),
           FabAnswerItem(
-            questionNumber: '6',
-            correctAnswer: 'B',
-            explanation:
-                '"I\'m Elizabeth Harris, director of marketing" = Marketing Director.',
+            vi: 'Câu 6 (B): "I\'m Elizabeth Harris, director of marketing" = Giám đốc tiếp thị.',
+            en: 'Q6 (B): "I\'m Elizabeth Harris, director of marketing" = Marketing Director.',
           ),
         ],
       ),
+
       // ── Phase 4: Mind Game (Practice 2) ──
       LessonPhase(
         id: 'theme10_day2_mindgame2',
@@ -1016,6 +1033,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
         fabPhrases: Theme10Content.shortTalk1Phrases,
         fabAnswers: Theme10Content.shortTalk1Answers,
       ),
+
       // ── Phase 5: Listening Quiz (Practice 3 - Short Talk 2) ──
       LessonPhase(
         id: 'theme10_day2_quiz3',
@@ -1030,27 +1048,22 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
         questions: _practice3Questions,
         fabVocab: Theme10Content.shortTalk2Vocab,
         fabPhrases: Theme10Content.shortTalk2Phrases,
-        fabAnswers: [
+        fabAnswers: const [
           FabAnswerItem(
-            questionNumber: '7',
-            correctAnswer: 'D',
-            explanation:
-                'Bài nói nói về cách promote products khi gặp "store clients" = Salespeople.',
+            vi: 'Câu 7 (D): Bài nói về cách promote products khi gặp "store clients" = Nhân viên bán hàng.',
+            en: 'Q7 (D): The talk discusses promoting products when meeting "store clients" = Salespeople.',
           ),
           FabAnswerItem(
-            questionNumber: '8',
-            correctAnswer: 'A',
-            explanation:
-                '"what do you think we offer that the competition does not?" = identifying their potential customers - thực chất là tìm điểm khác biệt. Đáp án A gần nhất với nội dung "attract new customers".',
+            vi: 'Câu 8 (C): "what do you think we offer that the competition does not?" = Xác định điểm mạnh/lợi thế độc đáo.',
+            en: 'Q8 (C): "what do you think we offer that the competition does not?" = Identifying their strong points.',
           ),
           FabAnswerItem(
-            questionNumber: '9',
-            correctAnswer: 'B',
-            explanation:
-                '"We will discuss this question during our workshop tomorrow morning" = Attending a workshop.',
+            vi: 'Câu 9 (B): "We will discuss this question during our workshop tomorrow morning" = Tham dự hội thảo.',
+            en: 'Q9 (B): "We will discuss this question during our workshop tomorrow morning" = Attending a workshop.',
           ),
         ],
       ),
+
       // ── Phase 6: Mind Game (Practice 3) ──
       LessonPhase(
         id: 'theme10_day2_mindgame3',
@@ -1069,7 +1082,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
   // QUIZ QUESTIONS
   // ═══════════════════════════════════════════════════════════════
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q01',
       questionText: 'What are the speakers talking about?',
       options: [
@@ -1082,7 +1095,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
       audioTrackKey: 'track_40',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q02',
       questionText: 'How has the company marketed their products in the past?',
       options: [
@@ -1095,7 +1108,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
       audioTrackKey: 'track_40',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q03',
       questionText: 'What does the man suggest?',
       options: [
@@ -1111,7 +1124,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q04',
       questionText: 'Who are most likely the audience of this talk?',
       options: [
@@ -1124,7 +1137,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
       audioTrackKey: 'track_41',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q05',
       questionText: 'What kind of business is Planet Pizza?',
       options: [
@@ -1137,7 +1150,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
       audioTrackKey: 'track_41',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q06',
       questionText: 'What is Elizabeth Harris\' position in the company?',
       options: [
@@ -1153,7 +1166,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q07',
       questionText: 'Who is this talk aimed at?',
       options: [
@@ -1166,7 +1179,7 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
       audioTrackKey: 'track_42',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q08',
       questionText: 'What are they trying to identify?',
       options: [
@@ -1175,11 +1188,11 @@ W: Vậy thì chúng ta nên yêu cầu nhóm tiếp thị bắt đầu phát tr
         '(C) Their strong points',
         '(D) How to price their service',
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       audioTrackKey: 'track_42',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme10_q09',
       questionText: 'What will the listeners be doing tomorrow morning?',
       options: [

@@ -362,61 +362,61 @@ class Theme11Content {
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'manufacturing',
       wordVi: 'Sản xuất',
       pronunciation: '/ˌmænjuˈfæktʃərɪŋ/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'assembly lines',
       wordVi: 'Các dây chuyền lắp ráp',
       pronunciation: '/əˈsembli laɪnz/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'quality control',
       wordVi: 'Sự kiểm soát chất lượng',
       pronunciation: '/ˈkwɑːlɪti kənˈtroʊl/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'defective',
       wordVi: 'Bị hỏng, bị lỗi',
       pronunciation: '/dɪˈfektɪv/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'automation',
       wordVi: 'Sự tự động hoá',
       pronunciation: '/ˌɔːtəˈmeɪʃən/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'skilled worker',
       wordVi: 'Công nhân lành nghề',
       pronunciation: '/skɪld ˈwɜːrkər/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'maintenance',
       wordVi: 'Sự bảo dưỡng, bảo trì',
       pronunciation: '/ˈmeɪntənəns/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'creative thinking',
       wordVi: 'Tư duy sáng tạo',
       pronunciation: '/kriˈeɪtɪv ˈθɪŋkɪŋ/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'interruption',
       wordVi: 'Sự gián đoạn',
       pronunciation: '/ˌɪntəˈrʌpʃən/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'packaging',
       wordVi: 'Bao bì đóng gói',
       pronunciation: '/ˈpækɪdʒɪŋ/',
@@ -425,86 +425,86 @@ class Theme11Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(phrase: 'Be involved in', meaning: 'Tham gia vào'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Be involved in', meaning: 'Tham gia vào'),
+    const FabPhraseItem(
       phrase: 'Reference to sth',
       meaning: 'Sự nói đến, nhắc đến cái gì',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Come up with solutions',
       meaning: 'Nghĩ ra các giải pháp',
     ),
-    FabPhraseItem(phrase: 'Break down', meaning: 'Bị hỏng hóc'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Break down', meaning: 'Bị hỏng hóc'),
+    const FabPhraseItem(
       phrase: 'Deal with problem solving',
       meaning: 'Giải quyết các vấn đề',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Pursue the Speaking/Writing test',
       meaning: 'Theo đuổi bài thi Nói/Viết',
     ),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
+  static List<FabAnswerItem> get readingAnswers => const [
     FabAnswerItem(vi: 'Sản xuất', en: 'Manufacturing'),
-    FabAnswerItem(vi: 'Trong một nhà máy', en: 'in a factory'),
-    FabAnswerItem(vi: 'Sẽ bao gồm', en: 'will include'),
-    FabAnswerItem(vi: 'Các dây chuyền lắp ráp', en: 'assembly lines'),
-    FabAnswerItem(vi: 'Sự kiểm soát chất lượng', en: 'quality control'),
-    FabAnswerItem(vi: 'Các mối quan hệ lao động', en: 'labour relations'),
-    FabAnswerItem(vi: 'Hiệu quả hoạt động', en: 'efficiency of operations'),
-    FabAnswerItem(vi: 'Tham gia vào', en: 'be involved in'),
+    FabAnswerItem(vi: 'trong một nhà máy', en: 'in a factory'),
+    FabAnswerItem(vi: 'sẽ bao gồm', en: 'will include'),
+    FabAnswerItem(vi: 'các dây chuyền lắp ráp', en: 'assembly lines'),
+    FabAnswerItem(vi: 'sự kiểm soát chất lượng', en: 'quality control'),
+    FabAnswerItem(vi: 'các mối quan hệ lao động', en: 'labour relations'),
+    FabAnswerItem(vi: 'hiệu quả hoạt động', en: 'efficiency of operations'),
+    FabAnswerItem(vi: 'tham gia vào', en: 'be involved in'),
     FabAnswerItem(vi: 'Sự khác biệt chính', en: 'The main difference'),
-    FabAnswerItem(vi: 'Một tòa nhà văn phòng', en: 'an office building'),
-    FabAnswerItem(vi: 'Bị hỏng/ bị lỗi', en: 'defective'),
-    FabAnswerItem(vi: 'Những lỗi', en: 'flaws'),
-    FabAnswerItem(vi: 'Công nhân lành nghề', en: 'skilled worker'),
-    FabAnswerItem(vi: 'Việc đóng gói hàng', en: 'packaging'),
-    FabAnswerItem(vi: 'Quá trình', en: 'process'),
-    FabAnswerItem(vi: 'Được lắp ráp', en: 'assembled'),
-    FabAnswerItem(vi: 'Sự tự động hoá', en: 'automation'),
-    FabAnswerItem(vi: 'Những sự gián đoạn', en: 'interruptions'),
-    FabAnswerItem(vi: 'Bị hỏng hóc', en: 'break down'),
-    FabAnswerItem(vi: 'Theo đuổi', en: 'pursue'),
-    FabAnswerItem(vi: 'Sự giải quyết vấn đề', en: 'problem solving'),
-    FabAnswerItem(vi: 'Tư duy sáng tạo', en: 'creative thinking'),
+    FabAnswerItem(vi: 'một tòa nhà văn phòng', en: 'an office building'),
+    FabAnswerItem(vi: 'bị hỏng/ bị lỗi', en: 'defective'),
+    FabAnswerItem(vi: 'những lỗi', en: 'flaws'),
+    FabAnswerItem(vi: 'công nhân lành nghề', en: 'skilled worker'),
+    FabAnswerItem(vi: 'việc đóng gói hàng', en: 'packaging'),
+    FabAnswerItem(vi: 'quá trình', en: 'process'),
+    FabAnswerItem(vi: 'được lắp ráp', en: 'assembled'),
+    FabAnswerItem(vi: 'sự tự động hoá', en: 'automation'),
+    FabAnswerItem(vi: 'những sự gián đoạn', en: 'interruptions'),
+    FabAnswerItem(vi: 'bị hỏng hóc', en: 'break down'),
+    FabAnswerItem(vi: 'theo đuổi', en: 'pursue'),
+    FabAnswerItem(vi: 'sự giải quyết vấn đề', en: 'problem solving'),
+    FabAnswerItem(vi: 'tư duy sáng tạo', en: 'creative thinking'),
     FabAnswerItem(
-      vi: 'Một lời phàn nàn của khách hàng',
+      vi: 'một lời phàn nàn của khách hàng',
       en: 'a customer\'s complaint',
     ),
-    FabAnswerItem(vi: 'Các vấn đề về sản xuất', en: 'manufacturing problems'),
-    FabAnswerItem(vi: 'Nghĩ ra các giải pháp', en: 'come up with solutions'),
+    FabAnswerItem(vi: 'các vấn đề về sản xuất', en: 'manufacturing problems'),
+    FabAnswerItem(vi: 'nghĩ ra các giải pháp', en: 'come up with solutions'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation (Factory Closure)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'shut down',
       wordVi: 'Đóng cửa (nhà máy)',
       pronunciation: '/ʃʌt daʊn/',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'labor costs',
       wordVi: 'Chi phí nhân công',
       pronunciation: '/ˈleɪbər kɔːsts/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'transfer',
       wordVi: 'Chuyển đến',
       pronunciation: '/trænsˈfɜːr/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'severance package',
       wordVi: 'Gói trợ cấp thôi việc',
       pronunciation: '/ˈsevərəns ˈpækɪdʒ/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'uproot',
       wordVi: 'Rời bỏ, nhổ rễ',
       pronunciation: '/ʌpˈruːt/',
@@ -512,51 +512,51 @@ class Theme11Content {
     ),
   ];
 
-  static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(phrase: 'Shut down the factory', meaning: 'Đóng cửa nhà máy'),
+  static List<FabPhraseItem> get conversationPhrases => const [
+    FabPhraseItem(phrase: 'Shut down the factory', meaning: 'đóng cửa nhà máy'),
     FabPhraseItem(
       phrase: 'Made a final decision',
       meaning: 'Đã đưa ra quyết định cuối cùng',
     ),
-    FabPhraseItem(phrase: 'On the bright side', meaning: 'Về mặt tích cực'),
-    FabPhraseItem(phrase: 'Come in handy', meaning: 'Hữu ích, tiện dụng'),
-    FabPhraseItem(phrase: 'In the long run', meaning: 'Về lâu về dài'),
+    FabPhraseItem(phrase: 'On the bright side', meaning: 'về mặt tích cực'),
+    FabPhraseItem(phrase: 'Come in handy', meaning: 'hữu ích, tiện dụng'),
+    FabPhraseItem(phrase: 'In the long run', meaning: 'về lâu về dài'),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
-    FabAnswerItem(vi: 'Ban quản trị', en: 'the management'),
-    FabAnswerItem(vi: 'Đóng cửa nhà máy', en: 'shut down the factory'),
-    FabAnswerItem(vi: 'Nếu điều này xảy ra', en: 'if this happens'),
-    FabAnswerItem(vi: 'Phải rời công ty', en: 'have to leave the company'),
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(vi: 'ban quản trị', en: 'the management'),
+    FabAnswerItem(vi: 'đóng cửa nhà máy', en: 'shut down the factory'),
+    FabAnswerItem(vi: 'nếu điều này xảy ra', en: 'if this happens'),
+    FabAnswerItem(vi: 'phải rời công ty', en: 'have to leave the company'),
     FabAnswerItem(
-      vi: 'Tìm kiếm một công việc khác',
+      vi: 'tìm kiếm một công việc khác',
       en: 'look for another job',
     ),
     FabAnswerItem(vi: 'Thực ra', en: 'Actually'),
     FabAnswerItem(
-      vi: 'Đã đưa ra quyết định cuối cùng',
+      vi: 'đã đưa ra quyết định cuối cùng',
       en: 'made a final decision',
     ),
-    FabAnswerItem(vi: 'Sẽ đóng cửa nhà máy', en: 'will close the factory'),
-    FabAnswerItem(vi: 'Chi phí nhân công', en: 'the labor costs'),
-    FabAnswerItem(vi: 'Thấp hơn rất nhiều so với', en: 'much lower than'),
-    FabAnswerItem(vi: 'Trong 12 tháng nữa', en: 'for another 12 months'),
-    FabAnswerItem(vi: 'Có thể chuyển đến', en: 'can transfer to'),
+    FabAnswerItem(vi: 'sẽ đóng cửa nhà máy', en: 'will close the factory'),
+    FabAnswerItem(vi: 'chi phí nhân công', en: 'the labor costs'),
+    FabAnswerItem(vi: 'thấp hơn rất nhiều so với', en: 'much lower than'),
+    FabAnswerItem(vi: 'trong 12 tháng nữa', en: 'for another 12 months'),
+    FabAnswerItem(vi: 'có thể chuyển đến', en: 'can transfer to'),
     FabAnswerItem(
-      vi: 'Làm việc trong nhà máy mới',
+      vi: 'làm việc trong nhà máy mới',
       en: 'work in the new factory',
     ),
-    FabAnswerItem(vi: 'Rời bỏ cuộc sống của tôi', en: 'uproot my life'),
+    FabAnswerItem(vi: 'rời bỏ cuộc sống của tôi', en: 'uproot my life'),
     FabAnswerItem(
       vi: 'Tất cả gia đình và bạn bè của tôi',
       en: 'All my family and friends',
     ),
-    FabAnswerItem(vi: 'Không có lựa chọn nào', en: 'have no choice'),
+    FabAnswerItem(vi: 'không có lựa chọn nào', en: 'have no choice'),
     FabAnswerItem(vi: 'Về mặt tích cực', en: 'On the bright side'),
-    FabAnswerItem(vi: 'Một gói trợ cấp thôi việc', en: 'a severance package'),
-    FabAnswerItem(vi: 'Hữu ích', en: 'come in handy'),
+    FabAnswerItem(vi: 'một gói trợ cấp thôi việc', en: 'a severance package'),
+    FabAnswerItem(vi: 'hữu ích', en: 'come in handy'),
     FabAnswerItem(
-      vi: 'Trong vòng một hoặc hai tháng',
+      vi: 'trong vòng một hoặc hai tháng',
       en: 'within a month or two',
     ),
   ];
@@ -565,31 +565,31 @@ class Theme11Content {
   // FAB - Day 2 Short Talk 1 (Quality Control)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'strict quality control',
       wordVi: 'Kiểm soát chất lượng nghiêm ngặt',
       pronunciation: '/strɪkt ˈkwɑːlɪti kənˈtroʊl/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'defective products',
       wordVi: 'Những sản phẩm bị lỗi',
       pronunciation: '/dɪˈfektɪv ˈprɑːdʌkts/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'inspect',
       wordVi: 'Kiểm tra',
       pronunciation: '/ɪnˈspekt/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'conform to',
       wordVi: 'Tuân theo, phù hợp với',
       pronunciation: '/kənˈfɔːrm tuː/',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'refund',
       wordVi: 'Sự hoàn trả lại tiền',
       pronunciation: '/ˈriːfʌnd/',
@@ -597,12 +597,12 @@ class Theme11Content {
     ),
   ];
 
-  static List<FabPhraseItem> get shortTalk1Phrases => [
+  static List<FabPhraseItem> get shortTalk1Phrases => const [
     FabPhraseItem(
       phrase: 'Go through strict quality control',
       meaning: 'Trải qua kiểm soát chất lượng nghiêm ngặt',
     ),
-    FabPhraseItem(phrase: 'Be thrown out', meaning: 'Bị loại bỏ, bị thải loại'),
+    FabPhraseItem(phrase: 'Be thrown out', meaning: 'bị loại bỏ, bị thải loại'),
     FabPhraseItem(
       phrase: 'Thoroughly inspected',
       meaning: 'Được kiểm tra tỉ mỉ',
@@ -617,30 +617,30 @@ class Theme11Content {
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(vi: 'Cam kết', en: 'assure'),
-    FabAnswerItem(vi: 'Tất cả các sản phẩm', en: 'all the products'),
-    FabAnswerItem(vi: 'Sản xuất', en: 'produce'),
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(vi: 'cam kết', en: 'assure'),
+    FabAnswerItem(vi: 'tất cả các sản phẩm', en: 'all the products'),
+    FabAnswerItem(vi: 'sản xuất', en: 'produce'),
     FabAnswerItem(
-      vi: 'Việc kiểm soát chất lượng nghiêm ngặt',
+      vi: 'việc kiểm soát chất lượng nghiêm ngặt',
       en: 'strict quality control',
     ),
     FabAnswerItem(
       vi: 'Tất cả các sản phẩm bị lỗi',
       en: 'All defective products',
     ),
-    FabAnswerItem(vi: 'Luôn luôn chắc chắn rằng', en: 'always be sure that'),
-    FabAnswerItem(vi: 'Đến với cửa hàng', en: 'reach the store'),
-    FabAnswerItem(vi: 'Tuân theo', en: 'conform to'),
-    FabAnswerItem(vi: 'Vì bất kỳ lí do nào', en: 'for any reason'),
-    FabAnswerItem(vi: 'Nhận thấy một sai sót', en: 'perceive a defect'),
+    FabAnswerItem(vi: 'luôn luôn chắc chắn rằng', en: 'always be sure that'),
+    FabAnswerItem(vi: 'đến với cửa hàng', en: 'reach the store'),
+    FabAnswerItem(vi: 'tuân theo', en: 'conform to'),
+    FabAnswerItem(vi: 'vì bất kỳ lí do nào', en: 'for any reason'),
+    FabAnswerItem(vi: 'nhận thấy một sai sót', en: 'perceive a defect'),
     FabAnswerItem(
-      vi: 'Không hoàn toàn hài lòng với',
+      vi: 'không hoàn toàn hài lòng với',
       en: 'are not totally satisfied with',
     ),
-    FabAnswerItem(vi: 'Mang nó trở lại', en: 'take it back'),
+    FabAnswerItem(vi: 'mang nó trở lại', en: 'take it back'),
     FabAnswerItem(
-      vi: 'Mà không bị hỏi bất kỳ câu hỏi nào',
+      vi: 'mà không bị hỏi bất kỳ câu hỏi nào',
       en: 'no questions asked',
     ),
   ];
@@ -649,31 +649,31 @@ class Theme11Content {
   // FAB - Day 2 Short Talk 2 (Return Policy)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'purchase',
       wordVi: 'Hàng hoá đã mua',
       pronunciation: '/ˈpɜːrtʃəs/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'polite',
       wordVi: 'Lịch sự',
       pronunciation: '/pəˈlaɪt/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'store credit',
       wordVi: 'Phiếu đổi hàng',
       pronunciation: '/stɔːr ˈkredɪt/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'returned goods',
       wordVi: 'Hàng hoá trả lại',
       pronunciation: '/rɪˈtɜːrnd ɡʊdz/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'assist',
       wordVi: 'Giúp đỡ, hỗ trợ',
       pronunciation: '/əˈsɪst/',
@@ -681,50 +681,50 @@ class Theme11Content {
     ),
   ];
 
-  static List<FabPhraseItem> get shortTalk2Phrases => [
+  static List<FabPhraseItem> get shortTalk2Phrases => const [
     FabPhraseItem(
       phrase: 'Deal with customers',
       meaning: 'Làm việc với khách hàng',
     ),
-    FabPhraseItem(phrase: 'On their side', meaning: 'Đứng về phía họ'),
+    FabPhraseItem(phrase: 'On their side', meaning: 'đứng về phía họ'),
     FabPhraseItem(
       phrase: 'In its original condition',
       meaning: 'Ở trong tình trạng ban đầu',
     ),
-    FabPhraseItem(phrase: 'Offer cash back', meaning: 'Hoàn trả lại tiền mặt'),
+    FabPhraseItem(phrase: 'Offer cash back', meaning: 'hoàn trả lại tiền mặt'),
     FabPhraseItem(
       phrase: 'Rather than argue with them',
       meaning: 'Thay vì tranh cãi với họ',
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Khi làm việc ở đây', en: 'while working here'),
-    FabAnswerItem(vi: 'Xử lý', en: 'deal with'),
-    FabAnswerItem(vi: 'Những hàng hoá đã mua của họ', en: 'their purchases'),
-    FabAnswerItem(vi: 'Mong muốn trả lại', en: 'wish to return'),
-    FabAnswerItem(vi: 'Lịch sự', en: 'polite'),
-    FabAnswerItem(vi: 'Trong mọi trường hợp', en: 'at all times'),
+  static List<FabAnswerItem> get shortTalk2Answers => const [
+    FabAnswerItem(vi: 'khi làm việc ở đây', en: 'while working here'),
+    FabAnswerItem(vi: 'xử lý', en: 'deal with'),
+    FabAnswerItem(vi: 'những hàng hoá đã mua của họ', en: 'their purchases'),
+    FabAnswerItem(vi: 'mong muốn trả lại', en: 'wish to return'),
+    FabAnswerItem(vi: 'lịch sự', en: 'polite'),
+    FabAnswerItem(vi: 'trong mọi trường hợp', en: 'at all times'),
     FabAnswerItem(
-      vi: 'Khiến khách hàng cảm thấy rằng',
+      vi: 'khiến khách hàng cảm thấy rằng',
       en: 'make customers feel that',
     ),
-    FabAnswerItem(vi: 'Đứng về phía họ', en: 'on their side'),
-    FabAnswerItem(vi: 'Một mặt hàng quần áo', en: 'an item of clothing'),
-    FabAnswerItem(vi: 'Một cách kiên nhẫn', en: 'patiently'),
-    FabAnswerItem(vi: 'Tiến hành giải thích', en: 'proceed to explain'),
+    FabAnswerItem(vi: 'đứng về phía họ', en: 'on their side'),
+    FabAnswerItem(vi: 'một mặt hàng quần áo', en: 'an item of clothing'),
+    FabAnswerItem(vi: 'một cách kiên nhẫn', en: 'patiently'),
+    FabAnswerItem(vi: 'tiến hành giải thích', en: 'proceed to explain'),
     FabAnswerItem(vi: 'Đó là', en: 'Namely'),
     FabAnswerItem(
-      vi: 'Trong tình trạng ban đầu của nó',
+      vi: 'trong tình trạng ban đầu của nó',
       en: 'in its original condition',
     ),
-    FabAnswerItem(vi: 'Hoàn trả lại tiền mặt', en: 'offer cash back'),
-    FabAnswerItem(vi: 'Các hàng hoá trả lại', en: 'returned goods'),
-    FabAnswerItem(vi: 'Trao cho họ phiếu đổi hàng', en: 'gives them credit'),
-    FabAnswerItem(vi: 'Có thể phản đối', en: 'may protest'),
-    FabAnswerItem(vi: 'Tranh cãi với', en: 'argue with'),
-    FabAnswerItem(vi: 'Giúp đỡ', en: 'assist'),
-    FabAnswerItem(vi: 'Về điểm này', en: 'at this point'),
+    FabAnswerItem(vi: 'hoàn trả lại tiền mặt', en: 'offer cash back'),
+    FabAnswerItem(vi: 'các hàng hoá trả lại', en: 'returned goods'),
+    FabAnswerItem(vi: 'trao cho họ phiếu đổi hàng', en: 'gives them credit'),
+    FabAnswerItem(vi: 'có thể phản đối', en: 'may protest'),
+    FabAnswerItem(vi: 'tranh cãi với', en: 'argue with'),
+    FabAnswerItem(vi: 'giúp đỡ', en: 'assist'),
+    FabAnswerItem(vi: 'về điểm này', en: 'at this point'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
@@ -892,23 +892,17 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
         fabVocab: Theme11Content.conversationVocab,
         fabPhrases: Theme11Content.conversationPhrases,
         fabAnswers: [
-          FabAnswerItem(
-            questionNumber: '1',
-            correctAnswer: 'D',
-            explanation:
-                'M nói "discussing plans to shut down the factory" = Closing manufacturing facilities.',
+          const FabAnswerItem(
+            vi: 'Câu 1 (D): M nói "discussing plans to shut down the factory" = Đóng cửa nhà máy.',
+            en: 'Q1 (D): M says "discussing plans to shut down the factory" = Closing manufacturing facilities.',
           ),
-          FabAnswerItem(
-            questionNumber: '2',
-            correctAnswer: 'C',
-            explanation:
-                'W nói "that won\'t happen for another 12 months" = In one year.',
+          const FabAnswerItem(
+            vi: 'Câu 2 (C): W nói "that won\'t happen for another 12 months" = Trong một năm nữa.',
+            en: 'Q2 (C): W says "that won\'t happen for another 12 months" = In one year.',
           ),
-          FabAnswerItem(
-            questionNumber: '3',
-            correctAnswer: 'D',
-            explanation:
-                'W nói "you would receive a severance package" = Employees receive employment assistance.',
+          const FabAnswerItem(
+            vi: 'Câu 3 (D): W nói "you would receive a severance package" = Nhận gói trợ cấp thôi việc.',
+            en: 'Q3 (D): W says "you would receive a severance package" = Employees receive a severance package.',
           ),
         ],
       ),
@@ -937,24 +931,18 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
         questions: _practice2Questions,
         fabVocab: Theme11Content.shortTalk1Vocab,
         fabPhrases: Theme11Content.shortTalk1Phrases,
-        fabAnswers: [
+        fabAnswers: const [
           FabAnswerItem(
-            questionNumber: '4',
-            correctAnswer: 'D',
-            explanation:
-                'Bài nói hướng đến "Ladies and gentlemen" về chính sách hoàn tiền = Customers.',
+            vi: 'Câu 4 (D): Bài nói hướng đến "Ladies and gentlemen" về chính sách hoàn tiền = Khách hàng.',
+            en: 'Q4 (D): The talk addresses "Ladies and gentlemen" about refund policy = Customers.',
           ),
           FabAnswerItem(
-            questionNumber: '5',
-            correctAnswer: 'A',
-            explanation:
-                '"All defective products are thrown out before they leave the factory" = Before they leave the factory.',
+            vi: 'Câu 5 (A): "All defective products are thrown out before they leave the factory" = Trước khi rời nhà máy.',
+            en: 'Q5 (A): "All defective products are thrown out before they leave the factory" = Before they leave the factory.',
           ),
           FabAnswerItem(
-            questionNumber: '6',
-            correctAnswer: 'D',
-            explanation:
-                '"you can take it back to the store for a one hundred percent refund" = Return it to the store.',
+            vi: 'Câu 6 (D): "you can take it back to the store for a one hundred percent refund" = Mang trả lại cửa hàng.',
+            en: 'Q6 (D): "you can take it back to the store for a one hundred percent refund" = Return it to the store.',
           ),
         ],
       ),
@@ -983,24 +971,18 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
         questions: _practice3Questions,
         fabVocab: Theme11Content.shortTalk2Vocab,
         fabPhrases: Theme11Content.shortTalk2Phrases,
-        fabAnswers: [
+        fabAnswers: const [
           FabAnswerItem(
-            questionNumber: '7',
-            correctAnswer: 'D',
-            explanation:
-                'Người nói đang giải thích chính sách xử lý hàng trả lại = Responding to a customer\'s complaint.',
+            vi: 'Câu 7 (D): Người nói đang giải thích chính sách xử lý hàng trả lại với nhân viên = Xử lý khiếu nại khách hàng.',
+            en: 'Q7 (D): The speaker explains how to handle customer returns = Responding to a customer\'s complaint.',
           ),
           FabAnswerItem(
-            questionNumber: '8',
-            correctAnswer: 'A',
-            explanation:
-                '"the customer returns the piece of clothing in its original condition" = Check to see that it hasn\'t been damaged.',
+            vi: 'Câu 8 (A): "the customer returns the piece of clothing in its original condition" = Kiểm tra tình trạng ban đầu.',
+            en: 'Q8 (A): "the customer returns the piece of clothing in its original condition" = Check that it hasn\'t been damaged.',
           ),
           FabAnswerItem(
-            questionNumber: '9',
-            correctAnswer: 'C',
-            explanation:
-                '"the store does not offer cash back...but rather gives them credit they can use to buy something else" = Customers can choose other items of the same value.',
+            vi: 'Câu 9 (C): "the store...gives them credit they can use to buy something else" = Đổi sang sản phẩm khác cùng giá trị.',
+            en: 'Q9 (C): "the store...gives them credit they can use to buy something else" = Customers can choose other items of the same value.',
           ),
         ],
       ),
@@ -1022,7 +1004,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
   // QUIZ QUESTIONS
   // ═══════════════════════════════════════════════════════════════
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q01',
       questionText: 'What are the speakers discussing?',
       options: [
@@ -1035,7 +1017,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
       audioTrackKey: 'track_44',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q02',
       questionText: 'When will the factory be moving overseas?',
       options: [
@@ -1048,7 +1030,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
       audioTrackKey: 'track_44',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q03',
       questionText: 'What is the positive side of the management\'s decision?',
       options: [
@@ -1064,7 +1046,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q04',
       questionText: 'Who is this talk intended for?',
       options: [
@@ -1077,7 +1059,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
       audioTrackKey: 'track_45',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q05',
       questionText: 'When are the products inspected?',
       options: [
@@ -1090,7 +1072,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
       audioTrackKey: 'track_45',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q06',
       questionText: 'What can a customer do with a faulty product?',
       options: [
@@ -1106,7 +1088,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q07',
       questionText: 'What is the speaker doing?',
       options: [
@@ -1119,7 +1101,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
       audioTrackKey: 'track_46',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q08',
       questionText:
           'What should a salesperson do first with a returned item of clothing?',
@@ -1133,7 +1115,7 @@ W: Ổ, vậy thì tôi đoán là anh không có lựa chọn nào rồi. Ở k
       audioTrackKey: 'track_46',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme11_q09',
       questionText: 'What is the store\'s policy for returned goods?',
       options: [

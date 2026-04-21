@@ -409,187 +409,187 @@ class Theme3Content {
 
   // ── FAB cho bài đọc Day 1 ──
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'technical areas',
       pronunciation: '/ˈteknɪkəl ˈeriəz/',
       wordVi: 'Các lĩnh vực kỹ thuật',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'housing',
       pronunciation: '/ˈhaʊzɪŋ/',
       wordVi: 'Nhà đất',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'previous',
       pronunciation: '/ˈpriːviəs/',
       wordVi: 'Trước đó',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'include',
       pronunciation: '/ɪnˈkluːd/',
       wordVi: 'Bao gồm, gồm có',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'laboratory',
       pronunciation: '/ˈlæbrətɔːri/',
       wordVi: 'Phòng thí nghiệm',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'technical personnel',
       pronunciation: '/ˈteknɪkəl ˌpɜːrsəˈnel/',
       wordVi: 'Nhân viên kỹ thuật',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'specialized equipment',
       pronunciation: '/ˈspeʃəlaɪzd ɪˈkwɪpmənt/',
       wordVi: 'Thiết bị chuyên dụng',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'specification',
       pronunciation: '/ˌspesɪfɪˈkeɪʃən/',
       wordVi: 'Đặc điểm kỹ thuật',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'electronics',
       pronunciation: '/ˌelɪkˈtrɑːnɪks/',
       wordVi: 'Điện tử',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'technology',
       pronunciation: '/tekˈnɑːlədʒi/',
       wordVi: 'Công nghệ',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'technical issues',
       pronunciation: '/ˈteknɪkəl ˈɪʃuːz/',
       wordVi: 'Các vấn đề kỹ thuật',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'resolve',
       pronunciation: '/rɪˈzɑːlv/',
       wordVi: 'Giải quyết',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'software',
       pronunciation: '/ˈsɔːftwer/',
       wordVi: 'Phần mềm',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'hardware',
       pronunciation: '/ˈhɑːrdwer/',
       wordVi: 'Phần cứng',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'scientist',
       pronunciation: '/ˈsaɪəntɪst/',
       wordVi: 'Nhà khoa học',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'lab technician',
       pronunciation: '/læb tekˈnɪʃən/',
       wordVi: 'Kỹ thuật viên PTN',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'flask',
       pronunciation: '/flæsk/',
       wordVi: 'Bình giữ nhiệt',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'test tube',
       pronunciation: '/test tuːb/',
       wordVi: 'Ống nghiệm',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'research',
       pronunciation: '/ˈriːsɜːrtʃ/',
       wordVi: 'Nghiên cứu',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'hazard',
       pronunciation: '/ˈhæzərd/',
       wordVi: 'Rủi ro, mối nguy hiểm',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'programmer',
       pronunciation: '/ˈproʊɡræmər/',
       wordVi: 'Lập trình viên',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'malfunction',
       pronunciation: '/mælˈfʌŋkʃən/',
       wordVi: 'Lỗi kỹ thuật',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'glitch',
       pronunciation: '/ɡlɪtʃ/',
       wordVi: 'Sự cố kỹ thuật nhỏ',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'microscope',
       pronunciation: '/ˈmaɪkrəskoʊp/',
       wordVi: 'Kính hiển vi',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'crash',
       pronunciation: '/kræʃ/',
       wordVi: 'Sập, ngừng hoạt động',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'application',
       pronunciation: '/ˌæplɪˈkeɪʃən/',
       wordVi: 'Ứng dụng',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'platform',
       pronunciation: '/ˈplætfɔːrm/',
       wordVi: 'Nền tảng',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'compatible',
       pronunciation: '/kəmˈpætɪbəl/',
       wordVi: 'Tương thích',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'scan',
       pronunciation: '/skæn/',
       wordVi: 'Quét (virus)',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'purge',
       pronunciation: '/pɜːrdʒ/',
       wordVi: 'Dọn dẹp',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'reboot',
       pronunciation: '/ˌriːˈbuːt/',
       wordVi: 'Khởi động lại',
@@ -598,78 +598,78 @@ class Theme3Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Be (often) related to',
       meaning: '(Thường) liên quan đến',
     ),
-    FabPhraseItem(phrase: 'Both … and …', meaning: 'Cả … và …'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Both … and …', meaning: 'Cả … và …'),
+    const FabPhraseItem(
       phrase: 'In addition to + sb/ sth',
       meaning: 'Ngoài ai/ cái gì',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Reference (n) + to sb/ sth',
       meaning: 'Việc nói đến, nhắc đến ai/cái gì',
     ),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
-    FabAnswerItem(vi: 'Thường liên quan đến', en: 'is often related to'),
+  static List<FabAnswerItem> get readingAnswers => const [
+    FabAnswerItem(vi: 'thường liên quan đến', en: 'is often related to'),
     FabAnswerItem(vi: 'Bên cạnh', en: 'In addition to'),
-    FabAnswerItem(vi: 'Các chuyên đề trước đó', en: 'the previous themes'),
-    FabAnswerItem(vi: 'Sẽ bao gồm', en: 'will include'),
-    FabAnswerItem(vi: 'Các phòng thí nghiệm', en: 'laboratories'),
-    FabAnswerItem(vi: 'Thiết bị chuyên dụng', en: 'specialized equipment'),
-    FabAnswerItem(vi: 'Những chiếc máy tính', en: 'computers'),
-    FabAnswerItem(vi: 'Công nghệ', en: 'technology'),
+    FabAnswerItem(vi: 'các chuyên đề trước đó', en: 'the previous themes'),
+    FabAnswerItem(vi: 'sẽ bao gồm', en: 'will include'),
+    FabAnswerItem(vi: 'các phòng thí nghiệm', en: 'laboratories'),
+    FabAnswerItem(vi: 'thiết bị chuyên dụng', en: 'specialized equipment'),
+    FabAnswerItem(vi: 'những chiếc máy tính', en: 'computers'),
+    FabAnswerItem(vi: 'công nghệ', en: 'technology'),
     FabAnswerItem(vi: 'Thường thì', en: 'More than likely'),
-    FabAnswerItem(vi: 'Các vấn đề kỹ thuật', en: 'technical issues'),
+    FabAnswerItem(vi: 'các vấn đề kỹ thuật', en: 'technical issues'),
     FabAnswerItem(
-      vi: 'Các hệ thống máy tính công ty',
+      vi: 'các hệ thống máy tính công ty',
       en: 'company computer systems',
     ),
-    FabAnswerItem(vi: 'Giải quyết', en: 'resolve'),
-    FabAnswerItem(vi: 'Phần mềm và phần cứng', en: 'software and hardware'),
-    FabAnswerItem(vi: 'Kỹ thuật viên PTN', en: 'lab technician'),
-    FabAnswerItem(vi: 'Ống nghiệm', en: 'test tube'),
-    FabAnswerItem(vi: 'Rủi ro', en: 'hazard'),
-    FabAnswerItem(vi: 'Lỗi kỹ thuật', en: 'malfunction'),
-    FabAnswerItem(vi: 'Kính hiển vi', en: 'microscope'),
-    FabAnswerItem(vi: 'Ngừng hoạt động', en: 'stops functioning'),
-    FabAnswerItem(vi: 'Các ứng dụng', en: 'applications'),
-    FabAnswerItem(vi: 'Thuật ngữ thường gặp', en: 'common terminology'),
-    FabAnswerItem(vi: 'Nền tảng', en: 'platform'),
-    FabAnswerItem(vi: 'Tương thích', en: 'compatible'),
-    FabAnswerItem(vi: 'Khởi động lại', en: 'reboot'),
+    FabAnswerItem(vi: 'giải quyết', en: 'resolve'),
+    FabAnswerItem(vi: 'phần mềm và phần cứng', en: 'software and hardware'),
+    FabAnswerItem(vi: 'kỹ thuật viên phòng thí nghiệm', en: 'lab technician'),
+    FabAnswerItem(vi: 'ống nghiệm', en: 'test tube'),
+    FabAnswerItem(vi: 'rủi ro', en: 'hazard'),
+    FabAnswerItem(vi: 'lỗi kỹ thuật', en: 'malfunction'),
+    FabAnswerItem(vi: 'kính hiển vi', en: 'microscope'),
+    FabAnswerItem(vi: 'ngừng hoạt động', en: 'stops functioning'),
+    FabAnswerItem(vi: 'các ứng dụng', en: 'applications'),
+    FabAnswerItem(vi: 'thuật ngữ thường gặp', en: 'common terminology'),
+    FabAnswerItem(vi: 'nền tảng', en: 'platform'),
+    FabAnswerItem(vi: 'tương thích', en: 'compatible'),
+    FabAnswerItem(vi: 'khởi động lại', en: 'reboot'),
   ];
 
   // ── FAB cho Conversation (Practice 1) ──
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'operating system',
       pronunciation: '/ˈɑːpəreɪtɪŋ ˈsɪstəm/',
       wordVi: 'Hệ điều hành',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'background programs',
       pronunciation: '/ˈbækɡraʊnd ˈproʊɡræmz/',
       wordVi: 'Chương trình nền',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'word processing program',
       pronunciation: '/wɜːrd ˈprɑːsesɪŋ ˈproʊɡræm/',
       wordVi: 'Chương trình xử lý văn bản',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'expert',
       pronunciation: '/ˈekspɜːrt/',
       wordVi: 'Chuyên gia',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'virus',
       pronunciation: '/ˈvaɪrəs/',
       wordVi: 'Vi-rút',
@@ -678,91 +678,100 @@ class Theme3Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(phrase: 'Drive someone crazy', meaning: 'Làm ai phát điên'),
-    FabPhraseItem(phrase: 'Take forever', meaning: 'Mất rất nhiều thời gian'),
-    FabPhraseItem(phrase: 'Slow something down', meaning: 'Làm chậm cái gì'),
-    FabPhraseItem(phrase: 'Figure it out', meaning: 'Tìm ra (vấn đề)'),
-    FabPhraseItem(phrase: 'Have a look', meaning: 'Xem xét, nhìn qua'),
+    const FabPhraseItem(
+      phrase: 'Drive someone crazy',
+      meaning: 'Làm ai phát điên',
+    ),
+    const FabPhraseItem(
+      phrase: 'Take forever',
+      meaning: 'Mất rất nhiều thời gian',
+    ),
+    const FabPhraseItem(
+      phrase: 'Slow something down',
+      meaning: 'Làm chậm cái gì',
+    ),
+    const FabPhraseItem(phrase: 'Figure it out', meaning: 'Tìm ra (vấn đề)'),
+    const FabPhraseItem(phrase: 'Have a look', meaning: 'Xem xét, nhìn qua'),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
+  static List<FabAnswerItem> get conversationAnswers => const [
     FabAnswerItem(
       vi: 'Cái máy tính này đang làm tôi phát điên',
       en: 'This computer is driving me crazy',
     ),
-    FabAnswerItem(vi: 'Mất rất nhiều thời gian', en: 'take forever'),
-    FabAnswerItem(vi: 'Vi-rút', en: 'a virus'),
+    FabAnswerItem(vi: 'mất rất nhiều thời gian', en: 'take forever'),
+    FabAnswerItem(vi: 'vi-rút', en: 'a virus'),
     FabAnswerItem(
-      vi: 'Hệ điều hành mới nhất hiện có',
+      vi: 'hệ điều hành mới nhất hiện có',
       en: 'the latest operating system available',
     ),
-    FabAnswerItem(vi: 'Chương trình nền', en: 'background programs'),
-    FabAnswerItem(vi: 'Làm nó chậm hơn', en: 'slows it down'),
+    FabAnswerItem(vi: 'chương trình nền', en: 'background programs'),
+    FabAnswerItem(vi: 'làm nó chậm hơn', en: 'slows it down'),
     FabAnswerItem(
-      vi: 'Chương trình xử lý văn bản',
+      vi: 'chương trình xử lý văn bản',
       en: 'a word processing program',
     ),
-    FabAnswerItem(vi: 'Cũng không phải chuyên gia', en: 'no expert'),
-    FabAnswerItem(vi: 'Tìm ra vấn đề', en: 'figure it out'),
+    FabAnswerItem(vi: 'cũng không phải chuyên gia', en: 'no expert'),
+    FabAnswerItem(vi: 'tìm ra vấn đề', en: 'figure it out'),
   ];
 
   // ── FAB cho Short Talk 1 (Hotline) ──
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'maintenance hotline',
       pronunciation: '/ˈmeɪntənəns ˈhɑːtlaɪn/',
       wordVi: 'Đường dây nóng hỗ trợ KT',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'value',
       pronunciation: '/ˈvæljuː/',
       wordVi: 'Đánh giá cao, coi trọng',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'operator',
       pronunciation: '/ˈɑːpəreɪtər/',
       wordVi: 'Tổng đài viên',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'at the moment',
       pronunciation: '/æt ðə ˈmoʊmənt/',
       wordVi: 'Hiện tại, hiện thời',
       partOfSpeech: 'prep.p',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'in line',
       pronunciation: '/ɪn laɪn/',
       wordVi: 'Xếp hàng, đang đợi',
       partOfSpeech: 'prep.p',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'press',
       pronunciation: '/pres/',
       wordVi: 'Ấn, nhấn',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'description',
       pronunciation: '/dɪˈskrɪpʃən/',
       wordVi: 'Sự miêu tả',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'computer model number',
       pronunciation: '/kəmˈpjuːtər ˈmɑːdl ˈnʌmbər/',
       wordVi: 'Mã số máy tính',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'customer account number',
       pronunciation: '/ˈkʌstəmər əˈkaʊnt ˈnʌmbər/',
       wordVi: 'Mã số tài khoản KH',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'repeat',
       pronunciation: '/rɪˈpiːt/',
       wordVi: 'Nhắc lại, lặp lại',
@@ -771,156 +780,168 @@ class Theme3Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(phrase: 'Stay on the line', meaning: 'Giữ máy, chờ máy'),
-    FabPhraseItem(phrase: 'Leave a message', meaning: 'Để lại lời nhắn'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Stay on the line',
+      meaning: 'Giữ máy, chờ máy',
+    ),
+    const FabPhraseItem(phrase: 'Leave a message', meaning: 'Để lại lời nhắn'),
+    const FabPhraseItem(
       phrase: 'Have this message repeated',
       meaning: 'Nghe lời nhắn được lặp lại',
     ),
-    FabPhraseItem(phrase: 'Wait for sth/ sb', meaning: 'Chờ, đợi ai/điều gì'),
-    FabPhraseItem(phrase: 'Wish to do sth', meaning: 'Mong muốn làm gì'),
-    FabPhraseItem(phrase: 'Will be replied to', meaning: 'Sẽ được trả lời'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Wait for sth/ sb',
+      meaning: 'Chờ, đợi ai/điều gì',
+    ),
+    const FabPhraseItem(phrase: 'Wish to do sth', meaning: 'Mong muốn làm gì'),
+    const FabPhraseItem(
+      phrase: 'Will be replied to',
+      meaning: 'Sẽ được trả lời',
+    ),
+    const FabPhraseItem(
       phrase: 'Within + period of time',
       meaning: 'Trong vòng + khoảng thời gian',
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
+  static List<FabAnswerItem> get shortTalk1Answers => const [
     FabAnswerItem(vi: 'Cảm ơn bạn đã gọi tới', en: 'Thank you for calling'),
-    FabAnswerItem(vi: 'Đường dây nóng hỗ trợ KT', en: 'Maintenance Hotline'),
-    FabAnswerItem(vi: 'Đánh giá cao', en: 'value'),
-    FabAnswerItem(vi: 'Các tổng đài viên của chúng tôi', en: 'our operators'),
-    FabAnswerItem(vi: 'Xếp thứ 15', en: 'fifteenth in line'),
-    FabAnswerItem(vi: 'Để đến lượt của bạn', en: 'for your turn'),
-    FabAnswerItem(vi: 'Ấn phím', en: 'press'),
-    FabAnswerItem(vi: 'Muốn giữ máy', en: 'wish to stay on the line'),
     FabAnswerItem(
-      vi: 'Tổng đài viên sẵn sàng tiếp theo',
+      vi: 'đường dây nóng hỗ trợ kỹ thuật',
+      en: 'Maintenance Hotline',
+    ),
+    FabAnswerItem(vi: 'đánh giá cao', en: 'value'),
+    FabAnswerItem(vi: 'các tổng đài viên của chúng tôi', en: 'our operators'),
+    FabAnswerItem(vi: 'xếp thứ 15', en: 'fifteenth in line'),
+    FabAnswerItem(vi: 'để đến lượt của bạn', en: 'for your turn'),
+    FabAnswerItem(vi: 'ấn phím', en: 'press'),
+    FabAnswerItem(vi: 'muốn giữ máy', en: 'wish to stay on the line'),
+    FabAnswerItem(
+      vi: 'tổng đài viên sẵn sàng hỗ trợ tiếp theo',
       en: 'the next available operator',
     ),
-    FabAnswerItem(vi: 'Để lại lời nhắn', en: 'leave a message'),
-    FabAnswerItem(vi: 'Sự mô tả', en: 'description'),
+    FabAnswerItem(vi: 'để lại lời nhắn', en: 'leave a message'),
+    FabAnswerItem(vi: 'sự mô tả', en: 'description'),
     FabAnswerItem(
-      vi: 'Mã số mẫu máy tính của bạn',
+      vi: 'mã số mẫu máy tính của bạn',
       en: 'your computer model number',
     ),
     FabAnswerItem(
-      vi: 'Mã số tài khoản KH của bạn',
+      vi: 'mã số tài khoản khách hàng của bạn',
       en: 'your customer account number',
     ),
-    FabAnswerItem(vi: 'Sẽ được trả lời', en: 'will be replied to'),
+    FabAnswerItem(vi: 'sẽ được trả lời', en: 'will be replied to'),
     FabAnswerItem(
-      vi: 'Nghe lời nhắn này được lặp lại',
+      vi: 'nghe lời nhắn này được lặp lại',
       en: 'have this message repeated',
     ),
   ];
 
   // ── FAB cho Short Talk 2 (Upgrade) ──
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'break down',
       pronunciation: '/breɪk daʊn/',
       wordVi: 'Bị hỏng',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'get rid of',
       pronunciation: '/ɡet rɪd ɑːv/',
       wordVi: 'Loại bỏ',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'technician',
       pronunciation: '/tekˈnɪʃən/',
       wordVi: 'Kỹ thuật viên',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'replace',
       pronunciation: '/rɪˈpleɪs/',
       wordVi: 'Thay thế',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'entire',
       pronunciation: '/ɪnˈtaɪr/',
       wordVi: 'Toàn bộ',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'computer system',
       pronunciation: '/kəmˈpjuːtər ˈsɪstəm/',
       wordVi: 'Hệ thống máy tính',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'latest model',
       pronunciation: '/ˈleɪtɪst ˈmɑːdl/',
       wordVi: 'Mẫu mới nhất',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'lose',
       pronunciation: '/luːz/',
       wordVi: 'Mất, làm mất',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'process',
       pronunciation: '/ˈprɑːses/',
       wordVi: 'Quá trình',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'procedure',
       pronunciation: '/prəˈsiːdʒər/',
       wordVi: 'Quy trình, thủ tục',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'locate',
       pronunciation: '/ˈloʊkeɪt/',
       wordVi: 'Xác định vị trí',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'transfer',
       pronunciation: '/trænsˈfɜːr/',
       wordVi: 'Chuyển sang',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'data',
       pronunciation: '/ˈdɑːtə/',
       wordVi: 'Dữ liệu',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'central computer',
       pronunciation: '/ˈsentrəl kəmˈpjuːtər/',
       wordVi: 'Máy tính trung tâm',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'pretty',
       pronunciation: '/ˈprɪti/',
       wordVi: 'Khá, tương đối',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'create',
       pronunciation: '/kriˈeɪt/',
       wordVi: 'Tạo mới',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'sub-folder',
       pronunciation: '/sʌb ˈfoʊldər/',
       wordVi: 'Tiểu thư mục',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'hard disk',
       pronunciation: '/hɑːrd dɪsk/',
       wordVi: 'Ổ cứng',
@@ -929,68 +950,71 @@ class Theme3Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'As you all know',
       meaning: 'Như tất cả các bạn đã biết',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Make it easier for sb to do sth',
       meaning: 'Làm cho ai dễ dàng hơn để làm gì',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Be required to do sth',
       meaning: 'Được yêu cầu làm gì',
     ),
-    FabPhraseItem(phrase: 'In case of + V-ing/NP', meaning: 'Trong trường hợp'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'In case of + V-ing/NP',
+      meaning: 'Trong trường hợp',
+    ),
+    const FabPhraseItem(
       phrase: 'Be asked to do sth',
       meaning: 'Được yêu cầu phải làm gì',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Attempt to do sth',
       meaning: 'Cố gắng/nỗ lực làm gì',
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Như tất cả các bạn đã biết', en: 'as you all know'),
-    FabAnswerItem(vi: 'Đã bị hỏng', en: 'have been breaking down'),
-    FabAnswerItem(vi: 'Để loại bỏ', en: 'to get rid of'),
-    FabAnswerItem(vi: 'Các kỹ thuật viên', en: 'the technicians'),
+  static List<FabAnswerItem> get shortTalk2Answers => const [
+    FabAnswerItem(vi: 'như tất cả các bạn đã biết', en: 'as you all know'),
+    FabAnswerItem(vi: 'đã bị hỏng', en: 'have been breaking down'),
+    FabAnswerItem(vi: 'để loại bỏ', en: 'to get rid of'),
+    FabAnswerItem(vi: 'các kỹ thuật viên', en: 'the technicians'),
     FabAnswerItem(
-      vi: 'Thay thế toàn bộ hệ thống máy tính',
+      vi: 'thay thế toàn bộ hệ thống máy tính',
       en: 'replace the entire computer system',
     ),
-    FabAnswerItem(vi: 'Để thực hiện công việc của bạn', en: 'to do your jobs'),
-    FabAnswerItem(vi: 'Chắc chắn rằng', en: 'make sure that'),
+    FabAnswerItem(vi: 'để thực hiện công việc của bạn', en: 'to do your jobs'),
+    FabAnswerItem(vi: 'chắc chắn rằng', en: 'make sure that'),
     FabAnswerItem(
-      vi: 'Bất kỳ dữ liệu quan trọng nào',
+      vi: 'bất kỳ dữ liệu quan trọng nào',
       en: 'any important data',
     ),
     FabAnswerItem(
-      vi: 'Được yêu cầu tuân thủ nghiêm ngặt',
+      vi: 'được yêu cầu tuân thủ nghiêm ngặt',
       en: 'are required to strictly follow',
     ),
-    FabAnswerItem(vi: 'Xác định vị trí', en: 'locate'),
-    FabAnswerItem(vi: 'Máy tính trung tâm', en: 'the central computer'),
+    FabAnswerItem(vi: 'xác định vị trí', en: 'locate'),
+    FabAnswerItem(vi: 'máy tính trung tâm', en: 'the central computer'),
     FabAnswerItem(vi: 'Tất cả những gì bạn cần làm', en: 'All you need to do'),
     FabAnswerItem(
-      vi: 'Mở thư mục máy tính trung tâm',
+      vi: 'mở thư mục máy tính trung tâm',
       en: 'open the central computer folder',
     ),
-    FabAnswerItem(vi: 'Tạo một tiểu thư mục', en: 'create a sub-folder'),
-    FabAnswerItem(vi: 'Bên trong thư mục chính', en: 'within the main folder'),
-    FabAnswerItem(vi: 'Tất cả tài liệu của bạn', en: 'all your files'),
-    FabAnswerItem(vi: 'Sẽ không bị mất', en: 'will not be lost'),
-    FabAnswerItem(vi: 'Chỉ để đề phòng trường hợp có', en: 'just in case of'),
+    FabAnswerItem(vi: 'tạo một tiểu thư mục', en: 'create a sub-folder'),
+    FabAnswerItem(vi: 'bên trong thư mục chính', en: 'within the main folder'),
+    FabAnswerItem(vi: 'tất cả tài liệu của bạn', en: 'all your files'),
+    FabAnswerItem(vi: 'sẽ không bị mất', en: 'will not be lost'),
+    FabAnswerItem(vi: 'chỉ để đề phòng trường hợp có', en: 'just in case of'),
     FabAnswerItem(
-      vi: 'Cũng được yêu cầu sao lưu',
+      vi: 'cũng được yêu cầu sao lưu',
       en: 'are also asked to back up',
     ),
-    FabAnswerItem(vi: 'Cái ổ cứng', en: 'the hard disk'),
-    FabAnswerItem(vi: 'Cố gắng làm cả hai việc', en: 'attempt to do both'),
+    FabAnswerItem(vi: 'cái ổ cứng', en: 'the hard disk'),
+    FabAnswerItem(vi: 'cố gắng làm cả hai việc', en: 'attempt to do both'),
     FabAnswerItem(
-      vi: 'Bảo toàn sự nguyên vẹn của tất cả dữ liệu',
+      vi: 'bảo toàn sự nguyên vẹn của tất cả dữ liệu',
       en: 'preserve the integrity of all data',
     ),
   ];
@@ -1152,6 +1176,20 @@ Từ vựng thông dụng: nhà khoa học, kỹ thuật viên phòng thí nghi�
         titleVi: 'Luyện tập 1: Hội thoại',
         audioTrackKey: 'track_12',
         questions: _practice1Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (C): W nói "it seems to take forever before it is actually ready" = Máy tính mất nhiều thời gian để khởi động.',
+            en: 'Q1 (C): W says "it seems to take forever before it is actually ready" = Her computer takes a long time to start.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (D): M nói "It has the latest operating system available" = Sử dụng hệ điều hành mới nhất.',
+            en: 'Q2 (D): M says "It has the latest operating system available" = It uses the newest operating system available.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (D): M đề nghị "Why don\'t I have a look? ... help you figure it out" = Giúp tìm ra vấn đề máy tính.',
+            en: 'Q3 (D): M suggests "Why don\'t I have a look? ... help you figure it out" = Help the woman find out the problem with her computer.',
+          ),
+        ],
       ),
 
       // ── PHASE 2: LISTENING QUIZ - Practice 2 (Short Talk 1) ──
@@ -1162,6 +1200,20 @@ Từ vựng thông dụng: nhà khoa học, kỹ thuật viên phòng thí nghi�
         titleVi: 'Luyện tập 2: Bài ngắn - Đường dây nóng hỗ trợ KT',
         audioTrackKey: 'track_13',
         questions: _practice2Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (D): Bài nói yêu cầu "customer account number" và giải quyết lỗi máy tính = Khách hàng của công ty.',
+            en: 'Q4 (D): The talk requests "customer account number" and addresses computer issues = The company\'s customers.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (A): "Press 2 to leave a message... with a description of your problem" = Giải thích vấn đề máy tính.',
+            en: 'Q5 (A): "Press 2 to leave a message... with a description of your problem" = You may explain the computer problem.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (B): "Press 4 to have this message repeated in Japanese" = Tiếng Nhật.',
+            en: 'Q6 (B): "Press 4 to have this message repeated in Japanese" = Japanese.',
+          ),
+        ],
       ),
 
       // ── PHASE 3: LISTENING QUIZ - Practice 3 (Short Talk 2) ──
@@ -1172,6 +1224,20 @@ Từ vựng thông dụng: nhà khoa học, kỹ thuật viên phòng thí nghi�
         titleVi: 'Luyện tập 3: Bài ngắn - Nâng cấp hệ thống máy tính',
         audioTrackKey: 'track_14',
         questions: _practice3Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (C): "technicians will be here to replace the entire computer system" = Quy trình nâng cấp máy tính.',
+            en: 'Q7 (C): "technicians will be here to replace the entire computer system" = Procedures for upgrading computers.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (C): "you must locate your important data... and then transfer them to the central computer" = Lưu tệp vào máy tính trung tâm.',
+            en: 'Q8 (C): "you must locate your important data... and then transfer them to the central computer" = Save the files on the central computer.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (B): "just in case of a central computer failure, you are also asked to back up... to the hard disk" = Phòng khi máy tính trung tâm hỏng.',
+            en: 'Q9 (B): "just in case of a central computer failure, you are also asked to back up... to the hard disk" = The central computer might be down.',
+          ),
+        ],
       ),
 
       // ── PHASE 4: TRANSLATE - Conversation ──
@@ -1282,7 +1348,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
   // ── Quiz Questions ──────────────────────────────────────────────
 
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q01',
       questionText: 'What is the woman\'s problem?',
       options: [
@@ -1295,7 +1361,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       audioTrackKey: 'track_12',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q02',
       questionText: 'What does the man say about the woman\'s computer?',
       options: [
@@ -1308,7 +1374,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       audioTrackKey: 'track_12',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q03',
       questionText: 'What does the man offer to do?',
       options: [
@@ -1324,7 +1390,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q04',
       questionText: 'Who is this message aimed at?',
       options: [
@@ -1337,7 +1403,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       audioTrackKey: 'track_13',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q05',
       questionText: 'What will happen if you press 2?',
       options: [
@@ -1350,7 +1416,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       audioTrackKey: 'track_13',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q06',
       questionText:
           'In which language is this message available besides English?',
@@ -1367,7 +1433,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q07',
       questionText: 'What are these instructions about?',
       options: [
@@ -1380,7 +1446,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       audioTrackKey: 'track_14',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q08',
       questionText: 'What are the listeners asked to do?',
       options: [
@@ -1393,7 +1459,7 @@ Thứ hai là, phòng trường hợp máy tính trung tâm bị hỏng, các b�
       audioTrackKey: 'track_14',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme03_q09',
       questionText: 'Why would the listeners need to use the hard disk?',
       options: [

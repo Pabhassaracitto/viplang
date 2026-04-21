@@ -2,6 +2,10 @@ import '../models/lesson_model.dart';
 import '../models/theme_model.dart';
 import '../models/vocab_model.dart';
 import 'content_validator.dart';
+import 'theme10_content.dart';
+import 'theme11_content.dart';
+import 'theme12_content.dart';
+import 'theme13_content.dart';
 import 'theme1_content.dart';
 import 'theme2_content.dart';
 import 'theme3_content.dart';
@@ -11,10 +15,6 @@ import 'theme6_content.dart';
 import 'theme7_content.dart';
 import 'theme8_content.dart';
 import 'theme9_content.dart';
-import 'theme10_content.dart';
-import 'theme11_content.dart';
-import 'theme12_content.dart';
-import 'theme13_content.dart';
 
 class AllThemesRegistry {
   static List<ThemeModel> getAllThemes() {
@@ -113,7 +113,7 @@ class AllThemesRegistry {
         if (dayNumber == 2) return Theme6Content.day2;
         break;
 
-      case 'theme_07_dining':
+      case 'theme_07_dining_out':
         if (dayNumber == 1) return Theme7Content.day1;
         if (dayNumber == 2) return Theme7Content.day2;
         break;
@@ -133,17 +133,17 @@ class AllThemesRegistry {
         if (dayNumber == 2) return Theme10Content.day2;
         break;
 
-      case 'theme11_manufacturing':
+      case 'theme_11_manufacturing':
         if (dayNumber == 1) return Theme11Content.day1;
         if (dayNumber == 2) return Theme11Content.day2;
         break;
 
-      case 'theme12_housing_property':
+      case 'theme_12_housing_property':
         if (dayNumber == 1) return Theme12Content.day1;
         if (dayNumber == 2) return Theme12Content.day2;
         break;
 
-      case 'theme13_health':
+      case 'theme_13_health':
         if (dayNumber == 1) return Theme13Content.day1;
         if (dayNumber == 2) return Theme13Content.day2;
         break;

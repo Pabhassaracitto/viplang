@@ -176,6 +176,164 @@ class Theme2Content {
     ),
   ];
 
+  // ─── FAB ANSWERS DATA ─────────────────────────────────────────
+  static List<FabAnswerItem> get day1Answers => [
+    const FabAnswerItem(vi: 'là về bất cứ điều gì', en: 'is anything'),
+    const FabAnswerItem(vi: 'trong lĩnh vực tài chính', en: 'in finance'),
+    const FabAnswerItem(vi: 'các thuật ngữ đặc trưng', en: 'specific terms'),
+    const FabAnswerItem(vi: 'cần được học', en: 'need to be learned'),
+    const FabAnswerItem(vi: 'liên quan tới', en: 'related to'),
+    const FabAnswerItem(vi: 'hơn là', en: 'rather than'),
+    const FabAnswerItem(vi: 'các cuộc đàm phán', en: 'negotiations'),
+    const FabAnswerItem(vi: 'các hợp đồng pháp lý', en: 'legal contracts'),
+    const FabAnswerItem(vi: 'các vấn đề bảo hành', en: 'warranties'),
+    const FabAnswerItem(vi: 'hiệu quả bán hàng', en: 'sales performance'),
+    const FabAnswerItem(vi: 'việc nhượng quyền kinh doanh', en: 'franchises'),
+    const FabAnswerItem(vi: 'thôn tính doanh nghiệp', en: 'buy-outs'),
+    const FabAnswerItem(vi: 'nghề luật', en: 'legal profession'),
+    const FabAnswerItem(vi: 'luật sư', en: 'lawyer'),
+    const FabAnswerItem(vi: 'cố vấn pháp lý', en: 'legal counsel'),
+    const FabAnswerItem(vi: 'chi nhánh', en: 'subsidiary'),
+    const FabAnswerItem(
+      vi: 'tổng giám đốc điều hành',
+      en: 'chief executive officer',
+    ),
+    const FabAnswerItem(vi: 'ban giám đốc', en: 'board of directors'),
+    const FabAnswerItem(vi: 'quyền mua cổ phiếu', en: 'stock options'),
+    const FabAnswerItem(vi: 'Doanh nghiệp lớn', en: 'Corporate business'),
+    const FabAnswerItem(vi: 'quốc tế', en: 'international'),
+    const FabAnswerItem(vi: 'những thuật ngữ như là', en: 'such terms as'),
+    const FabAnswerItem(vi: 'các phòng ban', en: 'departments'),
+    const FabAnswerItem(vi: 'chuỗi', en: 'chain'),
+    const FabAnswerItem(vi: 'một doanh nghiệp lớn', en: 'a large enterprise'),
+    const FabAnswerItem(vi: 'cũng sẽ được nghe thấy', en: 'will also be heard'),
+    const FabAnswerItem(vi: 'Bán lẻ', en: 'Retailing'),
+    const FabAnswerItem(vi: 'Văn phòng', en: 'Offices'),
+    const FabAnswerItem(
+      vi: 'các doanh nghiệp địa phương',
+      en: 'local businesses',
+    ),
+    const FabAnswerItem(vi: 'thường là về', en: 'are usually about'),
+    const FabAnswerItem(vi: 'cần được sửa', en: 'need fixing'),
+    const FabAnswerItem(vi: 'các tờ báo địa phương', en: 'local newspapers'),
+    const FabAnswerItem(vi: 'các đồ dùng văn phòng', en: 'office supplies'),
+    const FabAnswerItem(vi: 'tại các chợ địa phương', en: 'at local markets'),
+    const FabAnswerItem(vi: 'các cửa hàng bán lẻ', en: 'retail shops'),
+  ];
+
+  static List<FabAnswerItem> get conversationAnswers => [
+    const FabAnswerItem(vi: 'một vài câu hỏi', en: 'a few questions'),
+    const FabAnswerItem(vi: 'ký hợp đồng này', en: 'sign this contract'),
+    const FabAnswerItem(vi: 'làm rõ', en: 'clear up'),
+    const FabAnswerItem(vi: 'vài điểm quan trọng', en: 'some important points'),
+    const FabAnswerItem(vi: 'còn thiếu', en: 'missing'),
+    const FabAnswerItem(vi: 'cần thiết', en: 'necessary'),
+    const FabAnswerItem(vi: 'ký bất kỳ cái gì', en: 'sign anything'),
+    const FabAnswerItem(vi: 'vấn đề', en: 'the problem'),
+    const FabAnswerItem(vi: 'một bên', en: 'one party'),
+    const FabAnswerItem(vi: 'đã đồng ý', en: 'has agreed'),
+    const FabAnswerItem(vi: 'bất cứ hình phạt nào', en: 'any penalties'),
+    const FabAnswerItem(vi: 'không tuân thủ', en: 'fails to uphold'),
+    const FabAnswerItem(vi: 'bên còn lại', en: 'the other side'),
+  ];
+
+  static List<FabAnswerItem> get shortTalk1Answers => [
+    const FabAnswerItem(
+      vi: 'một thông báo quan trọng',
+      en: 'an important announcement',
+    ),
+    const FabAnswerItem(vi: 'các nhà quản lý khác', en: 'the other managers'),
+    const FabAnswerItem(vi: 'đã đi đến kết luận', en: 'came to the conclusion'),
+    const FabAnswerItem(
+      vi: 'tăng doanh số bán hàng của chúng ta',
+      en: 'increase our sales',
+    ),
+    const FabAnswerItem(vi: 'một thực tế rõ ràng', en: 'a known fact'),
+    const FabAnswerItem(
+      vi: 'một đội ngũ bán hàng mạnh',
+      en: 'a strong sales team',
+    ),
+    const FabAnswerItem(vi: 'sức mạnh', en: 'the force'),
+    const FabAnswerItem(vi: 'những người bán hàng', en: 'the salespeople'),
+    const FabAnswerItem(vi: 'xắn tay áo họ lên', en: 'roll up their sleeves'),
+    const FabAnswerItem(vi: 'đã quyết định', en: 'decided'),
+    const FabAnswerItem(vi: 'đạt doanh số bán hàng', en: 'get the sales'),
+    const FabAnswerItem(vi: 'trụ sở chính', en: 'the head office'),
+    const FabAnswerItem(
+      vi: 'vào đầu mỗi quý',
+      en: 'at the beginning of every quarter',
+    ),
+    const FabAnswerItem(
+      vi: 'nhận được sự huấn luyện thích hợp',
+      en: 'get the proper training',
+    ),
+    const FabAnswerItem(
+      vi: 'thành tích bán hàng của bạn',
+      en: 'your sales performance',
+    ),
+    const FabAnswerItem(
+      vi: 'những chuyên gia bán hàng hàng đầu',
+      en: 'the top sales experts',
+    ),
+    const FabAnswerItem(
+      vi: 'tạo ra mọi sự khác biệt',
+      en: 'make all the difference',
+    ),
+    const FabAnswerItem(
+      vi: 'sẽ có thể đạt được mục tiêu',
+      en: 'will be able to reach the goal',
+    ),
+  ];
+
+  static List<FabAnswerItem> get shortTalk2Answers => [
+    const FabAnswerItem(
+      vi: 'buổi hội thảo ngày hôm nay',
+      en: "today's workshop",
+    ),
+    const FabAnswerItem(vi: 'muốn lưu ý', en: 'would like to remind'),
+    const FabAnswerItem(vi: 'trong ba ngày tới', en: 'for the next three days'),
+    const FabAnswerItem(
+      vi: 'có được điều gì đó mới mẻ và hữu ích',
+      en: 'have something new and useful',
+    ),
+    const FabAnswerItem(
+      vi: 'nâng cao thành tích của bạn',
+      en: 'improve your performance',
+    ),
+    const FabAnswerItem(
+      vi: 'đàm phán các hợp đồng quốc tế',
+      en: 'negotiating international contracts',
+    ),
+    const FabAnswerItem(
+      vi: 'giao tiếp thương mại quốc tế',
+      en: 'international business communications',
+    ),
+    const FabAnswerItem(
+      vi: 'việc giao tiếp hiệu quả',
+      en: 'effective communication',
+    ),
+    const FabAnswerItem(vi: 'đặc biệt là', en: 'especially'),
+    const FabAnswerItem(
+      vi: 'giao tiếp một cách hiệu quả',
+      en: 'communicate effectively',
+    ),
+    const FabAnswerItem(vi: 'biết chắc chắn', en: 'know for sure'),
+    const FabAnswerItem(vi: 'bị ngạc nhiên', en: 'be surprised'),
+    const FabAnswerItem(vi: 'một chuyên gia về', en: 'an expert on'),
+    const FabAnswerItem(
+      vi: 'diễn giả chính của chúng ta',
+      en: 'our keynote speaker',
+    ),
+    const FabAnswerItem(vi: 'kinh doanh quốc tế', en: 'international business'),
+    const FabAnswerItem(vi: 'ở nhiều thành phố', en: 'in various cities'),
+    const FabAnswerItem(vi: 'chỉ là vài ví dụ', en: 'just to name a few'),
+    const FabAnswerItem(vi: 'đang làm việc cho', en: 'working for'),
+    const FabAnswerItem(
+      vi: 'một công ty tư vấn hàng đầu',
+      en: 'a leading consulting firm',
+    ),
+  ];
+
   // ─── DAY 1 ────────────────────────────────────────────────────
   static LessonDay get day1 => LessonDay(
     id: 'theme02_day1',
@@ -228,6 +386,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Step 3: Mind Game',
         titleVi: 'Bước 3: Trò chơi Tư duy',
         mixedSegments: _day1MindGameSegments,
+        fabAnswers: Theme2Content.day1Answers,
       ),
 
       // PHASE 4: VOCABULARY
@@ -378,6 +537,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Memory Training: Contract Conversation',
         titleVi: 'Huấn luyện Trí nhớ: Hội thoại Hợp đồng',
         mixedSegments: _day2ConversationSegments,
+        fabAnswers: Theme2Content.conversationAnswers,
       ),
 
       // PHASE 5: Mind Game - Short Talk 1
@@ -387,6 +547,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Memory Training: Sales Announcement',
         titleVi: 'Huấn luyện Trí nhớ: Thông báo Bán hàng',
         mixedSegments: _day2ShortTalk1Segments,
+        fabAnswers: Theme2Content.shortTalk1Answers,
       ),
 
       // PHASE 6: Mind Game - Short Talk 2
@@ -396,13 +557,14 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Memory Training: Workshop Speech',
         titleVi: 'Huấn luyện Trí nhớ: Bài phát biểu Hội thảo',
         mixedSegments: _day2ShortTalk2Segments,
+        fabAnswers: Theme2Content.shortTalk2Answers,
       ),
     ],
   );
 
   // ─── PRACTICE 1 QUESTIONS ─────────────────────────────────────
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q01',
       questionText: 'What is this conversation about?',
       options: [
@@ -415,7 +577,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       audioTrackKey: 'track_08',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q02',
       questionText: 'What does the woman want to know?',
       options: [
@@ -428,7 +590,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       audioTrackKey: 'track_08',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q03',
       questionText: 'What is true about the contract?',
       options: [
@@ -445,7 +607,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
 
   // ─── PRACTICE 2 QUESTIONS ─────────────────────────────────────
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q04',
       questionText: 'What will the company do to improve their sales?',
       options: [
@@ -458,7 +620,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       audioTrackKey: 'track_09',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q05',
       questionText: 'How often will the training sessions be held?',
       options: [
@@ -471,7 +633,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       audioTrackKey: 'track_09',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q06',
       questionText: 'When do they hope to obtain their sales target?',
       options: [
@@ -488,7 +650,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
 
   // ─── PRACTICE 3 QUESTIONS ─────────────────────────────────────
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q07',
       questionText: 'Who is most likely the audience of this speech?',
       options: [
@@ -501,7 +663,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       audioTrackKey: 'track_10',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q08',
       questionText: 'What is the subject of the workshop?',
       options: [
@@ -514,7 +676,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
       audioTrackKey: 'track_10',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme02_q09',
       questionText: 'According to the talk, what is true about Lee Kim?',
       options: [

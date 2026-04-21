@@ -545,67 +545,67 @@ class Theme6Content {
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'office supplies',
       pronunciation: '/ˈɔːfɪs səˈplaɪz/',
       wordVi: 'Đồ dùng/thiết bị văn phòng',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'invoice',
       pronunciation: '/ˈɪnvɔɪs/',
       wordVi: 'Hoá đơn',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'billing',
       pronunciation: '/ˈbɪlɪŋ/',
       wordVi: 'Việc lập hoá đơn',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'credit terms',
       pronunciation: '/ˈkredɪt tɜːrmz/',
       wordVi: 'Điều khoản tín dụng',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'photocopy toner',
       pronunciation: '/ˈfoʊtəˌkɑːpi ˈtoʊnər/',
       wordVi: 'Hộp mực in laze',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'binders',
       pronunciation: '/ˈbaɪndərz/',
       wordVi: 'Bìa tài liệu',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'file boxes',
       pronunciation: '/faɪl ˈbɑːksɪz/',
       wordVi: 'Hộp đựng tài liệu',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'raw materials',
       pronunciation: '/rɔː məˈtɪriəlz/',
       wordVi: 'Nguyên liệu thô',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'bill of lading',
       pronunciation: '/ˌbɪl əv ˈleɪdɪŋ/',
       wordVi: 'Vận đơn đường biển',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'customs',
       pronunciation: '/ˈkʌstəmz/',
       wordVi: 'Hải quan',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'excise tax',
       pronunciation: '/ˈeksaɪz tæks/',
       wordVi: 'Thuế tiêu thụ đặc biệt',
@@ -614,89 +614,89 @@ class Theme6Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(phrase: 'Deal with', meaning: 'Đề cập tới/giải quyết'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Deal with', meaning: 'Đề cập tới/giải quyết'),
+    const FabPhraseItem(
       phrase: 'Purchasing on a larger scale',
       meaning: 'Mua sắm ở quy mô lớn hơn',
     ),
-    FabPhraseItem(phrase: 'Be associated with', meaning: 'Gắn liền với'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Be associated with', meaning: 'Gắn liền với'),
+    const FabPhraseItem(
       phrase: 'May be encountered',
       meaning: 'Có thể được gặp phải',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Import and export of goods',
       meaning: 'Xuất nhập khẩu hàng hoá',
     ),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
-    FabAnswerItem(en: 'deals with', vi: 'Đề cập tới'),
+  static List<FabAnswerItem> get readingAnswers => const [
+    FabAnswerItem(en: 'deals with', vi: 'đề cập tới'),
     FabAnswerItem(
       en: 'purchasing of office supplies',
-      vi: 'Việc mua sắm văn phòng phẩm',
+      vi: 'việc mua sắm văn phòng phẩm',
     ),
     FabAnswerItem(
       en: 'shipping and transportation',
-      vi: 'Việc giao hàng và vận tải',
+      vi: 'việc giao hàng và vận tải',
     ),
-    FabAnswerItem(en: 'invoices', vi: 'Các loại hoá đơn'),
-    FabAnswerItem(en: 'credit terms', vi: 'Các điều khoản tín dụng'),
-    FabAnswerItem(en: 'photocopy toner', vi: 'Hộp mực in cho máy phô-tô'),
-    FabAnswerItem(en: 'staples', vi: 'Những chiếc ghim giấy'),
-    FabAnswerItem(en: 'envelopes', vi: 'Những cái phong bì'),
-    FabAnswerItem(en: 'business cards', vi: 'Những chiếc danh thiếp'),
-    FabAnswerItem(en: 'binders', vi: 'Các bìa tài liệu'),
-    FabAnswerItem(en: 'file boxes', vi: 'Các hộp đựng tài liệu'),
+    FabAnswerItem(en: 'invoices', vi: 'các loại hoá đơn'),
+    FabAnswerItem(en: 'credit terms', vi: 'các điều khoản tín dụng'),
+    FabAnswerItem(en: 'photocopy toner', vi: 'hộp mực in cho máy phô-tô'),
+    FabAnswerItem(en: 'staples', vi: 'những chiếc ghim giấy'),
+    FabAnswerItem(en: 'envelopes', vi: 'những cái phong bì'),
+    FabAnswerItem(en: 'business cards', vi: 'những chiếc danh thiếp'),
+    FabAnswerItem(en: 'binders', vi: 'các bìa tài liệu'),
+    FabAnswerItem(en: 'file boxes', vi: 'các hộp đựng tài liệu'),
     FabAnswerItem(en: 'Purchases', vi: 'Các hàng hoá mua sắm'),
-    FabAnswerItem(en: 'the office canteen', vi: 'Nhà ăn ở văn phòng'),
-    FabAnswerItem(en: 'board meetings', vi: 'Các cuộc họp ban giám đốc'),
-    FabAnswerItem(en: 'special events', vi: 'Các sự kiện đặc biệt'),
-    FabAnswerItem(en: 'are required', vi: 'Được yêu cầu'),
-    FabAnswerItem(en: 'on a larger scale', vi: 'Ở một quy mô lớn hơn'),
-    FabAnswerItem(en: 'raw materials', vi: 'Nguyên liệu thô'),
-    FabAnswerItem(en: 'is associated with', vi: 'Được gắn liền với'),
-    FabAnswerItem(en: 'bill of lading', vi: 'Vận đơn đường biển'),
+    FabAnswerItem(en: 'the office canteen', vi: 'nhà ăn ở văn phòng'),
+    FabAnswerItem(en: 'board meetings', vi: 'các cuộc họp ban giám đốc'),
+    FabAnswerItem(en: 'special events', vi: 'các sự kiện đặc biệt'),
+    FabAnswerItem(en: 'are required', vi: 'được yêu cầu'),
+    FabAnswerItem(en: 'on a larger scale', vi: 'ở một quy mô lớn hơn'),
+    FabAnswerItem(en: 'raw materials', vi: 'nguyên liệu thô'),
+    FabAnswerItem(en: 'is associated with', vi: 'được gắn liền với'),
+    FabAnswerItem(en: 'bill of lading', vi: 'vận đơn đường biển'),
     FabAnswerItem(
       en: 'freight on board',
-      vi: 'Giao hàng trên phương tiện vận chuyển',
+      vi: 'giao hàng trên phương tiện vận chuyển',
     ),
-    FabAnswerItem(en: 'cash on delivery', vi: 'Giao hàng thu tiền'),
-    FabAnswerItem(en: 'excise tax', vi: 'Thuế tiêu thụ đặc biệt'),
-    FabAnswerItem(en: 'import', vi: 'Nhập khẩu'),
-    FabAnswerItem(en: 'export', vi: 'Xuất khẩu'),
-    FabAnswerItem(en: 'may be encountered', vi: 'Có thể được gặp phải'),
+    FabAnswerItem(en: 'cash on delivery', vi: 'giao hàng thu tiền'),
+    FabAnswerItem(en: 'excise tax', vi: 'thuế tiêu thụ đặc biệt'),
+    FabAnswerItem(en: 'import', vi: 'nhập khẩu'),
+    FabAnswerItem(en: 'export', vi: 'xuất khẩu'),
+    FabAnswerItem(en: 'may be encountered', vi: 'có thể được gặp phải'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation (toner sales call)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'toner',
       pronunciation: '/ˈtoʊnər/',
       wordVi: 'Hộp mực in (toner)',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'cartridge',
       pronunciation: '/ˈkɑːrtrɪdʒ/',
       wordVi: 'Hộp mực (cartridge)',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'supplier',
       pronunciation: '/səˈplaɪər/',
       wordVi: 'Nhà cung cấp',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'in stock',
       pronunciation: '/ɪn stɑːk/',
       wordVi: 'Trong kho/có hàng',
       partOfSpeech: 'prep.p',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'pricing',
       pronunciation: '/ˈpraɪsɪŋ/',
       wordVi: 'Giá cả/bảng giá',
@@ -705,77 +705,77 @@ class Theme6Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'According to our record',
       meaning: 'Theo ghi chép của chúng tôi',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Are having a big sale',
       meaning: 'Đang có một đợt giảm giá lớn',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Just got a new copy machine',
       meaning: 'Vừa mua một máy phô-tô mới',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Choose another supplier',
       meaning: 'Chọn nhà cung cấp khác',
     ),
-    FabPhraseItem(phrase: 'Get back to you', meaning: 'Liên hệ lại với ông/bà'),
+    const FabPhraseItem(phrase: 'Get back to you', meaning: 'Liên hệ lại với ông/bà'),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
-    FabAnswerItem(en: 'Sky Office Supplies', vi: 'Hãng Thiết bị Văn phòng Sky'),
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(en: 'Sky Office Supplies', vi: 'hãng Thiết bị Văn phòng Sky'),
     FabAnswerItem(
       en: 'your last photocopy toner order',
-      vi: 'Đơn hàng hộp mực in laze gần đây nhất của bên ông',
+      vi: 'đơn hàng hộp mực in laze gần đây nhất của bên ông',
     ),
     FabAnswerItem(
       en: 'places an order of this kind',
-      vi: 'Đặt một đơn hàng loại này',
+      vi: 'đặt một đơn hàng loại này',
     ),
     FabAnswerItem(
       en: 'are having a big sale',
-      vi: 'Đang có một đợt giảm giá lớn',
+      vi: 'đang có một đợt giảm giá lớn',
     ),
     FabAnswerItem(
       en: 'almost every kind of office supplies',
-      vi: 'Hầu hết tất cả các loại thiết bị văn phòng',
+      vi: 'hầu hết tất cả các loại thiết bị văn phòng',
     ),
-    FabAnswerItem(en: 'a very good time', vi: 'Một thời điểm rất tốt'),
+    FabAnswerItem(en: 'a very good time', vi: 'một thời điểm rất tốt'),
     FabAnswerItem(
       en: 'high quality toners',
-      vi: 'Các loại hộp mực in laze chất lượng cao',
+      vi: 'các loại hộp mực in laze chất lượng cao',
     ),
     FabAnswerItem(en: 'The reason', vi: 'Nguyên do'),
     FabAnswerItem(
       en: 'just got a new copy machine',
-      vi: 'Vừa mua một máy phô-tô-copy mới',
+      vi: 'vừa mua một chiếc máy phô-tô-copy mới',
     ),
-    FabAnswerItem(en: 'a different cartridge', vi: 'Một hộp mực in khác'),
+    FabAnswerItem(en: 'a different cartridge', vi: 'một hộp mực in khác'),
     FabAnswerItem(
       en: 'choose another supplier',
-      vi: 'Lựa chọn một nhà cung cấp khác',
+      vi: 'lựa chọn một nhà cung cấp khác',
     ),
     FabAnswerItem(
       en: 'virtually all major brands',
-      vi: 'Hầu hết các thương hiệu lớn',
+      vi: 'hầu hết các thương hiệu lớn',
     ),
     FabAnswerItem(
       en: 'models of photocopier toners',
-      vi: 'Các mẫu hộp mực in cho máy phô-tô-copy',
+      vi: 'các mẫu hộp mực in cho máy phô-tô-copy',
     ),
-    FabAnswerItem(en: 'the one you need', vi: 'Cái mà ông cần'),
+    FabAnswerItem(en: 'the one you need', vi: 'cái mà ông cần'),
     FabAnswerItem(
       en: 'your new copier',
-      vi: 'Chiếc máy phô tô mới của bên ông',
+      vi: 'chiếc máy phô-tô mới của bên ông',
     ),
-    FabAnswerItem(en: 'what we have in stock', vi: 'Chúng tôi có gì trong kho'),
-    FabAnswerItem(en: 'get back to you', vi: 'Liên hệ lại với ông'),
-    FabAnswerItem(en: 'in about 10 minutes', vi: 'Trong khoảng 10 phút nữa'),
+    FabAnswerItem(en: 'what we have in stock', vi: 'chúng tôi có gì trong kho'),
+    FabAnswerItem(en: 'get back to you', vi: 'liên hệ lại với ông'),
+    FabAnswerItem(en: 'in about 10 minutes', vi: 'trong khoảng 10 phút nữa'),
     FabAnswerItem(
       en: 'the new photocopier\'s model number',
-      vi: 'Mã số của mẫu máy phô-tô copy mới đó',
+      vi: 'mã số của mẫu máy phô-tô-copy mới đó',
     ),
   ];
 
@@ -783,49 +783,49 @@ class Theme6Content {
   // FAB - Day 2 Short Talk 1 (Supermarket announcement)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'specials',
       pronunciation: '/ˈspeʃəlz/',
       wordVi: 'Hàng giảm giá đặc biệt',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'valid',
       pronunciation: '/ˈvælɪd/',
       wordVi: 'Có hiệu lực',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'exclude',
       pronunciation: '/ɪkˈskluːd/',
       wordVi: 'Loại trừ',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'voucher',
       pronunciation: '/ˈvaʊtʃər/',
       wordVi: 'Phiếu mua hàng giảm giá',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'complimentary',
       pronunciation: '/ˌkɑːmplɪˈmentri/',
       wordVi: 'Miễn phí',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'muffin',
       pronunciation: '/ˈmʌfɪn/',
       wordVi: 'Bánh nướng',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'main entrance',
       pronunciation: '/meɪn ˈentrəns/',
       wordVi: 'Cửa chính',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'checkout counter',
       pronunciation: '/ˈtʃekaʊt ˈkaʊntər/',
       wordVi: 'Quầy thanh toán',
@@ -834,47 +834,47 @@ class Theme6Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(phrase: 'Take advantage of', meaning: 'Tận dụng'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Take advantage of', meaning: 'Tận dụng'),
+    const FabPhraseItem(
       phrase: 'Be greatly reduced in price',
       meaning: 'Được giảm giá cực mạnh',
     ),
-    FabPhraseItem(phrase: 'Save up to', meaning: 'Tiết kiệm tới'),
-    FabPhraseItem(phrase: 'Award sth to sb', meaning: 'Trao/tặng cho ai'),
-    FabPhraseItem(phrase: 'Be nice to', meaning: 'Lịch thiệp/tử tế với'),
-    FabPhraseItem(phrase: 'Be patient', meaning: 'Kiên nhẫn'),
+    const FabPhraseItem(phrase: 'Save up to', meaning: 'Tiết kiệm tới'),
+    const FabPhraseItem(phrase: 'Award sth to sb', meaning: 'Trao/tặng cho ai'),
+    const FabPhraseItem(phrase: 'Be nice to', meaning: 'Lịch thiệp/tử tế với'),
+    const FabPhraseItem(phrase: 'Be patient', meaning: 'Kiên nhẫn'),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(en: 'take advantage of', vi: 'Tận dụng'),
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(en: 'take advantage of', vi: 'tận dụng'),
     FabAnswerItem(
       en: 'specials',
-      vi: 'Những mặt hàng giảm giá nhân dịp khuyến mại đặc biệt',
+      vi: 'những mặt hàng giảm giá nhân dịp khuyến mại đặc biệt',
     ),
     FabAnswerItem(en: 'For the next 45 minutes', vi: 'Trong vòng 45 phút nữa'),
     FabAnswerItem(
       en: 'be greatly reduced in price',
-      vi: 'Được giảm giá cực mạnh',
+      vi: 'được giảm giá cực mạnh',
     ),
-    FabAnswerItem(en: 'valid', vi: 'Có giá trị'),
-    FabAnswerItem(en: 'save up to', vi: 'Tiết kiệm tới'),
-    FabAnswerItem(en: 'in-store', vi: 'Có trong cửa hàng'),
-    FabAnswerItem(en: 'china', vi: 'Đồ sứ'),
-    FabAnswerItem(en: 'pottery', vi: 'Đồ gốm'),
-    FabAnswerItem(en: 'offer', vi: 'Dành tặng'),
-    FabAnswerItem(en: 'vouchers', vi: 'Phiếu mua hàng giảm giá'),
-    FabAnswerItem(en: 'award to customers', vi: 'Thưởng cho những khách hàng'),
-    FabAnswerItem(en: 'complimentary tea', vi: 'Trà miễn phí đi kèm'),
-    FabAnswerItem(en: 'muffins', vi: 'Bánh nướng'),
-    FabAnswerItem(en: 'our bakery counter', vi: 'Quầy bánh của chúng tôi'),
-    FabAnswerItem(en: 'juice', vi: 'Nước hoa quả'),
-    FabAnswerItem(en: 'free balloons', vi: 'Bóng bay miễn phí'),
-    FabAnswerItem(en: 'the main entrance', vi: 'Khu cửa chính'),
-    FabAnswerItem(en: 'be nice to', vi: 'Lịch thiệp với'),
-    FabAnswerItem(en: 'patient', vi: 'Kiên nhẫn'),
+    FabAnswerItem(en: 'valid', vi: 'có giá trị'),
+    FabAnswerItem(en: 'save up to', vi: 'tiết kiệm tới'),
+    FabAnswerItem(en: 'in-store', vi: 'có trong cửa hàng'),
+    FabAnswerItem(en: 'china', vi: 'đồ sứ'),
+    FabAnswerItem(en: 'pottery', vi: 'đồ gốm'),
+    FabAnswerItem(en: 'offer', vi: 'dành tặng'),
+    FabAnswerItem(en: 'vouchers', vi: 'phiếu mua hàng giảm giá'),
+    FabAnswerItem(en: 'award to customers', vi: 'thưởng cho những khách hàng'),
+    FabAnswerItem(en: 'complimentary tea', vi: 'trà miễn phí đi kèm'),
+    FabAnswerItem(en: 'muffins', vi: 'bánh nướng'),
+    FabAnswerItem(en: 'our bakery counter', vi: 'quầy bánh của chúng tôi'),
+    FabAnswerItem(en: 'juice', vi: 'nước hoa quả'),
+    FabAnswerItem(en: 'free balloons', vi: 'bóng bay miễn phí'),
+    FabAnswerItem(en: 'the main entrance', vi: 'khu cửa chính'),
+    FabAnswerItem(en: 'be nice to', vi: 'lịch thiệp với'),
+    FabAnswerItem(en: 'patient', vi: 'kiên nhẫn'),
     FabAnswerItem(
       en: 'longer lines than usual',
-      vi: 'Những hàng người xếp hàng dài hơn thường lệ',
+      vi: 'những hàng người xếp hàng dài hơn thường lệ',
     ),
   ];
 
@@ -882,55 +882,55 @@ class Theme6Content {
   // FAB - Day 2 Short Talk 2 (OfficeMax voicemail)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'photocopier',
       pronunciation: '/ˈfoʊtəˌkɑːpiər/',
       wordVi: 'Máy phô-tô',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'fax machine',
       pronunciation: '/fæks məˈʃiːn/',
       wordVi: 'Máy fax',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'unavailable',
       pronunciation: '/ˌʌnəˈveɪləbəl/',
       wordVi: 'Không có sẵn',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'in stock',
       pronunciation: '/ɪn stɑːk/',
       wordVi: 'Trong kho',
       partOfSpeech: 'prep.p',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'comparable',
       pronunciation: '/ˈkɑːmpərəbl/',
       wordVi: 'Tương tự',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'loan',
       pronunciation: '/loʊn/',
       wordVi: 'Cho mượn',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'shipment',
       pronunciation: '/ˈʃɪpmənt/',
       wordVi: 'Lô hàng',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'proceed',
       pronunciation: '/prəˈsiːd/',
       wordVi: 'Tiến hành/giải quyết',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'cooperation',
       pronunciation: '/koʊˌɑːpəˈreɪʃən/',
       wordVi: 'Sự hợp tác',
@@ -939,44 +939,44 @@ class Theme6Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(phrase: 'Be willing to do sth', meaning: 'Sẵn sàng làm gì'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Be willing to do sth', meaning: 'Sẵn sàng làm gì'),
+    const FabPhraseItem(
       phrase: 'Have sth done',
       meaning: 'Làm cho việc gì được thực hiện',
     ),
-    FabPhraseItem(phrase: 'With respect to', meaning: 'Liên quan đến'),
-    FabPhraseItem(phrase: 'Hear from sb', meaning: 'Nhận được phản hồi từ ai'),
+    const FabPhraseItem(phrase: 'With respect to', meaning: 'Liên quan đến'),
+    const FabPhraseItem(phrase: 'Hear from sb', meaning: 'Nhận được phản hồi từ ai'),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(en: 'just received', vi: 'Vừa nhận được'),
+  static List<FabAnswerItem> get shortTalk2Answers => const [
+    FabAnswerItem(en: 'just received', vi: 'vừa nhận được'),
     FabAnswerItem(
       en: 'photocopiers and fax machines',
-      vi: 'Những chiếc máy phô-tô và máy fax',
+      vi: 'những chiếc máy phô-tô và máy fax',
     ),
-    FabAnswerItem(en: 'the photocopier model', vi: 'Mẫu máy phô tô'),
-    FabAnswerItem(en: 'had requested', vi: 'Đã yêu cầu'),
-    FabAnswerItem(en: 'unavailable', vi: 'Không có sẵn'),
-    FabAnswerItem(en: 'in stock', vi: 'Trong kho'),
+    FabAnswerItem(en: 'the photocopier model', vi: 'mẫu máy phô-tô'),
+    FabAnswerItem(en: 'had requested', vi: 'đã yêu cầu'),
+    FabAnswerItem(en: 'unavailable', vi: 'không có sẵn'),
+    FabAnswerItem(en: 'in stock', vi: 'trong kho'),
     FabAnswerItem(
       en: 'another photocopier model',
-      vi: 'Một mẫu máy phô tô khác',
+      vi: 'một mẫu máy phô tô khác',
     ),
     FabAnswerItem(
       en: 'comparable to the original one',
-      vi: 'Tương tự như mẫu ban đầu',
+      vi: 'tương tự như mẫu ban đầu',
     ),
-    FabAnswerItem(en: 'are willing to loan you', vi: 'Sẵn sàng cho ông mượn'),
-    FabAnswerItem(en: 'the other shipment', vi: 'Lô hàng kia'),
-    FabAnswerItem(en: 'no problems', vi: 'Không vấn đề gì'),
-    FabAnswerItem(en: 'the fax machine order', vi: 'Đơn đặt hàng máy fax'),
-    FabAnswerItem(en: 'contact', vi: 'Liên hệ'),
+    FabAnswerItem(en: 'are willing to loan you', vi: 'sẵn sàng cho ông mượn'),
+    FabAnswerItem(en: 'the other shipment', vi: 'lô hàng kia'),
+    FabAnswerItem(en: 'no problems', vi: 'không vấn đề gì'),
+    FabAnswerItem(en: 'the fax machine order', vi: 'đơn đặt hàng máy fax'),
+    FabAnswerItem(en: 'contact', vi: 'liên hệ'),
     FabAnswerItem(
       en: 'with respect to the photocopiers',
-      vi: 'Liên quan tới những chiếc máy phô-tô',
+      vi: 'liên quan tới những chiếc máy phô-tô',
     ),
-    FabAnswerItem(en: 'your cooperation', vi: 'Sự hợp tác của ông'),
-    FabAnswerItem(en: 'hear from', vi: 'Nhận được phản hồi từ'),
+    FabAnswerItem(en: 'your cooperation', vi: 'sự hợp tác của ông'),
+    FabAnswerItem(en: 'hear from', vi: 'nhận được phản hồi từ'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
@@ -1141,6 +1141,20 @@ Việc mua sắm ở quy mô lớn hơn diễn ra ở các công ty mà cần m�
         titleVi: 'Luyện tập 1: Hội thoại',
         audioTrackKey: 'track_24',
         questions: _practice1Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (D): W nói "now is a very good time to purchase high quality toners" = Chào bán mực in.',
+            en: 'Q1 (D): W says "now is a very good time to purchase high quality toners" = To sell some toner.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (C): W nói "your last photocopy toner order with us was 3 months ago" = 3 tháng trước.',
+            en: 'Q2 (C): W says "your last photocopy toner order with us was 3 months ago" = 3 months ago.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (B): M nói "I will send you an e-mail in about 10 minutes" = Gửi email cho người phụ nữ.',
+            en: 'Q3 (B): M says "I will send you an e-mail in about 10 minutes" = Send the woman an email.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme06_day2_quiz2',
@@ -1149,6 +1163,20 @@ Việc mua sắm ở quy mô lớn hơn diễn ra ở các công ty mà cần m�
         titleVi: 'Luyện tập 2: Bài ngắn - Khuyến mãi siêu thị',
         audioTrackKey: 'track_25',
         questions: _practice2Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (B): "Please take advantage of our 10th birthday specials" = Một sự kiện khuyến mãi.',
+            en: 'Q4 (B): "Please take advantage of our 10th birthday specials" = A promotional event.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (C): "enjoy complimentary tea, coffee... Soda and juice will be served" = Đồ uống miễn phí.',
+            en: 'Q5 (C): "enjoy complimentary tea, coffee... Soda and juice will be served" = Free drinks.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (C): "there may be longer lines than usual at the checkout counter" = Có những hàng dài người đợi.',
+            en: 'Q6 (C): "there may be longer lines than usual at the checkout counter" = There are long queues of people.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme06_day2_quiz3',
@@ -1157,6 +1185,20 @@ Việc mua sắm ở quy mô lớn hơn diễn ra ở các công ty mà cần m�
         titleVi: 'Luyện tập 3: Bài ngắn - Tin nhắn OfficeMax',
         audioTrackKey: 'track_26',
         questions: _practice3Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (B): "the photocopier model that you had requested is unavailable" = Thông báo vấn đề về đơn hàng.',
+            en: 'Q7 (B): "the photocopier model that you had requested is unavailable" = To notify the customer of an order problem.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (B): "We are willing to loan you this model" = Cho khách hàng mượn một máy phô-tô tương đương.',
+            en: 'Q8 (B): "We are willing to loan you this model" = To let him use a comparable photocopier.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (C): "no problems with the fax machine order... shipped by Monday afternoon" = Máy fax.',
+            en: 'Q9 (C): "no problems with the fax machine order... shipped by Monday afternoon" = Fax machines.',
+          ),
+        ],
       ),
 
       // --- TRANSLATE 1/2/3 ---
@@ -1242,7 +1284,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
   // ═══════════════════════════════════════════════════════════════
 
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q01',
       questionText: 'What is the purpose of the woman\'s call?',
       options: [
@@ -1255,7 +1297,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
       audioTrackKey: 'track_24',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q02',
       questionText: 'When did Mr. Solis last buy toner?',
       options: [
@@ -1268,7 +1310,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
       audioTrackKey: 'track_24',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q03',
       questionText: 'What will Mr. Solis probably do next?',
       options: [
@@ -1284,7 +1326,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q04',
       questionText: 'What is being announced?',
       options: [
@@ -1297,7 +1339,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
       audioTrackKey: 'track_25',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q05',
       questionText: 'What will customers receive at the bakery counter?',
       options: [
@@ -1310,7 +1352,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
       audioTrackKey: 'track_25',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q06',
       questionText: 'Why are the customers asked to be nice to others?',
       options: [
@@ -1326,7 +1368,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q07',
       questionText: 'Why is the person leaving this message?',
       options: [
@@ -1339,7 +1381,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
       audioTrackKey: 'track_26',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q08',
       questionText: 'What does the caller offer Mr. Southgate?',
       options: [
@@ -1352,7 +1394,7 @@ M: Được thôi, tôi sẽ gửi cô một bức thư điện tử trong vòng
       audioTrackKey: 'track_26',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme06_q09',
       questionText: 'What will be delivered to Mr. Southgate on Monday?',
       options: [

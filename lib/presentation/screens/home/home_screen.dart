@@ -257,7 +257,7 @@ class _HomeTab extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('Mục tiêu hôm nay', style: AppTextStyles.h3),
+              const Text('Mục tiêu hôm nay', style: AppTextStyles.h3),
               const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -281,12 +281,10 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: AppConstants.paddingS),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppConstants.radiusS),
-            child: LinearProgressIndicator(
+            child: const LinearProgressIndicator(
               value: 0.0,
               backgroundColor: AppColors.border,
-              valueColor: const AlwaysStoppedAnimation<Color>(
-                AppColors.primary,
-              ),
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
               minHeight: 8,
             ),
           ),
@@ -360,7 +358,7 @@ class _HomeTab extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text('Tiếp tục học', style: AppTextStyles.h3),
+            const Text('Tiếp tục học', style: AppTextStyles.h3),
             const Spacer(),
             GestureDetector(
               onTap: () => Navigator.push(
@@ -387,7 +385,7 @@ class _HomeTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Hành động nhanh', style: AppTextStyles.h3),
+        const Text('Hành động nhanh', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
@@ -668,10 +666,10 @@ class _CurrentLessonCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
-                    child: LinearProgressIndicator(
+                    child: const LinearProgressIndicator(
                       value: 0.0,
                       backgroundColor: AppColors.border,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
+                      valueColor: AlwaysStoppedAnimation<Color>(
                         AppColors.primary,
                       ),
                       minHeight: 4,

@@ -439,56 +439,139 @@ class Theme1Content {
   ];
 
   // ─── FAB DATA: Từ vựng cần nắm vững theo từng bài ─────────────
+  static List<FabAnswerItem> get day1Answers => [
+    const FabAnswerItem(vi: 'sẽ xuất hiện', en: 'will occur'),
+    const FabAnswerItem(vi: 'tất cả bảy phần', en: 'all seven sections'),
+    const FabAnswerItem(
+      vi: 'các tình huống văn phòng',
+      en: 'office situations',
+    ),
+    const FabAnswerItem(vi: 'các cuộc họp', en: 'meetings'),
+    const FabAnswerItem(vi: 'thiết bị văn phòng', en: 'office equipment'),
+    const FabAnswerItem(vi: 'các quy trình', en: 'procedures'),
+    const FabAnswerItem(
+      vi: 'có liên quan trực tiếp đến',
+      en: 'is related directly to',
+    ),
+    const FabAnswerItem(vi: 'Ở trong văn phòng', en: 'In the office'),
+    const FabAnswerItem(vi: 'các thông báo nội bộ', en: 'memos'),
+    const FabAnswerItem(vi: 'các phòng ban', en: 'departments'),
+    const FabAnswerItem(
+      vi: 'tất cả các loại thiết bị',
+      en: 'all kinds of equipment',
+    ),
+    const FabAnswerItem(vi: 'được quan tâm chăm sóc', en: 'be looked after'),
+    const FabAnswerItem(vi: 'những chiếc máy phô-tô', en: 'photocopiers'),
+    const FabAnswerItem(vi: 'những chiếc máy fax', en: 'fax machines'),
+    const FabAnswerItem(vi: 'các máy điều hòa', en: 'air-conditioners'),
+    const FabAnswerItem(vi: 'các cách kết hợp từ', en: 'collocations'),
+    const FabAnswerItem(vi: 'tổ chức', en: 'hold'),
+    const FabAnswerItem(vi: 'các cách diễn đạt', en: 'expressions'),
+    const FabAnswerItem(vi: 'tống khứ ai', en: 'show someone the door'),
+    const FabAnswerItem(vi: 'chấm dứt', en: 'terminate'),
+    const FabAnswerItem(
+      vi: 'các thông báo bằng lời nói',
+      en: 'verbal announcements',
+    ),
+    const FabAnswerItem(vi: 'những tin tức quan trọng', en: 'important news'),
+    const FabAnswerItem(vi: 'có xu hướng', en: 'tend'),
+    const FabAnswerItem(vi: 'trang trọng hơn', en: 'more formal'),
+    const FabAnswerItem(vi: 'để hiểu', en: 'to comprehend'),
+    const FabAnswerItem(
+      vi: 'các cuộc hội thoại trực tiếp',
+      en: 'face-to-face conversations',
+    ),
+  ];
+
+  static List<FabAnswerItem> get conversationAnswers => [
+    const FabAnswerItem(vi: 'đây là', en: 'this is'),
+    const FabAnswerItem(vi: 'đang gọi', en: 'calling'),
+    const FabAnswerItem(
+      vi: 'một máy phô-tô bị hỏng',
+      en: 'a broken photocopier',
+    ),
+    const FabAnswerItem(vi: 'văn phòng của chúng ta', en: 'our office'),
+    const FabAnswerItem(vi: 'kỹ thuật viên nào', en: 'any technicians'),
+    const FabAnswerItem(vi: 'phòng bảo trì', en: 'the maintenance department'),
+    const FabAnswerItem(vi: 'không bận', en: 'available'),
+    const FabAnswerItem(
+      vi: 'có thể gửi một người qua',
+      en: 'could send one over',
+    ),
+    const FabAnswerItem(vi: 'ngay lập tức', en: 'right now'),
+    const FabAnswerItem(
+      vi: 'tất cả các kỹ thuật viên của chúng tôi',
+      en: 'all our technicians',
+    ),
+    const FabAnswerItem(vi: 'đang bận', en: 'on jobs'),
+    const FabAnswerItem(vi: 'không ai trong số họ', en: 'none of them'),
+    const FabAnswerItem(vi: 'trong văn phòng', en: 'in the office'),
+    const FabAnswerItem(
+      vi: 'chờ đến sáng mai',
+      en: 'wait until tomorrow morning',
+    ),
+    const FabAnswerItem(vi: 'e ngại', en: 'afraid'),
+    const FabAnswerItem(
+      vi: 'chiếc máy phô-tô duy nhất',
+      en: 'the only photocopier',
+    ),
+    const FabAnswerItem(vi: 'rất nhiều bản phô-tô', en: 'a lot of copies'),
+    const FabAnswerItem(vi: 'Trong trường hợp đó', en: 'In that case'),
+    const FabAnswerItem(vi: 'phải tới đó', en: 'have to go there'),
+    const FabAnswerItem(vi: 'tự mình sửa nó', en: 'fix it myself'),
+    const FabAnswerItem(vi: 'qua đó', en: 'over there'),
+  ];
+
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'the voice mail',
       pronunciation: '/ðə vɔɪs meɪl/',
       wordVi: 'Hộp thư thoại',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: "teachers' conference",
       pronunciation: '/ˈtiːtʃərz ˈkɒnfərəns/',
       wordVi: 'Hội nghị giáo viên',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'an emergency',
       pronunciation: '/æn ɪˈmɜːrdʒənsi/',
       wordVi: 'Một tình huống khẩn cấp',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'teaching assistant',
       pronunciation: '/ˈtiːtʃɪŋ əˈsɪstənt/',
       wordVi: 'Trợ lý giáo vụ',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'at extension',
       pronunciation: '/æt ɪkˈstenʃən/',
       wordVi: 'Theo số máy lẻ',
       partOfSpeech: 'prep',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'take care of',
       pronunciation: '/teɪk ker əv/',
       wordVi: 'Phụ trách, chăm sóc',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'daily work',
       pronunciation: '/ˈdeɪli wɜːrk/',
       wordVi: 'Công việc hàng ngày',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'personal response',
       pronunciation: '/ˈpɜːrsənəl rɪˈspɒns/',
       wordVi: 'Câu trả lời cá nhân',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'as soon as possible',
       pronunciation: '/æz suːn æz ˈpɒsɪbəl/',
       wordVi: 'Sớm nhất có thể',
@@ -497,110 +580,131 @@ class Theme1Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Be out of the office',
       meaning: 'Vắng mặt khỏi văn phòng',
     ),
-    FabPhraseItem(phrase: 'Please (do sth)', meaning: 'Vui lòng làm gì'),
-    FabPhraseItem(phrase: 'Back in the office', meaning: 'Trở lại văn phòng'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Please (do sth)', meaning: 'Vui lòng làm gì'),
+    const FabPhraseItem(
+      phrase: 'Back in the office',
+      meaning: 'Trở lại văn phòng',
+    ),
+    const FabPhraseItem(
       phrase: 'Reply to sb',
       meaning: 'Trả lời cho ai, hồi âm cho ai',
     ),
-    FabPhraseItem(phrase: 'Feel free to do sth', meaning: 'Đừng ngại làm gì'),
-    FabPhraseItem(phrase: 'Send sb sth', meaning: 'Gửi cho ai cái gì'),
+    const FabPhraseItem(
+      phrase: 'Feel free to do sth',
+      meaning: 'Đừng ngại làm gì',
+    ),
+    const FabPhraseItem(phrase: 'Send sb sth', meaning: 'Gửi cho ai cái gì'),
   ];
 
   static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(vi: 'Hộp thư thoại', en: 'the voice mail'),
-    FabAnswerItem(vi: 'Không có ở văn phòng', en: 'be out of the office'),
-    FabAnswerItem(vi: 'Một hội nghị giáo viên', en: "a teachers' conference"),
-    FabAnswerItem(vi: 'Một tình huống khẩn cấp', en: 'an emergency'),
-    FabAnswerItem(vi: 'Trợ lý giáo vụ của tôi', en: 'my teaching assistant'),
-    FabAnswerItem(vi: 'Theo số máy lẻ', en: 'at extension'),
-    FabAnswerItem(vi: 'Phụ trách', en: 'take care of'),
-    FabAnswerItem(vi: 'Các công việc hàng ngày của tôi', en: 'my daily work'),
-    FabAnswerItem(vi: 'Trở lại văn phòng', en: 'back in the office'),
-    FabAnswerItem(vi: 'Các câu trả lời cá nhân', en: 'personal responses'),
-    FabAnswerItem(vi: 'Đừng ngại gửi cho tôi', en: 'feel free to send me'),
-    FabAnswerItem(vi: 'Trả lời cho', en: 'reply to'),
-    FabAnswerItem(vi: 'Sớm nhất có thể', en: 'as soon as possible'),
+    const FabAnswerItem(vi: 'Hộp thư thoại', en: 'the voice mail'),
+    const FabAnswerItem(vi: 'Không có ở văn phòng', en: 'be out of the office'),
+    const FabAnswerItem(
+      vi: 'Một hội nghị giáo viên',
+      en: "a teachers' conference",
+    ),
+    const FabAnswerItem(vi: 'Một tình huống khẩn cấp', en: 'an emergency'),
+    const FabAnswerItem(
+      vi: 'Trợ lý giáo vụ của tôi',
+      en: 'my teaching assistant',
+    ),
+    const FabAnswerItem(vi: 'Theo số máy lẻ', en: 'at extension'),
+    const FabAnswerItem(vi: 'Phụ trách', en: 'take care of'),
+    const FabAnswerItem(
+      vi: 'Các công việc hàng ngày của tôi',
+      en: 'my daily work',
+    ),
+    const FabAnswerItem(vi: 'Trở lại văn phòng', en: 'back in the office'),
+    const FabAnswerItem(
+      vi: 'Các câu trả lời cá nhân',
+      en: 'personal responses',
+    ),
+    const FabAnswerItem(
+      vi: 'Đừng ngại gửi cho tôi',
+      en: 'feel free to send me',
+    ),
+    const FabAnswerItem(vi: 'Trả lời cho', en: 'reply to'),
+    const FabAnswerItem(vi: 'Sớm nhất có thể', en: 'as soon as possible'),
   ];
 
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'discuss',
       pronunciation: '/dɪˈskʌs/',
       wordVi: 'Bàn bạc, thảo luận',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'space',
       pronunciation: '/speɪs/',
       wordVi: 'Không gian trống',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'the marketing team',
       pronunciation: '/ðə ˈmɑːrkɪtɪŋ tiːm/',
       wordVi: 'Đội/nhóm marketing',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'increase',
       pronunciation: '/ɪnˈkriːs/',
       wordVi: 'Tăng lên, gia tăng',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'staff members',
       pronunciation: '/stæf ˈmembərz/',
       wordVi: 'Nhân viên',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'hold',
       pronunciation: '/hoʊld/',
       wordVi: 'Tổ chức (buổi họp)',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'weekly group meetings',
       pronunciation: '/ˈwiːkli ɡruːp ˈmiːtɪŋz/',
       wordVi: 'Các cuộc họp nhóm hàng tuần',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'therefore',
       pronunciation: '/ˈðerfɔːr/',
       wordVi: 'Do đó',
       partOfSpeech: 'conj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'in order to',
       pronunciation: '/ɪn ˈɔːrdər tuː/',
       wordVi: 'Để làm gì',
       partOfSpeech: 'conj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'get rid of',
       pronunciation: '/ɡet rɪd əv/',
       wordVi: 'Loại bỏ, từ bỏ',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'no longer',
       pronunciation: '/noʊ ˈlɔːŋɡər/',
       wordVi: 'Không còn nữa',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'take up',
       pronunciation: '/teɪk ʌp/',
       wordVi: 'Chiếm (không gian)',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'freely',
       pronunciation: '/ˈfriːli/',
       wordVi: 'Thoải mái, dễ dàng',
@@ -609,42 +713,51 @@ class Theme1Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(phrase: 'The lack of sth', meaning: 'Sự thiếu hụt (cái gì)'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'The lack of sth',
+      meaning: 'Sự thiếu hụt (cái gì)',
+    ),
+    const FabPhraseItem(
       phrase: 'As you all know',
       meaning: 'Như tất cả các bạn đã biết',
     ),
-    FabPhraseItem(phrase: 'At the back of sth', meaning: 'Phía cuối, phía sau'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'At the back of sth',
+      meaning: 'Phía cuối, phía sau',
+    ),
+    const FabPhraseItem(
       phrase: 'Make it really difficult (for sb to do sth)',
       meaning: 'Thực sự gây khó khăn cho ai để làm gì',
     ),
   ];
 
   static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Có mặt ở đây', en: 'are here'),
-    FabAnswerItem(vi: 'Sự thiếu không gian', en: 'the lack of space'),
-    FabAnswerItem(vi: 'Đã thêm', en: 'added'),
-    FabAnswerItem(vi: 'Vào nhóm tiếp thị', en: 'to the marketing team'),
-    FabAnswerItem(vi: 'Làm tăng', en: 'increases'),
-    FabAnswerItem(vi: 'Lên tới 20 người', en: 'to 20 people'),
-    FabAnswerItem(
+    const FabAnswerItem(vi: 'Có mặt ở đây', en: 'are here'),
+    const FabAnswerItem(vi: 'Sự thiếu không gian', en: 'the lack of space'),
+    const FabAnswerItem(vi: 'Đã thêm', en: 'added'),
+    const FabAnswerItem(vi: 'Vào nhóm tiếp thị', en: 'to the marketing team'),
+    const FabAnswerItem(vi: 'Làm tăng', en: 'increases'),
+    const FabAnswerItem(vi: 'Lên tới 20 người', en: 'to 20 people'),
+    const FabAnswerItem(
       vi: 'Đã khiến cho nó thật sự khó khăn',
       en: 'has made it really difficult',
     ),
-    FabAnswerItem(
+    const FabAnswerItem(
       vi: 'Các buổi họp nhóm hàng tuần',
       en: 'weekly group meetings',
     ),
-    FabAnswerItem(vi: 'Quá nhiều ghế', en: 'too many chairs'),
-    FabAnswerItem(vi: 'Để tạo ra', en: 'in order to create'),
-    FabAnswerItem(vi: 'Cho mọi người', en: 'for everybody'),
-    FabAnswerItem(vi: 'Loại bỏ', en: 'get rid of'),
-    FabAnswerItem(vi: 'Không còn cần nữa', en: 'no longer need'),
-    FabAnswerItem(vi: 'Đang chiếm', en: 'are taking up'),
-    FabAnswerItem(vi: 'Không gian của chúng ta', en: 'our space'),
-    FabAnswerItem(vi: 'Cũng nên được chuyển đi', en: 'should also be moved'),
-    FabAnswerItem(vi: 'Di chuyển thoải mái hơn', en: 'move more freely'),
+    const FabAnswerItem(vi: 'Quá nhiều ghế', en: 'too many chairs'),
+    const FabAnswerItem(vi: 'Để tạo ra', en: 'in order to create'),
+    const FabAnswerItem(vi: 'Cho mọi người', en: 'for everybody'),
+    const FabAnswerItem(vi: 'Loại bỏ', en: 'get rid of'),
+    const FabAnswerItem(vi: 'Không còn cần nữa', en: 'no longer need'),
+    const FabAnswerItem(vi: 'Đang chiếm', en: 'are taking up'),
+    const FabAnswerItem(vi: 'Không gian của chúng ta', en: 'our space'),
+    const FabAnswerItem(
+      vi: 'Cũng nên được chuyển đi',
+      en: 'should also be moved',
+    ),
+    const FabAnswerItem(vi: 'Di chuyển thoải mái hơn', en: 'move more freely'),
   ];
 
   // ─── DAY 1 ────────────────────────────────────────────────────
@@ -699,6 +812,7 @@ Chuyên đề Văn phòng này cũng sử dụng các thông báo bằng lời v
         titleEn: 'Step 3: Mind Game - Say it in English!',
         titleVi: 'Bước 3: Trò chơi Tư duy - Nói to bằng tiếng Anh!',
         mixedSegments: _day1MindGameSegments,
+        fabAnswers: Theme1Content.day1Answers,
       ),
 
       // PHASE 4: VOCABULARY
@@ -899,6 +1013,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
         titleEn: 'Memory Training: Conversation',
         titleVi: 'Huấn luyện Trí nhớ: Hội thoại',
         mixedSegments: _day2ConversationSegments,
+        fabAnswers: Theme1Content.conversationAnswers,
       ),
 
       // PHASE: Mind Game - Short Talk 1
@@ -928,7 +1043,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
   );
 
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q01',
       questionText: 'Why is the woman calling the man?',
       options: [
@@ -941,7 +1056,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
       audioTrackKey: 'track_04',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q02',
       questionText: "Why can't the man send a technician right now?",
       options: [
@@ -954,7 +1069,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
       audioTrackKey: 'track_04',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q03',
       questionText: 'What does the man offer to do?',
       options: [
@@ -970,7 +1085,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q04',
       questionText: 'Where is Mr. James this week?',
       options: [
@@ -983,7 +1098,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
       audioTrackKey: 'track_05',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q05',
       questionText: "What is probably Mr. James' job?",
       options: [
@@ -996,7 +1111,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
       audioTrackKey: 'track_05',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q06',
       questionText: "What is Ms. Clarke's extension number?",
       options: ['71', '17', '117', '171'],
@@ -1007,7 +1122,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q07',
       questionText: 'Where is the speech being made?',
       options: ['In a bank', 'In a school', 'In an office', 'In a library'],
@@ -1015,7 +1130,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
       audioTrackKey: 'track_06',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q08',
       questionText: 'Why is space limited?',
       options: [
@@ -1028,7 +1143,7 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
       audioTrackKey: 'track_06',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme01_q09',
       questionText: 'What is the audience asked to do?',
       options: [
@@ -1110,134 +1225,107 @@ Do vậy, để có thêm không gian cho tất cả mọi người, chúng ta c
 
   static List<MixedSegment> get _day2ShortTalk1Segments => [
     const MixedSegment.english('This is '),
-    const MixedSegment.vietnamese('hộp thư thoại', 'the voice mail'),
+    const MixedSegment.vietnamese('Hộp thư thoại', 'the voice mail'),
     const MixedSegment.english(
       ' of Brian James at Smartcom Training Center. I will ',
     ),
     const MixedSegment.vietnamese(
-      'không có ở văn phòng',
+      'Không có ở văn phòng',
       'be out of the office',
     ),
     const MixedSegment.english(' all week at '),
     const MixedSegment.vietnamese(
-      'một hội nghị giáo viên',
+      'Một hội nghị giáo viên',
       "a teachers' conference",
     ),
     const MixedSegment.english('. If it is '),
-    const MixedSegment.vietnamese('một tình huống khẩn cấp', 'an emergency'),
+    const MixedSegment.vietnamese('Một tình huống khẩn cấp', 'an emergency'),
     const MixedSegment.english(', please call '),
     const MixedSegment.vietnamese(
-      'trợ lý giáo vụ của tôi',
+      'Trợ lý giáo vụ của tôi',
       'my teaching assistant',
     ),
     const MixedSegment.english(' Ms. Clarke '),
-    const MixedSegment.vietnamese('theo số máy lẻ', 'at extension'),
+    const MixedSegment.vietnamese('Theo số máy lẻ', 'at extension'),
     const MixedSegment.english(' 71. Ms. Clarke will '),
-    const MixedSegment.vietnamese('phụ trách', 'take care of'),
+    const MixedSegment.vietnamese('Phụ trách', 'take care of'),
     const MixedSegment.english(' all of '),
     const MixedSegment.vietnamese(
-      'các công việc hàng ngày của tôi',
+      'Các công việc hàng ngày của tôi',
       'my daily work',
     ),
     const MixedSegment.english(' until I\'m '),
-    const MixedSegment.vietnamese('trở lại văn phòng', 'back in the office'),
+    const MixedSegment.vietnamese('Trở lại văn phòng', 'back in the office'),
     const MixedSegment.english(' this weekend. If you need my '),
     const MixedSegment.vietnamese(
-      'các câu trả lời cá nhân',
+      'Các câu trả lời cá nhân',
       'personal responses',
     ),
     const MixedSegment.english(' before the end of the week, '),
     const MixedSegment.vietnamese(
-      'đừng ngại gửi cho tôi',
+      'Đừng ngại gửi cho tôi',
       'feel free to send me',
     ),
     const MixedSegment.english(' an email. I\'ll '),
-    const MixedSegment.vietnamese('trả lời cho', 'reply to'),
+    const MixedSegment.vietnamese('Trả lời cho', 'reply to'),
     const MixedSegment.english(' you '),
-    const MixedSegment.vietnamese('sớm nhất có thể', 'as soon as possible'),
+    const MixedSegment.vietnamese('Sớm nhất có thể', 'as soon as possible'),
     const MixedSegment.english('. Thank you.'),
   ];
 
   static List<MixedSegment> get _day2ShortTalk2Segments => [
     const MixedSegment.english('Good afternoon everybody. We '),
-    const MixedSegment.vietnamese('có mặt ở đây', 'are here'),
+    const MixedSegment.vietnamese('Có mặt ở đây', 'are here'),
     const MixedSegment.english(' this afternoon to discuss '),
-    const MixedSegment.vietnamese('sự thiếu không gian', 'the lack of space'),
+    const MixedSegment.vietnamese('Sự thiếu không gian', 'the lack of space'),
     const MixedSegment.english(
       ' in our office. As you all know, at the beginning of this month, we ',
     ),
-    const MixedSegment.vietnamese('đã thêm', 'added'),
+    const MixedSegment.vietnamese('Đã thêm', 'added'),
     const MixedSegment.english(' 5 new members '),
-    const MixedSegment.vietnamese('vào nhóm tiếp thị', 'to the marketing team'),
+    const MixedSegment.vietnamese('Vào nhóm tiếp thị', 'to the marketing team'),
     const MixedSegment.english(', which '),
-    const MixedSegment.vietnamese('làm tăng', 'increases'),
+    const MixedSegment.vietnamese('Làm tăng', 'increases'),
     const MixedSegment.english(
       ' the number of staff members working on the third floor of the building ',
     ),
-    const MixedSegment.vietnamese('lên tới 20 người', 'to 20 people'),
+    const MixedSegment.vietnamese('Lên tới 20 người', 'to 20 people'),
     const MixedSegment.english('. This '),
     const MixedSegment.vietnamese(
-      'đã khiến cho nó thật sự khó khăn',
+      'Đã khiến cho nó thật sự khó khăn',
       'has made it really difficult',
     ),
     const MixedSegment.english(' for us to hold '),
     const MixedSegment.vietnamese(
-      'các buổi họp nhóm hàng tuần',
+      'Các buổi họp nhóm hàng tuần',
       'weekly group meetings',
     ),
     const MixedSegment.english(' as there are '),
-    const MixedSegment.vietnamese('quá nhiều ghế', 'too many chairs'),
+    const MixedSegment.vietnamese('Quá nhiều ghế', 'too many chairs'),
     const MixedSegment.english(' and desks. Therefore, '),
-    const MixedSegment.vietnamese('để tạo ra', 'in order to create'),
+    const MixedSegment.vietnamese('Để tạo ra', 'in order to create'),
     const MixedSegment.english(' more space '),
-    const MixedSegment.vietnamese('cho mọi người', 'for everybody'),
+    const MixedSegment.vietnamese('Cho mọi người', 'for everybody'),
     const MixedSegment.english(', we will need to '),
-    const MixedSegment.vietnamese('loại bỏ', 'get rid of'),
+    const MixedSegment.vietnamese('Loại bỏ', 'get rid of'),
     const MixedSegment.english(' all the files and books that we '),
-    const MixedSegment.vietnamese('không còn cần nữa', 'no longer need'),
+    const MixedSegment.vietnamese('Không còn cần nữa', 'no longer need'),
     const MixedSegment.english('. Those things '),
-    const MixedSegment.vietnamese('đang chiếm', 'are taking up'),
+    const MixedSegment.vietnamese('Đang chiếm', 'are taking up'),
     const MixedSegment.english(' all of '),
-    const MixedSegment.vietnamese('không gian của chúng ta', 'our space'),
+    const MixedSegment.vietnamese('Không gian của chúng ta', 'our space'),
     const MixedSegment.english(
       ' in the office. The old table at the back of the office ',
     ),
     const MixedSegment.vietnamese(
-      'cũng nên được chuyển đi',
+      'Cũng nên được chuyển đi',
       'should also be moved',
     ),
     const MixedSegment.english(' to the second floor so that we can '),
     const MixedSegment.vietnamese(
-      'di chuyển thoải mái hơn',
+      'Di chuyển thoải mái hơn',
       'move more freely',
     ),
     const MixedSegment.english(' around here.'),
   ];
-}
-
-// ─── Data classes cho FAB ─────────────────────────────────────────────────────
-
-class FabVocabItem {
-  final String wordEn;
-  final String pronunciation;
-  final String wordVi;
-  final String partOfSpeech;
-  const FabVocabItem({
-    required this.wordEn,
-    required this.pronunciation,
-    required this.wordVi,
-    required this.partOfSpeech,
-  });
-}
-
-class FabPhraseItem {
-  final String phrase;
-  final String meaning;
-  const FabPhraseItem({required this.phrase, required this.meaning});
-}
-
-class FabAnswerItem {
-  final String vi;
-  final String en;
-  const FabAnswerItem({required this.vi, required this.en});
 }

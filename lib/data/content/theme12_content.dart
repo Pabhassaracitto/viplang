@@ -40,7 +40,8 @@ class Theme12Content {
       partOfSpeech: 'np',
       themeId: 'theme_12_housing_property',
       exampleEn: 'The corporation manages its corporate property carefully.',
-      exampleVi: 'Tập đoàn quản lý tài sản doanh nghiệp của nó một cách cẩn thận.',
+      exampleVi:
+          'Tập đoàn quản lý tài sản doanh nghiệp của nó một cách cẩn thận.',
     ),
     VocabModel(
       id: 'v12_03',
@@ -219,7 +220,7 @@ class Theme12Content {
       pronunciation: '/rɛnt/',
       partOfSpeech: 'n,v',
       themeId: 'theme_12_housing_property',
-      exampleEn: 'The monthly rent is $1500.',
+      exampleEn: 'The monthly rent is \$1500.',
       exampleVi: 'Tiền thuê hàng tháng là 1500 đô la.',
     ),
     VocabModel(
@@ -327,50 +328,60 @@ class Theme12Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB VOCABULARY - DAY 1
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day1ReadingVocab => [
+  static List<FabVocabItem> get day1ReadingVocab => const [
     FabVocabItem(
       wordEn: 'housing',
       wordVi: 'Nhà ở',
       pronunciation: '/ˈhaʊzɪŋ/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'building construction',
       wordVi: 'Xây dựng tòa nhà',
       pronunciation: '/ˈbɪldɪŋ kənˈstrʌkʃən/',
+      partOfSpeech: 'np',
     ),
     FabVocabItem(
       wordEn: 'renovation',
       wordVi: 'Nâng cấp/Cải tạo',
       pronunciation: '/ˌrɛnəˈveɪʃən/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'utilities',
       wordVi: 'Dịch vụ tiện ích',
       pronunciation: '/juːˈtɪlɪtiz/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'lease',
       wordVi: 'Hợp đồng thuê',
       pronunciation: '/liːs/',
+      partOfSpeech: 'n',
     ),
   ];
 
-  static List<FabPhraseItem> get day1ReadingPhrases => [
+  static List<FabPhraseItem> get day1ReadingPhrases => const [
     FabPhraseItem(phrase: 'Building construction', meaning: 'Xây dựng'),
     FabPhraseItem(phrase: 'Overlap with', meaning: 'Chổng chéo với'),
     FabPhraseItem(phrase: 'Complain about', meaning: 'Phàn nàn về'),
     FabPhraseItem(phrase: 'Incorrect billing', meaning: 'Tính sai hoá đơn'),
-    FabPhraseItem(phrase: 'Repair scheduling', meaning: 'Lên kế hoạch sửa chữa'),
+    FabPhraseItem(
+      phrase: 'Repair scheduling',
+      meaning: 'Lên kế hoạch sửa chữa',
+    ),
   ];
 
-  static List<FabAnswerItem> get day1ReadingAnswers => [
+  static List<FabAnswerItem> get day1ReadingAnswers => const [
     FabAnswerItem(vi: 'các toà nhà', en: 'buildings'),
     FabAnswerItem(vi: 'xây dựng các toà nhà', en: 'building construction'),
+    FabAnswerItem(vi: 'kỹ thuật', en: 'engineering'),
     FabAnswerItem(vi: 'điện', en: 'electricity'),
     FabAnswerItem(vi: 'bảo trì tòa nhà', en: 'building maintenance'),
     FabAnswerItem(vi: 'nâng cấp cải tạo', en: 'renovations'),
     FabAnswerItem(vi: 'tài sản', en: 'property'),
     FabAnswerItem(vi: 'các bãi đỗ xe', en: 'parking lots'),
+    FabAnswerItem(vi: 'nơi chứa đổ', en: 'storage facilities'),
     FabAnswerItem(vi: 'kho hàng', en: 'warehouses'),
     FabAnswerItem(vi: 'liên quan đến', en: 'related to'),
     FabAnswerItem(vi: 'người giám sát', en: 'superintendent'),
@@ -383,51 +394,54 @@ class Theme12Content {
     FabAnswerItem(vi: 'nhân viên an ninh', en: 'security guard'),
     FabAnswerItem(vi: 'thợ điện', en: 'electrician'),
     FabAnswerItem(vi: 'kiến trúc sư', en: 'architect'),
-    FabAnswerItem(vi: 'cung cấp dịch vụ', en: 'providing services'),
-    FabAnswerItem(vi: 'tính sai hoá đơn', en: 'incorrect billing'),
-    FabAnswerItem(vi: 'lên kế hoạch sửa chữa', en: 'repair scheduling'),
-    FabAnswerItem(vi: 'trì hoãn', en: 'delays'),
-    FabAnswerItem(vi: 'an toàn ở nơi làm việc', en: 'safety in the workplace'),
-    FabAnswerItem(vi: 'thiết kế văn phòng', en: 'design of offices'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - DAY 2 CONVERSATION
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ConversationVocab => [
+  static List<FabVocabItem> get day2ConversationVocab => const [
     FabVocabItem(
       wordEn: 'spacious',
       wordVi: 'Rộng rãi',
       pronunciation: '/ˈspeɪʃəs/',
+      partOfSpeech: 'adj',
     ),
     FabVocabItem(
       wordEn: 'lease',
       wordVi: 'Hợp đồng thuê',
       pronunciation: '/liːs/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'rent increase',
       wordVi: 'Tăng tiền thuê',
       pronunciation: '/rɛnt ɪnˈkrɪs/',
+      partOfSpeech: 'np',
     ),
   ];
 
-  static List<FabPhraseItem> get day2ConversationPhrases => [
+  static List<FabPhraseItem> get day2ConversationPhrases => const [
     FabPhraseItem(phrase: 'In walking distance', meaning: 'Trong tầm đi bộ'),
     FabPhraseItem(phrase: 'Prestige building', meaning: 'Tòa nhà cao cấp'),
-    FabPhraseItem(phrase: 'Make up the difference', meaning: 'Bù vào chênh lệch'),
+    FabPhraseItem(
+      phrase: 'Make up the difference',
+      meaning: 'Bù vào chênh lệch',
+    ),
     FabPhraseItem(phrase: 'Rent increase', meaning: 'Tăng tiền thuê'),
   ];
 
-  static List<FabAnswerItem> get day2ConversationAnswers => [
+  static List<FabAnswerItem> get day2ConversationAnswers => const [
     FabAnswerItem(vi: 'căn hộ mới của tôi', en: 'my new apartment'),
     FabAnswerItem(vi: 'rộng rãi', en: 'spacious'),
     FabAnswerItem(vi: 'sáng sủa', en: 'bright'),
-    FabAnswerItem(vi: 'mọi thứ tôi cần', en: 'everything I need'),
+    FabAnswerItem(vi: 'Mọi thứ tôi cần', en: 'Everything I need'),
     FabAnswerItem(vi: 'trong tầm đi bộ', en: 'in walking distance'),
     FabAnswerItem(vi: 'tàu điện ngầm', en: 'the subway'),
-    FabAnswerItem(vi: 'ngay bên ngoài cổng trước', en: 'right outside the front gate'),
-    FabAnswerItem(vi: 'nó nghe có vẻ lý tưởng', en: 'it sounds perfect'),
+    FabAnswerItem(
+      vi: 'ngay bên ngoài cổng trước',
+      en: 'right outside the front gate',
+    ),
+    FabAnswerItem(vi: 'nghe có vẻ lý tưởng', en: 'sounds perfect'),
     FabAnswerItem(vi: 'rất nhiều tiền', en: 'an awful lot of money'),
     FabAnswerItem(vi: 'tòa nhà cao cấp', en: 'prestige building'),
     FabAnswerItem(vi: 'giống như', en: 'the same as'),
@@ -435,7 +449,7 @@ class Theme12Content {
     FabAnswerItem(vi: 'chuẩn bị đi nước ngoài', en: 'is leaving the country'),
     FabAnswerItem(vi: 'đã đồng ý', en: 'agreed'),
     FabAnswerItem(vi: 'bù vào khoản chênh lệch', en: 'make up the difference'),
-    FabAnswerItem(vi: 'điều đó thật tuyệt', en: 'that\'s great'),
+    FabAnswerItem(vi: 'Điều đó thật tuyệt', en: 'That\'s great'),
     FabAnswerItem(vi: 'chỉ hi vọng', en: 'just hope'),
     FabAnswerItem(vi: 'bản hợp đồng đó', en: 'that lease'),
     FabAnswerItem(vi: 'khi nó kết thúc', en: 'when it ends'),
@@ -445,47 +459,56 @@ class Theme12Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - DAY 2 SHORT TALK 1
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ShortTalk1Vocab => [
+  static List<FabVocabItem> get day2ShortTalk1Vocab => const [
     FabVocabItem(
       wordEn: 'remarkably',
       wordVi: 'Đáng kể',
       pronunciation: '/rɪˈmɑːrkəbli/',
+      partOfSpeech: 'adv',
     ),
     FabVocabItem(
       wordEn: 'condition',
       wordVi: 'Tình trạng',
       pronunciation: '/kənˈdɪʃən/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'renovated',
       wordVi: 'Được cải tạo',
       pronunciation: '/ˈrɛnəˌveɪtɪd/',
+      partOfSpeech: 'adj',
     ),
   ];
 
-  static List<FabPhraseItem> get day2ShortTalk1Phrases => [
+  static List<FabPhraseItem> get day2ShortTalk1Phrases => const [
     FabPhraseItem(phrase: 'As you can see', meaning: 'Như bạn có thể thấy'),
     FabPhraseItem(phrase: 'Follow me', meaning: 'Đi theo tôi'),
     FabPhraseItem(phrase: 'Feel free to', meaning: 'Cứ tự nhiên'),
     FabPhraseItem(phrase: 'Go upstairs', meaning: 'Đi lên tầng trên'),
   ];
 
-  static List<FabAnswerItem> get day2ShortTalk1Answers => [
+  static List<FabAnswerItem> get day2ShortTalk1Answers => const [
     FabAnswerItem(vi: 'cho phép tôi giới thiệu', en: 'let me tell you'),
     FabAnswerItem(vi: 'đã được xây dựng', en: 'was built'),
     FabAnswerItem(vi: 'như bạn có thể thấy', en: 'as you can see'),
-    FabAnswerItem(vi: 'trong tình trạng khá tốt', en: 'in remarkably good condition'),
+    FabAnswerItem(
+      vi: 'trong tình trạng khá tốt',
+      en: 'in remarkably good condition',
+    ),
     FabAnswerItem(vi: 'đi theo tôi', en: 'follow me'),
     FabAnswerItem(vi: 'cửa trước', en: 'front door'),
     FabAnswerItem(vi: 'nhận thấy', en: 'notice'),
     FabAnswerItem(vi: 'khá rộng rãi', en: 'quite spacious'),
-    FabAnswerItem(vi: 'được sửa sang lại', en: 'was totally renovated'),
+    FabAnswerItem(
+      vi: 'đã được sửa sang lại toàn bộ',
+      en: 'was totally renovated',
+    ),
     FabAnswerItem(vi: 'phòng khách', en: 'living room'),
     FabAnswerItem(vi: 'rất nhiều không gian', en: 'plenty of room'),
     FabAnswerItem(vi: 'đồ nội thất', en: 'furniture'),
     FabAnswerItem(vi: 'cửa sổ nhìn ra vịnh', en: 'bay window'),
     FabAnswerItem(vi: 'sáng sủa', en: 'bright'),
-    FabAnswerItem(vi: 'sàn gỗ', en: 'wood flooring'),
+    FabAnswerItem(vi: 'sàn gỗ', en: 'real wood flooring'),
     FabAnswerItem(vi: 'có lẽ sẽ không thể tìm', en: 'are not likely to find'),
     FabAnswerItem(vi: 'khoảng giá', en: 'price range'),
     FabAnswerItem(vi: 'cứ tự nhiên xem', en: 'feel free to take a look'),
@@ -493,55 +516,65 @@ class Theme12Content {
     FabAnswerItem(vi: 'phòng tắm lớn', en: 'master bathroom'),
   ];
 
+  static List<FabAnswerItem> get day2ShortTalk2Answers => const [
+    FabAnswerItem(vi: 'một vài lời khuyên', en: 'a few tips'),
+    FabAnswerItem(vi: 'thuê cơ sở kinh doanh', en: 'leasing business premises'),
+    FabAnswerItem(vi: 'tìm hữu ích', en: 'find useful'),
+    FabAnswerItem(vi: 'ký hợp đồng thuê', en: 'sign a lease'),
+    FabAnswerItem(vi: 'địa điểm tốt nhất', en: 'best location'),
+    FabAnswerItem(vi: 'Tìm kiếm dấu hiệu', en: 'Look for the indicators'),
+    FabAnswerItem(vi: 'tốt cho kinh doanh', en: 'good for business'),
+    FabAnswerItem(vi: 'giao thông công cộng', en: 'public transportation'),
+    FabAnswerItem(vi: 'thuận tiện', en: 'convenient'),
+    FabAnswerItem(vi: 'khách hàng', en: 'clients'),
+    FabAnswerItem(vi: 'trông thích hợp', en: 'look appropriate'),
+    FabAnswerItem(
+      vi: 'xem xét các lựa chọn khác',
+      en: 'look into other options',
+    ),
+    FabAnswerItem(vi: 'ép buộc', en: 'force yourself'),
+    FabAnswerItem(vi: 'hợp đồng thuê dài hạn', en: 'long-term lease'),
+    FabAnswerItem(vi: 'tiếp tục cân nhắc', en: 'proceed to consider'),
+    FabAnswerItem(vi: 'Đơn giá cho thuê', en: 'Rental rates'),
+    FabAnswerItem(vi: 'phụ thuộc vào', en: 'depend on'),
+    FabAnswerItem(
+      vi: 'doanh nghiệp vừa và nhỏ',
+      en: 'small and medium-sized enterprises',
+    ),
+    FabAnswerItem(vi: 'trong khoảng 5 năm', en: 'for as long as five years'),
+    FabAnswerItem(vi: 'được đảm bảo', en: 'are guaranteed'),
+    FabAnswerItem(vi: 'có thể chi trả', en: 'can afford'),
+  ];
+
   // ═══════════════════════════════════════════════════════════════
   // FAB - DAY 2 SHORT TALK 2
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ShortTalk2Vocab => [
+  static List<FabVocabItem> get day2ShortTalk2Vocab => const [
     FabVocabItem(
       wordEn: 'leasing',
       wordVi: 'Cho thuê',
       pronunciation: '/ˈliːsɪŋ/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'premises',
       wordVi: 'Cơ sở kinh doanh',
       pronunciation: '/ˈprɛmɪsɪz/',
+      partOfSpeech: 'n',
     ),
     FabVocabItem(
       wordEn: 'rental rate',
       wordVi: 'Đơn giá cho thuê',
       pronunciation: '/ˈrɛntəl reɪt/',
+      partOfSpeech: 'np',
     ),
   ];
 
-  static List<FabPhraseItem> get day2ShortTalk2Phrases => [
+  static List<FabPhraseItem> get day2ShortTalk2Phrases => const [
     FabPhraseItem(phrase: 'Make sure', meaning: 'Chắc chắn rằng'),
     FabPhraseItem(phrase: 'Look for', meaning: 'Tìm kiếm'),
     FabPhraseItem(phrase: 'Sign a lease', meaning: 'Ký hợp đồng thuê'),
     FabPhraseItem(phrase: 'Long-term lease', meaning: 'Hợp đồng thuê dài hạn'),
-  ];
-
-  static List<FabAnswerItem> get day2ShortTalk2Answers => [
-    FabAnswerItem(vi: 'một vài lời khuyên', en: 'a few tips'),
-    FabAnswerItem(vi: 'thuê cơ sở kinh doanh', en: 'leasing business premises'),
-    FabAnswerItem(vi: 'sẽ tìm hữu ích', en: 'would find useful'),
-    FabAnswerItem(vi: 'ký hợp đồng thuê', en: 'sign a lease'),
-    FabAnswerItem(vi: 'địa điểm tốt nhất', en: 'the best location'),
-    FabAnswerItem(vi: 'tìm kiếm dấu hiệu', en: 'look for indicators'),
-    FabAnswerItem(vi: 'tốt cho kinh doanh', en: 'good for business'),
-    FabAnswerItem(vi: 'giao thông công cộng', en: 'public transportation'),
-    FabAnswerItem(vi: 'thuận tiện', en: 'convenient'),
-    FabAnswerItem(vi: 'khách hàng', en: 'customers and clients'),
-    FabAnswerItem(vi: 'trông thích hợp', en: 'look appropriate'),
-    FabAnswerItem(vi: 'xem xét lựa chọn khác', en: 'look into other options'),
-    FabAnswerItem(vi: 'ép buộc', en: 'force yourself'),
-    FabAnswerItem(vi: 'hợp đồng thuê dài hạn', en: 'long-term lease'),
-    FabAnswerItem(vi: 'tiếp tục cân nhắc', en: 'proceed to consider'),
-    FabAnswerItem(vi: 'đơn giá cho thuê', en: 'rental rates'),
-    FabAnswerItem(vi: 'phụ thuộc vào', en: 'depend on'),
-    FabAnswerItem(vi: 'doanh nghiệp vừa và nhỏ', en: 'small and medium-sized enterprises'),
-    FabAnswerItem(vi: 'năm năm', en: 'five years'),
-    FabAnswerItem(vi: 'được đảm bảo', en: 'are guaranteed'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
@@ -606,7 +639,10 @@ Các đoạn hội thoại và các bài đọc sẽ tập trung vào nội dung
     const MixedSegment.english('This theme is about '),
     const MixedSegment.vietnamese('các toà nhà', 'buildings'),
     const MixedSegment.english(' and will include '),
-    const MixedSegment.vietnamese('xây dựng các toà nhà', 'building construction'),
+    const MixedSegment.vietnamese(
+      'xây dựng các toà nhà',
+      'building construction',
+    ),
     const MixedSegment.english(', '),
     const MixedSegment.vietnamese('kỹ thuật', 'engineering'),
     const MixedSegment.english(', '),
@@ -626,7 +662,9 @@ Các đoạn hội thoại và các bài đọc sẽ tập trung vào nội dung
     const MixedSegment.english('.'),
     const MixedSegment.english('This theme is '),
     const MixedSegment.vietnamese('liên quan đến', 'related to'),
-    const MixedSegment.english(', and overlaps with, the Manufacturing and Technical Areas themes.'),
+    const MixedSegment.english(
+      ', and overlaps with, the Manufacturing and Technical Areas themes.',
+    ),
     const MixedSegment.english('Common vocabulary: people such as '),
     const MixedSegment.vietnamese('người giám sát', 'superintendent'),
     const MixedSegment.english(', janitor, '),
@@ -638,9 +676,15 @@ Các đoạn hội thoại và các bài đọc sẽ tập trung vào nội dung
     const MixedSegment.english(', '),
     const MixedSegment.vietnamese('công nhân xây dựng', 'construction worker'),
     const MixedSegment.english(', '),
-    const MixedSegment.vietnamese('nhân viên bãi đỗ xe', 'parking lot attendant'),
+    const MixedSegment.vietnamese(
+      'nhân viên bãi đỗ xe',
+      'parking lot attendant',
+    ),
     const MixedSegment.english(', office manager, '),
-    const MixedSegment.vietnamese('người điều khiển xe nâng', 'forklift operator'),
+    const MixedSegment.vietnamese(
+      'người điều khiển xe nâng',
+      'forklift operator',
+    ),
     const MixedSegment.english(', '),
     const MixedSegment.vietnamese('nhân viên an ninh', 'security guard'),
     const MixedSegment.english(', '),
@@ -678,7 +722,20 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         questions: _practice1Questions,
         fabVocab: Theme12Content.day2ConversationVocab,
         fabPhrases: Theme12Content.day2ConversationPhrases,
-        fabAnswers: Theme12Content.day2ConversationAnswers,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (C): Ga tàu điện ngầm đến văn phòng ở ngay cửa, nhưng không nói văn phòng ở gần = Không đúng về căn hộ.',
+            en: 'Q1 (C): Subway to the office is right outside, but it doesn\'t say the office is close = NOT true about the apartment.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (C): Người thuê trước đồng ý bù vào khoản chênh lệch tiền thuê = Có người trả một phần tiền thuê.',
+            en: 'Q2 (C): The previous tenant agreed to make up the difference in rent = Someone else pays part of the rent.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (D): Người phụ nữ lo ngại người thuê sẽ đối mặt với việc tăng tiền thuê lớn khi hợp đồng kết thúc.',
+            en: 'Q3 (D): The woman is concerned that the tenant will face a big rent increase when the lease ends.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme12_day2_quiz2',
@@ -693,7 +750,20 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         questions: _practice2Questions,
         fabVocab: Theme12Content.day2ShortTalk1Vocab,
         fabPhrases: Theme12Content.day2ShortTalk1Phrases,
-        fabAnswers: Theme12Content.day2ShortTalk1Answers,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (A): Ngôi nhà xây từ những năm 1930 và đang ở tình trạng rất tốt = Cũ nhưng được bảo trì tốt.',
+            en: 'Q4 (A): The house was built in the 1930s and is in remarkably good condition = Old but well-maintained.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (D): "The living room is also huge. There\'s plenty of room for your furniture" = Rất nhiều không gian.',
+            en: 'Q5 (D): "The living room is also huge. There\'s plenty of room for your furniture" = A lot of space.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (B): "we\'ll go upstairs to check out the master bathroom" = Lên tầng hai.',
+            en: 'Q6 (B): "we\'ll go upstairs to check out the master bathroom" = Take the visitors to the second floor.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme12_day2_quiz3',
@@ -708,7 +778,20 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         questions: _practice3Questions,
         fabVocab: Theme12Content.day2ShortTalk2Vocab,
         fabPhrases: Theme12Content.day2ShortTalk2Phrases,
-        fabAnswers: Theme12Content.day2ShortTalk2Answers,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (B): Bài nói dành cho người chuẩn bị "leasing business premises" = Người thuê.',
+            en: 'Q7 (B): The talk targets people "leasing business premises" = Tenants.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (B): "make sure you have found the best location. Look for the indicators of a neighborhood" = Xem xét khu vực lân cận.',
+            en: 'Q8 (B): "make sure you have found the best location. Look for the indicators of a neighborhood" = Look at the neighborhood.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (C): "it would be a good idea to sign a lease for as long as five years" = Năm năm.',
+            en: 'Q9 (C): "it would be a good idea to sign a lease for as long as five years" = Five years.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme12_day2_mindgame1',
@@ -747,7 +830,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
   // QUIZ QUESTIONS
   // ═══════════════════════════════════════════════════════════════
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q01',
       questionText: 'What is NOT true about the apartment?',
       options: [
@@ -760,7 +843,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
       audioTrackKey: 'track_48',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q02',
       questionText: 'Why is the man\'s rent low?',
       options: [
@@ -773,7 +856,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
       audioTrackKey: 'track_48',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q03',
       questionText: 'What is the woman concerned about?',
       options: [
@@ -789,7 +872,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q04',
       questionText: 'According to the speaker, what is true about the house?',
       options: [
@@ -802,7 +885,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
       audioTrackKey: 'track_49',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q05',
       questionText: 'What does the speaker say about the living room?',
       options: [
@@ -815,7 +898,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
       audioTrackKey: 'track_49',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q06',
       questionText: 'What will the speaker do next?',
       options: [
@@ -831,7 +914,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q07',
       questionText: 'Who is this talk aimed at?',
       options: [
@@ -844,9 +927,10 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
       audioTrackKey: 'track_50',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q08',
-      questionText: 'According to the speaker, what should a business owner do before signing a lease?',
+      questionText:
+          'According to the speaker, what should a business owner do before signing a lease?',
       options: [
         '(A) Make sure that the rental rate is the lowest',
         '(B) Look at the neighborhood',
@@ -857,7 +941,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
       audioTrackKey: 'track_50',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme12_q09',
       questionText: 'What length of time does the speaker suggest for a lease?',
       options: [
@@ -889,7 +973,10 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.english(', and '),
     const MixedSegment.vietnamese('tàu điện ngầm', 'the subway'),
     const MixedSegment.english(' to the office is '),
-    const MixedSegment.vietnamese('ngay bên ngoài cổng trước', 'right outside the front gate'),
+    const MixedSegment.vietnamese(
+      'ngay bên ngoài cổng trước',
+      'right outside the front gate',
+    ),
     const MixedSegment.english('.'),
     const MixedSegment.english('W: Nó '),
     const MixedSegment.vietnamese('nghe có vẻ lý tưởng', 'sounds perfect'),
@@ -902,12 +989,22 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.vietnamese('giống như', 'the same as'),
     const MixedSegment.english(' I did for '),
     const MixedSegment.vietnamese('nơi ở cũ của tôi', 'my old place'),
-    const MixedSegment.english('. I got this from someone who already has a lease but '),
-    const MixedSegment.vietnamese('chuẩn bị đi nước ngoài', 'is leaving the country'),
+    const MixedSegment.english(
+      '. I got this from someone who already has a lease but ',
+    ),
+    const MixedSegment.vietnamese(
+      'chuẩn bị đi nước ngoài',
+      'is leaving the country',
+    ),
     const MixedSegment.english('. He '),
     const MixedSegment.vietnamese('đã đồng ý', 'agreed'),
-    const MixedSegment.english(' to give it to me for what I paid before and he will '),
-    const MixedSegment.vietnamese('bù vào khoản chênh lệch', 'make up the difference'),
+    const MixedSegment.english(
+      ' to give it to me for what I paid before and he will ',
+    ),
+    const MixedSegment.vietnamese(
+      'bù vào khoản chênh lệch',
+      'make up the difference',
+    ),
     const MixedSegment.english('.'),
     const MixedSegment.english('W: '),
     const MixedSegment.vietnamese('Điều đó thật tuyệt', 'That\'s great'),
@@ -922,6 +1019,10 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.english(' face a big rent increase.'),
   ];
 
+  // ═══════════════════════════════════════════════════════════════
+  // MIND GAME SEGMENTS
+  // ═══════════════════════════════════════════════════════════════
+
   static List<MixedSegment> get _day2ShortTalk1Segments => [
     const MixedSegment.english('Alright, now '),
     const MixedSegment.vietnamese('cho phép tôi giới thiệu', 'let me tell you'),
@@ -930,7 +1031,10 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.english(' in the 1930s and, '),
     const MixedSegment.vietnamese('như bạn có thể thấy', 'as you can see'),
     const MixedSegment.english(', it is '),
-    const MixedSegment.vietnamese('trong tình trạng khá tốt', 'in remarkably good condition'),
+    const MixedSegment.vietnamese(
+      'trong tình trạng khá tốt',
+      'in remarkably good condition',
+    ),
     const MixedSegment.english(' considering the age. If you just '),
     const MixedSegment.vietnamese('đi theo tôi', 'follow me'),
     const MixedSegment.english(' through the '),
@@ -940,7 +1044,10 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.english(' that the kitchen is '),
     const MixedSegment.vietnamese('khá rộng rãi', 'quite spacious'),
     const MixedSegment.english(' as it '),
-    const MixedSegment.vietnamese('đã được sửa sang lại toàn bộ', 'was totally renovated'),
+    const MixedSegment.vietnamese(
+      'đã được sửa sang lại toàn bộ',
+      'was totally renovated',
+    ),
     const MixedSegment.english(' just three months ago. The '),
     const MixedSegment.vietnamese('phòng khách', 'living room'),
     const MixedSegment.english(' is also huge. There\'s '),
@@ -951,14 +1058,22 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.vietnamese('cửa sổ nhìn ra vịnh', 'bay window'),
     const MixedSegment.english(' in here keeps the room '),
     const MixedSegment.vietnamese('sáng sủa', 'bright'),
-    const MixedSegment.english(' and cheerful until early evening. Also, notice the '),
+    const MixedSegment.english(
+      ' and cheerful until early evening. Also, notice the ',
+    ),
     const MixedSegment.vietnamese('sàn gỗ', 'real wood flooring'),
     const MixedSegment.english(' in this room. That\'s something you '),
-    const MixedSegment.vietnamese('có lẽ sẽ không thể tìm', 'are not likely to find'),
+    const MixedSegment.vietnamese(
+      'có lẽ sẽ không thể tìm',
+      'are not likely to find',
+    ),
     const MixedSegment.english(' in a property in this '),
     const MixedSegment.vietnamese('khoảng giá', 'price range'),
     const MixedSegment.english('. OK, '),
-    const MixedSegment.vietnamese('cứ tự nhiên xem', 'feel free to take a look'),
+    const MixedSegment.vietnamese(
+      'cứ tự nhiên xem',
+      'feel free to take a look',
+    ),
     const MixedSegment.english(' around, and in a minute we\'ll '),
     const MixedSegment.vietnamese('lên tầng trên', 'go upstairs'),
     const MixedSegment.english(' to check out the '),
@@ -970,19 +1085,32 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.english('Ladies and gentlemen, I\'m here today with '),
     const MixedSegment.vietnamese('một vài lời khuyên', 'a few tips'),
     const MixedSegment.english(' on '),
-    const MixedSegment.vietnamese('thuê cơ sở kinh doanh', 'leasing business premises'),
+    const MixedSegment.vietnamese(
+      'thuê cơ sở kinh doanh',
+      'leasing business premises',
+    ),
     const MixedSegment.english(' that I think most of you would '),
     const MixedSegment.vietnamese('tìm hữu ích', 'find useful'),
     const MixedSegment.english('. Before you '),
     const MixedSegment.vietnamese('ký hợp đồng thuê', 'sign a lease'),
-    const MixedSegment.english(' on a space for your business, make sure you have found the '),
+    const MixedSegment.english(
+      ' on a space for your business, make sure you have found the ',
+    ),
     const MixedSegment.vietnamese('địa điểm tốt nhất', 'best location'),
     const MixedSegment.english('. '),
-    const MixedSegment.vietnamese('Tìm kiếm dấu hiệu', 'Look for the indicators'),
+    const MixedSegment.vietnamese(
+      'Tìm kiếm dấu hiệu',
+      'Look for the indicators',
+    ),
     const MixedSegment.english(' of a neighborhood that is '),
     const MixedSegment.vietnamese('tốt cho kinh doanh', 'good for business'),
-    const MixedSegment.english('. For example, are there other successful businesses occupying spaces nearby? Is there good access to '),
-    const MixedSegment.vietnamese('giao thông công cộng', 'public transportation'),
+    const MixedSegment.english(
+      '. For example, are there other successful businesses occupying spaces nearby? Is there good access to ',
+    ),
+    const MixedSegment.vietnamese(
+      'giao thông công cộng',
+      'public transportation',
+    ),
     const MixedSegment.english('? Is the area '),
     const MixedSegment.vietnamese('thuận tiện', 'convenient'),
     const MixedSegment.english(' for customers and '),
@@ -990,21 +1118,34 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
     const MixedSegment.english('? If the conditions don\'t '),
     const MixedSegment.vietnamese('trông thích hợp', 'look appropriate'),
     const MixedSegment.english(' for your business, '),
-    const MixedSegment.vietnamese('xem xét các lựa chọn khác', 'look into other options'),
+    const MixedSegment.vietnamese(
+      'xem xét các lựa chọn khác',
+      'look into other options',
+    ),
     const MixedSegment.english('. Don\'t '),
     const MixedSegment.vietnamese('ép buộc', 'force yourself'),
     const MixedSegment.english(' to sign a '),
     const MixedSegment.vietnamese('hợp đồng thuê dài hạn', 'long-term lease'),
-    const MixedSegment.english(' on a space that isn\'t right for you. Once you have found the right space for your business, you could '),
+    const MixedSegment.english(
+      ' on a space that isn\'t right for you. Once you have found the right space for your business, you could ',
+    ),
     const MixedSegment.vietnamese('tiếp tục cân nhắc', 'proceed to consider'),
     const MixedSegment.english(' signing a long-term lease. '),
     const MixedSegment.vietnamese('Đơn giá cho thuê', 'Rental rates'),
     const MixedSegment.english(' often fluctuate and '),
     const MixedSegment.vietnamese('phụ thuộc vào', 'depend on'),
     const MixedSegment.english(' the length of the lease. For '),
-    const MixedSegment.vietnamese('doanh nghiệp vừa và nhỏ', 'small and medium-sized enterprises'),
-    const MixedSegment.english(' like yours, I think it would be a good idea to sign a lease '),
-    const MixedSegment.vietnamese('trong khoảng 5 năm', 'for as long as five years'),
+    const MixedSegment.vietnamese(
+      'doanh nghiệp vừa và nhỏ',
+      'small and medium-sized enterprises',
+    ),
+    const MixedSegment.english(
+      ' like yours, I think it would be a good idea to sign a lease ',
+    ),
+    const MixedSegment.vietnamese(
+      'trong khoảng 5 năm',
+      'for as long as five years',
+    ),
     const MixedSegment.english('. That way, you '),
     const MixedSegment.vietnamese('được đảm bảo', 'are guaranteed'),
     const MixedSegment.english(' a rent you '),

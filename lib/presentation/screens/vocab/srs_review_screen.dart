@@ -1,11 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../core/services/hive_service.dart';
 import '../../../core/utils/srs_algorithm.dart';
 import '../../../data/models/vocab_model.dart';
+
+// ─── TTS Service (file-scoped singleton, không cần file riêng nếu chưa có) ──
+// Nếu đã có TtsService riêng thì import và xóa class này
+class _TtsService {
+  static final _TtsService _instance = _TtsService._();
+  factory _TtsService() => _instance;
+  _TtsService._();
+
+  final FlutterTts _tts = FlutterTts();
+  bool _ready = false;
+
+  Future<void> _init() async {
+    if (_ready) return;
+    await _tts.setLanguage('en-US');
+    await _tts.setSpeechRate(0.45); // Hơi chậm hơn Gemini đề xuất để rõ hơn
+    await _tts.setVolume(1.0);
+    await _tts.setPitch(1.0);
+    _ready = true;
+  }
+
+  /// Phát âm — tự stop nếu đang phát để tránh chồng chéo
+  Future<void> speak(String text) async {
+    if (text.trim().isEmpty) return;
+    await _init();
+    await _tts.stop();
+    await _tts.speak(text.trim());
+  }
+
+  Future<void> stop() async {
+    await _tts.stop();
+  }
+}
+
+// ─── Main Screen ─────────────────────────────────────────────────────────────
 
 class SrsReviewScreen extends StatefulWidget {
   const SrsReviewScreen({super.key});
@@ -25,16 +61,38 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   int _sessionCorrect = 0;
   int _sessionTotal = 0;
 
-  // ✅ Track phản hồi đã chọn
   SrsQuality? _selectedQuality;
-  bool _isProcessing = false; // Tránh double-tap
+  bool _isProcessing = false;
 
-  // Mock data - sau này lấy từ Hive + SRS queue
-  final List<VocabModel> _reviewCards = _buildMockVocabs();
+  // TTS — dùng singleton, không tạo mới mỗi lần
+  final _tts = _TtsService();
+
+  final List<VocabModel> _reviewCards = [];
 
   @override
   void initState() {
     super.initState();
+
+    // ✅ Load từ Hive box thay vì Registry
+    // Lý do: Hive objects mới có thể gọi .save() để lưu SRS data
+    // Registry chỉ trả về in-memory objects không liên kết với Hive
+    final box = HiveService.vocabBox;
+
+    if (box.isNotEmpty) {
+      // Lấy các vocab đã due (isDueForReview = true)
+      final due = box.values.where((v) => v.isDueForReview).toList();
+
+      if (due.isNotEmpty) {
+        _reviewCards.addAll(due);
+      } else {
+        // Không có gì due → lấy tất cả để review
+        _reviewCards.addAll(box.values.toList());
+      }
+
+      // Giữ thứ tự theo theme number để nhất quán
+      _reviewCards.sort((a, b) => a.id.compareTo(b.id));
+    }
+
     _flipController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -47,19 +105,34 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   @override
   void dispose() {
     _flipController.dispose();
+    // Dừng TTS khi rời screen — tránh phát âm khi đã pop
+    _tts.stop();
     super.dispose();
   }
 
+  // ─── Lật thẻ + auto-play TTS ───────────────────────────────────────────────
   void _flipCard() {
-    if (!_isFlipped && !_isProcessing) {
-      _flipController.forward();
-      setState(() {
-        _isFlipped = true;
-        _showRating = true;
-      });
-    }
+    if (_isFlipped || _isProcessing) return;
+
+    _flipController.forward();
+    setState(() {
+      _isFlipped = true;
+      _showRating = true;
+    });
+
+    // Auto-play TTS khi lật ra mặt sau
+    // Quyết định: phát wordEn (tiếng Anh), không phải nghĩa tiếng Việt
+    // Lý do: mục tiêu là nghe và ghi nhớ phát âm chuẩn
+    // Delay 350ms: chờ animation lật hoàn tất trước khi phát
+    final currentWord = _reviewCards[_currentIndex].wordEn;
+    Future.delayed(const Duration(milliseconds: 350), () {
+      if (mounted && _isFlipped) {
+        _tts.speak(currentWord);
+      }
+    });
   }
 
+  // ─── Rating ────────────────────────────────────────────────────────────────
   void _rateCard(SrsQuality quality) async {
     if (_isProcessing) return;
 
@@ -68,36 +141,44 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       _selectedQuality = quality;
     });
 
-    // ✅ Visual feedback delay
-    await Future.delayed(const Duration(milliseconds: 300));
-    if (!mounted) return;
+    // Dừng TTS khi user đã rate — không để phát giữa chừng
+    await _tts.stop();
 
-    final card = _reviewCards[_currentIndex];
-    // Apply SRS algorithm
-    SrsAlgorithm.calculateNextReview(card, quality.value);
+    try {
+      await Future.delayed(const Duration(milliseconds: 300));
+      if (!mounted) return;
 
-    if (quality == SrsQuality.good || quality == SrsQuality.easy) {
-      _sessionCorrect++;
-    }
-    _sessionTotal++;
+      final card = _reviewCards[_currentIndex];
+      SrsAlgorithm.calculateNextReview(card, quality.value);
+      await card.save();
 
-    if (_currentIndex < _reviewCards.length - 1) {
-      setState(() {
-        _currentIndex++;
-        _isFlipped = false;
-        _showRating = false;
-        _selectedQuality = null;
-        _isProcessing = false;
-      });
-      _flipController.reset();
-    } else {
-      setState(() {
-        _isFlipped = false;
-        _showRating = false;
-        _isProcessing = false;
-        _selectedQuality = null;
-      });
-      _showSessionComplete();
+      if (quality == SrsQuality.good || quality == SrsQuality.easy) {
+        _sessionCorrect++;
+      }
+      _sessionTotal++;
+
+      if (_currentIndex < _reviewCards.length - 1) {
+        setState(() {
+          _currentIndex++;
+          _isFlipped = false;
+          _showRating = false;
+          _selectedQuality = null;
+        });
+        _flipController.reset();
+      } else {
+        setState(() {
+          _isFlipped = false;
+          _showRating = false;
+          _selectedQuality = null;
+        });
+        _showSessionComplete();
+      }
+    } catch (e) {
+      debugPrint('Lỗi lưu dữ liệu SRS: $e');
+    } finally {
+      if (mounted) {
+        setState(() => _isProcessing = false);
+      }
     }
   }
 
@@ -127,11 +208,10 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     );
   }
 
+  // ─── Build ─────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
-    if (_reviewCards.isEmpty) {
-      return _buildEmptyState();
-    }
+    if (_reviewCards.isEmpty) return _buildEmptyState();
 
     final card = _reviewCards[_currentIndex];
     final progress = (_currentIndex + 1) / _reviewCards.length;
@@ -143,9 +223,12 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.close, color: AppColors.textPrimary),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            _tts.stop(); // Dừng TTS khi thoát thủ công
+            Navigator.pop(context);
+          },
         ),
-        title: Text('Ôn tập SRS', style: AppTextStyles.h3),
+        title: const Text('Ôn tập SRS', style: AppTextStyles.h3),
         actions: [
           Center(
             child: Padding(
@@ -208,7 +291,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
 
           const SizedBox(height: AppConstants.paddingM),
 
-          // ✅ NEW: Mini vocab reference bar
+          // Vocab Quick Ref Bar (đã tích hợp TTS thật)
           _buildVocabQuickRef(card),
 
           const SizedBox(height: AppConstants.paddingS),
@@ -244,7 +327,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
             ),
           ),
 
-          // Rating Buttons
+          // Rating / Hint
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             child: _showRating ? _buildRatingButtons() : _buildTapHint(),
@@ -256,6 +339,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     );
   }
 
+  // ─── Vocab Quick Ref — nút loa hoạt động thật ──────────────────────────────
   Widget _buildVocabQuickRef(VocabModel vocab) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
@@ -271,6 +355,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Part of speech badge
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
@@ -294,36 +379,15 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
             ),
           ),
           const Spacer(),
-          // ✅ Nút nghe phiên âm (placeholder)
-          GestureDetector(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('🔊 ${vocab.wordEn} - ${vocab.pronunciation}'),
-                  duration: const Duration(seconds: 1),
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: AppColors.primary,
-                ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(AppConstants.radiusS),
-              ),
-              child: const Icon(
-                Icons.volume_up,
-                size: 16,
-                color: AppColors.primary,
-              ),
-            ),
-          ),
+
+          // ✅ Nút loa — TTS thật, thay thế SnackBar placeholder
+          _SpeakerButton(text: vocab.wordEn, tts: _tts),
         ],
       ),
     );
   }
 
+  // ─── Front Card ────────────────────────────────────────────────────────────
   Widget _buildFrontCard(VocabModel vocab) {
     return Container(
       width: double.infinity,
@@ -377,7 +441,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.touch_app, color: AppColors.textHint, size: 18),
+              const Icon(Icons.touch_app, color: AppColors.textHint, size: 18),
               const SizedBox(width: 6),
               Text(
                 'Nhớ lại nghĩa → Nhấn để lật thẻ',
@@ -392,6 +456,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     );
   }
 
+  // ─── Back Card — thêm nút loa thủ công bên cạnh từ ────────────────────────
   Widget _buildBackCard(VocabModel vocab) {
     return Container(
       width: double.infinity,
@@ -413,14 +478,30 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            vocab.wordEn,
-            style: AppTextStyles.bodyMedium.copyWith(
-              color: Colors.white.withValues(alpha: 0.7),
-              fontWeight: FontWeight.w500,
-            ),
+          // Từ tiếng Anh + nút loa thủ công
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                vocab.wordEn,
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(width: 8),
+              // Nút loa để user phát lại thủ công sau auto-play
+              _SpeakerButton(
+                text: vocab.wordEn,
+                tts: _tts,
+                color: Colors.white.withValues(alpha: 0.85),
+                iconSize: 18,
+              ),
+            ],
           ),
+
           const SizedBox(height: AppConstants.paddingM),
+
           Text(
             vocab.wordVi,
             style: AppTextStyles.h1.copyWith(
@@ -438,6 +519,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
               fontStyle: FontStyle.italic,
             ),
           ),
+
           if (vocab.exampleEn != null) ...[
             const SizedBox(height: AppConstants.paddingL),
             Padding(
@@ -583,7 +665,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
           children: [
             const Text('🎉', style: TextStyle(fontSize: 64)),
             const SizedBox(height: AppConstants.paddingL),
-            Text('Tuyệt vời!', style: AppTextStyles.h2),
+            const Text('Tuyệt vời!', style: AppTextStyles.h2),
             const SizedBox(height: AppConstants.paddingS),
             Text(
               'Không có thẻ nào cần ôn hôm nay.\nHãy quay lại sau!',
@@ -597,82 +679,70 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       ),
     );
   }
+}
 
-  static List<VocabModel> _buildMockVocabs() {
-    return [
-      VocabModel(
-        id: 'v001',
-        wordEn: 'familiar',
-        wordVi: 'quen thuộc',
-        pronunciation: '/fəˈmɪliər/',
-        partOfSpeech: 'adj',
-        themeId: 'theme_01',
-        exampleEn: 'This familiar theme will occur in all seven sections.',
-        exampleVi: 'Chủ đề quen thuộc này sẽ xuất hiện ở tất cả bảy phần.',
-        repetitionCount: 0,
-        easeFactor: 2.5,
-        intervalDays: 1,
+// ─── Speaker Button Widget ───────────────────────────────────────────────────
+// Widget nhỏ dùng chung trong screen này
+// Nếu sau này tách TtsService ra file riêng → tách widget này ra cùng
+
+class _SpeakerButton extends StatefulWidget {
+  final String text;
+  final _TtsService tts;
+  final Color? color;
+  final double iconSize;
+
+  const _SpeakerButton({
+    required this.text,
+    required this.tts,
+    this.color,
+    this.iconSize = 16,
+  });
+
+  @override
+  State<_SpeakerButton> createState() => _SpeakerButtonState();
+}
+
+class _SpeakerButtonState extends State<_SpeakerButton> {
+  bool _isPlaying = false;
+
+  Future<void> _onTap() async {
+    if (_isPlaying) return; // Chống double-tap
+
+    setState(() => _isPlaying = true);
+
+    await widget.tts.speak(widget.text);
+
+    // Reset icon sau khi phát xong (ước tính ~1.5s cho từ đơn)
+    await Future.delayed(const Duration(milliseconds: 1500));
+    if (mounted) setState(() => _isPlaying = false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = widget.color ?? AppColors.primary;
+
+    return GestureDetector(
+      onTap: _onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: _isPlaying
+              ? color.withValues(alpha: 0.25)
+              : color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(AppConstants.radiusS),
+        ),
+        child: Icon(
+          _isPlaying ? Icons.volume_up : Icons.volume_up_outlined,
+          size: widget.iconSize,
+          color: color,
+        ),
       ),
-      VocabModel(
-        id: 'v002',
-        wordEn: 'conference',
-        wordVi: 'hội nghị',
-        pronunciation: '/ˈkɒnfərəns/',
-        partOfSpeech: 'n',
-        themeId: 'theme_01',
-        exampleEn:
-            'I will be out of the office all week at a teachers\' conference.',
-        exampleVi:
-            'Tôi sẽ không có ở văn phòng cả tuần để tham dự hội nghị giáo viên.',
-        repetitionCount: 0,
-        easeFactor: 2.5,
-        intervalDays: 1,
-      ),
-      VocabModel(
-        id: 'v003',
-        wordEn: 'terminate',
-        wordVi: 'chấm dứt, kết thúc',
-        pronunciation: '/ˈtɜːrmɪneɪt/',
-        partOfSpeech: 'v',
-        themeId: 'theme_01',
-        exampleEn: 'All of which mean to terminate someone\'s employment.',
-        exampleVi: 'Tất cả đều có nghĩa là chấm dứt việc làm của ai đó.',
-        repetitionCount: 0,
-        easeFactor: 2.5,
-        intervalDays: 1,
-      ),
-      VocabModel(
-        id: 'v004',
-        wordEn: 'comprehend',
-        wordVi: 'hiểu, nắm bắt',
-        pronunciation: '/ˌkɒmprɪˈhend/',
-        partOfSpeech: 'v',
-        themeId: 'theme_01',
-        exampleEn: 'These would tend to be less difficult to comprehend.',
-        exampleVi: 'Những thông báo này có xu hướng dễ hiểu hơn.',
-        repetitionCount: 0,
-        easeFactor: 2.5,
-        intervalDays: 1,
-      ),
-      VocabModel(
-        id: 'v005',
-        wordEn: 'maintenance',
-        wordVi: 'bảo trì, bảo dưỡng',
-        pronunciation: '/ˈmeɪntənəns/',
-        partOfSpeech: 'n',
-        themeId: 'theme_01',
-        exampleEn:
-            'Are there any technicians from the maintenance department available?',
-        exampleVi: 'Có kỹ thuật viên nào từ phòng bảo trì không bận không?',
-        repetitionCount: 0,
-        easeFactor: 2.5,
-        intervalDays: 1,
-      ),
-    ];
+    );
   }
 }
 
-// ─── Sub-widgets ────────────────────────────────────────────────────────────
+// ─── Sub-widgets (giữ nguyên từ file gốc) ───────────────────────────────────
 
 class _SessionStat extends StatelessWidget {
   final IconData icon;
@@ -801,7 +871,7 @@ class _SessionCompleteDialog extends StatelessWidget {
         ? '🏆'
         : percentage >= 60
         ? '👍'
-        : '💪';
+        : '';
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -817,7 +887,7 @@ class _SessionCompleteDialog extends StatelessWidget {
               style: const TextStyle(fontSize: 56),
             ).animate().scale(duration: 400.ms, curve: Curves.elasticOut),
             const SizedBox(height: AppConstants.paddingM),
-            Text('Phiên ôn tập hoàn thành!', style: AppTextStyles.h3),
+            const Text('Phiên ôn tập hoàn thành!', style: AppTextStyles.h3),
             const SizedBox(height: AppConstants.paddingS),
             Text(
               '$correct/$total từ chính xác ($percentage%)',
@@ -869,6 +939,8 @@ class _SessionCompleteDialog extends StatelessWidget {
     );
   }
 }
+
+// ─── Enum (giữ nguyên) ───────────────────────────────────────────────────────
 
 enum SrsQuality {
   blackout(0),

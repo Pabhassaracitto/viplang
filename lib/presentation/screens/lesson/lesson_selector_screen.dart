@@ -12,10 +12,7 @@ import 'lesson_day_screen.dart';
 class LessonSelectorScreen extends StatelessWidget {
   final ThemeModel theme;
 
-  const LessonSelectorScreen({
-    super.key,
-    required this.theme,
-  });
+  const LessonSelectorScreen({super.key, required this.theme});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +24,7 @@ class LessonSelectorScreen extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              theme.titleEn,
-              style: AppTextStyles.h3,
-            ),
+            Text(theme.titleEn, style: AppTextStyles.h3),
             Text(
               theme.titleVi,
               style: AppTextStyles.caption.copyWith(
@@ -51,24 +45,24 @@ class LessonSelectorScreen extends StatelessWidget {
           children: [
             // ── Theme Progress Summary ──────────────────────────────
             _buildProgressSummary(),
-            
+
             const SizedBox(height: AppConstants.paddingL),
-            
+
             // ── Quick Actions ───────────────────────────────────────
             _buildQuickActions(context),
-            
+
             const SizedBox(height: AppConstants.paddingL),
-            
+
             // ── Days List ───────────────────────────────────────────
-            Text('📅 Các ngày học', style: AppTextStyles.h3),
+            const Text('📅 Các ngày học', style: AppTextStyles.h3),
             const SizedBox(height: AppConstants.paddingS),
-            
+
             ...List.generate(theme.totalDays, (index) {
               final dayNumber = index + 1;
               final isCompleted = dayNumber <= theme.completedDays;
               final isCurrent = dayNumber == theme.completedDays + 1;
               final isLocked = dayNumber > theme.completedDays + 1;
-              
+
               return _DayCard(
                 dayNumber: dayNumber,
                 themeId: theme.id,
@@ -78,12 +72,12 @@ class LessonSelectorScreen extends StatelessWidget {
                 isLocked: isLocked,
               ).animate(delay: (index * 100).ms).fadeIn().slideX(begin: 0.1);
             }),
-            
+
             const SizedBox(height: AppConstants.paddingXL),
-            
+
             // ── Vocabulary Section ──────────────────────────────────
             _buildVocabularySection(context),
-            
+
             const SizedBox(height: AppConstants.paddingXL),
           ],
         ),
@@ -93,7 +87,7 @@ class LessonSelectorScreen extends StatelessWidget {
 
   Widget _buildProgressSummary() {
     final progressPercent = (theme.progressPercent * 100).round();
-    
+
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingL),
       decoration: BoxDecoration(
@@ -152,7 +146,9 @@ class LessonSelectorScreen extends StatelessWidget {
             child: LinearProgressIndicator(
               value: theme.progressPercent,
               backgroundColor: AppColors.border,
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.primary,
+              ),
               minHeight: 8,
             ),
           ),
@@ -170,8 +166,8 @@ class LessonSelectorScreen extends StatelessWidget {
             label: theme.completedDays == 0
                 ? 'Bắt đầu học'
                 : theme.completedDays >= theme.totalDays
-                    ? 'Học lại từ đầu'
-                    : 'Tiếp tục học',
+                ? 'Học lại từ đầu'
+                : 'Tiếp tục học',
             color: AppColors.primary,
             onTap: () {
               final dayNumber = theme.completedDays >= theme.totalDays
@@ -222,23 +218,22 @@ class LessonSelectorScreen extends StatelessWidget {
   Widget _buildVocabularySection(BuildContext context) {
     final vocabs = AllThemesRegistry.getVocabulary(theme.id);
     final previewVocabs = vocabs.take(5).toList();
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text('📚 Từ vựng chủ đề', style: AppTextStyles.h3),
+            const Text('📚 Từ vựng chủ đề', style: AppTextStyles.h3),
             const Spacer(),
             TextButton(
               onPressed: () {
                 // TODO: Navigate to full vocabulary list
+                // Navigate to full vocabulary list
               },
               child: Text(
                 'Xem tất cả (${vocabs.length})',
-                style: AppTextStyles.caption.copyWith(
-                  color: AppColors.primary,
-                ),
+                style: AppTextStyles.caption.copyWith(color: AppColors.primary),
               ),
             ),
           ],
@@ -325,7 +320,7 @@ class _DayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lesson = AllThemesRegistry.getLesson(themeId, dayNumber);
-    
+
     return GestureDetector(
       onTap: isLocked
           ? () => _showLockedMessage(context)
@@ -340,8 +335,8 @@ class _DayCard extends StatelessWidget {
             color: isCurrent
                 ? AppColors.primary
                 : isCompleted
-                    ? AppColors.success.withValues(alpha: 0.3)
-                    : AppColors.border,
+                ? AppColors.success.withValues(alpha: 0.3)
+                : AppColors.border,
             width: isCurrent ? 2 : 1,
           ),
           boxShadow: isCurrent
@@ -364,10 +359,10 @@ class _DayCard extends StatelessWidget {
                 color: isLocked
                     ? AppColors.surfaceVariant
                     : isCurrent
-                        ? AppColors.primary
-                        : isCompleted
-                            ? AppColors.success.withValues(alpha: 0.15)
-                            : AppColors.primary.withValues(alpha: 0.1),
+                    ? AppColors.primary
+                    : isCompleted
+                    ? AppColors.success.withValues(alpha: 0.15)
+                    : AppColors.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppConstants.radiusM),
               ),
               child: Center(
@@ -378,24 +373,22 @@ class _DayCard extends StatelessWidget {
                         size: 18,
                       )
                     : isCompleted
-                        ? const Icon(
-                            Icons.check,
-                            color: AppColors.success,
-                            size: 20,
-                          )
-                        : Text(
-                            '$dayNumber',
-                            style: AppTextStyles.h3.copyWith(
-                              color: isCurrent
-                                  ? Colors.white
-                                  : AppColors.primary,
-                            ),
-                          ),
+                    ? const Icon(
+                        Icons.check,
+                        color: AppColors.success,
+                        size: 20,
+                      )
+                    : Text(
+                        '$dayNumber',
+                        style: AppTextStyles.h3.copyWith(
+                          color: isCurrent ? Colors.white : AppColors.primary,
+                        ),
+                      ),
               ),
             ),
-            
+
             const SizedBox(width: AppConstants.paddingM),
-            
+
             // Content
             Expanded(
               child: Column(
@@ -405,13 +398,17 @@ class _DayCard extends StatelessWidget {
                     'Ngày $dayNumber',
                     style: AppTextStyles.bodyMedium.copyWith(
                       fontWeight: FontWeight.w700,
-                      color: isLocked ? AppColors.textTertiary : AppColors.textPrimary,
+                      color: isLocked
+                          ? AppColors.textTertiary
+                          : AppColors.textPrimary,
                     ),
                   ),
                   Text(
                     lesson?.titleVi ?? 'Đang phát triển',
                     style: AppTextStyles.caption.copyWith(
-                      color: isLocked ? AppColors.textDisabled : AppColors.textSecondary,
+                      color: isLocked
+                          ? AppColors.textDisabled
+                          : AppColors.textSecondary,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -429,7 +426,7 @@ class _DayCard extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             // Action indicator
             if (!isLocked)
               Icon(
@@ -483,16 +480,13 @@ class _DayCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            
+
             // Title
             Padding(
               padding: const EdgeInsets.all(AppConstants.paddingM),
               child: Row(
                 children: [
-                  Text(
-                    '📅 Ngày $dayNumber',
-                    style: AppTextStyles.h3,
-                  ),
+                  Text('📅 Ngày $dayNumber', style: AppTextStyles.h3),
                   const Spacer(),
                   if (isCompleted)
                     Container(
@@ -515,9 +509,9 @@ class _DayCard extends StatelessWidget {
                 ],
               ),
             ),
-            
+
             const Divider(height: 1),
-            
+
             // Options
             ListTile(
               leading: const Icon(Icons.play_arrow, color: AppColors.primary),
@@ -538,7 +532,7 @@ class _DayCard extends StatelessWidget {
                 );
               },
             ),
-            
+
             if (isCompleted) ...[
               ListTile(
                 leading: const Icon(Icons.refresh, color: AppColors.success),
@@ -559,7 +553,7 @@ class _DayCard extends StatelessWidget {
                   );
                 },
               ),
-              
+
               // ✅ NEW: Chọn phase cụ thể
               ListTile(
                 leading: const Icon(Icons.list, color: AppColors.warning),
@@ -571,7 +565,7 @@ class _DayCard extends StatelessWidget {
                 },
               ),
             ],
-            
+
             const SizedBox(height: AppConstants.paddingM),
           ],
         ),
@@ -607,18 +601,15 @@ class _DayCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
-            
+
             // Title
-            Padding(
-              padding: const EdgeInsets.all(AppConstants.paddingM),
-              child: Text(
-                '📋 Chọn phần để ôn tập',
-                style: AppTextStyles.h3,
-              ),
+            const Padding(
+              padding: EdgeInsets.all(AppConstants.paddingM),
+              child: Text('📋 Chọn phần để ôn tập', style: AppTextStyles.h3),
             ),
-            
+
             const Divider(height: 1),
-            
+
             // Phase list
             Flexible(
               child: ListView.builder(
@@ -627,7 +618,7 @@ class _DayCard extends StatelessWidget {
                 itemCount: lesson.phases.length,
                 itemBuilder: (_, index) {
                   final phase = lesson.phases[index];
-                  
+
                   return ListTile(
                     leading: _getPhaseIcon(phase.phaseType),
                     title: Text(
@@ -663,7 +654,7 @@ class _DayCard extends StatelessWidget {
                 },
               ),
             ),
-            
+
             const SizedBox(height: AppConstants.paddingM),
           ],
         ),
@@ -674,7 +665,7 @@ class _DayCard extends StatelessWidget {
   Widget _getPhaseIcon(PhaseType type) {
     IconData icon;
     Color color;
-    
+
     switch (type) {
       case PhaseType.readListen:
         icon = Icons.headphones;
@@ -697,7 +688,7 @@ class _DayCard extends StatelessWidget {
         color = AppColors.error;
         break;
     }
-    
+
     return Container(
       width: 40,
       height: 40,

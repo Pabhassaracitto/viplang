@@ -334,61 +334,61 @@ class Theme8Content {
   // FAB - Day 1 Reading Vocabulary
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'Human Resources',
       wordVi: 'Nguồn nhân lực',
       pronunciation: '/ˈhjuːmən ˈrɪsɔːrsɪz/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'recruit',
       wordVi: 'Tuyển dụng',
       pronunciation: '/rɪˈkruːt/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'advertise',
       wordVi: 'Quảng cáo',
       pronunciation: '/ˈædvərtaɪz/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'salary',
       wordVi: 'Lương',
       pronunciation: '/ˈsæləri/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'promotion',
       wordVi: 'Sự thăng tiến',
       pronunciation: '/prəˈmoʊʃən/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'pension',
       wordVi: 'Lương hưu',
       pronunciation: '/ˈpenʃən/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'performance review',
       wordVi: 'Đánh giá hiệu quả công việc',
       pronunciation: '/pərˈfɔːrməns rɪˈvjuː/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'absence',
       wordVi: 'Sự vắng mặt',
       pronunciation: '/ˈæbsəns/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'tardiness',
       wordVi: 'Sự đi muộn',
       pronunciation: '/ˈtɑːrdɪnəs/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'benefit',
       wordVi: 'Phúc lợi',
       pronunciation: '/ˈbenɪfɪt/',
@@ -397,86 +397,91 @@ class Theme8Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(phrase: 'Be related to', meaning: 'Có liên quan đến'),
-    FabPhraseItem(phrase: 'Be familiar with', meaning: 'Quen thuộc với'),
-    FabPhraseItem(phrase: 'Be responsible for', meaning: 'Chịu trách nhiệm về'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Be related to', meaning: 'Có liên quan đến'),
+    const FabPhraseItem(phrase: 'Be familiar with', meaning: 'Quen thuộc với'),
+    const FabPhraseItem(
+      phrase: 'Be responsible for',
+      meaning: 'Chịu trách nhiệm về',
+    ),
+    const FabPhraseItem(
       phrase: 'Commensurate with experience',
       meaning: 'Tương xứng với kinh nghiệm',
     ),
-    FabPhraseItem(phrase: 'Involve in', meaning: 'Liên quan tới'),
-    FabPhraseItem(phrase: 'Deal with', meaning: 'Xử lý/Giải quyết'),
-    FabPhraseItem(phrase: 'Respond to', meaning: 'Phản hồi lại'),
+    const FabPhraseItem(phrase: 'Involve in', meaning: 'Liên quan tới'),
+    const FabPhraseItem(phrase: 'Deal with', meaning: 'Xử lý/Giải quyết'),
+    const FabPhraseItem(phrase: 'Respond to', meaning: 'Phản hồi lại'),
   ];
 
-  static List<FabAnswerItem> get readingAnswers => [
+  static List<FabAnswerItem> get readingAnswers => const [
     FabAnswerItem(vi: 'Nguồn nhân lực', en: 'Human Resources'),
-    FabAnswerItem(vi: 'Liên quan trực tiếp', en: 'directly related'),
-    FabAnswerItem(vi: 'Liên quan tới những người', en: 'involves people'),
-    FabAnswerItem(vi: 'Quá trình tuyển dụng', en: 'the hiring process'),
-    FabAnswerItem(vi: 'Quảng cáo cho', en: 'advertising for'),
+    FabAnswerItem(vi: 'liên quan trực tiếp', en: 'directly related'),
+    FabAnswerItem(vi: 'liên quan những người', en: 'involves the people'),
+    FabAnswerItem(vi: 'tình huống', en: 'the situations'),
+    FabAnswerItem(vi: 'quá trình tuyển dụng', en: 'the hiring process'),
+    FabAnswerItem(vi: 'quảng cáo cho', en: 'advertising for'),
     FabAnswerItem(
-      vi: 'Tuyển dụng nhân viên mới',
+      vi: 'tuyển dụng nhân viên mới',
       en: 'recruiting new employees',
     ),
-    FabAnswerItem(vi: 'Xử lý lương', en: 'dealing with salaries'),
-    FabAnswerItem(vi: 'Thăng tiến', en: 'promotions'),
-    FabAnswerItem(vi: 'Hồ sơ xin việc', en: 'job applications'),
+    FabAnswerItem(vi: 'xử lý lương', en: 'dealing with salaries'),
+    FabAnswerItem(vi: 'những sự thăng tiến', en: 'promotions'),
+    FabAnswerItem(vi: 'hồ sơ xin việc', en: 'job applications'),
+    FabAnswerItem(vi: 'quảng cáo tuyển dụng', en: 'job advertisements'),
+    FabAnswerItem(vi: 'lương hưu', en: 'pensions'),
     FabAnswerItem(
-      vi: 'Phản hồi quảng cáo',
-      en: 'responding to job advertisements',
+      vi: 'các phúc lợi khác của công ty',
+      en: 'other company benefits',
     ),
-    FabAnswerItem(vi: 'Lương hưu', en: 'pensions'),
-    FabAnswerItem(vi: 'Phúc lợi công ty', en: 'company benefits'),
-    FabAnswerItem(vi: 'Đánh giá hiệu quả', en: 'performance reviews'),
-    FabAnswerItem(vi: 'Chính sách công ty', en: 'company policy'),
-    FabAnswerItem(vi: 'Quy tắc và quy định', en: 'rules and regulations'),
-    FabAnswerItem(vi: 'Kỳ nghỉ nhân viên', en: 'employee vacations'),
-    FabAnswerItem(vi: 'Vấn đề y tế', en: 'medical issues'),
-    FabAnswerItem(vi: 'Sự vắng mặt', en: 'absences'),
-    FabAnswerItem(vi: 'Sự đi muộn', en: 'tardiness'),
-    FabAnswerItem(vi: 'Quen thuộc với', en: 'familiar with'),
-    FabAnswerItem(vi: 'Trao đổi thông báo nội bộ', en: 'exchange of memos'),
+    FabAnswerItem(
+      vi: 'các bản đánh giá hiệu quả công việc',
+      en: 'performance reviews',
+    ),
+    FabAnswerItem(vi: 'các vấn đề về y tế', en: 'medical issues'),
+    FabAnswerItem(vi: 'sự vắng mặt', en: 'absences'),
+    FabAnswerItem(vi: 'sự đi muộn', en: 'tardiness'),
+    FabAnswerItem(vi: 'quen thuộc với', en: 'familiar with'),
+    FabAnswerItem(
+      vi: 'việc trao đổi các thông báo nội bộ',
+      en: 'exchange of memos',
+    ),
     FabAnswerItem(vi: 'Ngoài những điều trên', en: 'In addition to the above'),
-    FabAnswerItem(vi: 'Chịu trách nhiệm', en: 'is responsible for'),
-    FabAnswerItem(vi: 'Phát triển nhân viên', en: 'employee development'),
-    FabAnswerItem(vi: 'Hội thảo', en: 'seminars'),
-    FabAnswerItem(vi: 'Khóa học', en: 'courses'),
-    FabAnswerItem(vi: 'Nâng cao chuyên môn', en: 'improve qualifications'),
-    FabAnswerItem(vi: 'Tiền công', en: 'remuneration'),
-    FabAnswerItem(vi: 'Lương theo tuần', en: 'wage'),
-    FabAnswerItem(vi: 'Bảng lương', en: 'payroll'),
+    FabAnswerItem(vi: 'chịu trách nhiệm về', en: 'is responsible for'),
+    FabAnswerItem(
+      vi: 'sự phát triển nghề nghiệp',
+      en: 'professional development',
+    ),
+    FabAnswerItem(vi: 'nâng cao chuyên môn', en: 'improve qualifications'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation Vocabulary
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'retirement',
       wordVi: 'Nghỉ hưu',
       pronunciation: '/rɪˈtaɪərmənt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'replacement',
       wordVi: 'Người thay thế',
       pronunciation: '/rɪˈpleɪsmənt/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'suitable',
       wordVi: 'Phù hợp',
       pronunciation: '/ˈsuːtəbəl/',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'train',
       wordVi: 'Đào tạo',
       pronunciation: '/treɪn/',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'recruit',
       wordVi: 'Người được tuyển dụng',
       pronunciation: '/ˈriːkruːt/',
@@ -485,66 +490,77 @@ class Theme8Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(phrase: 'Lean towards', meaning: 'Nghiêng về/có xu hướng'),
-    FabPhraseItem(phrase: 'Before the end of', meaning: 'Trước khi kết thúc'),
-    FabPhraseItem(phrase: 'Find a replacement', meaning: 'Tìm người thay thế'),
-    FabPhraseItem(phrase: 'Place an ad', meaning: 'Đưa một bài quảng cáo'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Lean towards',
+      meaning: 'Nghiêng về/có xu hướng',
+    ),
+    const FabPhraseItem(
+      phrase: 'Before the end of',
+      meaning: 'Trước khi kết thúc',
+    ),
+    const FabPhraseItem(
+      phrase: 'Find a replacement',
+      meaning: 'Tìm người thay thế',
+    ),
+    const FabPhraseItem(
+      phrase: 'Place an ad',
+      meaning: 'Đưa một bài quảng cáo',
+    ),
+    const FabPhraseItem(
       phrase: 'Have lots of time',
       meaning: 'Có rất nhiều thời gian',
     ),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
-    FabAnswerItem(vi: 'Đã quyết định', en: 'decided'),
-    FabAnswerItem(vi: 'Nghỉ hưu', en: 'retirement'),
-    FabAnswerItem(vi: 'Đang nghiêng về', en: 'am leaning towards'),
-    FabAnswerItem(vi: 'Cuối năm', en: 'the end of the year'),
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(vi: 'đã quyết định', en: 'decided'),
+    FabAnswerItem(vi: 'nghỉ hưu', en: 'retirement'),
+    FabAnswerItem(vi: 'đang nghiêng về', en: 'am leaning towards'),
+    FabAnswerItem(vi: 'cuối năm', en: 'the end of the year'),
     FabAnswerItem(vi: 'Tuy nhiên', en: 'However'),
-    FabAnswerItem(vi: 'Rời công ty', en: 'leave the company'),
-    FabAnswerItem(vi: 'Cần tìm được', en: 'need to find'),
-    FabAnswerItem(vi: 'Vị trí của tôi', en: 'my position'),
-    FabAnswerItem(vi: 'Có thể giúp', en: 'can help'),
-    FabAnswerItem(vi: 'Đưa một bài quảng cáo', en: 'place an ad'),
+    FabAnswerItem(vi: 'rời công ty', en: 'leave the company'),
+    FabAnswerItem(vi: 'cần tìm được', en: 'need to find'),
+    FabAnswerItem(vi: 'vị trí của tôi', en: 'my position'),
+    FabAnswerItem(vi: 'có thể giúp', en: 'can help'),
+    FabAnswerItem(vi: 'đưa một bài quảng cáo', en: 'place an ad'),
     FabAnswerItem(vi: 'Sau đó', en: 'Then'),
-    FabAnswerItem(vi: 'Huấn luyện người', en: 'train the person'),
+    FabAnswerItem(vi: 'huấn luyện người', en: 'train the person'),
     FabAnswerItem(
       vi: 'Đó là một ý tưởng tuyệt vời',
       en: 'That is a great idea',
     ),
-    FabAnswerItem(vi: 'Có rất nhiều thời gian', en: 'have lots of time'),
-    FabAnswerItem(vi: 'Sẵn sàng cho công việc', en: 'ready for the job'),
+    FabAnswerItem(vi: 'có rất nhiều thời gian', en: 'have lots of time'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 Vocabulary (Job Hotline)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'job hotline',
       wordVi: 'Đường dây nóng tuyển dụng',
       pronunciation: '/ˈdʒɑːb ˈhɑːtlaɪn/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'background',
       wordVi: 'Nền tảng kiến thức',
       pronunciation: '/ˈbækɡraʊnd/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'job description',
       wordVi: 'Mô tả công việc',
       pronunciation: '/ˈdʒɑːb dɪˈskrɪpʃən/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'application status',
       wordVi: 'Trạng thái hồ sơ',
       pronunciation: '/ˌæplɪˈkeɪʃən ˈsteɪtəs/',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'relevant information',
       wordVi: 'Thông tin liên quan',
       pronunciation: '/ˈreləvənt ɪnˈfɔːrmeɪʃən/',
@@ -553,67 +569,74 @@ class Theme8Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Looking to recruit',
       meaning: 'Đang tìm cách tuyển dụng',
     ),
-    FabPhraseItem(phrase: 'To hear about', meaning: 'Để nghe về'),
-    FabPhraseItem(phrase: 'Press one/two/three', meaning: 'Ấn phím 1/2/3'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'To hear about', meaning: 'Để nghe về'),
+    const FabPhraseItem(
+      phrase: 'Press one/two/three',
+      meaning: 'Ấn phím 1/2/3',
+    ),
+    const FabPhraseItem(
       phrase: 'Have a pen and paper',
       meaning: 'Chuẩn bị bút và giấy',
     ),
-    FabPhraseItem(phrase: 'Be ready to write', meaning: 'Sẵn sàng ghi chép'),
+    const FabPhraseItem(
+      phrase: 'Be ready to write',
+      meaning: 'Sẵn sàng ghi chép',
+    ),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
-    FabAnswerItem(vi: 'Cảm ơn gọi', en: 'Thank you for calling'),
-    FabAnswerItem(vi: 'Đường dây nóng tuyển dụng', en: 'Job Hotline'),
-    FabAnswerItem(vi: 'Đang tìm cách tuyển dụng', en: 'looking to recruit'),
-    FabAnswerItem(vi: 'Nền tảng kiến thức', en: 'background'),
-    FabAnswerItem(vi: 'Bao gồm', en: 'include'),
-    FabAnswerItem(vi: 'Khóa đào tạo', en: 'training courses'),
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(vi: 'đường dây nóng tuyển dụng', en: 'Job Hotline'),
+    FabAnswerItem(vi: 'đang tìm cách tuyển dụng', en: 'looking to recruit'),
+    FabAnswerItem(vi: 'nền tảng kiến thức', en: 'background'),
+    FabAnswerItem(vi: 'bao gồm', en: 'including'),
+    FabAnswerItem(
+      vi: 'các khóa đào tạo ngôn ngữ mới',
+      en: 'new language training courses',
+    ),
     FabAnswerItem(vi: 'Để nghe', en: 'To hear'),
-    FabAnswerItem(vi: 'Cơ hội việc làm', en: 'job opportunity'),
-    FabAnswerItem(vi: 'Ấn phím một', en: 'press one'),
-    FabAnswerItem(vi: 'Mô tả công việc', en: 'job descriptions'),
-    FabAnswerItem(vi: 'Vị trí đang cần', en: 'job openings'),
-    FabAnswerItem(vi: 'Yêu cầu hồ sơ', en: 'request an application'),
-    FabAnswerItem(vi: 'Kiểm tra trạng thái', en: 'check application status'),
-    FabAnswerItem(vi: 'Chuẩn bị bút và giấy', en: 'have a pen and paper'),
-    FabAnswerItem(vi: 'Sẵn sàng ghi', en: 'be ready to write'),
-    FabAnswerItem(vi: 'Thông tin liên quan', en: 'relevant information'),
+    FabAnswerItem(vi: 'cơ hội việc làm', en: 'job opportunity'),
+    FabAnswerItem(vi: 'Để nghe', en: 'To listen to'),
+    FabAnswerItem(vi: 'vị trí đang cần tuyển', en: 'job openings'),
+    FabAnswerItem(vi: 'Để yêu cầu', en: 'To request'),
+    FabAnswerItem(vi: 'trạng thái hồ sơ', en: 'application status'),
+    FabAnswerItem(vi: 'chuẩn bị bút và giấy', en: 'have a pen and paper'),
+    FabAnswerItem(vi: 'sẵn sàng ghi', en: 'ready to write'),
+    FabAnswerItem(vi: 'thông tin liên quan', en: 'relevant information'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 Vocabulary (Raise & Bonus Evaluation)
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'raise',
       wordVi: 'Tăng lương',
       pronunciation: '/reɪz/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'evaluation',
       wordVi: 'Đánh giá',
       pronunciation: '/ˌevæljˈueɪʃən/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'supervisor',
       wordVi: 'Cấp trên trực tiếp',
       pronunciation: '/ˈsuːpərvaɪzər/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'responsibility',
       wordVi: 'Trách nhiệm',
       pronunciation: '/rɪˌspɑːnsəˈbɪləti/',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'withdraw',
       wordVi: 'Rút lại',
       pronunciation: '/wɪðˈdrɔː/',
@@ -622,72 +645,71 @@ class Theme8Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(phrase: 'Short notice', meaning: 'Thông báo gấp'),
-    FabPhraseItem(phrase: 'Address the issue', meaning: 'Giải quyết vấn đề'),
-    FabPhraseItem(phrase: 'In the past', meaning: 'Trước đây'),
-    FabPhraseItem(phrase: 'Double (increase)', meaning: 'Tăng gấp đôi'),
-    FabPhraseItem(phrase: 'Fill in a form', meaning: 'Điền vào biểu mẫu'),
-    FabPhraseItem(
+    const FabPhraseItem(phrase: 'Short notice', meaning: 'Thông báo gấp'),
+    const FabPhraseItem(
+      phrase: 'Address the issue',
+      meaning: 'Giải quyết vấn đề',
+    ),
+    const FabPhraseItem(phrase: 'In the past', meaning: 'Trước đây'),
+    const FabPhraseItem(phrase: 'Double (increase)', meaning: 'Tăng gấp đôi'),
+    const FabPhraseItem(phrase: 'Fill in a form', meaning: 'Điền vào biểu mẫu'),
+    const FabPhraseItem(
       phrase: 'Deserve a raise',
       meaning: 'Xứng đáng được tăng lương',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Submit to Administration',
       meaning: 'Nộp cho phòng hành chính',
     ),
   ];
 
-  static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Thông báo gấp', en: 'short notice'),
-    FabAnswerItem(vi: 'Giải quyết vấn đề', en: 'address'),
-    FabAnswerItem(vi: 'Tăng lương và thưởng', en: 'raise and bonus'),
-    FabAnswerItem(vi: 'Trước đây', en: 'In the past'),
-    FabAnswerItem(vi: 'Yêu cầu tăng lương', en: 'ask for a pay raise'),
-    FabAnswerItem(vi: 'Quyết định của ông chủ', en: 'the employer\'s decision'),
-    FabAnswerItem(vi: 'Xứng đáng hay không', en: 'worthy of it or not'),
-    FabAnswerItem(vi: 'Gần như tăng gấp đôi', en: 'almost doubled'),
-    FabAnswerItem(vi: 'Khoảng cách lớn hơn', en: 'a far bigger gap'),
+  static List<FabAnswerItem> get shortTalk2Answers => const [
+    FabAnswerItem(vi: 'theo một thông báo gấp', en: 'on such short notice'),
+    FabAnswerItem(vi: 'giải quyết', en: 'address'),
+    FabAnswerItem(vi: 'tăng lương và thưởng', en: 'raise and bonus'),
+    FabAnswerItem(vi: 'yêu cầu tăng lương', en: 'ask for a pay raise'),
+    FabAnswerItem(vi: 'quyết định của ông chủ', en: 'the employer\'s decision'),
+    FabAnswerItem(vi: 'liệu có xứng đáng hay không', en: 'worthy of it or not'),
+    FabAnswerItem(vi: 'đã gần như tăng gấp đôi', en: 'has almost doubled'),
+    FabAnswerItem(
+      vi: 'khoảng cách giữa người lao động và người sử dụng lao động',
+      en: 'employee - employer relationship gap',
+    ),
     FabAnswerItem(vi: 'Từ bây giờ trở đi', en: 'From now on'),
-    FabAnswerItem(vi: 'Để đạt được tăng lương', en: 'to attain any raise'),
     FabAnswerItem(
-      vi: 'Xét bất kỳ thưởng',
-      en: 'to be considered for any extra bonuses',
+      vi: 'để đạt được bất kỳ khoản tăng lương nào',
+      en: 'to attain any raise',
     ),
+    FabAnswerItem(vi: 'các khoản thưởng thêm', en: 'extra bonuses'),
+    FabAnswerItem(vi: 'điền vào', en: 'fill in'),
+    FabAnswerItem(vi: 'bản đánh giá', en: 'evaluation form'),
     FabAnswerItem(
-      vi: 'Điền vào đơn đánh giá',
-      en: 'fill in our evaluation form',
+      vi: 'đưa ra một lời giải thích chính thức',
+      en: 'give a formal explanation',
     ),
-    FabAnswerItem(vi: 'Giải thích chính thức', en: 'give a formal explanation'),
-    FabAnswerItem(vi: 'Xứng đáng được tăng', en: 'deserve a raise'),
-    FabAnswerItem(vi: 'Ít nhất hai thư', en: 'at least two recommendations'),
-    FabAnswerItem(vi: 'Từ đồng nghiệp', en: 'from your colleagues'),
+    FabAnswerItem(vi: 'xứng đáng được tăng lương', en: 'deserve a raise'),
+    FabAnswerItem(vi: 'ít nhất', en: 'at least'),
+    FabAnswerItem(vi: 'các đồng nghiệp của mình', en: 'your colleagues'),
     FabAnswerItem(
-      vi: 'Thư từ cấp trên',
-      en: 'letter from your immediate supervisor',
+      vi: 'cấp trên trực tiếp của mình',
+      en: 'your immediate supervisor',
     ),
-    FabAnswerItem(vi: 'Nộp cho hành chính', en: 'submit it to Administration'),
-    FabAnswerItem(vi: 'Được xử lý', en: 'be processed'),
-    FabAnswerItem(vi: 'Nhân sự', en: 'Human Resources'),
+    FabAnswerItem(vi: 'nộp cho', en: 'submit it to'),
+    FabAnswerItem(vi: 'được xử lý', en: 'be processed'),
+    FabAnswerItem(vi: 'Phòng nhân sự', en: 'Human Resources'),
+    FabAnswerItem(vi: 'nhận được phản hồi', en: 'get a response'),
     FabAnswerItem(
-      vi: 'Phản hồi trong 2 tuần',
-      en: 'get a response within 2 weeks',
+      vi: 'nhiều trách nhiệm và nghĩa vụ hơn',
+      en: 'more responsibility and duties',
     ),
-    FabAnswerItem(vi: 'Mỗi tăng lương', en: 'with any pay increase'),
+    FabAnswerItem(vi: 'liệu anh chị có chấp nhận', en: 'whether you accept'),
+    FabAnswerItem(vi: 'những điều khoản mới', en: 'new terms'),
+    FabAnswerItem(vi: 'có thể rút lại', en: 'could withdraw'),
     FabAnswerItem(
-      vi: 'Xử lý trách nhiệm hơn',
-      en: 'handle more responsibility',
-    ),
-    FabAnswerItem(vi: 'Nhiều nghĩa vụ hơn', en: 'duties'),
-    FabAnswerItem(vi: 'Lựa chọn của bạn', en: 'it\'s your choice'),
-    FabAnswerItem(vi: 'Chấp nhận lời đề nghị', en: 'accept the new offer'),
-    FabAnswerItem(vi: 'Điều khoản mới', en: 'the new terms'),
-    FabAnswerItem(vi: 'Rút lại đơn', en: 'withdraw your evaluation form'),
-    FabAnswerItem(
-      vi: 'Quy trình tốn thời gian',
+      vi: 'một quy trình tốn thời gian',
       en: 'a time-consuming procedure',
     ),
-    FabAnswerItem(vi: 'Xử lý công khai', en: 'handle these matters openly'),
-    FabAnswerItem(vi: 'Chuyên nghiệp', en: 'professionally'),
+    FabAnswerItem(vi: 'xử lý những vấn đề này', en: 'handle these matters'),
   ];
 
   // ═══════════════════════════════════════════════════════════════
@@ -844,6 +866,20 @@ Từ vựng thường gặp của chuyên đề này gồm: lương, tiền côn
         titleVi: 'Luyện tập 1: Hội thoại - Nghỉ hưu & Tuyển dụng',
         audioTrackKey: 'track_32',
         questions: _practice1Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (D): W nói "retiring before the end of the year" = Trước khi năm kết thúc (cuối tháng 12).',
+            en: 'Q1 (D): W says "retiring before the end of the year" = Before the end of the year (end of December).',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (B): W nói "I need to find a suitable replacement for my position" = Chưa tìm được người thay thế.',
+            en: 'Q2 (B): W says "I need to find a suitable replacement for my position" = She hasn\'t found a person to replace her.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (C): M đề nghị "place an ad on our website and hire somebody" = Giúp tìm kiếm ứng viên.',
+            en: 'Q3 (C): M suggests "place an ad on our website and hire somebody" = Help the woman look for a candidate.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme08_day2_quiz2',
@@ -852,6 +888,20 @@ Từ vựng thường gặp của chuyên đề này gồm: lương, tiền côn
         titleVi: 'Luyện tập 2: Bài ngắn - Đường dây nóng tuyển dụng',
         audioTrackKey: 'track_33',
         questions: _practice2Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (A): Bài nói cung cấp thông tin "job openings" và "job descriptions" = Người tìm việc.',
+            en: 'Q4 (A): The talk provides information about "job openings" and "job descriptions" = A job seeker.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (B): "looking to recruit candidates with a strong background in Asian languages" = Người nói ngoại ngữ.',
+            en: 'Q5 (B): "looking to recruit candidates with a strong background in Asian languages" = Foreign language speakers.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (A): Bài nói hướng dẫn "press one... press two" để nghe về cơ hội việc làm = Thông báo cơ hội nghề nghiệp.',
+            en: 'Q6 (A): The talk instructs "press one... press two" to hear about job opportunities = To inform callers of job opportunities.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme08_day2_quiz3',
@@ -860,6 +910,20 @@ Từ vựng thường gặp của chuyên đề này gồm: lương, tiền côn
         titleVi: 'Luyện tập 3: Bài ngắn - Đánh giá tăng lương & thưởng',
         audioTrackKey: 'track_34',
         questions: _practice3Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (A): "Now that our staff has almost doubled" = Số lượng nhân viên tăng lên.',
+            en: 'Q7 (A): "Now that our staff has almost doubled" = The number of employees has increased.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (C): "You will need at least two recommendations from your colleagues and a letter... from your immediate supervisor" = Đồng nghiệp và cấp trên.',
+            en: 'Q8 (C): "You will need at least two recommendations from your colleagues and a letter... from your immediate supervisor" = Co-workers and immediate supervisor.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (B): "with any pay increase, you will be expected to handle more responsibility and duties" = Thêm nhiệm vụ.',
+            en: 'Q9 (B): "with any pay increase, you will be expected to handle more responsibility and duties" = More duties.',
+          ),
+        ],
       ),
       LessonPhase(
         id: 'theme08_day2_translate1',
@@ -935,7 +999,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
   // QUIZ QUESTIONS
   // ═══════════════════════════════════════════════════════════════
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q01',
       questionText: 'When is the woman probably going to retire?',
       options: [
@@ -948,7 +1012,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
       audioTrackKey: 'track_32',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q02',
       questionText:
           'Why is it difficult for the woman to make a decision on her retirement?',
@@ -962,7 +1026,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
       audioTrackKey: 'track_32',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q03',
       questionText: 'What does the man suggest?',
       options: [
@@ -978,7 +1042,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q04',
       questionText: 'Who would call in to this hotline?',
       options: [
@@ -991,7 +1055,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
       audioTrackKey: 'track_33',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q05',
       questionText: 'What kind of people is Smartcom currently looking for?',
       options: [
@@ -1004,7 +1068,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
       audioTrackKey: 'track_33',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q06',
       questionText: 'What is the purpose of this recording?',
       options: [
@@ -1020,7 +1084,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q07',
       questionText:
           'Why does the firm need a new raise and bonus evaluation procedure?',
@@ -1034,7 +1098,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
       audioTrackKey: 'track_34',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q08',
       questionText:
           'Who will an employee need recommendations from for the evaluation?',
@@ -1048,7 +1112,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
       audioTrackKey: 'track_34',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme08_q09',
       questionText: 'What can an employee expect with a pay raise?',
       options: [
@@ -1130,7 +1194,7 @@ W: Ý tưởng này hay đấy. Hãy thực hiện nó thôi. Bây giờ là th�
     const MixedSegment.english(', press one. '),
     const MixedSegment.vietnamese('Để nghe', 'To listen to'),
     const MixedSegment.english(' job descriptions for all of our current '),
-    const MixedSegment.vietnamese('vị trị đang cần tuyển', 'job openings'),
+    const MixedSegment.vietnamese('vị trí đang cần tuyển', 'job openings'),
     const MixedSegment.english(', press two. '),
     const MixedSegment.vietnamese('Để yêu cầu', 'To request'),
     const MixedSegment.english(' an application, press three. To check your '),

@@ -6,6 +6,8 @@ import 'core/constants/app_colors.dart';
 import 'core/services/hive_service.dart';
 import 'presentation/blocs/lesson_bloc/lesson_bloc.dart';
 import 'presentation/blocs/mind_game_bloc/mind_game_bloc.dart';
+import 'presentation/blocs/progress/progress_bloc.dart';
+import 'presentation/blocs/progress/progress_event.dart';
 import 'presentation/blocs/theme_bloc/theme_bloc.dart';
 import 'presentation/screens/home/home_screen.dart';
 
@@ -39,6 +41,7 @@ class VipLangApp extends StatelessWidget {
         BlocProvider(create: (_) => ThemeBloc()),
         BlocProvider(create: (_) => MindGameBloc()),
         BlocProvider(create: (_) => LessonBloc()),
+        BlocProvider(create: (_) => ProgressBloc()..add(LoadTodayVocabEvent())),
       ],
       child: MaterialApp(
         title: 'VipLang',

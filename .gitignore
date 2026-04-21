@@ -52,3 +52,6 @@ Note.txt
 gitignore
 .ai_handoff/
 /backups/
+linux/
+windows/
+macos/

@@ -179,7 +179,11 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               const Spacer(),
               Row(
                 children: [
-                  const Icon(Icons.check_circle, color: AppColors.success, size: 16),
+                  const Icon(
+                    Icons.check_circle,
+                    color: AppColors.success,
+                    size: 16,
+                  ),
                   const SizedBox(width: 4),
                   Text(
                     '$_knownCount thuộc',
@@ -205,7 +209,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
             child: LinearProgressIndicator(
               value: progress,
               backgroundColor: AppColors.border,
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                AppColors.primary,
+              ),
               minHeight: 5,
             ),
           ),
@@ -240,7 +246,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               children: [
                 if (_currentIndex > 0)
                   Padding(
-                    padding: const EdgeInsets.only(right: AppConstants.paddingS),
+                    padding: const EdgeInsets.only(
+                      right: AppConstants.paddingS,
+                    ),
                     child: GestureDetector(
                       onTap: _goPrev,
                       child: Container(
@@ -248,7 +256,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                         height: 44,
                         decoration: BoxDecoration(
                           color: AppColors.background,
-                          borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.radiusM,
+                          ),
                           border: Border.all(color: AppColors.border),
                         ),
                         child: const Icon(
@@ -266,7 +276,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
                         color: AppColors.warning.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusM,
+                        ),
                         border: Border.all(
                           color: AppColors.warning.withValues(alpha: 0.4),
                         ),
@@ -296,7 +308,9 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                       decoration: BoxDecoration(
                         color: AppColors.success.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusM,
+                        ),
                         border: Border.all(
                           color: AppColors.success.withValues(alpha: 0.4),
                         ),
@@ -337,13 +351,18 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
         children: [
           const SizedBox(height: AppConstants.paddingL),
           Text(
-            pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '💪',
+            pct >= 80
+                ? '🏆'
+                : pct >= 60
+                ? '👍'
+                : '💪',
             style: const TextStyle(fontSize: 64),
           ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
           const SizedBox(height: AppConstants.paddingM),
-          Text('Tổng kết từ vựng', style: AppTextStyles.h2)
-              .animate()
-              .fadeIn(delay: 200.ms),
+          const Text(
+            'Tổng kết từ vựng',
+            style: AppTextStyles.h2,
+          ).animate().fadeIn(delay: 200.ms),
           const SizedBox(height: AppConstants.paddingL),
           Row(
             children: [
@@ -415,8 +434,8 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                   pct >= 80
                       ? '🌟 Xuất sắc! Tiếp tục duy trì nhé!'
                       : pct >= 60
-                          ? '👍 Tốt lắm! Ôn thêm những từ chưa thuộc!'
-                          : '💪 Cần cố gắng hơn! Ôn lại SRS mỗi ngày!',
+                      ? '👍 Tốt lắm! Ôn thêm những từ chưa thuộc!'
+                      : '💪 Cần cố gắng hơn! Ôn lại SRS mỗi ngày!',
                   style: AppTextStyles.caption.copyWith(
                     color: AppColors.textSecondary,
                     fontStyle: FontStyle.italic,
@@ -548,13 +567,9 @@ class _VocabCardWidget extends StatelessWidget {
             onTap: onFlip,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 350),
-              transitionBuilder: (child, anim) => ScaleTransition(
-                scale: anim,
-                child: child,
-              ),
-              child: isFlipped
-                  ? _buildVietnameseSide()
-                  : _buildEnglishSide(),
+              transitionBuilder: (child, anim) =>
+                  ScaleTransition(scale: anim, child: child),
+              child: isFlipped ? _buildVietnameseSide() : _buildEnglishSide(),
             ),
           ),
 

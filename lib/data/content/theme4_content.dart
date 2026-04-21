@@ -284,73 +284,73 @@ class Theme4Content {
 
   // ── FAB cho bài đọc Day 1 ──
   static List<FabVocabItem> get readingVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'transportation',
       pronunciation: '/ˌtrænspərˈteɪʃən/',
       wordVi: 'Giao thông vận tải',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'hospitality industry',
       pronunciation: '/ˌhɑːspɪˈtæləti ˈɪndəstri/',
       wordVi: 'Ngành kinh doanh nhà hàng-khách sạn',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'travel agency',
       pronunciation: '/ˈtrævəl ˈeɪdʒənsi/',
       wordVi: 'Hãng du lịch',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'booking',
       pronunciation: '/ˈbʊkɪŋ/',
       wordVi: 'Việc đặt mua vé trước',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'alternate',
       pronunciation: '/ˈɔːltərnət/',
       wordVi: 'Thay thế, dự phòng',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'coupon',
       pronunciation: '/ˈkuːpɑːn/',
       wordVi: 'Phiếu giảm giá',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'coach',
       pronunciation: '/koʊtʃ/',
       wordVi: 'Xe khách / Hạng phổ thông',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'cruise',
       pronunciation: '/kruːz/',
       wordVi: 'Chuyến du ngoạn trên biển',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'aisle seat',
       pronunciation: '/aɪl siːt/',
       wordVi: 'Chỗ ngồi cạnh lối đi',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'window seat',
       pronunciation: '/ˈwɪndoʊ siːt/',
       wordVi: 'Chỗ ngồi cạnh cửa sổ',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'ferry',
       pronunciation: '/ˈferi/',
       wordVi: 'Phà',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'limousine',
       pronunciation: '/ˌlɪməˈziːn/',
       wordVi: 'Xe li-mô',
@@ -359,56 +359,62 @@ class Theme4Content {
   ];
 
   static List<FabPhraseItem> get readingPhrases => [
-    FabPhraseItem(phrase: 'Make an arrangement', meaning: 'Bố trí, sắp xếp'),
-    FabPhraseItem(phrase: 'Be about sth', meaning: 'Nói về cái gì'),
-    FabPhraseItem(phrase: 'Pick sb up', meaning: 'Đón ai đó'),
-    FabPhraseItem(phrase: 'Deliver sb to somewhere', meaning: 'Đưa ai tới đâu'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Make an arrangement',
+      meaning: 'Bố trí, sắp xếp',
+    ),
+    const FabPhraseItem(phrase: 'Be about sth', meaning: 'Nói về cái gì'),
+    const FabPhraseItem(phrase: 'Pick sb up', meaning: 'Đón ai đó'),
+    const FabPhraseItem(
+      phrase: 'Deliver sb to somewhere',
+      meaning: 'Đưa ai tới đâu',
+    ),
+    const FabPhraseItem(
       phrase: 'Be (often) associated with',
       meaning: '(Thường) gắn liền với / có liên quan tới',
     ),
-    FabPhraseItem(phrase: 'At the last minute', meaning: 'Vào phút chót'),
+    const FabPhraseItem(phrase: 'At the last minute', meaning: 'Vào phút chót'),
   ];
 
   // ── FAB cho Conversation (Practice 1) ──
   static List<FabVocabItem> get conversationVocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'conference',
       pronunciation: '/ˈkɑːnfərəns/',
       wordVi: 'Hội nghị',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'convention center',
       pronunciation: '/kənˈvenʃən ˈsentər/',
       wordVi: 'Trung tâm hội nghị',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'express train',
       pronunciation: '/ɪkˈspres treɪn/',
       wordVi: 'Tàu tốc hành',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'recommendation',
       pronunciation: '/ˌrekəmenˈdeɪʃən/',
       wordVi: 'Lời khuyên, sự giới thiệu',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'credit card',
       pronunciation: '/ˈkredɪt kɑːrd/',
       wordVi: 'Thẻ tín dụng',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'platform',
       pronunciation: '/ˈplætfɔːrm/',
       wordVi: 'Sân ga, ke tàu',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'prior to',
       pronunciation: '/ˈpraɪər tuː/',
       wordVi: 'Trước (thời gian)',
@@ -417,88 +423,103 @@ class Theme4Content {
   ];
 
   static List<FabPhraseItem> get conversationPhrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Attend a conference',
       meaning: 'Tham dự một hội nghị',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Have any recommendations',
       meaning: 'Có lời khuyên nào không',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Take credit cards',
       meaning: 'Chấp nhận thẻ tín dụng',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Prior to + NP',
       meaning: 'Trước (thời điểm/sự kiện gì)',
     ),
-    FabPhraseItem(phrase: 'Be at the platform', meaning: 'Có mặt ở sân ga'),
+    const FabPhraseItem(
+      phrase: 'Be at the platform',
+      meaning: 'Có mặt ở sân ga',
+    ),
   ];
 
-  static List<FabAnswerItem> get conversationAnswers => [
-    FabAnswerItem(vi: 'Tham dự một hội nghị', en: 'attend a conference'),
-    FabAnswerItem(vi: 'Trước buổi trưa', en: 'by noon'),
+  static List<FabAnswerItem> get conversationAnswers => const [
+    FabAnswerItem(vi: 'Hai vé tàu', en: 'Two train tickets'),
     FabAnswerItem(
-      vi: 'Chuyến đi sẽ mất bao lâu',
+      vi: 'cần tham dự một hội nghị',
+      en: 'need to attend a conference',
+    ),
+    FabAnswerItem(vi: 'trước buổi trưa', en: 'by noon'),
+    FabAnswerItem(
+      vi: 'chuyến đi sẽ mất bao lâu',
       en: 'how long the ride will take',
     ),
-    FabAnswerItem(vi: 'Đi chuyến tàu nào', en: 'which train to take'),
+    FabAnswerItem(vi: 'đi chuyến tàu nào', en: 'which train to take'),
     FabAnswerItem(
-      vi: 'Có lời khuyên nào không',
+      vi: 'Cô có lời khuyên nào không',
       en: 'Do you have any recommendations',
     ),
     FabAnswerItem(
-      vi: 'Đón chuyến tàu tốc hành lúc 9 giờ sáng',
+      vi: 'đón chuyến tàu tốc hành lúc 9 giờ sáng',
       en: 'take the 9 a.m. express train',
     ),
-    FabAnswerItem(vi: 'Sẽ tới', en: 'will arrive'),
+    FabAnswerItem(vi: 'sẽ tới', en: 'will arrive'),
     FabAnswerItem(
-      vi: 'Tôi có thể thanh toán như thế nào',
+      vi: 'đi chuyến tàu tốc hành đó',
+      en: 'take the express train',
+    ),
+    FabAnswerItem(
+      vi: 'Tôi có thể thanh toán tiền vé của tôi như thế nào',
       en: 'How do I pay for my tickets',
     ),
-    FabAnswerItem(vi: 'Chấp nhận thẻ tín dụng', en: 'take credit cards'),
+    FabAnswerItem(vi: 'chấp nhận thẻ tín dụng', en: 'take credit cards'),
     FabAnswerItem(vi: 'Chắc chắn rồi', en: 'Absolutely'),
-    FabAnswerItem(vi: 'Có mặt ở sân ga', en: 'be at the platform'),
     FabAnswerItem(
-      vi: 'Trước giờ khởi hành của quý khách',
+      vi: 'hai tấm vé tàu tốc hành',
+      en: 'two express train tickets',
+    ),
+    FabAnswerItem(vi: 'có mặt ở sân ga', en: 'be at the platform'),
+    FabAnswerItem(
+      vi: 'trước giờ khởi hành của quý khách',
       en: 'prior to your departure time',
     ),
   ];
 
   // ── FAB cho Short Talk 1 (Travel Agency Hotline) ──
   static List<FabVocabItem> get shortTalk1Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'destination',
       pronunciation: '/ˌdestɪˈneɪʃən/',
       wordVi: 'Điểm đến, đích đến',
       partOfSpeech: 'n',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'travel arrangements',
       pronunciation: '/ˈtrævəl əˈreɪndʒmənts/',
       wordVi: 'Sự sắp xếp tour du lịch',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'excursion rates',
       pronunciation: '/ɪkˈskɜːrʒən reɪts/',
       wordVi: 'Bảng giá lữ hành đặc biệt',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'available',
       pronunciation: '/əˈveɪləbəl/',
       wordVi: 'Có sẵn',
       partOfSpeech: 'adj',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'computer system',
       pronunciation: '/kəmˈpjuːtər ˈsɪstəm/',
       wordVi: 'Hệ thống máy tính',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'situation',
       pronunciation: '/ˌsɪtʃuˈeɪʃən/',
       wordVi: 'Tình huống, tình hình',
@@ -507,85 +528,95 @@ class Theme4Content {
   ];
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Make hotel reservations',
       meaning: 'Đặt phòng khách sạn',
     ),
-    FabPhraseItem(phrase: 'Other than (+ NP/Gerund)', meaning: 'Ngoài, trừ'),
-    FabPhraseItem(phrase: 'Due to sth', meaning: 'Do, tại (việc gì / điều gì)'),
-    FabPhraseItem(phrase: 'Call back later', meaning: 'Gọi lại sau'),
-    FabPhraseItem(phrase: 'Find out', meaning: 'Tìm ra, tìm hiểu để biết'),
+    const FabPhraseItem(
+      phrase: 'Other than (+ NP/Gerund)',
+      meaning: 'Ngoài, trừ',
+    ),
+    const FabPhraseItem(
+      phrase: 'Due to sth',
+      meaning: 'Do, tại (việc gì / điều gì)',
+    ),
+    const FabPhraseItem(phrase: 'Call back later', meaning: 'Gọi lại sau'),
+    const FabPhraseItem(
+      phrase: 'Find out',
+      meaning: 'Tìm ra, tìm hiểu để biết',
+    ),
   ];
 
-  static List<FabAnswerItem> get shortTalk1Answers => [
+  static List<FabAnswerItem> get shortTalk1Answers => const [
+    FabAnswerItem(vi: 'Công ty Lữ hành Hà Nội', en: 'Hanoi Travel Agency'),
+    FabAnswerItem(vi: 'vé máy bay', en: 'airline tickets'),
     FabAnswerItem(
-      vi: 'Nơi tối ưu nhất để đặt vé máy bay',
-      en: 'the best place to buy airline tickets',
+      vi: 'du lịch trong nội địa Việt Nam',
+      en: 'travel within Vietnam',
     ),
-    FabAnswerItem(vi: 'Du lịch nội địa Việt Nam', en: 'travel within Vietnam'),
-    FabAnswerItem(vi: 'Điểm đến của bạn', en: 'your destination'),
-    FabAnswerItem(vi: 'Ở một đất nước khác', en: 'in another country'),
-    FabAnswerItem(vi: 'Đặt phòng khách sạn', en: 'make hotel reservations'),
-    FabAnswerItem(vi: 'Mua vé máy bay', en: 'purchasing airline tickets'),
-    FabAnswerItem(vi: 'Thông báo', en: 'announce'),
+    FabAnswerItem(vi: 'điểm đến của bạn', en: 'your destination'),
+    FabAnswerItem(vi: 'ở một đất nước khác', en: 'in another country'),
+    FabAnswerItem(vi: 'đặt phòng khách sạn', en: 'make hotel reservations'),
+    FabAnswerItem(vi: 'mua vé máy bay', en: 'purchasing airline tickets'),
+    FabAnswerItem(vi: 'thông báo', en: 'announce'),
     FabAnswerItem(
-      vi: 'Bảng giá lữ hành đặc biệt',
+      vi: 'bảng giá lữ hành đặc biệt',
       en: 'special excursion rates',
     ),
-    FabAnswerItem(vi: 'Do một vài sự cố', en: 'due to some problems'),
+    FabAnswerItem(vi: 'do một vài sự cố', en: 'due to some problems'),
     FabAnswerItem(
-      vi: 'Hệ thống máy tính của chúng tôi',
+      vi: 'hệ thống máy tính của chúng tôi',
       en: 'our computer system',
     ),
     FabAnswerItem(vi: 'Xin vui lòng gọi lại sau', en: 'Please call back later'),
-    FabAnswerItem(vi: 'Đã thay đổi', en: 'has changed'),
+    FabAnswerItem(vi: 'đã thay đổi', en: 'has changed'),
   ];
 
   // ── FAB cho Short Talk 2 (Flight Announcement) ──
   static List<FabVocabItem> get shortTalk2Vocab => [
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'shortly',
       pronunciation: '/ˈʃɔːrtli/',
       wordVi: 'Nhanh chóng, sắp sửa',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'immediately',
       pronunciation: '/ɪˈmiːdiətli/',
       wordVi: 'Ngay lập tức',
       partOfSpeech: 'adv',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'be securely fastened',
       pronunciation: '/biː sɪˈkjʊərli ˈfæsənd/',
       wordVi: 'Được thắt một cách an toàn',
       partOfSpeech: 'vp',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'distribute',
       pronunciation: '/dɪˈstrɪbjuːt/',
       wordVi: 'Phân phát',
       partOfSpeech: 'v',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'duty free items',
       pronunciation: '/ˈduːti friː ˈaɪtəmz/',
       wordVi: 'Mặt hàng miễn thuế',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'overhead bins',
       pronunciation: '/ˌoʊvərˈhed bɪnz/',
       wordVi: 'Khoang chứa đồ trên đầu',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'local time',
       pronunciation: '/ˈloʊkəl taɪm/',
       wordVi: 'Giờ địa phương',
       partOfSpeech: 'np',
     ),
-    FabVocabItem(
+    const FabVocabItem(
       wordEn: 'engine problem',
       pronunciation: '/ˈendʒɪn ˈprɑːbləm/',
       wordVi: 'Vấn đề về động cơ',
@@ -594,70 +625,119 @@ class Theme4Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: 'Apologize for doing sth',
       meaning: 'Xin lỗi vì đã làm gì',
     ),
-    FabPhraseItem(
+    const FabPhraseItem(
       phrase: '15 minutes behind schedule',
       meaning: 'Muộn 15 phút so với lịch trình',
     ),
-    FabPhraseItem(phrase: 'Take this opportunity', meaning: 'Nhân cơ hội này'),
-    FabPhraseItem(
+    const FabPhraseItem(
+      phrase: 'Take this opportunity',
+      meaning: 'Nhân cơ hội này',
+    ),
+    const FabPhraseItem(
       phrase: 'Look forward to (doing sth)',
       meaning: 'Mong đợi làm gì',
     ),
-    FabPhraseItem(phrase: 'In the near future', meaning: 'Trong tương lai gần'),
+    const FabPhraseItem(
+      phrase: 'In the near future',
+      meaning: 'Trong tương lai gần',
+    ),
   ];
 
   static List<FabAnswerItem> get shortTalk2Answers => [
-    FabAnswerItem(vi: 'Sắp tới', en: 'will shortly be arriving'),
-    FabAnswerItem(
-      vi: 'Quay trở lại chỗ ngồi của quý vị',
+    const FabAnswerItem(vi: 'sắp tới', en: 'shortly be arriving'),
+    const FabAnswerItem(
+      vi: 'quay trở lại chỗ ngồi của quý vị',
       en: 'return to your seats',
     ),
-    FabAnswerItem(vi: 'Ngay lập tức', en: 'immediately'),
-    FabAnswerItem(vi: 'Được thắt một cách an toàn', en: 'is securely fastened'),
-    FabAnswerItem(
-      vi: 'Di chuyển dọc theo máy bay',
+    const FabAnswerItem(vi: 'ngay lập tức', en: 'immediately'),
+    const FabAnswerItem(
+      vi: 'được thắt một cách an toàn',
+      en: 'is securely fastened',
+    ),
+    const FabAnswerItem(
+      vi: 'di chuyển dọc theo máy bay',
       en: 'moving through the aircraft',
     ),
-    FabAnswerItem(vi: 'Kiểm tra dây an toàn', en: 'check your seatbelts'),
-    FabAnswerItem(
-      vi: 'Các mặt hàng miễn thuế còn lại',
+    const FabAnswerItem(vi: 'kiểm tra dây an toàn', en: 'check your seatbelts'),
+    const FabAnswerItem(
+      vi: 'các mặt hàng miễn thuế còn lại',
       en: 'any remaining duty free items',
     ),
-    FabAnswerItem(vi: 'Hành lý xách tay', en: 'hand luggage'),
-    FabAnswerItem(
-      vi: 'Dưới chỗ ngồi phía trước',
+    const FabAnswerItem(vi: 'hành lý xách tay', en: 'hand luggage'),
+    const FabAnswerItem(
+      vi: 'dưới chỗ ngồi phía trước',
       en: 'under the seat in front of you',
     ),
-    FabAnswerItem(
-      vi: 'Trong các khoang chứa đồ trên đầu',
+    const FabAnswerItem(
+      vi: 'trong các khoang chứa đồ trên đầu',
       en: 'in the overhead bins',
     ),
-    FabAnswerItem(vi: 'Giờ địa phương', en: 'local time'),
-    FabAnswerItem(vi: 'Xuống máy bay', en: 'disembarking'),
-    FabAnswerItem(vi: 'Xin lỗi vì đến chậm', en: 'apologize for arriving'),
-    FabAnswerItem(
-      vi: 'Muộn 15 phút so với lịch trình',
+    const FabAnswerItem(vi: 'giờ địa phương', en: 'local time'),
+    const FabAnswerItem(vi: 'xuống máy bay', en: 'disembarking'),
+    const FabAnswerItem(
+      vi: 'xin lỗi vì đến chậm',
+      en: 'apologize for arriving',
+    ),
+    const FabAnswerItem(
+      vi: 'muộn 15 phút so với lịch trình',
       en: '15 minutes behind schedule',
     ),
-    FabAnswerItem(
-      vi: 'Do một vấn đề về động cơ',
+    const FabAnswerItem(
+      vi: 'do một vấn đề về động cơ',
       en: 'due to an engine problem',
     ),
-    FabAnswerItem(vi: 'Nhân cơ hội này', en: 'take this opportunity'),
-    FabAnswerItem(
-      vi: 'Bay cùng hãng hàng không Air India',
+    const FabAnswerItem(vi: 'nhân cơ hội này', en: 'take this opportunity'),
+    const FabAnswerItem(
+      vi: 'bay cùng hãng hàng không Air India',
       en: 'flying with Air India',
     ),
-    FabAnswerItem(
-      vi: 'Mong sẽ lại được phục vụ',
+    const FabAnswerItem(
+      vi: 'mong sẽ lại được phục vụ',
       en: 'look forward to serving you again',
     ),
   ];
-
+  static List<FabAnswerItem> get readingAnswers => const [
+    FabAnswerItem(
+      vi: 'tất cả các loại hình giao thông vận tải',
+      en: 'all kinds of transportation',
+    ),
+    FabAnswerItem(vi: 'việc mua vé', en: 'ticket purchasing'),
+    FabAnswerItem(vi: 'liên quan tới', en: 'related to'),
+    FabAnswerItem(vi: 'các nhân viên đại lý du lịch', en: 'travel agents'),
+    FabAnswerItem(vi: 'khách sạn', en: 'hotels'),
+    FabAnswerItem(vi: 'việc đặt chỗ trước', en: 'reservations'),
+    FabAnswerItem(vi: 'sự trì hoãn', en: 'delays'),
+    FabAnswerItem(vi: 'trong lịch trình', en: 'in schedules'),
+    FabAnswerItem(vi: 'sắp xếp lại một chuyến đi', en: 'reschedule a trip'),
+    FabAnswerItem(
+      vi: 'đưa ra những phương án thay thế',
+      en: 'making alternate arrangements',
+    ),
+    FabAnswerItem(
+      vi: 'đón người từ sân bay',
+      en: 'picking people up from the airport',
+    ),
+    FabAnswerItem(vi: 'giá vé', en: 'fare'),
+    FabAnswerItem(vi: 'ga (điểm) đến', en: 'arrivals'),
+    FabAnswerItem(vi: 'xe khách', en: 'coach'),
+    FabAnswerItem(vi: 'hộ chiếu', en: 'passport'),
+    FabAnswerItem(vi: 'hải quan', en: 'customs'),
+    FabAnswerItem(vi: 'quá cảnh', en: 'stop-over'),
+    FabAnswerItem(vi: 'tiếp viên hàng không', en: 'flight attendant'),
+    FabAnswerItem(vi: 'chỗ ngồi cạnh cửa sổ', en: 'window seat'),
+    FabAnswerItem(vi: 'một chiều', en: 'one-way'),
+    FabAnswerItem(vi: 'khứ hồi', en: 'return'),
+    FabAnswerItem(vi: 'một loại xe buýt', en: 'a type of bus'),
+    FabAnswerItem(vi: 'hạng phổ thông', en: 'economy class'),
+    FabAnswerItem(vi: 'tàu hoả', en: 'train'),
+    FabAnswerItem(vi: 'phà', en: 'ferry'),
+    FabAnswerItem(vi: 'xe buýt con thoi', en: 'shuttle bus'),
+    FabAnswerItem(vi: 'thường gắn liền với', en: 'is often associated with'),
+  ];
   // ═══════════════════════════════════════════════════════════════
   // DAY 1
   // ═══════════════════════════════════════════════════════════════
@@ -714,7 +794,7 @@ class Theme4Content {
         titleEn: 'Step 3: Mind Game - Say it in English!',
         titleVi: 'Bước 3: Trò chơi Tư duy - Nói to bằng tiếng Anh!',
         mixedSegments: _day1MindGameSegments,
-        fabAnswers: _day1MindGameAnswers,
+        fabAnswers: Theme4Content.readingAnswers,
       ),
 
       // ── PHASE 4: VOCABULARY ──
@@ -811,45 +891,6 @@ class Theme4Content {
     const MixedSegment.english(' the Dining Out and Entertainment themes.'),
   ];
 
-  static List<FabAnswerItem> get _day1MindGameAnswers => [
-    FabAnswerItem(
-      vi: 'Tất cả các loại hình giao thông vận tải',
-      en: 'all kinds of transportation',
-    ),
-    FabAnswerItem(vi: 'Việc mua vé', en: 'ticket purchasing'),
-    FabAnswerItem(vi: 'Liên quan tới', en: 'related to'),
-    FabAnswerItem(vi: 'Các nhân viên đại lý du lịch', en: 'travel agents'),
-    FabAnswerItem(vi: 'Khách sạn', en: 'hotels'),
-    FabAnswerItem(vi: 'Việc đặt chỗ trước', en: 'reservations'),
-    FabAnswerItem(vi: 'Sự trì hoãn', en: 'delays'),
-    FabAnswerItem(vi: 'Trong lịch trình', en: 'in schedules'),
-    FabAnswerItem(vi: 'Sắp xếp lại một chuyến đi', en: 'reschedule a trip'),
-    FabAnswerItem(
-      vi: 'Đưa ra những phương án thay thế',
-      en: 'making alternate arrangements',
-    ),
-    FabAnswerItem(
-      vi: 'Đón người từ sân bay',
-      en: 'picking people up from the airport',
-    ),
-    FabAnswerItem(vi: 'Giá vé', en: 'fare'),
-    FabAnswerItem(vi: 'Ga (điểm) đến', en: 'arrivals'),
-    FabAnswerItem(vi: 'Xe khách', en: 'coach'),
-    FabAnswerItem(vi: 'Hộ chiếu', en: 'passport'),
-    FabAnswerItem(vi: 'Hải quan', en: 'customs'),
-    FabAnswerItem(vi: 'Quá cảnh', en: 'stop-over'),
-    FabAnswerItem(vi: 'Tiếp viên hàng không', en: 'flight attendant'),
-    FabAnswerItem(vi: 'Chỗ ngồi cạnh cửa sổ', en: 'window seat'),
-    FabAnswerItem(vi: 'Một chiều', en: 'one-way'),
-    FabAnswerItem(vi: 'Khứ hồi', en: 'return'),
-    FabAnswerItem(vi: 'Một loại xe buýt', en: 'a type of bus'),
-    FabAnswerItem(vi: 'Hạng phổ thông', en: 'economy class'),
-    FabAnswerItem(vi: 'Tàu hoả', en: 'train'),
-    FabAnswerItem(vi: 'Phà', en: 'ferry'),
-    FabAnswerItem(vi: 'Xe buýt con thoi', en: 'shuttle bus'),
-    FabAnswerItem(vi: 'Thường gắn liền với', en: 'is often associated with'),
-  ];
-
   // ═══════════════════════════════════════════════════════════════
   // DAY 2
   // ═══════════════════════════════════════════════════════════════
@@ -867,6 +908,20 @@ class Theme4Content {
         titleVi: 'Luyện tập 1: Hội thoại',
         audioTrackKey: 'track_16',
         questions: _practice1Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 1 (C): M nói "I need to attend a conference at Farhamton Convention Center" = Tham dự một sự kiện.',
+            en: 'Q1 (C): M says "I need to attend a conference at Farhamton Convention Center" = To attend an event.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 2 (D): W nói tàu chạy từ "9 a.m." và đến lúc "12" = Chuyến đi mất 3 tiếng.',
+            en: 'Q2 (D): W says the train leaves at "9 a.m." and arrives "by 12" = The ride takes three hours.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 3 (B): W yêu cầu "Please be at the platform at least half an hour prior" = Đến ga sớm.',
+            en: 'Q3 (B): W asks "Please be at the platform at least half an hour prior" = Arrive early at the station.',
+          ),
+        ],
       ),
 
       // ── PHASE 2: LISTENING QUIZ - Practice 2 (Short Talk 1) ──
@@ -877,6 +932,20 @@ class Theme4Content {
         titleVi: 'Luyện tập 2: Bài ngắn - Đường dây hãng du lịch',
         audioTrackKey: 'track_17',
         questions: _practice2Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 4 (B): "If your destination is in another country, press two" = Ấn phím 2.',
+            en: 'Q4 (B): "If your destination is in another country, press two" = Press 2.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 5 (A): "If you would like to make hotel reservations... press three" = Đặt phòng khách sạn.',
+            en: 'Q5 (A): "If you would like to make hotel reservations... press three" = To make hotel reservations.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 6 (B): "due to some problems with our computer system" = Hệ thống máy tính gặp sự cố.',
+            en: 'Q6 (B): "due to some problems with our computer system" = The computer system is not working properly.',
+          ),
+        ],
       ),
 
       // ── PHASE 3: LISTENING QUIZ - Practice 3 (Short Talk 2) ──
@@ -887,6 +956,20 @@ class Theme4Content {
         titleVi: 'Luyện tập 3: Bài ngắn - Thông báo trên máy bay',
         audioTrackKey: 'track_18',
         questions: _practice3Questions,
+        fabAnswers: [
+          const FabAnswerItem(
+            vi: 'Câu 7 (D): Yêu cầu "return to your seats" và "make sure your seatbelt is securely fastened" = Chuẩn bị hạ cánh.',
+            en: 'Q7 (D): Passengers are asked to "return to your seats" and "make sure your seatbelt is securely fastened" = Get ready for landing.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 8 (D): "We should be disembarking... at about 4:00 p.m" = Xuống máy bay lúc 4 giờ.',
+            en: 'Q8 (D): "We should be disembarking... at about 4:00 p.m" = 4:00 p.m.',
+          ),
+          const FabAnswerItem(
+            vi: 'Câu 9 (C): "arriving 15 minutes behind schedule due to an engine problem" = Lỗi kỹ thuật động cơ.',
+            en: 'Q9 (C): "arriving 15 minutes behind schedule due to an engine problem" = Mechanical problems.',
+          ),
+        ],
       ),
 
       // ── PHASE 4: TRANSLATE - Conversation ──
@@ -945,8 +1028,6 @@ class Theme4Content {
         fabPhrases: Theme4Content.conversationPhrases,
         fabAnswers: Theme4Content.conversationAnswers,
       ),
-
-      // ── PHASE 8: MIND GAME - Short Talk 1 ──
       LessonPhase(
         id: 'theme04_day2_mindgame2',
         phaseTypeStr: 'mind_game',
@@ -957,8 +1038,6 @@ class Theme4Content {
         fabPhrases: Theme4Content.shortTalk1Phrases,
         fabAnswers: Theme4Content.shortTalk1Answers,
       ),
-
-      // ── PHASE 9: MIND GAME - Short Talk 2 ──
       LessonPhase(
         id: 'theme04_day2_mindgame3',
         phaseTypeStr: 'mind_game',
@@ -975,7 +1054,7 @@ class Theme4Content {
   // ── Quiz Questions ──────────────────────────────────────────────
 
   static List<QuizQuestion> get _practice1Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q01',
       questionText: 'Why does the man need to go to Farhamton?',
       options: [
@@ -988,7 +1067,7 @@ class Theme4Content {
       audioTrackKey: 'track_16',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q02',
       questionText:
           'According to the woman, how long does the express train ride take?',
@@ -1002,7 +1081,7 @@ class Theme4Content {
       audioTrackKey: 'track_16',
       practiceNumber: 'practice1',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q03',
       questionText: 'What is the man asked to do?',
       options: [
@@ -1018,7 +1097,7 @@ class Theme4Content {
   ];
 
   static List<QuizQuestion> get _practice2Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q04',
       questionText:
           'What should a client do to find out about tickets to another country?',
@@ -1032,7 +1111,7 @@ class Theme4Content {
       audioTrackKey: 'track_17',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q05',
       questionText: 'Why would a client press three?',
       options: [
@@ -1045,7 +1124,7 @@ class Theme4Content {
       audioTrackKey: 'track_17',
       practiceNumber: 'practice2',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q06',
       questionText: 'Why is there no information on special excursion rates?',
       options: [
@@ -1061,7 +1140,7 @@ class Theme4Content {
   ];
 
   static List<QuizQuestion> get _practice3Questions => [
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q07',
       questionText: 'What are the airline passengers asked to do?',
       options: [
@@ -1074,7 +1153,7 @@ class Theme4Content {
       audioTrackKey: 'track_18',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q08',
       questionText: 'What time will they arrive?',
       options: [
@@ -1087,7 +1166,7 @@ class Theme4Content {
       audioTrackKey: 'track_18',
       practiceNumber: 'practice3',
     ),
-    QuizQuestion(
+    const QuizQuestion(
       id: 'theme04_q09',
       questionText: 'What is the reason for their delay?',
       options: [
