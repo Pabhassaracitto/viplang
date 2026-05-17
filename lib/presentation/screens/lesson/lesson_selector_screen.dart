@@ -228,7 +228,6 @@ class LessonSelectorScreen extends StatelessWidget {
             const Spacer(),
             TextButton(
               onPressed: () {
-                // TODO: Navigate to full vocabulary list
                 // Navigate to full vocabulary list
               },
               child: Text(

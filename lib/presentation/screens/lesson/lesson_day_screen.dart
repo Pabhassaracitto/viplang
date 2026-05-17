@@ -20,6 +20,7 @@ import 'phases/phase_quiz_screen.dart';
 import 'phases/phase_read_listen_screen.dart';
 import 'phases/phase_translate_screen.dart';
 import 'phases/phase_vocabulary_screen.dart';
+import '../../widgets/vocabulary_speaker_button.dart';
 
 class LessonDayScreen extends StatefulWidget {
   final int dayNumber;
@@ -182,9 +183,23 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     );
   }
 
+  List<VocabModel> _getAllVocabsFromAllThemes() {
+    final result = <VocabModel>[];
+    try {
+      final themes = AllThemesRegistry.getAllThemes();
+      for (final theme in themes) {
+        result.addAll(AllThemesRegistry.getVocabulary(theme.id));
+      }
+    } catch (e) {
+      debugPrint('Error loading vocabs: $e');
+    }
+    return result;
+  }
+
   void _showFabSheet(BuildContext context, LessonLoaded state) {
     final phase = state.currentPhase;
-    final allVocabs = AllThemesRegistry.getVocabulary(widget.themeId);
+    // ✅ FIX: Lấy vocab tất cả themes
+    final allVocabs = _getAllVocabsFromAllThemes();
 
     final fabVocab = phase.fabVocab?.cast<FabVocabItem>() ?? [];
     final fabPhrases = phase.fabPhrases?.cast<FabPhraseItem>() ?? [];
@@ -193,7 +208,6 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     // Kiểm tra phase hiện tại có data riêng không
     final hasPhaseData =
         fabVocab.isNotEmpty || fabPhrases.isNotEmpty || fabAnswers.isNotEmpty;
-
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -423,32 +437,6 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     );
   }
 
-  Widget _buildCurrentPhaseVocab(
-    List<VocabModel> vocabs,
-    ScrollController controller,
-  ) {
-    // Lấy 10 từ đầu tiên làm đại diện cho bài học hiện tại
-    final limited = vocabs.take(10).toList();
-    return ListView.builder(
-      controller: controller,
-      padding: const EdgeInsets.all(AppConstants.paddingS),
-      itemCount: limited.length,
-      itemBuilder: (_, i) => _VocabListTile(vocab: limited[i]),
-    );
-  }
-
-  Widget _buildAllVocabList(
-    List<VocabModel> vocabs,
-    ScrollController controller,
-  ) {
-    return ListView.builder(
-      controller: controller,
-      padding: const EdgeInsets.all(AppConstants.paddingS),
-      itemCount: vocabs.length,
-      itemBuilder: (_, i) => _VocabListTile(vocab: vocabs[i]),
-    );
-  }
-
   Widget _buildFabVocabList(
     List<FabVocabItem> items,
     ScrollController controller,
@@ -514,6 +502,12 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                     ),
                   ],
                 ),
+              ),
+              // ✅ THÊM NÚT LỀA THẬT
+              VocabularySpeakerButton(
+                text: item.wordEn,
+                size: 18,
+                color: AppColors.primary,
               ),
             ],
           ),
@@ -1019,9 +1013,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     final box = HiveService.progressBox;
     UserProgressModel? progress = box.get('current_user');
 
-    if (progress == null) {
-      progress = UserProgressModel(userId: 'local_user');
-    }
+    progress ??= UserProgressModel(userId: 'local_user');
 
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
@@ -1125,52 +1117,11 @@ class _VocabListTile extends StatelessWidget {
             ),
           ),
 
-          // ✅ Nút loa - hiển thị phiên âm qua SnackBar
-          // (TODO: tích hợp TTS hoặc audio file sau)
-          GestureDetector(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Row(
-                    children: [
-                      const Icon(
-                        Icons.volume_up,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${vocab.wordEn}  ${vocab.pronunciation}',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  duration: const Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                  ),
-                  margin: const EdgeInsets.all(AppConstants.paddingM),
-                ),
-              );
-            },
-            child: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(AppConstants.radiusS),
-              ),
-              child: const Icon(
-                Icons.volume_up,
-                size: 16,
-                color: AppColors.primary,
-              ),
-            ),
+          // ✅ NÚT LỌA THẬT THAY SNackBar
+          VocabularySpeakerButton(
+            text: vocab.wordEn,
+            size: 18,
+            color: AppColors.primary,
           ),
         ],
       ),
@@ -1478,40 +1429,11 @@ class _VocabLibraryTile extends StatelessWidget {
                 ),
               ),
 
-              // Nút loa
-              GestureDetector(
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        '${vocab.wordEn}  ${vocab.pronunciation}',
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      duration: const Duration(seconds: 2),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: AppColors.primary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusM,
-                        ),
-                      ),
-                      margin: const EdgeInsets.all(AppConstants.paddingM),
-                    ),
-                  );
-                },
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                  ),
-                  child: const Icon(
-                    Icons.volume_up,
-                    size: 15,
-                    color: AppColors.primary,
-                  ),
-                ),
+              // ✅ NÚT LỌA THẬT
+              VocabularySpeakerButton(
+                text: vocab.wordEn,
+                size: 16,
+                color: AppColors.primary,
               ),
             ],
           ),

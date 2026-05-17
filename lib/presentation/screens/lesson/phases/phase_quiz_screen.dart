@@ -29,7 +29,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   int? _selectedAnswerIndex;
   bool _hasAnswered = false;
   int _correctCount = 0;
-  String? _currentPracticeNumber;
 
   late AnimationController _resultController;
   late Animation<double> _resultAnimation;
@@ -141,9 +140,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       _selectedAnswerIndex = null;
       _hasAnswered = false;
       _correctCount = 0;
-      _currentPracticeNumber = _questions.isNotEmpty
-          ? _questions.first.practiceNumber
-          : null;
     });
     _resultController.reset();
   }
@@ -175,7 +171,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       _currentQuestionIndex++;
       _selectedAnswerIndex = null;
       _hasAnswered = false;
-      _currentPracticeNumber = _currentQuestion.practiceNumber;
     });
     _resultController.reset();
   }
@@ -186,7 +181,6 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       _currentQuestionIndex--;
       _selectedAnswerIndex = null;
       _hasAnswered = false;
-      _currentPracticeNumber = _currentQuestion.practiceNumber;
     });
     _resultController.reset();
   }
@@ -204,7 +198,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
               color: AppColors.textTertiary,
             ),
             const SizedBox(height: AppConstants.paddingM),
-            Text('Không có câu hỏi', style: AppTextStyles.bodyMedium),
+            const Text('Không có câu hỏi', style: AppTextStyles.bodyMedium),
             const SizedBox(height: AppConstants.paddingM),
             ElevatedButton(
               onPressed: widget.onComplete,

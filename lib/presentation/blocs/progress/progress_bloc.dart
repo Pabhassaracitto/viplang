@@ -1,3 +1,5 @@
+// lib/presentation/blocs/progress/progress_bloc.dart
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +22,6 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
   ) async {
     emit(ProgressLoading());
     try {
-      // Seed vocab vào Hive trước (lần đầu tiên dùng app)
       await _seedVocabIfNeeded();
       final result = _computeTodayVocab();
       emit(result);
@@ -40,26 +41,18 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
       emit(result);
     } catch (e) {
       debugPrint('ProgressBloc refresh error: $e');
-      // Không crash UI — giữ nguyên state cũ
     }
   }
 
   // ─── Seed Vocab vào Hive nếu chưa có ───────────────────────────────────────
-  /// Vấn đề cốt lõi: AllThemesRegistry trả về in-memory objects.
-  /// VocabModel.save() chỉ hoạt động khi object đã được box.put().
-  /// => Cần seed một lần duy nhất khi lần đầu dùng app.
   Future<void> _seedVocabIfNeeded() async {
     final box = HiveService.vocabBox;
-
-    // Nếu box đã có data thì bỏ qua
-    // Kiểm tra bằng key của vocab đầu tiên (v01_01)
     if (box.isNotEmpty) return;
 
     debugPrint('🌱 Seeding vocab into Hive...');
 
     final allVocabs = _getAllVocabsFromRegistry();
     for (final vocab in allVocabs) {
-      // put với key = vocab.id để dễ tra cứu
       await box.put(
         vocab.id,
         VocabModel(
@@ -71,11 +64,10 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
           themeId: vocab.themeId,
           exampleEn: vocab.exampleEn,
           exampleVi: vocab.exampleVi,
-          // SRS fields khởi tạo mặc định
           repetitionCount: 0,
           easeFactor: 2.5,
           intervalDays: 1,
-          nextReview: null, // null = chưa học = due ngay
+          nextReview: null,
         ),
       );
     }
@@ -83,12 +75,21 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     debugPrint('✅ Seeded ${allVocabs.length} vocabs into Hive');
   }
 
-  // ─── Core SRS Logic ─────────────────────────────────────────────────────────
+  // ─── Core SRS Logic ────────────────────────────────────────────────────────
+  /// Tính toán vocab cần ôn hôm nay theo quy tắc:
+  /// 1. Due cards (overdue trước) → giới hạn 50 từ
+  /// 2. Nếu < 20 từ due → thêm từ mới (max 20)
+  /// 3. Chọn 1 từ random từ list để hiển thị "Từ vựng hôm nay"
   ProgressLoaded _computeTodayVocab() {
     final box = HiveService.vocabBox;
 
     if (box.isEmpty) {
-      return ProgressLoaded(todayVocab: null, dueCount: 0, masteredCount: 0);
+      return ProgressLoaded(
+        todayVocab: null,
+        dueCount: 0,
+        masteredCount: 0,
+        todayGoal: 0,
+      );
     }
 
     final now = DateTime.now();
@@ -98,20 +99,20 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     final List<VocabModel> newVocabs = [];
     int masteredCount = 0;
 
+    // ─── Phân loại vocab ────────────────────────────────────────────────────
     for (final vocab in box.values) {
-      // Mastered = đã ôn thành công >= 5 lần
-      // (SM-2: repetitionCount >= 5 nghĩa là interval đã dài, ghi nhớ bền)
+      // Mastered: repetitionCount >= 5
       if (vocab.repetitionCount >= 5) {
         masteredCount++;
       }
 
-      // Chưa học lần nào
+      // Chưa học lần nào (new)
       if (vocab.nextReview == null) {
         newVocabs.add(vocab);
         continue;
       }
 
-      // Kiểm tra due: so sánh theo ngày, không theo giờ
+      // Kiểm tra due
       final reviewDay = DateTime(
         vocab.nextReview!.year,
         vocab.nextReview!.month,
@@ -123,32 +124,54 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
       }
     }
 
-    // Chọn todayVocab theo ưu tiên SRS:
-    // 1. Due sớm nhất (overdue nhiều nhất)
-    // 2. Từ mới chưa học
-    // Không random — học có chủ đích
+    // ─── Sắp xếp due cards theo overdue nhiều nhất ─────────────────────────
+    dueVocabs.sort((a, b) {
+      final aDate = a.nextReview ?? DateTime(2000);
+      final bDate = b.nextReview ?? DateTime(2000);
+      return aDate.compareTo(bDate);
+    });
+
+    // ─── Tính "hôm nay cần ôn" ──────────────────────────────────────────────
+    /// Quy tắc Daily Goal:
+    /// - Max 50 due cards
+    /// - Nếu < 20 due → thêm từ mới để đạt tối thiểu 20
+    final dailyLimit = 50;
+    final minNewCardsPerDay = 20;
+
+    final todayCards = <VocabModel>[];
+
+    // Thêm due cards
+    todayCards.addAll(dueVocabs.take(dailyLimit));
+
+    // Nếu chưa đủ, thêm từ mới
+    final remainingSlots = dailyLimit - todayCards.length;
+    if (remainingSlots > 0 && newVocabs.isNotEmpty) {
+      final newCardsToAdd = newVocabs.take(remainingSlots);
+      todayCards.addAll(newCardsToAdd);
+    }
+
+    // ─── Chọn 1 từ hiển thị trong widget ────────────────────────────────────
     VocabModel? todayVocab;
 
-    if (dueVocabs.isNotEmpty) {
-      dueVocabs.sort((a, b) {
-        final aDate = a.nextReview ?? DateTime(2000);
-        final bDate = b.nextReview ?? DateTime(2000);
-        return aDate.compareTo(bDate);
-      });
-      todayVocab = dueVocabs.first;
-    } else if (newVocabs.isNotEmpty) {
-      // Giữ thứ tự theme 1→13 — từ mới đầu tiên theo curriculum
-      todayVocab = newVocabs.first;
+    if (todayCards.isNotEmpty) {
+      // Chọn từ đầu tiên (overdue nhất) để highlight
+      todayVocab = todayCards.first;
     }
+
+    debugPrint(
+      '📊 Daily Goal: ${todayCards.length} words '
+      '(due: ${dueVocabs.length}, new: ${newVocabs.length}, mastered: $masteredCount)',
+    );
 
     return ProgressLoaded(
       todayVocab: todayVocab,
       dueCount: dueVocabs.length,
       masteredCount: masteredCount,
+      todayGoal: todayCards.length, // ✅ NEW: Số từ cần ôn hôm nay
     );
   }
 
-  // ─── Helper ─────────────────────────────────────────────────────────────────
+  // ─── Helper ────────────────────────────────────────────────────────────────
   List<VocabModel> _getAllVocabsFromRegistry() {
     final result = <VocabModel>[];
     try {

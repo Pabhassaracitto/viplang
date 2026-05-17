@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../blocs/progress/progress_bloc.dart';
 import '../blocs/progress/progress_state.dart';
 import 'vocabulary_speaker_button.dart';
@@ -32,7 +33,7 @@ class VocabOfTheDayWidget extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        return _buildVocabCard(context, vocab);
+        return _buildVocabCard(context, vocab, state.todayGoal);
       },
     );
   }
@@ -50,7 +51,7 @@ class VocabOfTheDayWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildVocabCard(BuildContext context, vocab) {
+  Widget _buildVocabCard(BuildContext context, vocab, int todayGoal) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       elevation: 2,
@@ -72,19 +73,22 @@ class VocabOfTheDayWidget extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                // Badge chủ đề
+                // ✅ NEW: Hiển thị chỉ tiêu hôm nay
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
                     vertical: 2,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer,
+                    color: Colors.blue.shade50,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    vocab.themeId.split('_').skip(2).join(' ').toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    'Chỉ tiêu: $todayGoal',
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Colors.blue.shade700,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],

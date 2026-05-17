@@ -16,12 +16,17 @@ class ProgressLoaded extends ProgressState {
   final VocabModel? todayVocab;
   final int dueCount;
   final int masteredCount;
+  final int todayGoal; // ✅ NEW: Số từ cần ôn hôm nay
 
-  // ✅ FIX: Bỏ const
-  ProgressLoaded({this.todayVocab, this.dueCount = 0, this.masteredCount = 0});
+  ProgressLoaded({
+    this.todayVocab,
+    this.dueCount = 0,
+    this.masteredCount = 0,
+    this.todayGoal = 0, // ✅ NEW
+  });
 
   @override
-  List<Object?> get props => [todayVocab, dueCount, masteredCount];
+  List<Object?> get props => [todayVocab, dueCount, masteredCount, todayGoal];
 }
 
 class ProgressError extends ProgressState {

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../blocs/progress/progress_bloc.dart';
+import '../../blocs/progress/progress_state.dart';
 import '../lesson/lesson_day_screen.dart';
 import '../progress/progress_screen.dart';
 import '../themes/theme_list_screen.dart';
 import '../vocab/srs_review_screen.dart';
+import '../../widgets/vocab_of_the_day_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,12 +23,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = const [
-    _HomeTab(),
-    ThemeListScreen(),
-    SrsReviewScreen(),
-    ProgressScreen(),
-  ];
+  // ✅ FIX: Không dùng const vì SRS cần callback
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      const _HomeTab(),
+      const ThemeListScreen(),
+      SrsReviewScreen(onClose: () => setState(() => _selectedIndex = 0)),
+      const ProgressScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Học tập',
                 onTap: () => setState(() => _selectedIndex = 1),
               ),
-              _NavItem(
-                index: 2,
-                selectedIndex: _selectedIndex,
-                icon: Icons.style_rounded,
-                label: 'Ôn tập',
-                onTap: () => setState(() => _selectedIndex = 2),
+              BlocBuilder<ProgressBloc, ProgressState>(
+                builder: (context, state) {
+                  int todayGoal = 0;
+                  if (state is ProgressLoaded) {
+                    todayGoal = state.todayGoal;
+                  }
+
+                  return _NavItem(
+                    index: 2,
+                    selectedIndex: _selectedIndex,
+                    icon: Icons.style_rounded,
+                    label: 'Ôn tập',
+                    onTap: () => setState(() => _selectedIndex = 2),
+                    badgeCount: todayGoal,
+                  );
+                },
               ),
               _NavItem(
                 index: 3,
@@ -109,6 +130,11 @@ class _HomeTab extends StatelessWidget {
             const SizedBox(height: AppConstants.paddingL),
             _buildStreakCard(),
             const SizedBox(height: AppConstants.paddingL),
+
+            // ✅ NEW: Widget "Từ vựng hôm nay"
+            const VocabOfTheDayWidget(),
+            const SizedBox(height: AppConstants.paddingL),
+
             _buildDailyGoal(context),
             const SizedBox(height: AppConstants.paddingL),
             _buildContinueLearning(context),
@@ -238,6 +264,7 @@ class _HomeTab extends StatelessWidget {
     ).animate().fadeIn(delay: 100.ms).slideX(begin: -0.1);
   }
 
+  // ✅ FIX: Đổi dueCount → todayGoal
   Widget _buildDailyGoal(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -336,14 +363,26 @@ class _HomeTab extends StatelessWidget {
                   ),
                 ),
               ),
-              _GoalItem(
-                icon: '🃏',
-                label: 'Ôn từ',
-                isDone: false,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SrsReviewScreen()),
-                ),
+              // ✅ FIX: todayGoal thay vì dueCount
+              BlocBuilder<ProgressBloc, ProgressState>(
+                builder: (context, state) {
+                  int todayGoal = 0;
+                  if (state is ProgressLoaded) {
+                    todayGoal = state.todayGoal;
+                  }
+                  return _GoalItem(
+                    icon: '🃏',
+                    label: 'Ôn từ',
+                    isDone: false,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const SrsReviewScreen(),
+                      ),
+                    ),
+                    badgeCount: todayGoal,
+                  );
+                },
               ),
             ],
           ),
@@ -381,6 +420,7 @@ class _HomeTab extends StatelessWidget {
     ).animate().fadeIn(delay: 300.ms);
   }
 
+  // ✅ FIX: todayGoal thay vì dueCount
   Widget _buildQuickActions(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -390,14 +430,54 @@ class _HomeTab extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: _QuickActionCard(
-                icon: '🃏',
-                label: 'Ôn từ SRS',
-                color: AppColors.primary,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const SrsReviewScreen()),
-                ),
+              child: BlocBuilder<ProgressBloc, ProgressState>(
+                builder: (context, state) {
+                  int todayGoal = 0;
+                  if (state is ProgressLoaded) {
+                    todayGoal = state.todayGoal;
+                  }
+
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      _QuickActionCard(
+                        icon: '🃏',
+                        label: 'Ôn từ SRS',
+                        color: AppColors.primary,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SrsReviewScreen(),
+                          ),
+                        ),
+                      ),
+                      if (todayGoal > 0)
+                        Positioned(
+                          top: -6,
+                          right: -6,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.error,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.white, width: 2),
+                            ),
+                            child: Text(
+                              '$todayGoal',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
+                },
               ),
             ),
             const SizedBox(width: AppConstants.paddingS),
@@ -490,6 +570,7 @@ class _NavItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final VoidCallback onTap;
+  final int badgeCount;
 
   const _NavItem({
     required this.index,
@@ -497,6 +578,7 @@ class _NavItem extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.onTap,
+    this.badgeCount = 0,
   });
 
   bool get isSelected => index == selectedIndex;
@@ -521,10 +603,40 @@ class _NavItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              icon,
-              color: isSelected ? AppColors.primary : AppColors.textHint,
-              size: 24,
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(
+                  icon,
+                  color: isSelected ? AppColors.primary : AppColors.textHint,
+                  size: 24,
+                ),
+                if (badgeCount > 0)
+                  Positioned(
+                    top: -4,
+                    right: -4,
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
+                        color: AppColors.error,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 14,
+                        minHeight: 14,
+                      ),
+                      child: Text(
+                        '$badgeCount',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: 2),
             Text(
@@ -547,12 +659,14 @@ class _GoalItem extends StatelessWidget {
   final String label;
   final bool isDone;
   final VoidCallback? onTap;
+  final int badgeCount;
 
   const _GoalItem({
     required this.icon,
     required this.label,
     required this.isDone,
     this.onTap,
+    this.badgeCount = 0,
   });
 
   @override
@@ -563,28 +677,53 @@ class _GoalItem extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Column(
           children: [
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                color: isDone
-                    ? AppColors.success.withValues(alpha: 0.15)
-                    : AppColors.background,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isDone ? AppColors.success : AppColors.border,
-                  width: 1.5,
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: isDone
+                        ? AppColors.success.withValues(alpha: 0.15)
+                        : AppColors.background,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: isDone ? AppColors.success : AppColors.border,
+                      width: 1.5,
+                    ),
+                  ),
+                  child: Center(
+                    child: isDone
+                        ? const Icon(
+                            Icons.check,
+                            color: AppColors.success,
+                            size: 18,
+                          )
+                        : Text(icon, style: const TextStyle(fontSize: 18)),
+                  ),
                 ),
-              ),
-              child: Center(
-                child: isDone
-                    ? const Icon(
-                        Icons.check,
-                        color: AppColors.success,
-                        size: 18,
-                      )
-                    : Text(icon, style: const TextStyle(fontSize: 18)),
-              ),
+                if (!isDone && badgeCount > 0)
+                  Positioned(
+                    top: -2,
+                    right: -2,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: AppColors.error,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        '$badgeCount',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: 4),
             Text(

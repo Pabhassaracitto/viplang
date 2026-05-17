@@ -78,7 +78,6 @@ class _VocabularySpeakerButtonState extends State<VocabularySpeakerButton> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
-          color: _isPlaying ? color.withOpacity(0.25) : color.withOpacity(0.1),
           color: _isPlaying
               ? color.withValues(alpha: 0.25)
               : color.withValues(alpha: 0.1),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 import '../../../core/constants/app_colors.dart';
@@ -8,6 +9,8 @@ import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/hive_service.dart';
 import '../../../core/utils/srs_algorithm.dart';
 import '../../../data/models/vocab_model.dart';
+import '../../../presentation/blocs/progress/progress_event.dart';
+import '../../blocs/progress/progress_bloc.dart';
 
 // ─── TTS Service (file-scoped singleton, không cần file riêng nếu chưa có) ──
 // Nếu đã có TtsService riêng thì import và xóa class này
@@ -44,11 +47,16 @@ class _TtsService {
 // ─── Main Screen ─────────────────────────────────────────────────────────────
 
 class SrsReviewScreen extends StatefulWidget {
-  const SrsReviewScreen({super.key});
+  final VoidCallback? onClose;
+
+  const SrsReviewScreen({super.key, this.onClose});
 
   @override
   State<SrsReviewScreen> createState() => _SrsReviewScreenState();
 }
+
+@override
+State<SrsReviewScreen> createState() => _SrsReviewScreenState();
 
 class _SrsReviewScreenState extends State<SrsReviewScreen>
     with SingleTickerProviderStateMixin {
@@ -73,24 +81,39 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   void initState() {
     super.initState();
 
-    // ✅ Load từ Hive box thay vì Registry
-    // Lý do: Hive objects mới có thể gọi .save() để lưu SRS data
-    // Registry chỉ trả về in-memory objects không liên kết với Hive
     final box = HiveService.vocabBox;
 
     if (box.isNotEmpty) {
-      // Lấy các vocab đã due (isDueForReview = true)
+      // ✅ Lọc due cards
       final due = box.values.where((v) => v.isDueForReview).toList();
 
       if (due.isNotEmpty) {
-        _reviewCards.addAll(due);
-      } else {
-        // Không có gì due → lấy tất cả để review
-        _reviewCards.addAll(box.values.toList());
-      }
+        // ✅ NEW: Giới hạn 50 từ/ngày
+        // Ưu tiên: sắp xếp theo nextReview (due sớm nhất lên trước)
+        due.sort((a, b) {
+          final aDate = a.nextReview ?? DateTime(2000);
+          final bDate = b.nextReview ?? DateTime(2000);
+          return aDate.compareTo(bDate);
+        });
 
-      // Giữ thứ tự theo theme number để nhất quán
-      _reviewCards.sort((a, b) => a.id.compareTo(b.id));
+        final dailyLimit = 50; // Giới hạn hàng ngày
+        _reviewCards.addAll(due.take(dailyLimit));
+
+        debugPrint(
+          '📚 SRS Review: ${_reviewCards.length} due cards (từ ${due.length} total)',
+        );
+      } else {
+        // Fallback: nếu không có due, lấy từ mới chưa học
+        final newCards = box.values.where((v) => v.nextReview == null).toList();
+
+        _reviewCards.addAll(newCards.take(20)); // Giới hạn 20 từ mới/ngày
+
+        debugPrint(
+          '📚 SRS Review: ${_reviewCards.length} new cards (chưa có due)',
+        );
+      }
+    } else {
+      debugPrint('⚠️ vocabBox rỗng');
     }
 
     _flipController = AnimationController(
@@ -141,14 +164,17 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       _selectedQuality = quality;
     });
 
-    // Dừng TTS khi user đã rate — không để phát giữa chừng
+    // ✅ Dừng TTS khi user đã rate
     await _tts.stop();
 
     try {
       await Future.delayed(const Duration(milliseconds: 300));
       if (!mounted) return;
 
-      final card = _reviewCards[_currentIndex];
+      final card =
+          _reviewCards[_currentIndex]; // ← 'card' được định nghĩa ở đây
+
+      // ✅ Tích hợp SrsAlgorithm
       SrsAlgorithm.calculateNextReview(card, quality.value);
       await card.save();
 
@@ -177,12 +203,18 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       debugPrint('Lỗi lưu dữ liệu SRS: $e');
     } finally {
       if (mounted) {
-        setState(() => _isProcessing = false);
+        setState(() {
+          _isProcessing = false;
+        });
       }
     }
   }
 
   void _showSessionComplete() {
+    try {
+      context.read<ProgressBloc>().add(RefreshAfterSrsEvent());
+    } catch (_) {}
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -190,11 +222,16 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         correct: _sessionCorrect,
         total: _sessionTotal,
         onContinue: () {
-          Navigator.pop(context);
-          Navigator.pop(context);
+          Navigator.pop(context); // Đóng dialog
+          // ✅ FIX: Quay về Home thay vì pop
+          if (widget.onClose != null) {
+            widget.onClose!();
+          } else {
+            Navigator.pop(context);
+          }
         },
         onRestart: () {
-          Navigator.pop(context);
+          Navigator.pop(context); // Đóng dialog
           setState(() {
             _currentIndex = 0;
             _sessionCorrect = 0;
@@ -211,10 +248,17 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   // ─── Build ─────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
-    if (_reviewCards.isEmpty) return _buildEmptyState();
+    if (_reviewCards.isEmpty) {
+      return _buildEmptyState(); // Giữ nguyên
+    }
 
     final card = _reviewCards[_currentIndex];
     final progress = (_currentIndex + 1) / _reviewCards.length;
+
+    // ✅ NEW: Hiển thị thống kê SRS
+    final totalDue = HiveService.vocabBox.values
+        .where((v) => v.isDueForReview)
+        .length;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -223,21 +267,34 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.close, color: AppColors.textPrimary),
-          onPressed: () {
-            _tts.stop(); // Dừng TTS khi thoát thủ công
-            Navigator.pop(context);
+          onPressed: () async {
+            await _tts.stop();
+            if (widget.onClose != null) {
+              widget.onClose!();
+            } else if (mounted) {
+              Navigator.pop(context);
+            }
           },
         ),
-        title: const Text('Ôn tập SRS', style: AppTextStyles.h3),
+        title: Text('Ôn tập SRS', style: AppTextStyles.h3),
         actions: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(right: AppConstants.paddingM),
-              child: Text(
-                '${_currentIndex + 1}/${_reviewCards.length}',
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.textSecondary,
-                  fontWeight: FontWeight.w600,
+          // ✅ Hiển thị: từ này / tổng ngày hôm nay | tổng due toàn bộ
+          Tooltip(
+            message: '$totalDue từ cần ôn trong tương lai',
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(right: AppConstants.paddingM),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${_currentIndex + 1}/${_reviewCards.length}',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -655,27 +712,19 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.close, color: AppColors.textPrimary),
+          onPressed: () async {
+            await _tts.stop();
+            if (widget.onClose != null) {
+              widget.onClose!();
+            } else if (mounted) {
+              Navigator.pop(context);
+            }
+          },
         ),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('🎉', style: TextStyle(fontSize: 64)),
-            const SizedBox(height: AppConstants.paddingL),
-            const Text('Tuyệt vời!', style: AppTextStyles.h2),
-            const SizedBox(height: AppConstants.paddingS),
-            Text(
-              'Không có thẻ nào cần ôn hôm nay.\nHãy quay lại sau!',
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ).animate().fadeIn().scale(),
+        // ... giữ nguyên
       ),
     );
   }

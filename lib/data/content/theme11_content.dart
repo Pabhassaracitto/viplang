@@ -784,24 +784,24 @@ Rất nhiều các đoạn hội thoại trong phần nghe và một vài đoạ
   );
 
   static List<MixedSegment> get _day1MindGameSegments => [
-    const MixedSegment.vietnamese('Sản xuất', 'Manufacturing'),
+    const MixedSegment.vietnamese('Manufacturing', 'Sản xuất'),
     const MixedSegment.english(' is about producing products '),
-    const MixedSegment.vietnamese('trong một nhà máy', 'in a factory'),
+    const MixedSegment.vietnamese('in a factory', 'trong một nhà máy'),
     const MixedSegment.english(' and '),
-    const MixedSegment.vietnamese('sẽ bao gồm', 'will include'),
+    const MixedSegment.vietnamese('will include', 'sẽ bao gồm'),
     const MixedSegment.english(' references to '),
-    const MixedSegment.vietnamese('các dây chuyền lắp ráp', 'assembly lines'),
+    const MixedSegment.vietnamese('assembly lines', 'các dây chuyền lắp ráp'),
     const MixedSegment.english(', plant management, '),
-    const MixedSegment.vietnamese('sự kiểm soát chất lượng', 'quality control'),
+    const MixedSegment.vietnamese('quality control', 'sự kiểm soát chất lượng'),
     const MixedSegment.english(', more '),
     const MixedSegment.vietnamese(
-      'các mối quan hệ lao động',
       'labour relations',
+      'các mối quan hệ lao động',
     ),
     const MixedSegment.english(', working shifts, '),
     const MixedSegment.vietnamese(
-      'hiệu quả hoạt động',
       'efficiency of operations',
+      'hiệu quả hoạt động',
     ),
     const MixedSegment.english(
       ' as well as some of the items described in Housing and Corporate property. Many of the same people described above will ',
