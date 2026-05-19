@@ -104,7 +104,7 @@ class Theme1Content {
       id: 'v01_09',
       wordEn: 'photocopier',
       wordVi: 'máy photocopy',
-      pronunciation: '/ˈfoʊtoʊˌkɒpiər/',
+      pronunciation: '/ˈfoʊtoʊˌkɑːpiər/',
       partOfSpeech: 'n',
       themeId: 'theme_01_offices',
       exampleEn: 'The photocopier on the 6th floor is broken.',
@@ -124,7 +124,7 @@ class Theme1Content {
       id: 'v01_11',
       wordEn: 'collocation',
       wordVi: 'cách kết hợp từ',
-      pronunciation: '/ˌkɒləˈkeɪʃən/',
+      pronunciation: '/ˌkɑːləˈkeɪʃən/',
       partOfSpeech: 'n',
       themeId: 'theme_01_offices',
       exampleEn: '"Hold a meeting" is a common collocation.',
@@ -236,7 +236,7 @@ class Theme1Content {
       id: 'v01_22',
       wordEn: 'personal response',
       wordVi: 'câu trả lời cá nhân',
-      pronunciation: '/ˈpɜːrsənəl rɪˈspɒns/',
+      pronunciation: '/ˈpɜːrsənl rɪˈspɑːns/',
       partOfSpeech: 'n',
       themeId: 'theme_01_offices',
       exampleEn: 'If you need my personal responses, send me an email.',
@@ -246,7 +246,7 @@ class Theme1Content {
       id: 'v01_23',
       wordEn: 'as soon as possible',
       wordVi: 'sớm nhất có thể',
-      pronunciation: '/æz suːn æz ˈpɒsɪbəl/',
+      pronunciation: '/æz suːn æz ˈpɑːsəbl/',
       partOfSpeech: 'adv',
       themeId: 'theme_01_offices',
       exampleEn: "I'll reply to you as soon as possible.",
@@ -466,7 +466,7 @@ class Theme1Content {
     ),
     const FabVocabItem(
       wordEn: 'section',
-      pronunciation: '/ˈsekʃn/',
+      pronunciation: '/ˈsekʃən/',
       wordVi: 'Phần, mục',
       partOfSpeech: 'n',
     ),
@@ -478,7 +478,7 @@ class Theme1Content {
     ),
     const FabVocabItem(
       wordEn: 'office situation',
-      pronunciation: '/ˈɔːfɪs ˌsɪtʃuˈeɪʃn/',
+      pronunciation: '/ˈɔːfɪs ˌsɪtʃuˈeɪʃən/',
       wordVi: 'Tình huống văn phòng',
       partOfSpeech: 'np',
     ),
@@ -580,13 +580,13 @@ class Theme1Content {
     ),
     const FabVocabItem(
       wordEn: 'collocations',
-      pronunciation: '/ˌkɑːləˈkeɪʃnz/',
+      pronunciation: '/ˌkɑːləˈkeɪʃənz/',
       wordVi: 'Các cách kết hợp từ',
       partOfSpeech: 'n',
     ),
     const FabVocabItem(
       wordEn: 'idiomatic expressions',
-      pronunciation: '/ˌɪdiəˈmætɪk ɪkˈspreʃnz/',
+      pronunciation: '/ˌɪdiəˈmætɪk ɪkˈspreʃənz/',
       wordVi: 'Các cách diễn đạt mang tính thành ngữ',
       partOfSpeech: 'np',
     ),
@@ -622,7 +622,7 @@ class Theme1Content {
     ),
     const FabVocabItem(
       wordEn: 'verbal announcements',
-      pronunciation: '/ˈvɜːrbl əˈnaʊnsmənts/',
+      pronunciation: '/ˈvɜːrbəl əˈnaʊnsmənts/',
       wordVi: 'Những thông báo bằng lời nói',
       partOfSpeech: 'np',
     ),
@@ -646,7 +646,7 @@ class Theme1Content {
     ),
     const FabVocabItem(
       wordEn: 'face-to-face conversations',
-      pronunciation: '/feɪs tə feɪs ˌkɑːnvərˈseɪʃnz/',
+      pronunciation: '/feɪs tə feɪs ˌkɑːnvərˈseɪʃənz/',
       wordVi: 'Các cuộc hội thoại trực tiếp',
       partOfSpeech: 'np',
     ),
@@ -1022,7 +1022,9 @@ In the office, situations will be about all kinds of meetings, memos, letters, f
         contentVi:
             '''Chủ đề quen thuộc này sẽ xuất hiện ở tất cả bảy phần của bài thi TOEIC. Chủ đề này nói về các tình huống trong văn phòng nói chung như là các cuộc họp, hội nghị, trang thiết bị trong văn phòng, các chính sách và các quy trình công việc trong công ty, và liên quan trực tiếp tới các chuyên đề Nhân sự và chuyên đề Mua sắm trong doanh nghiệp.
 
-Trong văn phòng, các tình huống sẽ là về các vấn đề gồm họp hành, thông báo nội bộ, thư tín, bản fax, thư điện tử, các phòng ban, tất cả các loại thiết bị văn phòng mà cần được quan tâm như là máy phô-tô, máy fax, máy tính, máy điều hòa, hay điện thoại. Sẽ rất hữu ích khi hiểu về các cách kết hợp từ, chẳng hạn như 'to hold a meeting' (tổ chức một buổi họp), 'to downsize a department' (cắt giảm nhân viên của một phòng ban), hoặc các cách diễn đạt mang tính thành ngữ hoặc tiếng lóng như 'to sack someone', 'to fire someone', hoặc 'show someone the door', hay 'let someone go', tất cả đều có nghĩa là sa thải hoặc cho ai đó thôi việc.''',
+Trong văn phòng, các tình huống sẽ là về các vấn đề gồm họp hành, thông báo nội bộ, thư tín, bản fax, thư điện tử, các phòng ban, tất cả các loại thiết bị văn phòng mà cần được quan tâm như là máy phô-tô, máy fax, máy tính, máy điều hòa, hay điện thoại. Sẽ rất hữu ích khi hiểu về các cách kết hợp từ, chẳng hạn như 'to hold a meeting' (tổ chức một buổi họp), 'to downsize a department' (cắt giảm nhân viên của một phòng ban), hoặc các cách diễn đạt mang tính thành ngữ hoặc tiếng lóng như 'to sack someone', 'to fire someone', hoặc 'show someone the door', hay 'let someone go', tất cả đều có nghĩa là sa thải hoặc cho ai đó thôi việc.
+
+Nhắc lại một điểm trước đó, từ đơn và các từ đồng nghĩa của chúng là không đủ để làm tốt bài thi TOEIC, điều này đặc biệt đúng trong các cuộc hội thoại mang tính chất thân mật, nơi mà cơ hội nghe thấy ngôn ngữ 'thông dụng' hoặc thành ngữ tăng lên. Chuyên đề văn phòng cũng sử dụng các thông báo bằng lời nói và các mẩu thông báo nội bộ bằng văn bản để truyền đạt những tin tức quan trọng tới các nhân viên, chúng có xu hướng trang trọng hơn và do đó ít khó hiểu hơn so với các cuộc hội thoại trực tiếp.''',
         fabVocab: Theme1Content.readingVocab,
         fabPhrases: Theme1Content.readingPhrases,
       ),

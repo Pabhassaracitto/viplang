@@ -22,6 +22,16 @@ class Theme7Content {
   static List<VocabModel> get vocabulary => [
     VocabModel(
       id: 'v07_01',
+      wordEn: 'section',
+      wordVi: 'phần',
+      pronunciation: "/’sekʃn/",
+      partOfSpeech: 'n',
+      themeId: 'theme_07_dining_out',
+      exampleEn: 'This theme will appear in several sections of the test.',
+      exampleVi: 'Chuyên đề này sẽ xuất hiện ở nhiều phần của bài thi.',
+    ),
+    VocabModel(
+      id: 'v07_02',
       wordEn: 'formal',
       wordVi: 'trang trọng',
       pronunciation: '/ˈfɔːrml/',
@@ -32,7 +42,7 @@ class Theme7Content {
           'Trong bữa tối công việc trang trọng, khách thường nói chuyện lịch sự.',
     ),
     VocabModel(
-      id: 'v07_02',
+      id: 'v07_03',
       wordEn: 'informal',
       wordVi: 'thân mật, không trang trọng',
       pronunciation: '/ɪnˈfɔːrml/',
@@ -43,7 +53,7 @@ class Theme7Content {
           'Trong bối cảnh thân mật, người ta có thể nói: “Hôm nay có gì ngon?”',
     ),
     VocabModel(
-      id: 'v07_03',
+      id: 'v07_04',
       wordEn: 'business setting',
       wordVi: 'bối cảnh thương mại/công việc',
       pronunciation: '/ˈbɪznəs ˈsetɪŋ/',
@@ -55,7 +65,7 @@ class Theme7Content {
           'Hội thoại khi đi ăn thường trang trọng hơn trong bối cảnh công việc.',
     ),
     VocabModel(
-      id: 'v07_04',
+      id: 'v07_05',
       wordEn: 'banquet',
       wordVi: 'bữa đại tiệc',
       pronunciation: '/ˈbæŋkwɪt/',
@@ -66,7 +76,7 @@ class Theme7Content {
       exampleVi: 'Công ty tổ chức một bữa đại tiệc để đón đối tác quốc tế.',
     ),
     VocabModel(
-      id: 'v07_05',
+      id: 'v07_06',
       wordEn: 'reception',
       wordVi: 'tiệc chiêu đãi/sự tiếp đón',
       pronunciation: '/rɪˈsepʃn/',
@@ -78,7 +88,7 @@ class Theme7Content {
           'Một buổi tiệc chiêu đãi được tổ chức sau hội nghị cho khách mời.',
     ),
     VocabModel(
-      id: 'v07_06',
+      id: 'v07_07',
       wordEn: 'reservation',
       wordVi: 'việc đặt chỗ trước',
       pronunciation: '/ˌrezərˈveɪʃn/',
@@ -88,7 +98,7 @@ class Theme7Content {
       exampleVi: 'Tôi đã đặt bàn lúc 6 giờ dưới tên của mình.',
     ),
     VocabModel(
-      id: 'v07_07',
+      id: 'v07_08',
       wordEn: 'menu',
       wordVi: 'thực đơn',
       pronunciation: '/ˈmenjuː/',
@@ -98,7 +108,7 @@ class Theme7Content {
       exampleVi: 'Mọi thứ trong thực đơn trông hấp dẫn quá.',
     ),
     VocabModel(
-      id: 'v07_08',
+      id: 'v07_09',
       wordEn: 'appetizer',
       wordVi: 'món khai vị',
       pronunciation: '/ˈæpɪtaɪzər/',
@@ -108,7 +118,7 @@ class Theme7Content {
       exampleVi: 'Chúng tôi gọi món khai vị trước khi chọn món chính.',
     ),
     VocabModel(
-      id: 'v07_09',
+      id: 'v07_10',
       wordEn: 'main course',
       wordVi: 'món chính',
       pronunciation: '/ˈmeɪn kɔːrs/',
@@ -118,7 +128,7 @@ class Theme7Content {
       exampleVi: 'Bà ấy chọn cá ngừ làm món chính để ăn nhẹ hơn.',
     ),
     VocabModel(
-      id: 'v07_10',
+      id: 'v07_11',
       wordEn: 'dessert',
       wordVi: 'món tráng miệng',
       pronunciation: '/dɪˈzɜːrt/',
@@ -128,7 +138,7 @@ class Theme7Content {
       exampleVi: 'Bánh mousse sô-cô-la là món tráng miệng nổi tiếng nhất ở đó.',
     ),
     VocabModel(
-      id: 'v07_11',
+      id: 'v07_12',
       wordEn: 'wine steward',
       wordVi: 'nhân viên phục vụ rượu',
       pronunciation: '/waɪn ˈstuːərd/',
@@ -138,7 +148,7 @@ class Theme7Content {
       exampleVi: 'Nhân viên rượu gợi ý một loại vang không ngọt cho hải sản.',
     ),
     VocabModel(
-      id: 'v07_12',
+      id: 'v07_13',
       wordEn: 'maître d\'',
       wordVi: 'quản lý nhà hàng',
       pronunciation: '/ˌmeɪtrə ˈdiː/',
@@ -149,7 +159,7 @@ class Theme7Content {
       exampleVi: 'Quản lý nhà hàng chào khách và xác nhận đặt bàn.',
     ),
     VocabModel(
-      id: 'v07_13',
+      id: 'v07_14',
       wordEn: 'cuisine',
       wordVi: 'ẩm thực',
       pronunciation: '/kwɪˈziːn/',
@@ -159,7 +169,7 @@ class Theme7Content {
       exampleVi: 'Nhà hàng này chuyên về ẩm thực Ý.',
     ),
     VocabModel(
-      id: 'v07_14',
+      id: 'v07_15',
       wordEn: 'gourmet',
       wordVi: 'người sành ăn',
       pronunciation: '/ɡʊrˈmeɪ/',
@@ -171,7 +181,7 @@ class Theme7Content {
           'Người sành ăn có thể nhận ra khác biệt giữa vịt quay và vịt Bắc Kinh.',
     ),
     VocabModel(
-      id: 'v07_15',
+      id: 'v07_16',
       wordEn: 'vegetarian',
       wordVi: 'người ăn chay',
       pronunciation: '/ˌvedʒəˈteriən/',
@@ -181,7 +191,7 @@ class Theme7Content {
       exampleVi: 'Chúng ta cần lựa chọn ăn chay cho vài vị khách.',
     ),
     VocabModel(
-      id: 'v07_16',
+      id: 'v07_17',
       wordEn: 'beverages',
       wordVi: 'các loại đồ uống',
       pronunciation: '/ˈbevərɪdʒɪz/',
@@ -191,7 +201,7 @@ class Theme7Content {
       exampleVi: 'Thực đơn liệt kê đồ uống tách riêng khỏi món ăn.',
     ),
     VocabModel(
-      id: 'v07_17',
+      id: 'v07_18',
       wordEn: 'catering',
       wordVi: 'dịch vụ tiệc',
       pronunciation: '/ˈkeɪtərɪŋ/',
@@ -201,7 +211,7 @@ class Theme7Content {
       exampleVi: 'Họ thuê dịch vụ tiệc cho buổi chiêu đãi của công ty.',
     ),
     VocabModel(
-      id: 'v07_18',
+      id: 'v07_19',
       wordEn: 'receipt',
       wordVi: 'biên lai',
       pronunciation: '/rɪˈsiːt/',
@@ -211,7 +221,7 @@ class Theme7Content {
       exampleVi: 'Vui lòng giữ biên lai để hoàn ứng.',
     ),
     VocabModel(
-      id: 'v07_19',
+      id: 'v07_20',
       wordEn: 'ambience',
       wordVi: 'không khí/quang cảnh',
       pronunciation: '/ˈæmbiəns/',
@@ -221,7 +231,7 @@ class Theme7Content {
       exampleVi: 'Không khí yên tĩnh và phù hợp cho bữa tối công việc.',
     ),
     VocabModel(
-      id: 'v07_20',
+      id: 'v07_21',
       wordEn: 'complimentary',
       wordVi: 'miễn phí, biếu tặng',
       pronunciation: '/ˌkɑːmplɪˈmentri/',
@@ -231,7 +241,7 @@ class Theme7Content {
       exampleVi: 'Nhà hàng tặng bánh mì miễn phí cho tất cả khách.',
     ),
     VocabModel(
-      id: 'v07_21',
+      id: 'v07_22',
       wordEn: 'aromatic',
       wordVi: 'thơm',
       pronunciation: '/ˌærəˈmætɪk/',
@@ -241,7 +251,7 @@ class Theme7Content {
       exampleVi: 'Món súp thơm được phục vụ nóng.',
     ),
     VocabModel(
-      id: 'v07_22',
+      id: 'v07_23',
       wordEn: 'spicy',
       wordVi: 'nhiều gia vị',
       pronunciation: '/ˈspaɪsi/',
@@ -253,7 +263,7 @@ class Theme7Content {
           'Nước sốt nhiều gia vị phổ biến, nhưng vài khách thích vị nhẹ.',
     ),
     VocabModel(
-      id: 'v07_23',
+      id: 'v07_24',
       wordEn: 'hot (taste)',
       wordVi: 'cay (vị)',
       pronunciation: '/hɑːt/',
@@ -263,7 +273,7 @@ class Theme7Content {
       exampleVi: 'Món này cay nên bạn có thể muốn gọi đồ uống.',
     ),
     VocabModel(
-      id: 'v07_24',
+      id: 'v07_25',
       wordEn: 'roast',
       wordVi: 'quay; (thịt) được quay',
       pronunciation: '/roʊst/',
@@ -274,7 +284,7 @@ class Theme7Content {
       exampleVi: '“Vịt quay” là cách nấu chứ không phải công thức cụ thể.',
     ),
     VocabModel(
-      id: 'v07_25',
+      id: 'v07_26',
       wordEn: 'recipe',
       wordVi: 'công thức nấu ăn',
       pronunciation: '/ˈresəpi/',
@@ -284,7 +294,7 @@ class Theme7Content {
       exampleVi: 'Vịt Bắc Kinh chỉ một công thức nấu ăn cụ thể.',
     ),
     VocabModel(
-      id: 'v07_26',
+      id: 'v07_27',
       wordEn: 'recommend',
       wordVi: 'gợi ý/giới thiệu',
       pronunciation: '/ˌrekəˈmend/',
@@ -294,7 +304,7 @@ class Theme7Content {
       exampleVi: 'Bạn gợi ý món gì cho tráng miệng?',
     ),
     VocabModel(
-      id: 'v07_27',
+      id: 'v07_28',
       wordEn: 'appealing',
       wordVi: 'hấp dẫn',
       pronunciation: '/əˈpiːlɪŋ/',
@@ -304,7 +314,7 @@ class Theme7Content {
       exampleVi: 'Mọi thứ trong thực đơn nhìn hấp dẫn quá.',
     ),
     VocabModel(
-      id: 'v07_28',
+      id: 'v07_29',
       wordEn: 'exceptionally',
       wordVi: 'cực kỳ',
       pronunciation: '/ɪkˈsepʃənəli/',
@@ -314,7 +324,7 @@ class Theme7Content {
       exampleVi: 'Cá ngừ nướng vỉ hôm nay cực kỳ ngon.',
     ),
     VocabModel(
-      id: 'v07_29',
+      id: 'v07_30',
       wordEn: 'accept reservations',
       wordVi: 'chấp nhận đặt bàn trước',
       pronunciation: '/əkˈsept ˌrezərˈveɪʃənz/',
@@ -324,7 +334,7 @@ class Theme7Content {
       exampleVi: 'Họ chỉ nhận đặt bàn cho nhóm từ 15 người trở lên.',
     ),
     VocabModel(
-      id: 'v07_30',
+      id: 'v07_31',
       wordEn: 'dressing',
       wordVi: 'nước sốt (trộn salad)',
       pronunciation: '/ˈdresɪŋ/',
@@ -333,12 +343,68 @@ class Theme7Content {
       exampleEn: 'You can choose any salad dressing you like.',
       exampleVi: 'Bạn có thể chọn loại nước sốt salad nào bạn thích.',
     ),
+    VocabModel(
+      id: 'v07_32',
+      wordEn: 'specialty',
+      wordVi: 'món đặc sản, nét đặc trưng',
+      pronunciation: '/ˈspeʃəlti/',
+      partOfSpeech: 'n',
+      themeId: 'theme_07_dining_out',
+      exampleEn: 'The seafood pasta is the specialty of the house.',
+      exampleVi: 'Mì hải sản là món đặc sản của nhà hàng.',
+    ),
+    VocabModel(
+      id: 'v07_33',
+      wordEn: 'business meeting',
+      wordVi: 'cuộc họp kinh doanh',
+      pronunciation: '/ˈbɪznəs ˈsetɪŋ/',
+      partOfSpeech: 'np',
+      themeId: 'theme_07_dining_out',
+      exampleEn: 'We scheduled a business meeting over lunch.',
+      exampleVi: 'Chúng tôi đã xếp một cuộc họp kinh doanh trong bữa trưa.',
+    ),
+    VocabModel(
+      id: 'v07_34',
+      wordEn: 'review',
+      wordVi: 'bài đánh giá, nhận xét',
+      pronunciation: '/rɪˈvjuː/',
+      partOfSpeech: 'n',
+      themeId: 'theme_07_dining_out',
+      exampleEn: 'The restaurant received a glowing review in the newspaper.',
+      exampleVi: 'Nhà hàng đã nhận được một bài đánh giá nồng nhiệt trên báo.',
+    ),
+    VocabModel(
+      id: 'v07_35',
+      wordEn: 'wait staff',
+      wordVi: 'đội ngũ phục vụ bàn',
+      pronunciation: '/weɪt stæf/',
+      partOfSpeech: 'np',
+      themeId: 'theme_07_dining_out',
+      exampleEn: 'The wait staff were attentive and friendly.',
+      exampleVi: 'Nhân viên phục vụ rất chu đáo và thân thiện.',
+    ),
+    VocabModel(
+      id: 'v07_36',
+      wordEn: 'recommendation',
+      wordVi: 'sự giới thiệu, sự gợi ý',
+      pronunciation: '/ˌrekəmenˈdeɪʃn/',
+      partOfSpeech: 'n',
+      themeId: 'theme_07_dining_out',
+      exampleEn: 'Do you have any recommendations for a main course?',
+      exampleVi: 'Bạn gợi ý nào cho món chính không?',
+    ),
   ];
 
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
   static List<FabVocabItem> get readingVocab => [
+    const FabVocabItem(
+      wordEn: 'section',
+      wordVi: 'Phần',
+      pronunciation: "/’sekʃn/",
+      partOfSpeech: 'n',
+    ),
     const FabVocabItem(
       wordEn: 'banquet',
       wordVi: 'Bữa đại tiệc',
@@ -415,16 +481,16 @@ class Theme7Content {
     ),
     const FabPhraseItem(phrase: 'Pay the bill', meaning: 'Thanh toán hoá đơn'),
     const FabPhraseItem(
-      phrase: 'A variety of + N',
-      meaning: 'Phong phú/đa dạng',
+      phrase: 'A variety of (det) sth',
+      meaning: 'Phong phú, đa dạng, rất nhiều (cái gì đó)',
     ),
     const FabPhraseItem(
       phrase: 'Plan an event',
       meaning: 'Lên kế hoạch cho một sự kiện',
     ),
     const FabPhraseItem(
-      phrase: 'Interact with',
-      meaning: 'Tương tác/tiếp xúc với',
+      phrase: 'Interact with (vp)',
+      meaning: 'Tương tác với, tiếp xúc với',
     ),
     const FabPhraseItem(
       phrase: 'Make a request',

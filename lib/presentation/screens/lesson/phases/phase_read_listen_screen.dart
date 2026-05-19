@@ -151,6 +151,9 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
           if (audioPath.isNotEmpty)
             AudioPlayerWidget(
               audioUrl: audioPath,
+              key: ValueKey(
+                'player_$audioPath',
+              ), // Thêm key để buộc rebuild khi audioPath thay đổi
               title:
                   phase.audioTrackKey?.replaceAll('_', ' ').toUpperCase() ??
                   'Audio',

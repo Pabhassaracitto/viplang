@@ -174,6 +174,512 @@ class Theme2Content {
       exampleVi:
           'Cô ấy làm việc cho tập đoàn ADC, một công ty tư vấn hàng đầu.',
     ),
+    VocabModel(
+      id: 'v02_16',
+      wordEn: 'sign a contract',
+      wordVi: 'ký hợp đồng',
+      pronunciation: '/saɪn ə ˈkɒntrækt/',
+      partOfSpeech: 'vp',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'You should read carefully before you sign a contract.',
+      exampleVi: 'Bạn nên đọc kỹ trước khi ký hợp đồng.',
+    ),
+    VocabModel(
+      id: 'v02_17',
+      wordEn: 'clear up',
+      wordVi: 'làm rõ, giải quyết',
+      pronunciation: '/klɪər ʌp/',
+      partOfSpeech: 'vp',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'We need to clear up some points in the agreement.',
+      exampleVi: 'Chúng ta cần làm rõ một vài điểm trong bản thỏa thuận.',
+    ),
+    VocabModel(
+      id: 'v02_18',
+      wordEn: 'lawyer',
+      wordVi: 'luật sư',
+      pronunciation: '/ˈlɔːjər/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The company hired a lawyer to review the legal contract.',
+      exampleVi: 'Công ty đã thuê một luật sư để xem xét hợp đồng pháp lý.',
+    ),
+    VocabModel(
+      id: 'v02_19',
+      wordEn: 'bond',
+      wordVi: 'trái phiếu',
+      pronunciation: '/bɑːnd/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'Investing in government bonds is generally considered safe.',
+      exampleVi: 'Đầu tư vào trái phiếu chính phủ thường được coi là an toàn.',
+    ),
+    VocabModel(
+      id: 'v02_20',
+      wordEn: 'buy-out',
+      wordVi: 'mua lại, thôn tính (doanh nghiệp)',
+      pronunciation: '/ˈbaɪaʊt/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The management team led a successful buy-out of the company.',
+      exampleVi: 'Nhóm quản lý đã dẫn dắt một cuộc thu mua công ty thành công.',
+    ),
+    VocabModel(
+      id: 'v02_21',
+      wordEn: 'legal counsel',
+      wordVi: 'cố vấn pháp lý',
+      pronunciation: '/ˈliːɡəl ˈkaʊnsl/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'Our legal counsel recommended revising the terms.',
+      exampleVi:
+          'Cố vấn pháp lý của chúng tôi khuyên nên sửa lại các điều khoản.',
+    ),
+    VocabModel(
+      id: 'v02_22',
+      wordEn: 'chief executive officer',
+      wordVi: 'tổng giám đốc điều hành (CEO)',
+      pronunciation: '/ˌtʃiːf ɪɡˈzekjətɪv ˈɑːfɪsər/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The CEO announced a new strategic plan.',
+      exampleVi:
+          'Tổng giám đốc điều hành đã công bố một kế hoạch chiến lược mới.',
+    ),
+    VocabModel(
+      id: 'v02_23',
+      wordEn: 'board of directors',
+      wordVi: 'ban giám đốc, hội đồng quản trị',
+      pronunciation: '/bɔːrd əv dɪˈrektərz/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The board of directors met to discuss the merger.',
+      exampleVi: 'Hội đồng quản trị đã họp để thảo luận về việc sáp nhập.',
+    ),
+    VocabModel(
+      id: 'v02_24',
+      wordEn: 'stock option',
+      wordVi: 'quyền chọn mua cổ phiếu',
+      pronunciation: '/stɑːk ˈɑːpʃn/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The company offers stock options to its senior employees.',
+      exampleVi:
+          'Công ty cung cấp quyền chọn mua cổ phiếu cho nhân viên cấp cao.',
+    ),
+    VocabModel(
+      id: 'v02_25',
+      wordEn: 'chain',
+      wordVi: 'chuỗi (cửa hàng, hệ thống)',
+      pronunciation: '/tʃeɪn/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'They own a large retail chain across the country.',
+      exampleVi: 'Họ sở hữu một chuỗi bán lẻ lớn trên toàn quốc.',
+    ),
+    VocabModel(
+      id: 'v02_26',
+      wordEn: 'retailing',
+      wordVi: 'việc bán lẻ, ngành bán lẻ',
+      pronunciation: '/ˈriːteɪlɪŋ/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'Innovation is key to success in modern retailing.',
+      exampleVi: 'Đổi mới là chìa khóa thành công trong ngành bán lẻ hiện đại.',
+    ),
+    VocabModel(
+      id: 'v02_27',
+      wordEn: 'expert',
+      wordVi: 'chuyên gia',
+      pronunciation: '/ˈekspɜːrt/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn:
+          'We consulted a financial expert before making the investment.',
+      exampleVi:
+          'Chúng tôi đã tham khảo ý kiến chuyên gia tài chính trước khi đầu tư.',
+    ),
+    VocabModel(
+      id: 'v02_28',
+      wordEn: 'workshop',
+      wordVi: 'buổi hội thảo, buổi tập huấn',
+      pronunciation: '/ˈwɜːrkʃɑːp/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The workshop focused on international communication.',
+      exampleVi: 'Buổi tập huấn tập trung vào giao tiếp quốc tế.',
+    ),
+    VocabModel(
+      id: 'v02_29',
+      wordEn: 'specific',
+      wordVi: 'cụ thể',
+      pronunciation: '/spəˈsɪfɪk/',
+      partOfSpeech: 'adj',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'There are a lot of specific terms that need to be learned.',
+      exampleVi: 'Có rất nhiều thuật ngữ cụ thể cần phải học.',
+    ),
+    VocabModel(
+      id: 'v02_30',
+      wordEn: 'entrepreneurial',
+      wordVi: 'mang tính doanh nhân',
+      pronunciation: '/ˌɒntrəprəˈnɜːriəl/',
+      partOfSpeech: 'adj',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'He has an entrepreneurial spirit.',
+      exampleVi: 'Anh ấy có tinh thần doanh nhân.',
+    ),
+    VocabModel(
+      id: 'v02_31',
+      wordEn: 'mergers & acquisitions',
+      wordVi: 'mua bán và sáp nhập doanh nghiệp',
+      pronunciation: '/ˈmɜːrdʒərz ænd ˌækwɪˈzɪʃənz/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The company specializes in mergers and acquisitions.',
+      exampleVi: 'Công ty chuyên về mua bán và sáp nhập doanh nghiệp.',
+    ),
+    VocabModel(
+      id: 'v02_32',
+      wordEn: 'chief financial officer',
+      wordVi: 'giám đốc tài chính (CFO)',
+      pronunciation: '/tʃiːf faɪˈnæns ˈɒfɪsər/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn:
+          'The CFO is responsible for the company\'s financial planning.',
+      exampleVi:
+          'Giám đốc tài chính chịu trách nhiệm lập kế hoạch tài chính của công ty.',
+    ),
+    VocabModel(
+      id: 'v02_33',
+      wordEn: 'mutual fund',
+      wordVi: 'quỹ tương hỗ',
+      pronunciation: '/ˈmjuːtʃuəl fʌnd/',
+      partOfSpeech: 'np',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'They invested their savings in a mutual fund.',
+      exampleVi: 'Họ đã đầu tư tiền tiết kiệm của mình vào một quỹ tương hỗ.',
+    ),
+    VocabModel(
+      id: 'v02_34',
+      wordEn: 'advertisement',
+      wordVi: 'mục quảng cáo, sự quảng cáo',
+      pronunciation: '/ədˈvɜːrtɪsmənt/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn:
+          'We saw an advertisement for the new product in the newspaper.',
+      exampleVi: 'Chúng tôi thấy một mẩu quảng cáo cho sản phẩm mới trên báo.',
+    ),
+    VocabModel(
+      id: 'v02_35',
+      wordEn: 'labour',
+      wordVi: 'lao động',
+      pronunciation: '/ˈleɪbər/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The company is facing a shortage of skilled labour.',
+      exampleVi:
+          'Công ty đang đối mặt với tình trạng thiếu hụt lao động lành nghề.',
+    ),
+    VocabModel(
+      id: 'v02_36',
+      wordEn: 'strategy',
+      wordVi: 'chiến lược',
+      pronunciation: '/ˈstrætədʒi/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'Our marketing strategy focuses on social media.',
+      exampleVi:
+          'Chiến lược marketing của chúng tôi tập trung vào mạng xã hội.',
+    ),
+    VocabModel(
+      id: 'v02_37',
+      wordEn: 'division',
+      wordVi: 'ban, bộ phận',
+      pronunciation: '/dɪˈvɪʒən/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'He was promoted to head of the sales division.',
+      exampleVi: 'Anh ấy được thăng chức lên đứng đầu bộ phận bán hàng.',
+    ),
+    VocabModel(
+      id: 'v02_38',
+      wordEn: 'stock',
+      wordVi: 'cổ phiếu',
+      pronunciation: '/stɒk/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'The company\'s stock price increased significantly.',
+      exampleVi: 'Giá cổ phiếu của công ty đã tăng đáng kể.',
+    ),
+    VocabModel(
+      id: 'v02_39',
+      wordEn: 'reference',
+      wordVi: 'sự tham chiếu, sự nhắc đến',
+      pronunciation: '/ˈrefrəns/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'Please include a reference to the previous report.',
+      exampleVi: 'Vui lòng bao gồm một sự nhắc đến báo cáo trước đó.',
+    ),
+    VocabModel(
+      id: 'v02_40',
+      wordEn: 'solicitor',
+      wordVi: 'luật sư đại diện, luật sư tư vấn',
+      pronunciation: '/səˈlɪsɪtər/',
+      partOfSpeech: 'n',
+      themeId: 'theme_02_general_business',
+      exampleEn: 'We need to consult a solicitor about this legal matter.',
+      exampleVi: 'Chúng ta cần tham khảo ý kiến luật sư về vấn đề pháp lý này.',
+    ),
+  ];
+
+  // ─── FAB DATA: Từ vựng cần nắm vững ────────────────────────────
+  static List<FabVocabItem> get readingVocab => [
+    const FabVocabItem(
+      wordEn: 'Theme',
+      pronunciation: '/θiːm/',
+      wordVi: 'Chuyên đề',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'General',
+      pronunciation: '/ˈdʒɛnərəl/',
+      wordVi: 'Tổng quát, chung',
+      partOfSpeech: 'adj',
+    ),
+    const FabVocabItem(
+      wordEn: 'Finance',
+      pronunciation: '/ˈfaɪnæns/',
+      wordVi: 'Tài chính',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Specific',
+      pronunciation: '/spəˈsɪfɪk/',
+      wordVi: 'Cụ thể',
+      partOfSpeech: 'adj',
+    ),
+    const FabVocabItem(
+      wordEn: 'Term',
+      pronunciation: '/tɜːrm/',
+      wordVi: 'Thuật ngữ',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Relate',
+      pronunciation: '/rɪˈleɪt/',
+      wordVi: 'Liên quan tới',
+      partOfSpeech: 'v',
+    ),
+    const FabVocabItem(
+      wordEn: 'Corporate',
+      pronunciation: '/ˈkɔːrpərət/',
+      wordVi: 'Thuộc tập đoàn, thuộc doanh nghiệp',
+      partOfSpeech: 'adj',
+    ),
+    const FabVocabItem(
+      wordEn: 'Business',
+      pronunciation: '/ˈbɪznəs/',
+      wordVi: 'Kinh doanh, doanh nghiệp',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Entrepreneurial',
+      pronunciation: '/ˌɒntrəprəˈnɜːriəl/',
+      wordVi: 'Mang tính doanh nhân',
+      partOfSpeech: 'adj',
+    ),
+    const FabVocabItem(
+      wordEn: 'Introduce',
+      pronunciation: '/ˌɪntrəˈduːs/',
+      wordVi: 'Giới thiệu',
+      partOfSpeech: 'v',
+    ),
+    const FabVocabItem(
+      wordEn: 'Negotiation',
+      pronunciation: '/nɪˌɡoʊʃiˈeɪʃən/',
+      wordVi: 'Cuộc đàm phán',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Mergers & Acquisitions',
+      pronunciation: '/ˈmɜːrdʒərz ænd ˌækwɪˈzɪʃənz/',
+      wordVi: 'Mua bán, sáp nhập doanh nghiệp',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Bond',
+      pronunciation: '/bɑːnd/',
+      wordVi: 'Trái phiếu',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Legal',
+      pronunciation: '/ˈliːɡəl/',
+      wordVi: 'Pháp lý',
+      partOfSpeech: 'adj',
+    ),
+    const FabVocabItem(
+      wordEn: 'Contract',
+      pronunciation: '/ˈkɒntrækt/',
+      wordVi: 'Hợp đồng',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Warranty',
+      pronunciation: '/ˈwɔːrənti/',
+      wordVi: 'Bảo hành',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Strategy',
+      pronunciation: '/ˈstrætədʒi/',
+      wordVi: 'Chiến lược',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Labour',
+      pronunciation: '/ˈleɪbər/',
+      wordVi: 'Lao động',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Franchise',
+      pronunciation: '/ˈfræntʃaɪz/',
+      wordVi: 'Nhượng quyền thương mại',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Mutual fund',
+      pronunciation: '/ˈmjuːtʃuəl fʌnd/',
+      wordVi: 'Quỹ tương hỗ',
+      partOfSpeech: 'np',
+    ),
+    const FabVocabItem(
+      wordEn: 'Consultancy',
+      pronunciation: '/kənˈsʌltənsi/',
+      wordVi: 'Tư vấn',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Buy-out',
+      pronunciation: '/ˈbaɪaʊt/',
+      wordVi: 'Thôn tính toàn bộ doanh nghiệp',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Take-over',
+      pronunciation: '/ˈteɪkoʊvər/',
+      wordVi: 'Thôn tính một phần lớn doanh nghiệp',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Reference',
+      pronunciation: '/ˈrefrəns/',
+      wordVi: 'Sự tham chiếu',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Solicitor',
+      pronunciation: '/səˈlɪsɪtər/',
+      wordVi: 'Luật sư đại diện',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Counsel',
+      pronunciation: '/ˈkaʊnsl/',
+      wordVi: 'Cố vấn',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Subsidiary',
+      pronunciation: '/səbˈsɪdiəri/',
+      wordVi: 'Chi nhánh',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Headquarters',
+      pronunciation: '/ˈhedˌkwɔːrtərz/',
+      wordVi: 'Trụ sở chính',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Chief Executive Officer',
+      pronunciation: '/ˌtʃiːf ɪɡˈzekjətɪv ˈɑːfɪsər/',
+      wordVi: 'Tổng giám đốc điều hành',
+      partOfSpeech: 'np',
+    ),
+    const FabVocabItem(
+      wordEn: 'Chief Finance Officer',
+      pronunciation: '/tʃiːf faɪˈnæns ˈɒfɪsər/',
+      wordVi: 'Giám đốc tài chính',
+      partOfSpeech: 'np',
+    ),
+    const FabVocabItem(
+      wordEn: 'Stock',
+      pronunciation: '/stɒk/',
+      wordVi: 'Cổ phiếu',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Division',
+      pronunciation: '/dɪˈvɪʒən/',
+      wordVi: 'Ban (trong tổ chức)',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Chain',
+      pronunciation: '/tʃeɪn/',
+      wordVi: 'Chuỗi',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Enterprise',
+      pronunciation: '/ˈentərpraɪz/',
+      wordVi: 'Doanh nghiệp',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Retail',
+      pronunciation: '/ˈriːteɪl/',
+      wordVi: 'Bán lẻ',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'Advertisement',
+      pronunciation: '/ədˈvɜːrtɪsmənt/',
+      wordVi: 'Mục quảng cáo',
+      partOfSpeech: 'n',
+    ),
+  ];
+
+  static List<FabPhraseItem> get readingPhrases => [
+    const FabPhraseItem(phrase: 'Rather than sth', meaning: 'Hơn là cái gì'),
+    const FabPhraseItem(
+      phrase: 'Such as',
+      meaning: 'Như là (dùng để liệt kê các danh từ sau nó)',
+    ),
+    const FabPhraseItem(
+      phrase: 'Need doing sth',
+      meaning:
+          'Cần được làm gì (cấu trúc mang tính bị động) = need to be pp/done',
+    ),
+    const FabPhraseItem(
+      phrase: 'Anything but',
+      meaning: 'Bất cứ cái gì ngoại trừ',
+    ),
+    const FabPhraseItem(phrase: 'Related to', meaning: 'Liên quan tới'),
+    const FabPhraseItem(
+      phrase: 'Reference to',
+      meaning: 'Nhắc đến, tham chiếu tới',
+    ),
+    const FabPhraseItem(
+      phrase: 'Look after',
+      meaning: 'Trông nom, chăm sóc, quan tâm',
+    ),
   ];
 
   // ─── FAB ANSWERS DATA ─────────────────────────────────────────
@@ -219,6 +725,7 @@ class Theme2Content {
     const FabAnswerItem(vi: 'các đồ dùng văn phòng', en: 'office supplies'),
     const FabAnswerItem(vi: 'tại các chợ địa phương', en: 'at local markets'),
     const FabAnswerItem(vi: 'các cửa hàng bán lẻ', en: 'retail shops'),
+    const FabAnswerItem(vi: 'cần được sửa', en: 'need fixing'),
   ];
 
   static List<FabAnswerItem> get conversationAnswers => [
@@ -235,6 +742,94 @@ class Theme2Content {
     const FabAnswerItem(vi: 'bất cứ hình phạt nào', en: 'any penalties'),
     const FabAnswerItem(vi: 'không tuân thủ', en: 'fails to uphold'),
     const FabAnswerItem(vi: 'bên còn lại', en: 'the other side'),
+  ];
+
+  // ─── SHORT TALK VOCAB ─────────────────────────────────────────
+  static List<FabVocabItem> get conversationVocab => [
+    const FabVocabItem(
+      wordEn: 'sign a contract',
+      pronunciation: '/saɪn ə ˈkɒntrækt/',
+      wordVi: 'Ký hợp đồng',
+      partOfSpeech: 'vp',
+    ),
+    const FabVocabItem(
+      wordEn: 'clear up',
+      pronunciation: '/klɪər ʌp/',
+      wordVi: 'Làm rõ',
+      partOfSpeech: 'vp',
+    ),
+    const FabVocabItem(
+      wordEn: 'penalty',
+      pronunciation: '/ˈpenəlti/',
+      wordVi: 'Hình phạt',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'compensation',
+      pronunciation: '/ˌkɒmpənˈseɪʃən/',
+      wordVi: 'Bồi thường',
+      partOfSpeech: 'n',
+    ),
+  ];
+
+  static List<FabVocabItem> get shortTalk1Vocab => [
+    const FabVocabItem(
+      wordEn: 'announcement',
+      pronunciation: '/əˈnaʊnsmənt/',
+      wordVi: 'Thông báo',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'conclusion',
+      pronunciation: '/kənˈkluːʒən/',
+      wordVi: 'Kết luận',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'force',
+      pronunciation: '/fɔːrs/',
+      wordVi: 'Sức mạnh, lực lượng',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'quarter',
+      pronunciation: '/ˈkwɔːrtər/',
+      wordVi: 'Quý (1/4 năm)',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'expert',
+      pronunciation: '/ˈekspɜːrt/',
+      wordVi: 'Chuyên gia',
+      partOfSpeech: 'n',
+    ),
+  ];
+
+  static List<FabVocabItem> get shortTalk2Vocab => [
+    const FabVocabItem(
+      wordEn: 'workshop',
+      pronunciation: '/ˈwɜːrkʃɒp/',
+      wordVi: 'Buổi hội thảo',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'negotiate',
+      pronunciation: '/nɪˈɡoʊʃieɪt/',
+      wordVi: 'Đàm phán',
+      partOfSpeech: 'v',
+    ),
+    const FabVocabItem(
+      wordEn: 'communication',
+      pronunciation: '/kəˌmjuːnɪˈkeɪʃən/',
+      wordVi: 'Giao tiếp',
+      partOfSpeech: 'n',
+    ),
+    const FabVocabItem(
+      wordEn: 'consulting firm',
+      pronunciation: '/kənˈsʌltɪŋ fɜːrm/',
+      wordVi: 'Công ty tư vấn',
+      partOfSpeech: 'n',
+    ),
   ];
 
   static List<FabAnswerItem> get shortTalk1Answers => [
@@ -336,7 +931,7 @@ class Theme2Content {
 
   // ─── DAY 1 ────────────────────────────────────────────────────
   static LessonDay get day1 => LessonDay(
-    id: 'theme02_day1',
+    id: 'theme_02_day1',
     dayNumber: 1,
     themeId: 'theme_02_general_business',
     titleVi: 'Phần 1: Giới thiệu chung về chuyên đề',
@@ -349,13 +944,18 @@ class Theme2Content {
         titleVi: 'Bước 1: Đọc và Nghe',
         audioTrackKey: 'track_07',
         contentEn:
-            '''This theme is anything but 'general'. As in finance, there are a lot of specific terms that need to be learned. The terms are related to 'corporate' business rather than small entrepreneurial businesses. This theme will introduce negotiations, mergers, acquisitions, legal contracts, guarantees and warranties, marketing strategies, sales performance, labour relations, franchises, consultancy, buy-outs, take-overs. There will often be references to the legal profession such as lawyer, solicitor, legal counsel. Other common general nouns: subsidiary, headquarters, chief executive officer, chief financial officer, chairman, board of directors, mutual funds, bonds, stock options.
+            '''This theme is anything but 'general'. As in finance, there are a lot of specific terms that need to be learned. The terms are related to 'corporate' business rather than small entrepreneurial businesses.
 
-Corporate business tends to be national and international rather than local and students will need to understand such terms as divisions, departments, branches, chain, and how a large enterprise works. Small business conversations will also be heard but these usually come under different themes such as 'Retailing' or 'Offices' and relate to local businesses. Conversations here are usually about small meetings, computers or photocopiers that need fixing, small advertisements for local newspapers, flyers and brochures, and buying office supplies. Shopping is involved, usually at local markets, supermarkets, small retail shops as well as department stores.''',
+Corporate business tends to be national and international rather than local and students will need to understand such terms as divisions, departments, branches, chain, and how a large enterprise works.
+
+This theme will introduce negotiations, corporate mergers, acquisitions, legal contracts, guarantees and warranties, marketing strategies, sales, human relations, franchises, consultancy services, compensation, buy-outs. We will also meet some people such as professional consultants, attorneys or lawyers, and legal counsel. Useful nouns would be: branch, headquarters, CEO (chief executive officer), CFO (chief financial officer), president, board of directors, mutual fund, stock options.''',
         contentVi:
             '''Chuyên đề này đề cập tới mọi chủ đề nhưng chỉ ở mức độ tổng quát. Như khi nói về tài chính, sẽ có rất nhiều các thuật ngữ cụ thể cần được học. Các thuật ngữ liên quan tới các doanh nghiệp lớn nhiều hơn là những doanh nghiệp nhỏ hay hộ kinh doanh. Chuyên đề này sẽ giới thiệu các nội dung về đàm phán, sáp nhập doanh nghiệp, mua bán doanh nghiệp, hợp đồng pháp lý, bảo hành và bảo dưỡng, chiến lược marketing, việc bán hàng, các quan hệ nhân sự, nhượng quyền thương mại, dịch vụ tư vấn, bồi thường hợp đồng lao động, thôn tính doanh nghiệp. Chúng ta cũng sẽ gặp những từ về nghề luật như luật sư, luật sư đại diện, cố vấn pháp lý. Những danh từ phổ biến hay dùng có thể là: chi nhánh, trụ sở chính, tổng giám đốc điều hành, tổng giám đốc tài chính, chủ tịch, ban giám đốc, quỹ tương hỗ, trái phiếu, quyền chọn cổ phiếu.
 
-Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người đọc sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động. Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ nhưng những hội thoại này thường xuất hiện ở những chuyên đề khác như Bán lẻ hay Văn phòng mà có liên quan tới doanh nghiệp địa phương. Các hội thoại đó thường nói về các cuộc họp nhỏ, máy tính hay máy phô-tô mà cần sửa chữa, những mẩu quảng cáo nhỏ cho báo địa phương, tờ rơi, tờ giới thiệu, và mua sắm đồ văn phòng. Việc đi mua sắm cũng được nhắc đến, nhưng thường ở chợ địa phương hay siêu thị, cửa hàng bán lẻ nhỏ và cửa hàng bách hóa.''',
+---
+Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người học sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động. Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ nhưng những hội thoại này thường xuất hiện ở những chuyên đề khác như Bán lẻ hay Văn phòng mà có liên quan tới doanh nghiệp địa phương. Các hội thoại đó thường nói về các cuộc họp nhỏ, máy tính hay máy phô-tô mà cần sửa chữa, những mẩu quảng cáo nhỏ cho báo địa phương, tờ rơi, tờ giới thiệu, và mua sắm đồ văn phòng. Việc đi mua sắm cũng được nhắc đến, nhưng thường ở chợ địa phương hay siêu thị, cửa hàng bán lẻ nhỏ và cửa hàng bách hóa.''',
+        fabVocab: Theme2Content.readingVocab,
+        fabPhrases: Theme2Content.readingPhrases,
       ),
 
       // PHASE 2: TRANSLATE
@@ -374,9 +974,11 @@ Small business conversations will also be heard but these usually come under dif
         contentVi:
             '''Chuyên đề này đề cập tới mọi chủ đề nhưng chỉ ở mức độ tổng quát. Như khi nói về tài chính, sẽ có rất nhiều các thuật ngữ cụ thể cần được học. Các thuật ngữ liên quan tới các doanh nghiệp lớn nhiều hơn là những doanh nghiệp nhỏ hay hộ kinh doanh.
 
-Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người đọc sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động.
+Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người học sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động.
 
 Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ nhưng những hội thoại này thường xuất hiện ở những chuyên đề khác như Bán lẻ hay Văn phòng mà có liên quan tới doanh nghiệp địa phương.''',
+        fabVocab: Theme2Content.readingVocab,
+        fabPhrases: Theme2Content.readingPhrases,
       ),
 
       // PHASE 3: MIND GAME
@@ -386,6 +988,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Step 3: Mind Game',
         titleVi: 'Bước 3: Trò chơi Tư duy',
         mixedSegments: _day1MindGameSegments,
+        fabVocab: Theme2Content.readingVocab,
+        fabPhrases: Theme2Content.readingPhrases,
         fabAnswers: Theme2Content.day1Answers,
       ),
 
@@ -395,6 +999,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         phaseTypeStr: 'vocabulary',
         titleEn: 'Vocabulary Review',
         titleVi: 'Ôn tập Từ vựng',
+        fabVocab: Theme2Content.readingVocab,
+        fabPhrases: Theme2Content.readingPhrases,
       ),
     ],
   );
@@ -508,6 +1114,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleVi: 'Luyện tập 1: Hội thoại - Làm rõ hợp đồng',
         audioTrackKey: 'track_08',
         questions: _practice1Questions,
+        fabVocab: Theme2Content.conversationVocab,
+        fabPhrases: Theme2Content.readingPhrases,
       ),
 
       // PHASE 2: Quiz Practice 2 - Short Talk 1
@@ -518,6 +1126,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleVi: 'Luyện tập 2: Bài ngắn - Thông báo huấn luyện bán hàng',
         audioTrackKey: 'track_09',
         questions: _practice2Questions,
+        fabVocab: Theme2Content.shortTalk1Vocab,
+        fabPhrases: Theme2Content.readingPhrases,
       ),
 
       // PHASE 3: Quiz Practice 3 - Short Talk 2
@@ -528,6 +1138,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleVi: 'Luyện tập 3: Bài ngắn - Hội thảo thương mại quốc tế',
         audioTrackKey: 'track_10',
         questions: _practice3Questions,
+        fabVocab: Theme2Content.shortTalk2Vocab,
+        fabPhrases: Theme2Content.readingPhrases,
       ),
 
       // PHASE 4: Mind Game - Conversation
@@ -537,6 +1149,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Memory Training: Contract Conversation',
         titleVi: 'Huấn luyện Trí nhớ: Hội thoại Hợp đồng',
         mixedSegments: _day2ConversationSegments,
+        fabVocab: Theme2Content.conversationVocab,
+        fabPhrases: Theme2Content.readingPhrases,
         fabAnswers: Theme2Content.conversationAnswers,
       ),
 
@@ -547,6 +1161,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Memory Training: Sales Announcement',
         titleVi: 'Huấn luyện Trí nhớ: Thông báo Bán hàng',
         mixedSegments: _day2ShortTalk1Segments,
+        fabVocab: Theme2Content.shortTalk1Vocab,
+        fabPhrases: Theme2Content.readingPhrases,
         fabAnswers: Theme2Content.shortTalk1Answers,
       ),
 
@@ -557,6 +1173,8 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
         titleEn: 'Memory Training: Workshop Speech',
         titleVi: 'Huấn luyện Trí nhớ: Bài phát biểu Hội thảo',
         mixedSegments: _day2ShortTalk2Segments,
+        fabVocab: Theme2Content.shortTalk2Vocab,
+        fabPhrases: Theme2Content.readingPhrases,
         fabAnswers: Theme2Content.shortTalk2Answers,
       ),
     ],

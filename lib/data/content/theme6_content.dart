@@ -721,7 +721,10 @@ class Theme6Content {
       phrase: 'Choose another supplier',
       meaning: 'Chọn nhà cung cấp khác',
     ),
-    const FabPhraseItem(phrase: 'Get back to you', meaning: 'Liên hệ lại với ông/bà'),
+    const FabPhraseItem(
+      phrase: 'Get back to you',
+      meaning: 'Liên hệ lại với ông/bà',
+    ),
   ];
 
   static List<FabAnswerItem> get conversationAnswers => const [
@@ -939,13 +942,19 @@ class Theme6Content {
   ];
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
-    const FabPhraseItem(phrase: 'Be willing to do sth', meaning: 'Sẵn sàng làm gì'),
+    const FabPhraseItem(
+      phrase: 'Be willing to do sth',
+      meaning: 'Sẵn sàng làm gì',
+    ),
     const FabPhraseItem(
       phrase: 'Have sth done',
       meaning: 'Làm cho việc gì được thực hiện',
     ),
     const FabPhraseItem(phrase: 'With respect to', meaning: 'Liên quan đến'),
-    const FabPhraseItem(phrase: 'Hear from sb', meaning: 'Nhận được phản hồi từ ai'),
+    const FabPhraseItem(
+      phrase: 'Hear from sb',
+      meaning: 'Nhận được phản hồi từ ai',
+    ),
   ];
 
   static List<FabAnswerItem> get shortTalk2Answers => const [
