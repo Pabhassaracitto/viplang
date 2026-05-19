@@ -938,6 +938,10 @@ class Theme5Content {
       phrase: 'As well as terms such as …',
       meaning: 'Cũng như các thuật ngữ như …',
     ),
+    const FabPhraseItem(
+      phrase: 'Times and days of performances',
+      meaning: 'Ngày và giờ các buổi trình diễn',
+    ),
   ];
 
   static List<FabAnswerItem> get readingAnswers => const [

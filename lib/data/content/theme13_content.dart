@@ -843,7 +843,7 @@ M: Chính xác là 5 ngày trước. Tôi đang chơi tennis với các đồng 
 W: Giờ thì tôi nghĩ là tôi biết vấn đề là gì rồi. Nó là chứng đau nhức khuỷu tay do chơi tennis. Nó không quá nghiêm trọng. Những gì anh nên làm bây giờ là đến gặp một bác sĩ trị liệu thể thao, người mà có thể xoa bóp nó, và nhớ chườm đá trước khi anh đi ngủ. Anh sẽ khỏi sau ba hoặc bốn ngày.
 M: Tôi hiểu, tôi nghĩ là chị nói đúng đấy. Chắc là tôi sẽ phải dừng chơi tennis trong một vài ngày.''',
         questions: _practice1Questions,
-        fabVocab: Theme13Content.day2ConversationVocab,
+        fabVocab: Theme13Content.conversationVocab,
         fabPhrases: Theme13Content.day2ConversationPhrases,
         fabAnswers: const [
           FabAnswerItem(
@@ -875,7 +875,7 @@ M: Tôi hiểu, tôi nghĩ là chị nói đúng đấy. Chắc là tôi sẽ ph
         contentVi:
             '''Vâng, thưa ông Thomas, theo hồ sơ của chúng tôi thì đây là lần thăm khám đầu tiên của ông tại phòng khám của chúng tôi. Trước khi bác sĩ James tiến hành khám cho ông, ông sẽ phải điền đầy đủ vào các mẫu tiểu sử bệnh và bảo hiểm y tế này. Ông hãy vui lòng liệt kê tất cả các loại thuốc mà ông đang sử dụng và bất kỳ loại dị ứng nào mà ông có thể gặp phải. Sau khi ông điền xong các mẫu đơn, y tá sẽ đo huyết áp và thân nhiệt của ông. Tôi sẽ chờ ở trong văn phòng nếu ông có bất kỳ câu hỏi nào cần hỏi.''',
         questions: _practice2Questions,
-        fabVocab: Theme13Content.day2ShortTalk1Vocab,
+        fabVocab: Theme13Content.shortTalk1Vocab,
         fabPhrases: Theme13Content.day2ShortTalk1Phrases,
         fabAnswers: const [
           FabAnswerItem(
@@ -907,7 +907,7 @@ M: Tôi hiểu, tôi nghĩ là chị nói đúng đấy. Chắc là tôi sẽ ph
         contentVi:
             '''Chúng ta đều biết rằng, cả việc luyện tập và chế độ ăn đều đóng một vai trò quan trọng trong cuộc sống hàng ngày của chúng ta. Tầm quan trọng của việc duy trì một sức khỏe tốt từ lâu đã được các chuyên gia về y tế và sức khỏe nhấn mạnh. Chúng tôi ở đây để mang đến cho bạn một sự khởi đầu mới. Chương trình của chúng tôi có tên là "Sức khỏe cho mọi người" kết hợp yếu tố dinh dưỡng và chế độ ăn với việc rèn luyện cơ thể đều đặn. Chúng ta không ai giống ai cả. Do vậy, khác với các chương trình giảm cân khác, các huấn luyện viên của chúng tôi sẽ cung cấp cho bạn một kế hoạch dinh dưỡng và luyện tập được thiết kế dành riêng cho cá nhân bạn. Chúng ta sẽ hợp tác cùng nhau để bạn đạt được kết quả mong muốn trong việc giảm cân bằng việc cung cấp cho bạn các công cụ cần thiết. Chúng tôi cam kết mang lại kết quả nhanh chóng. Đó là sự cam kết đem lại kết quả mong muốn sau 40 ngày.''',
         questions: _practice3Questions,
-        fabVocab: Theme13Content.day2ShortTalk2Vocab,
+        fabVocab: Theme13Content.shortTalk2Vocab,
         fabPhrases: Theme13Content.day2ShortTalk2Phrases,
         fabAnswers: const [
           FabAnswerItem(
@@ -972,32 +972,17 @@ M: Tôi hiểu, tôi nghĩ là chị nói đúng đấy. Chắc là tôi sẽ ph
   // ═══════════════════════════════════════════════════════════════
   // DAY 2 - FAB VOCABULARY & PHRASES
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ConversationVocab => [
-    const FabVocabItem(
-      wordEn: 'tennis elbow',
-      wordVi: 'Chứng đau nhức khuỷu tay',
-      pronunciation: '/ˈtɛnɪs ˈɛlboʊ/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'inflammation',
-      wordVi: 'Viêm nhiễm',
-      pronunciation: '/ˌɪnfləˈmeɪʃən/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'sports therapist',
-      wordVi: 'Bác sĩ trị liệu thể thao',
-      pronunciation: '/spɔːrts ˈθɛrəpɪst/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'ice pack',
-      wordVi: 'Túi chườm đá',
-      pronunciation: '/ˈaɪs pæk/',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+  static List<FabVocabItem> get day2ConversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get day2ConversationPhrases => [
     const FabPhraseItem(
@@ -1052,32 +1037,17 @@ M: Tôi hiểu, tôi nghĩ là chị nói đúng đấy. Chắc là tôi sẽ ph
   ];
 
   // SHORT TALK 1 FAB
-  static List<FabVocabItem> get day2ShortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'records',
-      wordVi: 'Hồ sơ',
-      pronunciation: '/ˈrɛkərdz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'medical history',
-      wordVi: 'Tiểu sử bệnh',
-      pronunciation: '/ˈmɛdɪkəl ˈhɪstəri/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'insurance form',
-      wordVi: 'Mẫu đơn bảo hiểm',
-      pronunciation: '/ɪnˈʃʊrəns fɔːrm/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'allergy',
-      wordVi: 'Dị ứng',
-      pronunciation: '/ˈælɜːrdʒi/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+  static List<FabVocabItem> get day2ShortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get day2ShortTalk1Phrases => [
     const FabPhraseItem(phrase: 'According to records', meaning: 'Theo hồ sơ'),
@@ -1119,32 +1089,17 @@ M: Tôi hiểu, tôi nghĩ là chị nói đúng đấy. Chắc là tôi sẽ ph
   ];
 
   // SHORT TALK 2 FAB
-  static List<FabVocabItem> get day2ShortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'exercise',
-      wordVi: 'Luyện tập',
-      pronunciation: '/ˈɛksərsaɪz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'nutrition',
-      wordVi: 'Dinh dưỡng',
-      pronunciation: '/nuːˈtrɪʃən/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'fitness program',
-      wordVi: 'Chương trình fitness',
-      pronunciation: '/ˈfɪtnəs ˈproʊɡræm/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'weight loss',
-      wordVi: 'Giảm cân',
-      pronunciation: '/ˈweɪt lɔːs/',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+  static List<FabVocabItem> get day2ShortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get day2ShortTalk2Phrases => [
     const FabPhraseItem(

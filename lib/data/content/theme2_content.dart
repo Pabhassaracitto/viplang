@@ -437,224 +437,49 @@ class Theme2Content {
   ];
 
   // ─── FAB DATA: Từ vựng cần nắm vững ────────────────────────────
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'Theme',
-      pronunciation: '/θiːm/',
-      wordVi: 'Chuyên đề',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'General',
-      pronunciation: '/ˈdʒɛnərəl/',
-      wordVi: 'Tổng quát, chung',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'Finance',
-      pronunciation: '/ˈfaɪnæns/',
-      wordVi: 'Tài chính',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Specific',
-      pronunciation: '/spəˈsɪfɪk/',
-      wordVi: 'Cụ thể',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'Term',
-      pronunciation: '/tɜːrm/',
-      wordVi: 'Thuật ngữ',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Relate',
-      pronunciation: '/rɪˈleɪt/',
-      wordVi: 'Liên quan tới',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'Corporate',
-      pronunciation: '/ˈkɔːrpərət/',
-      wordVi: 'Thuộc tập đoàn, thuộc doanh nghiệp',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'Business',
-      pronunciation: '/ˈbɪznəs/',
-      wordVi: 'Kinh doanh, doanh nghiệp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Entrepreneurial',
-      pronunciation: '/ˌɒntrəprəˈnɜːriəl/',
-      wordVi: 'Mang tính doanh nhân',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'Introduce',
-      pronunciation: '/ˌɪntrəˈduːs/',
-      wordVi: 'Giới thiệu',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'Negotiation',
-      pronunciation: '/nɪˌɡoʊʃiˈeɪʃən/',
-      wordVi: 'Cuộc đàm phán',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Mergers & Acquisitions',
-      pronunciation: '/ˈmɜːrdʒərz ænd ˌækwɪˈzɪʃənz/',
-      wordVi: 'Mua bán, sáp nhập doanh nghiệp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Bond',
-      pronunciation: '/bɑːnd/',
-      wordVi: 'Trái phiếu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Legal',
-      pronunciation: '/ˈliːɡəl/',
-      wordVi: 'Pháp lý',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'Contract',
-      pronunciation: '/ˈkɒntrækt/',
-      wordVi: 'Hợp đồng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Warranty',
-      pronunciation: '/ˈwɔːrənti/',
-      wordVi: 'Bảo hành',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Strategy',
-      pronunciation: '/ˈstrætədʒi/',
-      wordVi: 'Chiến lược',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Labour',
-      pronunciation: '/ˈleɪbər/',
-      wordVi: 'Lao động',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Franchise',
-      pronunciation: '/ˈfræntʃaɪz/',
-      wordVi: 'Nhượng quyền thương mại',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Mutual fund',
-      pronunciation: '/ˈmjuːtʃuəl fʌnd/',
-      wordVi: 'Quỹ tương hỗ',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'Consultancy',
-      pronunciation: '/kənˈsʌltənsi/',
-      wordVi: 'Tư vấn',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Buy-out',
-      pronunciation: '/ˈbaɪaʊt/',
-      wordVi: 'Thôn tính toàn bộ doanh nghiệp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Take-over',
-      pronunciation: '/ˈteɪkoʊvər/',
-      wordVi: 'Thôn tính một phần lớn doanh nghiệp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Reference',
-      pronunciation: '/ˈrefrəns/',
-      wordVi: 'Sự tham chiếu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Solicitor',
-      pronunciation: '/səˈlɪsɪtər/',
-      wordVi: 'Luật sư đại diện',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Counsel',
-      pronunciation: '/ˈkaʊnsl/',
-      wordVi: 'Cố vấn',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Subsidiary',
-      pronunciation: '/səbˈsɪdiəri/',
-      wordVi: 'Chi nhánh',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Headquarters',
-      pronunciation: '/ˈhedˌkwɔːrtərz/',
-      wordVi: 'Trụ sở chính',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Chief Executive Officer',
-      pronunciation: '/ˌtʃiːf ɪɡˈzekjətɪv ˈɑːfɪsər/',
-      wordVi: 'Tổng giám đốc điều hành',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'Chief Finance Officer',
-      pronunciation: '/tʃiːf faɪˈnæns ˈɒfɪsər/',
-      wordVi: 'Giám đốc tài chính',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'Stock',
-      pronunciation: '/stɒk/',
-      wordVi: 'Cổ phiếu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Division',
-      pronunciation: '/dɪˈvɪʒən/',
-      wordVi: 'Ban (trong tổ chức)',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Chain',
-      pronunciation: '/tʃeɪn/',
-      wordVi: 'Chuỗi',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Enterprise',
-      pronunciation: '/ˈentərpraɪz/',
-      wordVi: 'Doanh nghiệp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Retail',
-      pronunciation: '/ˈriːteɪl/',
-      wordVi: 'Bán lẻ',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'Advertisement',
-      pronunciation: '/ədˈvɜːrtɪsmənt/',
-      wordVi: 'Mục quảng cáo',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
+
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
+
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
+
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(phrase: 'Rather than sth', meaning: 'Hơn là cái gì'),
@@ -744,93 +569,7 @@ class Theme2Content {
     const FabAnswerItem(vi: 'bên còn lại', en: 'the other side'),
   ];
 
-  // ─── SHORT TALK VOCAB ─────────────────────────────────────────
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'sign a contract',
-      pronunciation: '/saɪn ə ˈkɒntrækt/',
-      wordVi: 'Ký hợp đồng',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'clear up',
-      pronunciation: '/klɪər ʌp/',
-      wordVi: 'Làm rõ',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'penalty',
-      pronunciation: '/ˈpenəlti/',
-      wordVi: 'Hình phạt',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'compensation',
-      pronunciation: '/ˌkɒmpənˈseɪʃən/',
-      wordVi: 'Bồi thường',
-      partOfSpeech: 'n',
-    ),
-  ];
-
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'announcement',
-      pronunciation: '/əˈnaʊnsmənt/',
-      wordVi: 'Thông báo',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'conclusion',
-      pronunciation: '/kənˈkluːʒən/',
-      wordVi: 'Kết luận',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'force',
-      pronunciation: '/fɔːrs/',
-      wordVi: 'Sức mạnh, lực lượng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'quarter',
-      pronunciation: '/ˈkwɔːrtər/',
-      wordVi: 'Quý (1/4 năm)',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'expert',
-      pronunciation: '/ˈekspɜːrt/',
-      wordVi: 'Chuyên gia',
-      partOfSpeech: 'n',
-    ),
-  ];
-
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'workshop',
-      pronunciation: '/ˈwɜːrkʃɒp/',
-      wordVi: 'Buổi hội thảo',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'negotiate',
-      pronunciation: '/nɪˈɡoʊʃieɪt/',
-      wordVi: 'Đàm phán',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'communication',
-      pronunciation: '/kəˌmjuːnɪˈkeɪʃən/',
-      wordVi: 'Giao tiếp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'consulting firm',
-      pronunciation: '/kənˈsʌltɪŋ fɜːrm/',
-      wordVi: 'Công ty tư vấn',
-      partOfSpeech: 'n',
-    ),
-  ];
+  // ─── SHORT TALK ANSWERS ───────────────────────────────────────
 
   static List<FabAnswerItem> get shortTalk1Answers => [
     const FabAnswerItem(

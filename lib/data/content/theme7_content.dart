@@ -398,80 +398,16 @@ class Theme7Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'section',
-      wordVi: 'Phần',
-      pronunciation: "/’sekʃn/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'banquet',
-      wordVi: 'Bữa đại tiệc',
-      pronunciation: '/ˈbæŋkwɪt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'reservation',
-      wordVi: 'Đặt chỗ trước',
-      pronunciation: '/ˌrezərˈveɪʃn/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'appetizer',
-      wordVi: 'Món khai vị',
-      pronunciation: '/ˈæpɪtaɪzər/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'dessert',
-      wordVi: 'Món tráng miệng',
-      pronunciation: '/dɪˈzɜːrt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'receipt',
-      wordVi: 'Biên lai',
-      pronunciation: '/rɪˈsiːt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'ambience',
-      wordVi: 'Không khí',
-      pronunciation: '/ˈæmbiəns/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'complimentary',
-      wordVi: 'Miễn phí',
-      pronunciation: '/ˌkɑːmplɪˈmentri/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'aromatic',
-      wordVi: 'Thơm',
-      pronunciation: '/ˌærəˈmætɪk/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'spicy',
-      wordVi: 'Nhiều gia vị',
-      pronunciation: '/ˈspaɪsi/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'roast',
-      wordVi: 'Quay',
-      pronunciation: '/roʊst/',
-      partOfSpeech: 'v/adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'recipe',
-      wordVi: 'Công thức nấu ăn',
-      pronunciation: '/ˈresəpi/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(phrase: 'Make reservations', meaning: 'Đặt chỗ trước'),
@@ -547,38 +483,16 @@ class Theme7Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 MindGame: Conversation
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'appealing',
-      wordVi: 'Hấp dẫn',
-      pronunciation: '/əˈpiːlɪŋ/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'particularly',
-      wordVi: 'Đặc biệt',
-      pronunciation: '/pərˈtɪkjələrli/',
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'exceptionally',
-      wordVi: 'Cực kỳ',
-      pronunciation: '/ɪkˈsepʃənəli/',
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'dessert',
-      wordVi: 'Món tráng miệng',
-      pronunciation: '/dɪˈzɜːrt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'main course',
-      wordVi: 'Món chính',
-      pronunciation: '/ˈmeɪn kɔːrs/',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(phrase: 'What to order', meaning: 'Gọi món gì'),
@@ -617,38 +531,16 @@ class Theme7Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 MindGame: Short Talk 1 (Alessandro's)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'faithfully',
-      wordVi: 'Tận tình',
-      pronunciation: '/ˈfeɪθfəli/',
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'accept',
-      wordVi: 'Chấp nhận',
-      pronunciation: '/əkˈsept/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'reservation',
-      wordVi: 'Đặt bàn',
-      pronunciation: '/ˌrezərˈveɪʃn/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'exact',
-      wordVi: 'Chính xác',
-      pronunciation: '/ɪɡˈzækt/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'contact',
-      wordVi: 'Liên lạc',
-      pronunciation: '/ˈkɑːntækt/',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(
@@ -696,38 +588,16 @@ class Theme7Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 MindGame: Short Talk 2 (Vine and Dine)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'dressing',
-      wordVi: 'Nước sốt',
-      pronunciation: '/ˈdresɪŋ/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'purchased fresh',
-      wordVi: 'Mua khi còn tươi',
-      pronunciation: '/ˈpɜːrtʃəst freʃ/',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'local farmers',
-      wordVi: 'Nông dân địa phương',
-      pronunciation: '/ˈloʊkəl ˈfɑːrmərz/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'look over',
-      wordVi: 'Xem qua',
-      pronunciation: '/lʊk ˈoʊvər/',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'decision',
-      wordVi: 'Quyết định',
-      pronunciation: '/dɪˈsɪʒən/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(

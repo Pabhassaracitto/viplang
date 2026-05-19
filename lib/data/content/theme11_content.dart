@@ -330,182 +330,16 @@ class Theme11Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'manufacturing',
-      wordVi: 'Sự sản xuất, sự chế tạo',
-      pronunciation: "/;mænjÁ’fæktÐÊrûÅ/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'factory',
-      wordVi: 'Nhà máy (sản xuất)',
-      pronunciation: "/’fæktÊri/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'assembly lines',
-      wordVi: 'Các dây chuyền lắp ráp',
-      pronunciation: "/ë ’sembli laûnz/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'plant management',
-      wordVi: 'Việc quản lý nhà máy, ban quản lý nhà máy',
-      pronunciation: "/plænt ’mænûdžmënt/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'quality control',
-      wordVi: 'Sự kiểm soát chất lượng',
-      pronunciation: "/’kwä:lÂti kën ’tro|l/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'labour relations',
-      wordVi: 'Các mối quan hệ lao động',
-      pronunciation: "/’leûbër rû ’leûÐÊnz/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'working shifts',
-      wordVi: 'Các ca làm việc',
-      pronunciation: "/’wî:rkûÅ Ðûfts/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'efficiency of operation',
-      wordVi: 'Hiệu quả hoạt động',
-      pronunciation: "/û ’fûÐÊnsi ëv ;ä:pë ’reûÐÊn/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'office building',
-      wordVi: 'Tòa nhà văn phòng',
-      pronunciation: "/’ä:fÂs ’bûldûÅ/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'defective',
-      wordVi: 'Có thiếu sót, có khiếm khuyết',
-      pronunciation: "/dû ’fektûv/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'substandard',
-      wordVi: 'Không đạt tiêu chuẩn, dưới tiêu chuẩn',
-      pronunciation: "/;sšb’stændërd/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'flaw',
-      wordVi: 'Sự thiếu sót, sai lầm',
-      pronunciation: "/flã:/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'flawed',
-      wordVi: 'Không hoàn thiện, thiếu sót',
-      pronunciation: "/flã:d/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'disruption',
-      wordVi: 'Tình trạng trì trệ',
-      pronunciation: "/dûs ’ršpÐÊn/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'skilled worker',
-      wordVi: 'Công nhân lành nghề',
-      pronunciation: "/skûld ’wî:rkër/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'product testing',
-      wordVi: 'Việc thử nghiệm sản phẩm',
-      pronunciation: "/’prä:dškt ’testûÅ/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'packaging',
-      wordVi: 'Bao bì đóng gói, quá trình đóng gói hàng',
-      pronunciation: "/’pækûdžûÅ/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'transportation',
-      wordVi: 'Phương tiện vận tải, sự vận chuyển',
-      pronunciation: "/;trænspër’teûÐÊn/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'process',
-      wordVi: 'Quá trình, quy trình',
-      pronunciation: "/’prä:ses/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'component',
-      wordVi: 'Bộ phận, chi tiết (máy)',
-      pronunciation: "/këm’po|nënt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'assemble',
-      wordVi: 'Lắp ráp',
-      pronunciation: "/ë ’sembÊl/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'automated',
-      wordVi: 'Mang tính tự động hoá',
-      pronunciation: "/’ã:tëmeûtÂd/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'automation',
-      wordVi: 'Sự tự động hoá',
-      pronunciation: "/;ã:të ’meûÐÊn/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'delay',
-      wordVi: 'Sự trì hoãn, sự đình trệ',
-      pronunciation: "/dû ’leû/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'interruption',
-      wordVi: 'Sự gián đoạn',
-      pronunciation: "/ˌɪntəˈrʌpʃən/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'maintenance',
-      wordVi: 'Sự bảo dưỡng, bảo trì',
-      pronunciation: "/’meûntÊnëns/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'break down',
-      wordVi: 'Hỏng hóc',
-      pronunciation: "/breûk da|n/",
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'creative thinking',
-      wordVi: 'Tư duy sáng tạo',
-      pronunciation: "/kri’eûtûv ’ØûÅkûÅ/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'come up with a solution',
-      wordVi: 'Nghĩ ra một giải pháp',
-      pronunciation: "/kšm šp wûð ë së ’lu:ÐÊn/",
-      partOfSpeech: 'vp',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(
@@ -561,38 +395,16 @@ class Theme11Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation (Factory Closure)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'shut down',
-      wordVi: 'Đóng cửa (nhà máy)',
-      pronunciation: '/ʃʌt daʊn/',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'labor costs',
-      wordVi: 'Chi phí nhân công',
-      pronunciation: '/ˈleɪbər kɔːsts/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'transfer',
-      wordVi: 'Chuyển đến',
-      pronunciation: '/trænsˈfɜːr/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'severance package',
-      wordVi: 'Gói trợ cấp thôi việc',
-      pronunciation: '/ˈsevərəns ˈpækɪdʒ/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'uproot',
-      wordVi: 'Rời bỏ, nhổ rễ',
-      pronunciation: '/ʌpˈruːt/',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => const [
     FabPhraseItem(phrase: 'Shut down the factory', meaning: 'đóng cửa nhà máy'),
@@ -646,38 +458,16 @@ class Theme11Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 (Quality Control)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'strict quality control',
-      wordVi: 'Kiểm soát chất lượng nghiêm ngặt',
-      pronunciation: '/strɪkt ˈkwɑːlɪti kənˈtroʊl/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'defective products',
-      wordVi: 'Những sản phẩm bị lỗi',
-      pronunciation: '/dɪˈfektɪv ˈprɑːdʌkts/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'inspect',
-      wordVi: 'Kiểm tra',
-      pronunciation: '/ɪnˈspekt/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'conform to',
-      wordVi: 'Tuân theo, phù hợp với',
-      pronunciation: '/kənˈfɔːrm tuː/',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'refund',
-      wordVi: 'Sự hoàn trả lại tiền',
-      pronunciation: '/ˈriːfʌnd/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => const [
     FabPhraseItem(
@@ -730,38 +520,16 @@ class Theme11Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 (Return Policy)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'purchase',
-      wordVi: 'Hàng hoá đã mua',
-      pronunciation: '/ˈpɜːrtʃəs/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'polite',
-      wordVi: 'Lịch sự',
-      pronunciation: '/pəˈlaɪt/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'store credit',
-      wordVi: 'Phiếu đổi hàng',
-      pronunciation: '/stɔːr ˈkredɪt/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'returned goods',
-      wordVi: 'Hàng hoá trả lại',
-      pronunciation: '/rɪˈtɜːrnd ɡʊdz/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'assist',
-      wordVi: 'Giúp đỡ, hỗ trợ',
-      pronunciation: '/əˈsɪst/',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => const [
     FabPhraseItem(

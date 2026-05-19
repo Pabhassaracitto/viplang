@@ -544,74 +544,16 @@ class Theme6Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'office supplies',
-      pronunciation: '/ˈɔːfɪs səˈplaɪz/',
-      wordVi: 'Đồ dùng/thiết bị văn phòng',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'invoice',
-      pronunciation: '/ˈɪnvɔɪs/',
-      wordVi: 'Hoá đơn',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'billing',
-      pronunciation: '/ˈbɪlɪŋ/',
-      wordVi: 'Việc lập hoá đơn',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'credit terms',
-      pronunciation: '/ˈkredɪt tɜːrmz/',
-      wordVi: 'Điều khoản tín dụng',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'photocopy toner',
-      pronunciation: '/ˈfoʊtəˌkɑːpi ˈtoʊnər/',
-      wordVi: 'Hộp mực in laze',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'binders',
-      pronunciation: '/ˈbaɪndərz/',
-      wordVi: 'Bìa tài liệu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'file boxes',
-      pronunciation: '/faɪl ˈbɑːksɪz/',
-      wordVi: 'Hộp đựng tài liệu',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'raw materials',
-      pronunciation: '/rɔː məˈtɪriəlz/',
-      wordVi: 'Nguyên liệu thô',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'bill of lading',
-      pronunciation: '/ˌbɪl əv ˈleɪdɪŋ/',
-      wordVi: 'Vận đơn đường biển',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'customs',
-      pronunciation: '/ˈkʌstəmz/',
-      wordVi: 'Hải quan',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'excise tax',
-      pronunciation: '/ˈeksaɪz tæks/',
-      wordVi: 'Thuế tiêu thụ đặc biệt',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(phrase: 'Deal with', meaning: 'Đề cập tới/giải quyết'),
@@ -671,38 +613,16 @@ class Theme6Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation (toner sales call)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'toner',
-      pronunciation: '/ˈtoʊnər/',
-      wordVi: 'Hộp mực in (toner)',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'cartridge',
-      pronunciation: '/ˈkɑːrtrɪdʒ/',
-      wordVi: 'Hộp mực (cartridge)',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'supplier',
-      pronunciation: '/səˈplaɪər/',
-      wordVi: 'Nhà cung cấp',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'in stock',
-      pronunciation: '/ɪn stɑːk/',
-      wordVi: 'Trong kho/có hàng',
-      partOfSpeech: 'prep.p',
-    ),
-    const FabVocabItem(
-      wordEn: 'pricing',
-      pronunciation: '/ˈpraɪsɪŋ/',
-      wordVi: 'Giá cả/bảng giá',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(
@@ -785,56 +705,16 @@ class Theme6Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 (Supermarket announcement)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'specials',
-      pronunciation: '/ˈspeʃəlz/',
-      wordVi: 'Hàng giảm giá đặc biệt',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'valid',
-      pronunciation: '/ˈvælɪd/',
-      wordVi: 'Có hiệu lực',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'exclude',
-      pronunciation: '/ɪkˈskluːd/',
-      wordVi: 'Loại trừ',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'voucher',
-      pronunciation: '/ˈvaʊtʃər/',
-      wordVi: 'Phiếu mua hàng giảm giá',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'complimentary',
-      pronunciation: '/ˌkɑːmplɪˈmentri/',
-      wordVi: 'Miễn phí',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'muffin',
-      pronunciation: '/ˈmʌfɪn/',
-      wordVi: 'Bánh nướng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'main entrance',
-      pronunciation: '/meɪn ˈentrəns/',
-      wordVi: 'Cửa chính',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'checkout counter',
-      pronunciation: '/ˈtʃekaʊt ˈkaʊntər/',
-      wordVi: 'Quầy thanh toán',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(phrase: 'Take advantage of', meaning: 'Tận dụng'),
@@ -884,62 +764,16 @@ class Theme6Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 (OfficeMax voicemail)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'photocopier',
-      pronunciation: '/ˈfoʊtəˌkɑːpiər/',
-      wordVi: 'Máy phô-tô',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'fax machine',
-      pronunciation: '/fæks məˈʃiːn/',
-      wordVi: 'Máy fax',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'unavailable',
-      pronunciation: '/ˌʌnəˈveɪləbəl/',
-      wordVi: 'Không có sẵn',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'in stock',
-      pronunciation: '/ɪn stɑːk/',
-      wordVi: 'Trong kho',
-      partOfSpeech: 'prep.p',
-    ),
-    const FabVocabItem(
-      wordEn: 'comparable',
-      pronunciation: '/ˈkɑːmpərəbl/',
-      wordVi: 'Tương tự',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'loan',
-      pronunciation: '/loʊn/',
-      wordVi: 'Cho mượn',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'shipment',
-      pronunciation: '/ˈʃɪpmənt/',
-      wordVi: 'Lô hàng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'proceed',
-      pronunciation: '/prəˈsiːd/',
-      wordVi: 'Tiến hành/giải quyết',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'cooperation',
-      pronunciation: '/koʊˌɑːpəˈreɪʃən/',
-      wordVi: 'Sự hợp tác',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(

@@ -474,80 +474,16 @@ class Theme8Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading Vocabulary
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'Human Resources',
-      wordVi: 'Nguồn nhân lực',
-      pronunciation: "/’hju:mën ’ri:sé:rsiz/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'directly',
-      wordVi: 'Một cách trực tiếp',
-      pronunciation: "/daû ’rektli/",
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'involve',
-      wordVi: 'Liên quan, bao gồm',
-      pronunciation: "/ûn ’vä:lv/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'recruit',
-      wordVi: 'Tuyển dụng',
-      pronunciation: "/rû ’kru:t/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'advertise',
-      wordVi: 'Quảng cáo',
-      pronunciation: "/’ædvërtaûz/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'salary',
-      wordVi: 'Lương (thường trả theo tháng)',
-      pronunciation: "/’sælëri/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'promotion',
-      wordVi: 'Sự thăng tiến',
-      pronunciation: "/prë ’mo|ÐÊn/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'pension',
-      wordVi: 'Lương hưu',
-      pronunciation: "/’penÐÊn/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'performance review',
-      wordVi: 'Bản đánh giá hiệu quả công việc',
-      pronunciation: "/pë ’fé:mëns rû ’vju:/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'absence',
-      wordVi: 'Sự vắng mặt',
-      pronunciation: "/’æbsÊns/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'tardiness',
-      wordVi: 'Sự đi muộn, việc đến muộn',
-      pronunciation: "/’tɑdɪnəs/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'benefit',
-      wordVi: 'Phúc lợi',
-      pronunciation: "/’benÂfût/",
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(
@@ -615,38 +551,16 @@ class Theme8Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation Vocabulary
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'retirement',
-      wordVi: 'Nghỉ hưu',
-      pronunciation: '/rɪˈtaɪərmənt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'replacement',
-      wordVi: 'Người thay thế',
-      pronunciation: '/rɪˈpleɪsmənt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'suitable',
-      wordVi: 'Phù hợp',
-      pronunciation: '/ˈsuːtəbəl/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'train',
-      wordVi: 'Đào tạo',
-      pronunciation: '/treɪn/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'recruit',
-      wordVi: 'Người được tuyển dụng',
-      pronunciation: '/ˈriːkruːt/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(
@@ -694,38 +608,16 @@ class Theme8Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 Vocabulary (Job Hotline)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'job hotline',
-      wordVi: 'Đường dây nóng tuyển dụng',
-      pronunciation: '/ˈdʒɑːb ˈhɑːtlaɪn/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'background',
-      wordVi: 'Nền tảng kiến thức',
-      pronunciation: '/ˈbækɡraʊnd/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'job description',
-      wordVi: 'Mô tả công việc',
-      pronunciation: '/ˈdʒɑːb dɪˈskrɪpʃən/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'application status',
-      wordVi: 'Trạng thái hồ sơ',
-      pronunciation: '/ˌæplɪˈkeɪʃən ˈsteɪtəs/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'relevant information',
-      wordVi: 'Thông tin liên quan',
-      pronunciation: '/ˈreləvənt ɪnˈfɔːrmeɪʃən/',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(
@@ -770,38 +662,16 @@ class Theme8Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 Vocabulary (Raise & Bonus Evaluation)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'raise',
-      wordVi: 'Tăng lương',
-      pronunciation: '/reɪz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'evaluation',
-      wordVi: 'Đánh giá',
-      pronunciation: '/ˌevæljˈueɪʃən/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'supervisor',
-      wordVi: 'Cấp trên trực tiếp',
-      pronunciation: '/ˈsuːpərvaɪzər/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'responsibility',
-      wordVi: 'Trách nhiệm',
-      pronunciation: '/rɪˌspɑːnsəˈbɪləti/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'withdraw',
-      wordVi: 'Rút lại',
-      pronunciation: '/wɪðˈdrɔː/',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(phrase: 'Short notice', meaning: 'Thông báo gấp'),

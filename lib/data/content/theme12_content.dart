@@ -479,38 +479,49 @@ class Theme12Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB VOCABULARY - DAY 1
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day1ReadingVocab => const [
-    FabVocabItem(
-      wordEn: 'housing',
-      wordVi: 'Nhà ở',
-      pronunciation: "/’ha|zûÅ/",
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'building construction',
-      wordVi: 'Xây dựng tòa nhà',
-      pronunciation: "/’bûldûÅ kën ’strškÐÊn/",
-      partOfSpeech: 'np',
-    ),
-    FabVocabItem(
-      wordEn: 'renovation',
-      wordVi: 'Nâng cấp/Cải tạo',
-      pronunciation: "/;renë ’veûÐÊn/",
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'utilities',
-      wordVi: 'Dịch vụ tiện ích',
-      pronunciation: "/ju:’tûlÂtûz ’sî:rvÂsûz/",
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'lease',
-      wordVi: 'Hợp đồng thuê',
-      pronunciation: '/li:s/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
+
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
+
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
+
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get day1ReadingPhrases => const [
     FabPhraseItem(phrase: 'Building construction', meaning: 'Xây dựng'),
@@ -547,30 +558,6 @@ class Theme12Content {
     FabAnswerItem(vi: 'kiến trúc sư', en: 'architect'),
   ];
 
-  // ═══════════════════════════════════════════════════════════════
-  // FAB - DAY 2 CONVERSATION
-  // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ConversationVocab => const [
-    FabVocabItem(
-      wordEn: 'spacious',
-      wordVi: 'Rộng rãi',
-      pronunciation: '/’speûÐës/',
-      partOfSpeech: 'adj',
-    ),
-    FabVocabItem(
-      wordEn: 'lease',
-      wordVi: 'Hợp đồng thuê',
-      pronunciation: '/li:s/',
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'rent increase',
-      wordVi: 'Tăng tiền thuê',
-      pronunciation: '/rent ûn’kri:s/',
-      partOfSpeech: 'np',
-    ),
-  ];
-
   static List<FabPhraseItem> get day2ConversationPhrases => const [
     FabPhraseItem(phrase: 'In walking distance', meaning: 'Trong tầm đi bộ'),
     FabPhraseItem(phrase: 'Prestige building', meaning: 'Tòa nhà cao cấp'),
@@ -605,30 +592,6 @@ class Theme12Content {
     FabAnswerItem(vi: 'bản hợp đồng đó', en: 'that lease'),
     FabAnswerItem(vi: 'khi nó kết thúc', en: 'when it ends'),
     FabAnswerItem(vi: 'chắc chắn', en: 'no doubt'),
-  ];
-
-  // ═══════════════════════════════════════════════════════════════
-  // FAB - DAY 2 SHORT TALK 1
-  // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ShortTalk1Vocab => const [
-    FabVocabItem(
-      wordEn: 'remarkably',
-      wordVi: 'Đáng kể',
-      pronunciation: '/rû’mä:rkëbli/',
-      partOfSpeech: 'adv',
-    ),
-    FabVocabItem(
-      wordEn: 'condition',
-      wordVi: 'Tình trạng',
-      pronunciation: '/kën’dûÐÊn/',
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'renovated',
-      wordVi: 'Được cải tạo',
-      pronunciation: '/;renë’veûtûd/',
-      partOfSpeech: 'adj',
-    ),
   ];
 
   static List<FabPhraseItem> get day2ShortTalk1Phrases => const [
@@ -697,30 +660,6 @@ class Theme12Content {
     FabAnswerItem(vi: 'có thể chi trả', en: 'can afford'),
   ];
 
-  // ═══════════════════════════════════════════════════════════════
-  // FAB - DAY 2 SHORT TALK 2
-  // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get day2ShortTalk2Vocab => const [
-    FabVocabItem(
-      wordEn: 'leasing',
-      wordVi: 'Cho thuê',
-      pronunciation: '/’li:sûÅ/',
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'premises',
-      wordVi: 'Cơ sở kinh doanh',
-      pronunciation: '/’premÂsûz/',
-      partOfSpeech: 'n',
-    ),
-    FabVocabItem(
-      wordEn: 'rental rate',
-      wordVi: 'Đơn giá cho thuê',
-      pronunciation: '/’rentl reût/',
-      partOfSpeech: 'np',
-    ),
-  ];
-
   static List<FabPhraseItem> get day2ShortTalk2Phrases => const [
     FabPhraseItem(phrase: 'Make sure', meaning: 'Chắc chắn rằng'),
     FabPhraseItem(phrase: 'Look for', meaning: 'Tìm kiếm'),
@@ -759,7 +698,7 @@ Chuyên đề này liên quan đến, và cũng chổng chéo với các chuyên
 Các từ vựng thường gặp là: các danh từ chỉ người như người giám sát, người gác cửa, lao công, kỹ thuật viên, người đo vẽ bản đổ địa hình, công nhân xây dựng, nhân viên bãi đỗ xe, quản lý văn phòng, người điều khiển xe nâng, nhân viên an ninh, thợ điện, kiến trúc sư.
 
 Các đoạn hội thoại và các bài đọc sẽ tập trung vào nội dung như việc cung cấp các dịch vụ tiện ích, phàn nàn vể việc tính sai hoá đơn cho những dịch vụ như trên, việc lên kế hoạch nâng cấp hoặc sửa chữa, những sự trì hoãn, an toàn ở công trường, hay việc thiết kế các văn phòng. Bạn cũng có thể nghe thấy các đoạn hội thoại về việc thuê các cơ sở kinh doanh, hợp đổng cho thuê, chấm dứt hợp đổng cho thuê, hợp đổng dài hạn và ngắn hạn, tiền đặt cọc. Các từ có nghĩa tương tự nhau, chỉ khác ứ"! chút bao gồm: fix và repair (sửa chữa), refurbish, refit, và renovate (cải tạo).''',
-        fabVocab: Theme12Content.day1ReadingVocab,
+        fabVocab: Theme12Content.readingVocab,
         fabPhrases: Theme12Content.day1ReadingPhrases,
       ),
       LessonPhase(
@@ -871,7 +810,7 @@ W: Nó nghe có vẻ thật lý tưởng. Nhưng anh có lẽ đang phải trả
 M: Tôi đang trả khoản tiền giống như tôi đã chi trả cho nơi ở cũ của tôi. Tôi thuê nó từ một người mà đang thuê nó rồi nhưng chuẩn bị đi nước ngoài. Anh ta đã đồng ý cho tôi thuê lại bằng với khoản tiền tôi đã trả trước đó và anh ta sẽ bù vào khoản chênh lệch.
 W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gian trong hợp đồng bởi vì khi nó kết thúc anh chắc chắn sẽ đối mặt với một mức tăng lớn về tiền thuê nhà.''',
         questions: _practice1Questions,
-        fabVocab: Theme12Content.day2ConversationVocab,
+        fabVocab: Theme12Content.conversationVocab,
         fabPhrases: Theme12Content.day2ConversationPhrases,
         fabAnswers: [
           const FabAnswerItem(
@@ -899,7 +838,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         contentVi:
             '''Nào, bây giờ cho phép tôi giới thiệu với quý vị về ngôi nhà này. Ngôi nhà này được xây dựng vào những năm 1930 và như quý vị có thể thấy, nó vẫn trong điều kiện rất tốt so với tuổi thọ của mình. Nếu quý vị đi theo tôi qua cánh cửa chính, quý vị sẽ thấy nhà bếp khá rộng rãi vì nó đã được sửa sang lại toàn bộ cách đây chỉ 3 tháng. Phòng khách cũng rất lớn. Có nhiều không gian cho các đồ nội thất, và cửa sổ nhìn ra vịnh làm cho căn phòng sáng sủa và tươi vui cho tới tận lúc chập tối. Và xin hãy chú ý tới sàn nhà lát gỗ tự nhiên trong căn phòng này. Đó là điều mà quý vị khó có thể tìm thấy trong bất kỳ ngôi nhà nào ở mức giá này. Xin cứ tự nhiên tham quan xung quanh và một lát nữa chúng ta sẽ đi lên tầng trên để xem cái phòng tắm lớn.''',
         questions: _practice2Questions,
-        fabVocab: Theme12Content.day2ShortTalk1Vocab,
+        fabVocab: Theme12Content.shortTalk1Vocab,
         fabPhrases: Theme12Content.day2ShortTalk1Phrases,
         fabAnswers: [
           const FabAnswerItem(
@@ -927,7 +866,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         contentVi:
             '''Thưa các quý vị, tôi ở đây ngày hôm nay để cung cấp cho quý vị một vài lời khuyên về việc thuê các cơ sở kinh doanh mà tôi nghĩ hầu hết các quý vị sẽ cảm thấy hữu ích. Trước khi đặt bút ký vào một hợp đồng thuê địa điểm kinh doanh, hãy chắc chắn là quý vị đã tìm được địa điểm tốt nhất. Hãy tìm kiếm những dấu hiệu của khu vực quanh đây tốt cho công việc kinh doanh. Ví dụ như, có các công ty thành công nào khác đang làm ăn ở gần đó không? Địa điểm đó có thuận tiện kết nối với giao thông công cộng không? Khu vực đó có thuận tiện cho khách hàng không? Nếu các điều kiện không thích hợp cho việc kinh doanh của quý vị, hãy xem xét các lựa chọn khác. Đừng buộc mình phải ký một hợp đồng thuê dài hạn đối với một địa điểm không phù hợp với quý vị. Khi quý vị đã tìm được không gian thích hợp cho việc kinh doanh, quý vị có thể tiến hành cân nhắc về việc ký một hợp đồng thuê dài hạn. Giá thuê thường dao động và phụ thuộc vào thời gian thuê. Đối với các doanh nghiệp vừa và nhỏ như của quý vị, tôi nghĩ việc ký một hợp đồng thuê có thời hạn khoảng 5 năm sẽ là một ý hay. Như thế, quý vị được bảo đảm về khoản tiền thuê mà quý vị có thể chi trả.''',
         questions: _practice3Questions,
-        fabVocab: Theme12Content.day2ShortTalk2Vocab,
+        fabVocab: Theme12Content.shortTalk2Vocab,
         fabPhrases: Theme12Content.day2ShortTalk2Phrases,
         fabAnswers: [
           const FabAnswerItem(
@@ -950,7 +889,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         titleEn: 'Memory Training: Apartment Rental',
         titleVi: 'Huấn luyện Trí nhớ: Thuê căn hộ',
         mixedSegments: _day2ConversationSegments,
-        fabVocab: Theme12Content.day2ConversationVocab,
+        fabVocab: Theme12Content.conversationVocab,
         fabPhrases: Theme12Content.day2ConversationPhrases,
         fabAnswers: Theme12Content.day2ConversationAnswers,
       ),
@@ -960,7 +899,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         titleEn: 'Memory Training: House Tour',
         titleVi: 'Huấn luyện Trí nhớ: Tham quan nhà',
         mixedSegments: _day2ShortTalk1Segments,
-        fabVocab: Theme12Content.day2ShortTalk1Vocab,
+        fabVocab: Theme12Content.shortTalk1Vocab,
         fabPhrases: Theme12Content.day2ShortTalk1Phrases,
         fabAnswers: Theme12Content.day2ShortTalk1Answers,
       ),
@@ -970,7 +909,7 @@ W: Điều đó thật tuyệt. Tôi chỉ hi vọng sẽ còn nhiều thời gi
         titleEn: 'Memory Training: Business Leasing',
         titleVi: 'Huấn luyện Trí nhớ: Thuê kinh doanh',
         mixedSegments: _day2ShortTalk2Segments,
-        fabVocab: Theme12Content.day2ShortTalk2Vocab,
+        fabVocab: Theme12Content.shortTalk2Vocab,
         fabPhrases: Theme12Content.day2ShortTalk2Phrases,
         fabAnswers: Theme12Content.day2ShortTalk2Answers,
       ),

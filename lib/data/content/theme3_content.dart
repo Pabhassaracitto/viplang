@@ -456,7 +456,7 @@ class Theme3Content {
       id: 'v03_41',
       wordEn: 'lab technician',
       wordVi: 'kỹ thuật viên phòng thí nghiệm',
-      pronunciation: "/líEb t e k 'm jW/",
+      pronunciation: "/liEb t e k 'm jW/",
       partOfSpeech: 'np',
       themeId: 'theme_03_technical_areas',
       exampleEn: 'The lab technician prepared the samples for the experiment.',
@@ -495,199 +495,16 @@ class Theme3Content {
     ),
   ];
 
-  // ═══════════════════════════════════════════════════════════════
-  // FAB DATA: Từ vựng cần nắm vững theo từng bài
-  // ═══════════════════════════════════════════════════════════════
-
-  // ── FAB cho bài đọc Day 1 ──
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'technical areas',
-      pronunciation: "/'tekm kc?l 'erio z/",
-      wordVi: 'Các lĩnh vực kỹ thuật',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'housing',
-      pronunciation: "/'h ao zig /",
-      wordVi: 'Nhà đất',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'previous',
-      pronunciation: "/'p rirvio s/",
-      wordVi: 'Trước đó',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'include',
-      pronunciation: "/ in 'k lu :d /",
-      wordVi: 'Bao gồm, gồm có',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'laboratory',
-      pronunciation: "/'laebrstD iri/",
-      wordVi: 'Phòng thí nghiệm',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'technical personnel',
-      pronunciation: "/'teknikc?l P3irs9'nel/",
-      wordVi: 'Nhân viên kỹ thuật',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'specialized equipment',
-      pronunciation: "/'spejolaizd I'kw ip m o nt/",
-      wordVi: 'Thiết bị chuyên dụng',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'specification',
-      pronunciation: "/ sp e sẳ fà 'k e ij> n /",
-      wordVi: 'Đặc điểm kỹ thuật, chi tiết kỹ thuật',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'electronics',
-      pronunciation: "/ e lik 't r a :m k s /",
-      wordVi: 'Điện tử',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'technology',
-      pronunciation: "/tek'nci:l3d3i/",
-      wordVi: 'Công nghệ',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'technical issues',
-      pronunciation: "/'te km k ^ l 'iJ'u:z/",
-      wordVi: 'Các vấn đề về kỹ thuật',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'resolve',
-      pronunciation: "/ n 'z a :lv /",
-      wordVi: 'Giải quyết (một vấn đề)',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'software',
-      pronunciation: "/rsa:ftwer/",
-      wordVi: 'Phần mềm',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'hardware',
-      pronunciation: "/'h a ird w e r/",
-      wordVi: 'Phần cứng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'scientist',
-      pronunciation: "/'sa io n U st/",
-      wordVi: 'Nhà khoa học',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'lab technician',
-      pronunciation: "/líEb t e k 'm jW/",
-      wordVi: 'Kỹ thuật viên phòng thí nghiệm',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'flask',
-      pronunciation: '/flæsk/',
-      wordVi: 'Bình giữ nhiệt, bình thí nghiệm',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'test tube',
-      pronunciation: '/test tuːb/',
-      wordVi: 'Ống nghiệm',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'research',
-      pronunciation: '/ˈriːsɜːrtʃ/',
-      wordVi: 'Nghiên cứu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'hazard',
-      pronunciation: '/ˈhæzərd/',
-      wordVi: 'Rủi ro, mối nguy hiểm',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'programmer',
-      pronunciation: '/ˈproʊɡræmər/',
-      wordVi: 'Lập trình viên',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'malfunction',
-      pronunciation: '/mælˈfʌŋkʃən/',
-      wordVi: 'Lỗi kỹ thuật',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'glitch',
-      pronunciation: '/ɡlɪtʃ/',
-      wordVi: 'Sự cố kỹ thuật nhỏ',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'microscope',
-      pronunciation: '/ˈmaɪkrəskoʊp/',
-      wordVi: 'Kính hiển vi',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'crash',
-      pronunciation: '/kræʃ/',
-      wordVi: 'Sập, ngừng hoạt động',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'application',
-      pronunciation: '/ˌæplɪˈkeɪʃən/',
-      wordVi: 'Ứng dụng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'platform',
-      pronunciation: '/ˈplætfɔːrm/',
-      wordVi: 'Nền tảng',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'compatible',
-      pronunciation: '/kəmˈpætɪbəl/',
-      wordVi: 'Tương thích',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'scan',
-      pronunciation: '/skæn/',
-      wordVi: 'Quét (virus)',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'purge',
-      pronunciation: '/pɜːrdʒ/',
-      wordVi: 'Dọn dẹp',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'reboot',
-      pronunciation: '/ˌriːˈbuːt/',
-      wordVi: 'Khởi động lại',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(
@@ -742,38 +559,16 @@ class Theme3Content {
   ];
 
   // ── FAB cho Conversation (Practice 1) ──
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'operating system',
-      pronunciation: '/ˈɑːpəreɪtɪŋ ˈsɪstəm/',
-      wordVi: 'Hệ điều hành',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'background programs',
-      pronunciation: '/ˈbækɡraʊnd ˈproʊɡræmz/',
-      wordVi: 'Chương trình nền',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'word processing program',
-      pronunciation: '/wɜːrd ˈprɑːsesɪŋ ˈproʊɡræm/',
-      wordVi: 'Chương trình xử lý văn bản',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'expert',
-      pronunciation: '/ˈekspɜːrt/',
-      wordVi: 'Chuyên gia',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'virus',
-      pronunciation: '/ˈvaɪrəs/',
-      wordVi: 'Vi-rút',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(
@@ -814,68 +609,16 @@ class Theme3Content {
   ];
 
   // ── FAB cho Short Talk 1 (Hotline) ──
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'maintenance hotline',
-      pronunciation: '/ˈmeɪntənəns ˈhɑːtlaɪn/',
-      wordVi: 'Đường dây nóng hỗ trợ KT',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'value',
-      pronunciation: '/ˈvæljuː/',
-      wordVi: 'Đánh giá cao, coi trọng',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'operator',
-      pronunciation: '/ˈɑːpəreɪtər/',
-      wordVi: 'Tổng đài viên',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'at the moment',
-      pronunciation: '/æt ðə ˈmoʊmənt/',
-      wordVi: 'Hiện tại, hiện thời',
-      partOfSpeech: 'prep.p',
-    ),
-    const FabVocabItem(
-      wordEn: 'in line',
-      pronunciation: '/ɪn laɪn/',
-      wordVi: 'Xếp hàng, đang đợi',
-      partOfSpeech: 'prep.p',
-    ),
-    const FabVocabItem(
-      wordEn: 'press',
-      pronunciation: '/pres/',
-      wordVi: 'Ấn, nhấn',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'description',
-      pronunciation: '/dɪˈskrɪpʃən/',
-      wordVi: 'Sự miêu tả',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'computer model number',
-      pronunciation: '/kəmˈpjuːtər ˈmɑːdl ˈnʌmbər/',
-      wordVi: 'Mã số máy tính',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'customer account number',
-      pronunciation: '/ˈkʌstəmər əˈkaʊnt ˈnʌmbər/',
-      wordVi: 'Mã số tài khoản KH',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'repeat',
-      pronunciation: '/rɪˈpiːt/',
-      wordVi: 'Nhắc lại, lặp lại',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(
@@ -936,116 +679,16 @@ class Theme3Content {
   ];
 
   // ── FAB cho Short Talk 2 (Upgrade) ──
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'break down',
-      pronunciation: '/breɪk daʊn/',
-      wordVi: 'Bị hỏng',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'get rid of',
-      pronunciation: '/ɡet rɪd ɑːv/',
-      wordVi: 'Loại bỏ',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'technician',
-      pronunciation: '/tekˈnɪʃən/',
-      wordVi: 'Kỹ thuật viên',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'replace',
-      pronunciation: '/rɪˈpleɪs/',
-      wordVi: 'Thay thế',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'entire',
-      pronunciation: '/ɪnˈtaɪr/',
-      wordVi: 'Toàn bộ',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'computer system',
-      pronunciation: '/kəmˈpjuːtər ˈsɪstəm/',
-      wordVi: 'Hệ thống máy tính',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'latest model',
-      pronunciation: '/ˈleɪtɪst ˈmɑːdl/',
-      wordVi: 'Mẫu mới nhất',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'lose',
-      pronunciation: '/luːz/',
-      wordVi: 'Mất, làm mất',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'process',
-      pronunciation: '/ˈprɑːses/',
-      wordVi: 'Quá trình',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'procedure',
-      pronunciation: '/prəˈsiːdʒər/',
-      wordVi: 'Quy trình, thủ tục',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'locate',
-      pronunciation: '/ˈloʊkeɪt/',
-      wordVi: 'Xác định vị trí',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'transfer',
-      pronunciation: '/trænsˈfɜːr/',
-      wordVi: 'Chuyển sang',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'data',
-      pronunciation: '/ˈdɑːtə/',
-      wordVi: 'Dữ liệu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'central computer',
-      pronunciation: '/ˈsentrəl kəmˈpjuːtər/',
-      wordVi: 'Máy tính trung tâm',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'pretty',
-      pronunciation: '/ˈprɪti/',
-      wordVi: 'Khá, tương đối',
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'create',
-      pronunciation: '/kriˈeɪt/',
-      wordVi: 'Tạo mới',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'sub-folder',
-      pronunciation: '/sʌb ˈfoʊldər/',
-      wordVi: 'Tiểu thư mục',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'hard disk',
-      pronunciation: '/hɑːrd dɪsk/',
-      wordVi: 'Ổ cứng',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(

@@ -405,230 +405,16 @@ class Theme4Content {
   // ═══════════════════════════════════════════════════════════════
 
   // ── FAB cho bài đọc Day 1 ──
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'schedule',
-      wordVi: 'lịch trình',
-      pronunciation: "/'s k e d 3^1/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'reservation',
-      wordVi: 'việc đặt (chỗ) trước',
-      pronunciation: "/ re z a r 'v e i Jc?n/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'cancellation',
-      wordVi: 'sự huỷ bỏ',
-      pronunciation: "/ k a e n s s 'le ip n /",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'delay',
-      wordVi: 'sự trì hoãn',
-      pronunciation: "/c ỉi'le i/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'fare',
-      wordVi: 'giá vé',
-      pronunciation: '/fer/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'departure',
-      wordVi: 'khu khởi hành',
-      pronunciation: '/dɪˈpɑːrtʃər/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'arrival',
-      wordVi: 'khu đến',
-      pronunciation: '/əˈraɪvəl/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'passport',
-      wordVi: 'hộ chiếu',
-      pronunciation: '/ˈpæspɔːrt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'customs',
-      wordVi: 'hải quan',
-      pronunciation: '/ˈkʌstəmz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'immigration',
-      wordVi: 'sự nhập cảnh',
-      pronunciation: '/ˌɪmɪˈɡreɪʃən/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'stop-over',
-      wordVi: 'sự quá cảnh',
-      pronunciation: '/ˈstɑːpˌoʊvər/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'cabin crew',
-      wordVi: 'phi hành đoàn',
-      pronunciation: '/ˈkæbɪn kruː/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'flight attendant',
-      wordVi: 'tiếp viên hàng không',
-      pronunciation: '/flaɪt əˈtendənt/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'seatbelt',
-      wordVi: 'dây an toàn',
-      pronunciation: '/ˈsiːtbelt/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'terminal',
-      wordVi: 'nhà ga hàng không',
-      pronunciation: '/ˈtɜːrmɪnəl/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'disembark',
-      wordVi: 'xuống máy bay',
-      pronunciation: '/ˌdɪsɪmˈbɑːrk/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'hand luggage',
-      wordVi: 'hành lý xách tay',
-      pronunciation: '/hænd ˈlʌɡɪdʒ/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 're-schedule',
-      wordVi: 'sắp xếp lại, lên lịch trình lại',
-      pronunciation: "/ ri's k e d 3^1/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'shuttle bus',
-      wordVi: 'xe buýt con thoi',
-      pronunciation: "/’Ðštl bšs/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'voucher',
-      wordVi: 'phiếu mua hàng',
-      pronunciation: '/ˈvaʊtʃər/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'travel agent',
-      wordVi: 'nhân viên đại lý du lịch',
-      pronunciation: "/'trasvp l 'e id 3^ nt/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'express train',
-      wordVi: 'tàu tốc hành',
-      pronunciation: '/ɪkˈspres treɪn/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'platform',
-      wordVi: 'sân ga, ke tàu',
-      pronunciation: '/ˈplætfɔːrm/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'excursion rates',
-      wordVi: 'bảng giá lữ hành đặc biệt',
-      pronunciation: '/ɪkˈskɜːrʒən reɪts/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'engine problem',
-      wordVi: 'vấn đề về động cơ',
-      pronunciation: '/ˈendʒɪn ˈprɑːbləm/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'transportation',
-      pronunciation: '/ˌtrænspərˈteɪʃən/',
-      wordVi: 'Giao thông vận tải',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'hospitality industry',
-      pronunciation: "/ỗo h a isp a 'ta e la ti 'in c h s tri/",
-      wordVi: 'Ngành kinh doanh nhà hàng-khách sạn',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'travel agency',
-      pronunciation: "/'tracvp l 'e icl3«?nsi/",
-      wordVi: 'Hãng du lịch',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'booking',
-      pronunciation: "/'b u k iij/",
-      wordVi: 'Việc đặt mua vé trước',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'alternate',
-      pronunciation: "/ a ilt orn á t /",
-      wordVi: 'Thay thế, dự phòng',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'coupon',
-      pronunciation: "/ 'k u :p a :n /",
-      wordVi: 'Phiếu giảm giá',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'coach',
-      pronunciation: '/koʊtʃ/',
-      wordVi: 'Xe khách / Hạng phổ thông',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'cruise',
-      pronunciation: '/kruːz/',
-      wordVi: 'Chuyến du ngoạn trên biển',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'aisle seat',
-      pronunciation: '/aɪl siːt/',
-      wordVi: 'Chỗ ngồi cạnh lối đi',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'window seat',
-      pronunciation: '/ˈwɪndoʊ siːt/',
-      wordVi: 'Chỗ ngồi cạnh cửa sổ',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'ferry',
-      pronunciation: '/ˈferi/',
-      wordVi: 'Phà',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'limousine',
-      pronunciation: '/ˌlɪməˈziːn/',
-      wordVi: 'Xe li-mô',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(
@@ -649,50 +435,16 @@ class Theme4Content {
   ];
 
   // ── FAB cho Conversation (Practice 1) ──
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'conference',
-      pronunciation: '/ˈkɑːnfərəns/',
-      wordVi: 'Hội nghị',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'convention center',
-      pronunciation: '/kənˈvenʃən ˈsentər/',
-      wordVi: 'Trung tâm hội nghị',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'express train',
-      pronunciation: '/ɪkˈspres treɪn/',
-      wordVi: 'Tàu tốc hành',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'recommendation',
-      pronunciation: '/ˌrekəmenˈdeɪʃən/',
-      wordVi: 'Lời khuyên, sự giới thiệu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'credit card',
-      pronunciation: '/ˈkredɪt kɑːrd/',
-      wordVi: 'Thẻ tín dụng',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'platform',
-      pronunciation: '/ˈplætfɔːrm/',
-      wordVi: 'Sân ga, ke tàu',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'prior to',
-      pronunciation: '/ˈpraɪər tuː/',
-      wordVi: 'Trước (thời gian)',
-      partOfSpeech: 'prep.p',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(
@@ -760,44 +512,16 @@ class Theme4Content {
   ];
 
   // ── FAB cho Short Talk 1 (Travel Agency Hotline) ──
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'destination',
-      pronunciation: '/ˌdestɪˈneɪʃən/',
-      wordVi: 'Điểm đến, đích đến',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'travel arrangements',
-      pronunciation: '/ˈtrævəl əˈreɪndʒmənts/',
-      wordVi: 'Sự sắp xếp tour du lịch',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'excursion rates',
-      pronunciation: '/ɪkˈskɜːrʒən reɪts/',
-      wordVi: 'Bảng giá lữ hành đặc biệt',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'available',
-      pronunciation: '/əˈveɪləbəl/',
-      wordVi: 'Có sẵn',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'computer system',
-      pronunciation: '/kəmˈpjuːtər ˈsɪstəm/',
-      wordVi: 'Hệ thống máy tính',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'situation',
-      pronunciation: '/ˌsɪtʃuˈeɪʃən/',
-      wordVi: 'Tình huống, tình hình',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(
@@ -845,56 +569,16 @@ class Theme4Content {
   ];
 
   // ── FAB cho Short Talk 2 (Flight Announcement) ──
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'shortly',
-      pronunciation: '/ˈʃɔːrtli/',
-      wordVi: 'Nhanh chóng, sắp sửa',
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'immediately',
-      pronunciation: '/ɪˈmiːdiətli/',
-      wordVi: 'Ngay lập tức',
-      partOfSpeech: 'adv',
-    ),
-    const FabVocabItem(
-      wordEn: 'be securely fastened',
-      pronunciation: '/biː sɪˈkjʊərli ˈfæsənd/',
-      wordVi: 'Được thắt một cách an toàn',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'distribute',
-      pronunciation: '/dɪˈstrɪbjuːt/',
-      wordVi: 'Phân phát',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'duty free items',
-      pronunciation: '/ˈduːti friː ˈaɪtəmz/',
-      wordVi: 'Mặt hàng miễn thuế',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'overhead bins',
-      pronunciation: '/ˌoʊvərˈhed bɪnz/',
-      wordVi: 'Khoang chứa đồ trên đầu',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'local time',
-      pronunciation: '/ˈloʊkəl taɪm/',
-      wordVi: 'Giờ địa phương',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'engine problem',
-      pronunciation: '/ˈendʒɪn ˈprɑːbləm/',
-      wordVi: 'Vấn đề về động cơ',
-      partOfSpeech: 'np',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(

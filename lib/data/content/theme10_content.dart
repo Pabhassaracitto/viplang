@@ -426,224 +426,16 @@ class Theme10Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'Corporate Development',
-      wordVi: 'Phát triển sản phẩm trong doanh nghiệp',
-      pronunciation: "/’ké:rpÊrÂt dû ’velëpmënt/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'language structure',
-      wordVi: 'Cấu trúc ngôn ngữ',
-      pronunciation: "/’læÅgwûdž ’ stršktÐër/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'Describe',
-      wordVi: 'Mô tả',
-      pronunciation: "/dû ’ skraûb/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'Research (into)',
-      wordVi: 'Nghiên cứu; bài nghiên cứu về vấn đề gì',
-      pronunciation: "/’ri:sî:rtÐ ’ûnt|/",
-      partOfSpeech: 'v/n',
-    ),
-    const FabVocabItem(
-      wordEn: 'product',
-      wordVi: 'Sản phẩm',
-      pronunciation: "/’prä:dškt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'customer feedback',
-      wordVi: 'Phản hồi của khách hàng',
-      pronunciation: "/’kšstëmër ’fi:dbæk/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'marketing strategy',
-      wordVi: 'Chiến lược tiếp thị',
-      pronunciation: "/’mä:rkÂtûÅ ’strætÂdži/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'development',
-      wordVi: 'Sự phát triển',
-      pronunciation: "/dû ’velëpmënt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'existing',
-      wordVi: 'Hiện tại, hiện có',
-      pronunciation: "/ûg’zûstûÅ/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'note',
-      wordVi: 'Lưu ý, chú ý',
-      pronunciation: "/no|t/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'apply to',
-      wordVi: 'Áp dụng đối với cái gì',
-      pronunciation: "/ë ’plaû t|/",
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'supply',
-      wordVi: 'Cung cấp',
-      pronunciation: "/së ’plaû/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'service',
-      wordVi: 'Dịch vụ',
-      pronunciation: "/’sî:rvÂs/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'a manufactured product',
-      wordVi: 'Một sản phẩm được sản xuất',
-      pronunciation: "/ë ;mænjÁ’fæktÐërd ’prä:dškt/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'key',
-      wordVi: 'Chính, quan trọng, chủ yếu',
-      pronunciation: "/ki:/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'lexicon',
-      wordVi: 'Từ vựng',
-      pronunciation: "/’leksûkën/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'advertising campaign',
-      wordVi: 'Chiến dịch quảng cáo',
-      pronunciation: "/’ædvërtaûzûÅ kæm’peûn/",
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'component',
-      wordVi: 'Cấu kiện sản phẩm',
-      pronunciation: "/këm’po|nënt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'schedule',
-      wordVi: 'Lịch trình',
-      pronunciation: "/’skedžÊl/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'upgrade',
-      wordVi: 'Sự nâng cấp, cải tiến',
-      pronunciation: "/šp’greûd/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'warranty',
-      wordVi: 'Việc bảo hành',
-      pronunciation: "/’wä:rënti/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'questionnaire',
-      wordVi: 'Bản câu hỏi khảo sát',
-      pronunciation: "/;kwestÐë ’ner/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'competitor',
-      wordVi: 'Đối thủ cạnh tranh',
-      pronunciation: "/këm’petÂtër/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'initiate',
-      wordVi: 'Khởi xướng',
-      pronunciation: "/û ’nûÐieût/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'design',
-      wordVi: 'Thiết kế',
-      pronunciation: "/dû ’zaûn/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'survey',
-      wordVi: 'Điều tra, khảo sát',
-      pronunciation: "/’sî:rveû/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'modify',
-      wordVi: 'Sửa đổi',
-      pronunciation: "/’mä:dÂfaû/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'poll',
-      wordVi: 'Thăm dò ý kiến',
-      pronunciation: "/po|l/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'respond',
-      wordVi: 'Phản hồi',
-      pronunciation: "/rû ’spä:nd/",
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'concept',
-      wordVi: 'Khái niệm',
-      pronunciation: "/’kä:nsept/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'speaker',
-      wordVi: 'Diễn giả',
-      pronunciation: "/’spi:kër/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'involved',
-      wordVi: 'Có liên quan, có tham gia',
-      pronunciation: "/ûn ’vä:lvd/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'passage',
-      wordVi: 'Đoạn văn',
-      pronunciation: "/’pæsûdž/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'major',
-      wordVi: 'Chính, chủ yếu',
-      pronunciation: "/’meûdžër/",
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'requirement',
-      wordVi: 'Yêu cầu',
-      pronunciation: "/rû ’kwaûrëmënt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'procedure',
-      wordVi: 'Quy trình',
-      pronunciation: "/prë ’si:džër/",
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(
@@ -716,38 +508,16 @@ class Theme10Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'outperform',
-      wordVi: 'Vượt mặt, vượt trội hơn',
-      pronunciation: '/ˌaʊtpərˈfɔːrm/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'marketing campaign',
-      wordVi: 'Chiến dịch tiếp thị',
-      pronunciation: '/ˈmɑːrkɪtɪŋ kæmˈpeɪn/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'strong point',
-      wordVi: 'Điểm mạnh',
-      pronunciation: '/strɔːŋ pɔɪnt/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'emphasize',
-      wordVi: 'Nhấn mạnh',
-      pronunciation: '/ˈemfəsaɪz/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'promote',
-      wordVi: 'Quảng bá',
-      pronunciation: '/prəˈmoʊt/',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(
@@ -812,38 +582,16 @@ class Theme10Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 (Planet Pizza)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'director of marketing',
-      wordVi: 'Giám đốc tiếp thị',
-      pronunciation: '/dɪˈrektər əv ˈmɑːrkɪtɪŋ/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'pizza chain',
-      wordVi: 'Chuỗi cửa hàng pizza',
-      pronunciation: '/ˈpiːtsə tʃeɪn/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'franchise owner',
-      wordVi: 'Chủ sở hữu cửa hàng nhượng quyền',
-      pronunciation: '/ˈfræntʃaɪz ˈoʊnər/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'shopping mall',
-      wordVi: 'Trung tâm thương mại',
-      pronunciation: '/ˈʃɑːpɪŋ mɔːl/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'decade',
-      wordVi: 'Thập kỷ',
-      pronunciation: '/ˈdekeɪd/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(
@@ -900,38 +648,16 @@ class Theme10Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 (Sales Strategy)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'worthwhile',
-      wordVi: 'Đáng giá, có giá trị',
-      pronunciation: '/ˌwɜːrθˈwaɪl/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'inspire',
-      wordVi: 'Truyền cảm hứng',
-      pronunciation: '/ɪnˈspaɪər/',
-      partOfSpeech: 'v',
-    ),
-    const FabVocabItem(
-      wordEn: 'unique',
-      wordVi: 'Độc đáo, duy nhất',
-      pronunciation: '/juːˈniːk/',
-      partOfSpeech: 'adj',
-    ),
-    const FabVocabItem(
-      wordEn: 'representation',
-      wordVi: 'Bài giới thiệu, sự trình bày',
-      pronunciation: '/ˌreprɪzenˈteɪʃən/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'convince',
-      wordVi: 'Thuyết phục',
-      pronunciation: '/kənˈvɪns/',
-      partOfSpeech: 'v',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(

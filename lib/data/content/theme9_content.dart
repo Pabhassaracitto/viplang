@@ -515,80 +515,16 @@ class Theme9Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 1 Reading Vocabulary
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get readingVocab => [
-    const FabVocabItem(
-      wordEn: 'finance',
-      wordVi: 'Tài chính',
-      pronunciation: "/’faûnæns/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'budgeting',
-      wordVi: 'Việc dự thảo ngân sách',
-      pronunciation: "/’bšdžÂtûÅ/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'lexicon',
-      wordVi: 'Từ vựng, vốn từ',
-      pronunciation: "/’leksûkën/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'banking',
-      wordVi: 'Ngành ngân hàng',
-      pronunciation: "/’bæÅkûÅ/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'accounting',
-      wordVi: 'Ngành kế toán',
-      pronunciation: "/ë ’ka|ntûÅ/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'invoicing',
-      wordVi: 'Việc lập hoá đơn',
-      pronunciation: "/’ûnvéûsûÅ/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'investment',
-      wordVi: 'Sự đầu tư, khoản đầu tư',
-      pronunciation: "/ûn ’vestmënt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'stocks',
-      wordVi: 'Cổ phiếu',
-      pronunciation: "/stä:ks/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'tax',
-      wordVi: 'Thuế',
-      pronunciation: "/tæks/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'profit',
-      wordVi: 'Lợi nhuận',
-      pronunciation: "/’prä:fÂt/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'loss',
-      wordVi: 'Thua lỗ',
-      pronunciation: "/lã:s/",
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'figure',
-      wordVi: 'Số liệu',
-      pronunciation: "/’fûgjër/",
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get readingVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get readingPhrases => [
     const FabPhraseItem(phrase: 'Make calculations', meaning: 'Tính toán'),
@@ -648,38 +584,16 @@ class Theme9Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Conversation Vocabulary
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get conversationVocab => [
-    const FabVocabItem(
-      wordEn: 'copies',
-      wordVi: 'Bản sao',
-      pronunciation: '/ˈkɑːpiz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'alterations',
-      wordVi: 'Thay đổi',
-      pronunciation: '/ˌɔːltəˈreɪʃənz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'shareholders',
-      wordVi: 'Cổ đông',
-      pronunciation: '/ˈʃeərhoʊldərz/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'mistake',
-      wordVi: 'Sai sót',
-      pronunciation: '/mɪˈsteɪk/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'corrections',
-      wordVi: 'Chỉnh sửa',
-      pronunciation: '/kəˈrekʃənz/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get conversationVocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get conversationPhrases => [
     const FabPhraseItem(phrase: 'Make copies', meaning: 'Phô-tô bản'),
@@ -719,38 +633,16 @@ class Theme9Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 1 Vocabulary (Stock Market)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk1Vocab => [
-    const FabVocabItem(
-      wordEn: 'stock market',
-      wordVi: 'Thị trường chứng khoán',
-      pronunciation: '/ˈstɑːk ˈmɑːrkɪt/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'shares dropped',
-      wordVi: 'Giá giảm',
-      pronunciation: '/ʃerz drɑːpt/',
-      partOfSpeech: 'vp',
-    ),
-    const FabVocabItem(
-      wordEn: 'revenue expectations',
-      wordVi: 'Kỳ vọng doanh thu',
-      pronunciation: '/ˈrevənuː ɪkˌspektˈeɪʃənz/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'percentage',
-      wordVi: 'Phần trăm',
-      pronunciation: '/pərˈsentɪdʒ/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'decline',
-      wordVi: 'Sụt giảm',
-      pronunciation: '/dɪˈklaɪn/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk1Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk1Phrases => [
     const FabPhraseItem(
@@ -796,38 +688,16 @@ class Theme9Content {
   // ═══════════════════════════════════════════════════════════════
   // FAB - Day 2 Short Talk 2 Vocabulary (Mortgage)
   // ═══════════════════════════════════════════════════════════════
-  static List<FabVocabItem> get shortTalk2Vocab => [
-    const FabVocabItem(
-      wordEn: 'mortgage',
-      wordVi: 'Khoản vay thế chấp',
-      pronunciation: '/ˈmɔːrɡɪdʒ/',
-      partOfSpeech: 'n',
-    ),
-    const FabVocabItem(
-      wordEn: 'down payment',
-      wordVi: 'Thanh toán trước',
-      pronunciation: '/ˈdaʊn ˈpeɪmənt/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'savings account',
-      wordVi: 'Tài khoản tiết kiệm',
-      pronunciation: '/ˈseɪvɪŋz əˈkaʊnt/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'monthly income',
-      wordVi: 'Thu nhập hàng tháng',
-      pronunciation: '/ˈmʌnθli ˈɪŋkəm/',
-      partOfSpeech: 'np',
-    ),
-    const FabVocabItem(
-      wordEn: 'lender',
-      wordVi: 'Bên cho vay',
-      pronunciation: '/ˈlendər/',
-      partOfSpeech: 'n',
-    ),
-  ];
+  static List<FabVocabItem> get shortTalk2Vocab => vocabulary
+      .map(
+        (v) => FabVocabItem(
+          wordEn: v.wordEn,
+          wordVi: v.wordVi,
+          pronunciation: v.pronunciation,
+          partOfSpeech: v.partOfSpeech,
+        ),
+      )
+      .toList();
 
   static List<FabPhraseItem> get shortTalk2Phrases => [
     const FabPhraseItem(
