@@ -11,11 +11,13 @@ import '../../../widgets/audio_player_widget.dart';
 
 class PhaseQuizScreen extends StatefulWidget {
   final LessonPhase phase;
+  final String themeId;
   final VoidCallback onComplete;
 
   const PhaseQuizScreen({
     super.key,
     required this.phase,
+    required this.themeId,
     required this.onComplete,
   });
 

@@ -12,7 +12,7 @@ import 'presentation/blocs/mind_game_bloc/mind_game_bloc.dart';
 import 'presentation/blocs/progress/progress_bloc.dart';
 import 'presentation/blocs/progress/progress_event.dart';
 import 'presentation/blocs/theme_bloc/theme_bloc.dart';
-import 'presentation/screens/home/home_screen.dart';
+import 'presentation/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -115,7 +115,7 @@ class VipLangApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const HomeScreen(),
+        home: const SplashScreen(), // Hiển thị SplashScreen đầu tiên
       ),
     );
   }

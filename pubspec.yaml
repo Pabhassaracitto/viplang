@@ -58,11 +58,24 @@ dev_dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.4.7
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo_viplang.png" # Đường dẫn đến ảnh của con
+  min_sdk_android: 21
+  
+flutter_native_splash:
+  color: "#ffffff" # Màu nền của màn hình chờ (ví dụ màu trắng)
+  image: "assets/images/logo_viplang.png" # Icon cá nhân của con sẽ hiện ở giữa
+  android_12:
+    image: "assets/images/logo_viplang.png"
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
+    - assets/images/logo_viplang.png
     - assets/animations/
     - assets/audio/
     - assets/data/

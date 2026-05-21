@@ -10,11 +10,13 @@ import '../../../widgets/audio_player_widget.dart';
 class PhaseReadListenScreen extends StatefulWidget {
   // ✅ Fix: Nhận LessonPhase thay vì dayNumber + themeId
   final LessonPhase phase;
+  final String themeId;
   final VoidCallback onComplete;
 
   const PhaseReadListenScreen({
     super.key,
     required this.phase,
+    required this.themeId,
     required this.onComplete,
   });
 

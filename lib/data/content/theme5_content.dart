@@ -905,12 +905,6 @@ class Theme5Content {
       wordVi: 'Suất diễn ban ngày',
       partOfSpeech: 'n',
     ),
-    const FabVocabItem(
-      wordEn: 'times and days of performances',
-      pronunciation: '/taɪmz ænd deɪz əv pərˈfɔːrmənsɪz/',
-      wordVi: 'Ngày và giờ các buổi trình diễn',
-      partOfSpeech: 'np',
-    ),
   ];
 
   static List<FabPhraseItem> get readingPhrases => [

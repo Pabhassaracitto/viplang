@@ -476,7 +476,9 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 6,
                       children: [
                         Text(
                           item.wordEn,
@@ -484,7 +486,6 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const SizedBox(width: 6),
                         Text(
                           item.pronunciation,
                           style: AppTextStyles.caption.copyWith(
@@ -943,7 +944,11 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
 
     switch (phase.phaseType) {
       case PhaseType.readListen:
-        return PhaseReadListenScreen(phase: phase, onComplete: onComplete);
+        return PhaseReadListenScreen(
+          phase: phase,
+          themeId: widget.themeId,
+          onComplete: onComplete,
+        );
 
       case PhaseType.translate:
         return PhaseTranslateScreen(phase: phase, onComplete: onComplete);
@@ -968,7 +973,11 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
         );
 
       case PhaseType.listeningQuiz:
-        return PhaseQuizScreen(phase: phase, onComplete: onComplete);
+        return PhaseQuizScreen(
+          phase: phase,
+          themeId: widget.themeId,
+          onComplete: onComplete,
+        );
     }
   }
 
