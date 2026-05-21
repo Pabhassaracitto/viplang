@@ -11,6 +11,7 @@ import '../../../core/utils/srs_algorithm.dart';
 import '../../../data/models/vocab_model.dart';
 import '../../../presentation/blocs/progress/progress_event.dart';
 import '../../blocs/progress/progress_bloc.dart';
+import '../../../data/models/user_progress_model.dart';
 
 // ─── TTS Service (file-scoped singleton, không cần file riêng nếu chưa có) ──
 // Nếu đã có TtsService riêng thì import và xóa class này
@@ -211,6 +212,61 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
   }
 
   void _showSessionComplete() {
+    try {
+      // Cập nhật UserProgressModel khi hoàn thành SRS
+      final userBox = HiveService.progressBox;
+      UserProgressModel? progress = userBox.get('current_user');
+      progress ??= UserProgressModel(userId: 'local_user');
+
+      final xpEarned = _sessionCorrect * 2;
+      progress.totalXP += xpEarned;
+
+      final minutesEarned = (_sessionTotal * 0.25).clamp(2.0, 30.0).round();
+      progress.totalStudyMinutes += minutesEarned;
+
+      final vocabBox = HiveService.vocabBox;
+      final learnedCount = vocabBox.values
+          .where((v) => v.nextReview != null || v.repetitionCount > 0)
+          .length;
+      progress.totalWordsLearned = learnedCount;
+
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      if (progress.lastStudyDate != null) {
+        final lastStudy = DateTime(
+          progress.lastStudyDate!.year,
+          progress.lastStudyDate!.month,
+          progress.lastStudyDate!.day,
+        );
+        final diff = today.difference(lastStudy).inDays;
+        if (diff == 1) {
+          progress.currentStreak++;
+        } else if (diff > 1) {
+          progress.currentStreak = 1;
+        }
+      } else {
+        progress.currentStreak = 1;
+      }
+      if (progress.currentStreak > progress.longestStreak) {
+        progress.longestStreak = progress.currentStreak;
+      }
+      progress.lastStudyDate = now;
+
+      // Badge check
+      if (!progress.earnedBadges.contains('starter') &&
+          (progress.completedLessons.isNotEmpty || learnedCount > 0)) {
+        progress.earnedBadges.add('starter');
+      }
+      if (!progress.earnedBadges.contains('streak_7') &&
+          progress.longestStreak >= 7) {
+        progress.earnedBadges.add('streak_7');
+      }
+
+      userBox.put('current_user', progress);
+    } catch (e) {
+      debugPrint('Lỗi cập nhật tiến độ học tập: $e');
+    }
+
     try {
       context.read<ProgressBloc>().add(RefreshAfterSrsEvent());
     } catch (_) {}

@@ -1,236 +1,455 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../core/services/hive_service.dart';
+import '../../../data/models/user_progress_model.dart';
+import '../../../data/models/theme_model.dart';
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
 
+  UserProgressModel _syncAndGetProgress() {
+    final box = HiveService.progressBox;
+    UserProgressModel? progress = box.get('current_user');
+    progress ??= UserProgressModel(userId: 'local_user');
+
+    bool changed = false;
+
+    // 1. Tính toán số từ đã học thực tế từ vocabBox
+    final vocabBox = HiveService.vocabBox;
+    final learnedCount = vocabBox.values
+        .where((v) => v.nextReview != null || v.repetitionCount > 0)
+        .length;
+    if (progress.totalWordsLearned != learnedCount) {
+      progress.totalWordsLearned = learnedCount;
+      changed = true;
+    }
+
+    // 2. Tính toán lại themeProgress từ themeBox
+    final themeBox = HiveService.themeBox;
+    final themes = themeBox.values.toList();
+    for (final theme in themes) {
+      if (theme.progressPercent > 0) {
+        if (progress.themeProgress[theme.id] != theme.progressPercent) {
+          progress.themeProgress[theme.id] = theme.progressPercent;
+          changed = true;
+        }
+      }
+    }
+
+    // 3. Ước lượng hoặc cập nhật totalStudyMinutes nếu rỗng
+    if (progress.totalStudyMinutes == 0 &&
+        progress.completedLessons.isNotEmpty) {
+      progress.totalStudyMinutes =
+          progress.completedLessons.length * 15 + learnedCount * 1;
+      changed = true;
+    }
+
+    // 4. Kiểm tra và cập nhật các Badge tự động dựa trên thực tế học tập
+    final List<String> currentBadges = List.from(progress.earnedBadges);
+
+    // a. 'starter'
+    if (!currentBadges.contains('starter') &&
+        (progress.completedLessons.isNotEmpty || learnedCount > 0)) {
+      currentBadges.add('starter');
+    }
+    // b. 'streak_7'
+    if (!currentBadges.contains('streak_7') &&
+        (progress.currentStreak >= 7 || progress.longestStreak >= 7)) {
+      currentBadges.add('streak_7');
+    }
+    // c. 'theme_1_master'
+    final theme1 = themeBox.get('theme_01_offices');
+    if (!currentBadges.contains('theme_1_master') &&
+        theme1 != null &&
+        theme1.progressPercent >= 1.0) {
+      currentBadges.add('theme_1_master');
+    }
+    // d. 'multi_context'
+    final masteredCount = vocabBox.values
+        .where((v) => v.repetitionCount >= 3)
+        .length;
+    if (!currentBadges.contains('multi_context') && masteredCount >= 5) {
+      currentBadges.add('multi_context');
+    }
+    // e. 'high_accuracy' (Hoàn thành bài học hoặc đạt streak hoặc 2+ bài học)
+    if (!currentBadges.contains('high_accuracy') &&
+        progress.completedLessons.length >= 2) {
+      currentBadges.add('high_accuracy');
+    }
+    // f. 'all_themes_master' (Hoàn thành cả 13 themes)
+    bool allThemesMastered =
+        themes.isNotEmpty && themes.every((t) => t.progressPercent >= 1.0);
+    if (!currentBadges.contains('all_themes_master') && allThemesMastered) {
+      currentBadges.add('all_themes_master');
+    }
+
+    if (progress.earnedBadges.length != currentBadges.length) {
+      progress.earnedBadges = currentBadges;
+      changed = true;
+    }
+
+    if (changed) {
+      box.put('current_user', progress);
+    }
+
+    return progress;
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Gọi đồng bộ hóa khi vào màn hình
+    _syncAndGetProgress();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppConstants.paddingM),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Tiến độ học tập', style: AppTextStyles.h1),
-              const Text(
-                'Theo dõi hành trình của bạn',
-                style: AppTextStyles.bodyMedium,
-              ),
-              const SizedBox(height: AppConstants.paddingL),
+        child: ValueListenableBuilder(
+          valueListenable: HiveService.progressBox.listenable(),
+          builder: (context, Box<UserProgressModel> progressBox, _) {
+            final progress =
+                progressBox.get('current_user') ??
+                UserProgressModel(userId: 'local_user');
 
-              // Stats Overview
-              _buildStatsOverview(),
-              const SizedBox(height: AppConstants.paddingL),
+            return ValueListenableBuilder(
+              valueListenable: HiveService.themeBox.listenable(),
+              builder: (context, Box<ThemeModel> themeBox, _) {
+                final themes = themeBox.values.toList()
+                  ..sort((a, b) => a.themeNumber.compareTo(b.themeNumber));
 
-              // 13 Bí mật
-              _buildSecretsProgress(),
-              const SizedBox(height: AppConstants.paddingL),
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.all(AppConstants.paddingM),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Tiến độ học tập', style: AppTextStyles.h1),
+                      const Text(
+                        'Theo dõi hành trình của bạn',
+                        style: AppTextStyles.bodyMedium,
+                      ),
+                      const SizedBox(height: AppConstants.paddingL),
 
-              // Badges
-              _buildBadges(),
-              const SizedBox(height: AppConstants.paddingXL),
-            ],
-          ),
+                      // Stats Overview
+                      _buildStatsOverview(progress),
+                      const SizedBox(height: AppConstants.paddingL),
+
+                      // 13 Bí mật (dựa trên themes)
+                      _buildSecretsProgress(themes),
+                      const SizedBox(height: AppConstants.paddingL),
+
+                      // Badges
+                      _buildBadges(progress, themes),
+                      const SizedBox(height: AppConstants.paddingXL),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildStatsOverview() {
-    return const Column(
+  Widget _buildStatsOverview(UserProgressModel progress) {
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Tổng quan', style: AppTextStyles.h3),
-        SizedBox(height: AppConstants.paddingS),
+        const Text('Tổng quan', style: AppTextStyles.h3),
+        const SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
             Expanded(
               child: _StatCard(
                 icon: '🔥',
-                value: '0',
-                label: 'Ngày streak',
+                value: '${progress.currentStreak}',
+                label: 'Ngày streak (kỷ lục: ${progress.longestStreak})',
                 color: AppColors.secondary,
               ),
             ),
-            SizedBox(width: AppConstants.paddingS),
+            const SizedBox(width: AppConstants.paddingS),
             Expanded(
               child: _StatCard(
                 icon: '📚',
-                value: '0',
-                label: 'Từ đã học',
+                value: '${progress.totalWordsLearned}',
+                label: 'Từ đang thuộc/đã học',
                 color: AppColors.primary,
               ),
             ),
           ],
         ),
-        SizedBox(height: AppConstants.paddingS),
+        const SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
             Expanded(
               child: _StatCard(
                 icon: '⚡',
-                value: '0',
-                label: 'Tổng XP',
+                value: '${progress.totalXP}',
+                label: 'Tổng XP tích lũy',
                 color: AppColors.warning,
               ),
             ),
-            SizedBox(width: AppConstants.paddingS),
+            const SizedBox(width: AppConstants.paddingS),
             Expanded(
               child: _StatCard(
                 icon: '⏱️',
-                value: '0 phút',
-                label: 'Tổng thời gian',
+                value: '${progress.totalStudyMinutes} phút',
+                label: 'Tổng thời gian học',
                 color: AppColors.success,
               ),
             ),
           ],
         ),
       ],
-    ).animate().fadeIn(delay: 100.ms);
+    ).animate().fadeIn(duration: 350.ms);
   }
 
-  Widget _buildSecretsProgress() {
+  Widget _buildSecretsProgress(List<ThemeModel> themes) {
     final secrets = [
-      ('Mục tiêu rõ ràng', '🎯', true),
-      ('Rèn luyện đều đặn', '💪', true),
-      ('Lặp lại nhiều bối cảnh', '🔄', true),
-      ('Giao tiếp tích cực', '💬', false),
-      ('Cảm xúc mạnh', '❤️', false),
-      ('Cam kết làm đến cùng', '🏆', false),
-      ('Tập trung đột phá', '⚡', false),
-      ('Học cùng bạn bè', '👥', false),
-      ('Hình mẫu cảm hứng', '⭐', false),
-      ('Dám sai để đúng', '🎲', false),
-      ('Thi thố thường xuyên', '🥊', false),
-      ('Vượt ra đám đông', '🚀', false),
-      ('Dạy lại người khác', '🎓', false),
+      ('Mục tiêu rõ ràng', '🎯'),
+      ('Rèn luyện đều đặn', '💪'),
+      ('Lặp lại nhiều bối cảnh', '🔄'),
+      ('Giao tiếp tích cực', '💬'),
+      ('Cảm xúc mạnh', '❤️'),
+      ('Cam kết làm đến cùng', '🏆'),
+      ('Tập trung đột phá', '⚡'),
+      ('Học cùng bạn bè', '👥'),
+      ('Hình mẫu cảm hứng', '⭐'),
+      ('Dám sai để đúng', '🎲'),
+      ('Thi thố thường xuyên', '🥊'),
+      ('Vượt ra đám đông', '🚀'),
+      ('Dạy lại người khác', '🎓'),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('13 Bí mật', style: AppTextStyles.h3),
-        const SizedBox(height: AppConstants.paddingS),
+        const Text('13 Bí mật học tập VIPLANG', style: AppTextStyles.h3),
+        const Text(
+          'Dựa trên 13 chủ đề tiếng Anh cốt lõi và các nguyên lý siêu trí nhớ',
+          style: TextStyle(
+            fontSize: 12,
+            color: AppColors.textSecondary,
+            height: 1.3,
+          ),
+        ),
+        const SizedBox(height: AppConstants.paddingM),
         Container(
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(AppConstants.radiusL),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.06),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
               ),
             ],
+            border: Border.all(color: AppColors.border),
           ),
           child: ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: secrets.length,
-            separatorBuilder: (_, __) => const Divider(
-              height: 1,
-              color: AppColors.border,
-              indent: 16,
-              endIndent: 16,
-            ),
+            separatorBuilder: (_, __) =>
+                const Divider(height: 1, color: AppColors.border),
             itemBuilder: (context, index) {
               final secret = secrets[index];
-              final isUnlocked = secret.$3;
-              return ListTile(
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: isUnlocked
-                        ? AppColors.primary.withValues(alpha: 0.1)
-                        : AppColors.background,
-                    borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                  ),
-                  child: Center(
-                    child: Text(
-                      secret.$2,
-                      style: const TextStyle(fontSize: 20),
+              // Tìm theme tương ứng bằng index
+              final theme = themes.length > index ? themes[index] : null;
+              final progressPercent = theme?.progressPercent ?? 0.0;
+              final isUnlocked = progressPercent >= 1.0;
+              final isStudying = progressPercent > 0.0 && progressPercent < 1.0;
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingM,
+                  vertical: 12,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: isUnlocked
+                            ? AppColors.success.withValues(alpha: 0.08)
+                            : isStudying
+                            ? AppColors.primary.withValues(alpha: 0.08)
+                            : AppColors.background,
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusM,
+                        ),
+                        border: Border.all(
+                          color: isUnlocked
+                              ? AppColors.success.withValues(alpha: 0.2)
+                              : isStudying
+                              ? AppColors.primary.withValues(alpha: 0.2)
+                              : Colors.transparent,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          secret.$2,
+                          style: const TextStyle(fontSize: 22),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                title: Text(
-                  'Bí mật ${index + 1}: ${secret.$1}',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: isUnlocked
-                        ? AppColors.textPrimary
-                        : AppColors.textHint,
-                    fontWeight: isUnlocked
-                        ? FontWeight.w600
-                        : FontWeight.normal,
-                  ),
-                ),
-                trailing: isUnlocked
-                    ? const Icon(
-                        Icons.check_circle,
+                    const SizedBox(width: AppConstants.paddingM),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Bí mật ${index + 1}: ${secret.$1}',
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: (isUnlocked || isStudying)
+                                  ? AppColors.textPrimary
+                                  : AppColors.textHint,
+                              fontWeight: (isUnlocked || isStudying)
+                                  ? FontWeight.w600
+                                  : FontWeight.normal,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          if (isUnlocked)
+                            Text(
+                              'Đã mở khóa hoàn toàn 🌟',
+                              style: AppTextStyles.caption.copyWith(
+                                color: AppColors.success,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          else if (isStudying)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(2),
+                                        child: LinearProgressIndicator(
+                                          value: progressPercent,
+                                          backgroundColor: AppColors.primary
+                                              .withValues(alpha: 0.1),
+                                          valueColor:
+                                              const AlwaysStoppedAnimation<
+                                                Color
+                                              >(AppColors.primary),
+                                          minHeight: 4,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      '${(progressPercent * 100).toStringAsFixed(0)}%',
+                                      style: AppTextStyles.caption.copyWith(
+                                        color: AppColors.primary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  'Đang rèn luyện (Chủ đề: ${theme?.titleVi})',
+                                  style: AppTextStyles.caption.copyWith(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                              ],
+                            )
+                          else
+                            Text(
+                              'Bị khóa (Yêu cầu: Học chủ đề: ${theme?.titleVi ?? ""})',
+                              style: AppTextStyles.caption.copyWith(
+                                color: AppColors.textHint,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: AppConstants.paddingS),
+                    if (isUnlocked)
+                      const Icon(
+                        Icons.check_circle_rounded,
                         color: AppColors.success,
+                        size: 24,
+                      )
+                    else if (isStudying)
+                      const Icon(
+                        Icons.hourglass_bottom_rounded,
+                        color: AppColors.primary,
                         size: 20,
                       )
-                    : const Icon(
-                        Icons.lock_outline,
+                    else
+                      const Icon(
+                        Icons.lock_rounded,
                         color: AppColors.textHint,
                         size: 18,
                       ),
+                  ],
+                ),
               );
             },
           ),
         ),
       ],
-    ).animate().fadeIn(delay: 200.ms);
+    ).animate().fadeIn(duration: 400.ms);
   }
 
-  Widget _buildBadges() {
+  Widget _buildBadges(UserProgressModel progress, List<ThemeModel> themes) {
     final badges = [
-      const _BadgeData(
+      _BadgeData(
+        id: 'starter',
         icon: '🌟',
         title: 'Người khởi đầu',
-        desc: 'Hoàn thành bài học đầu tiên',
-        isEarned: true,
+        desc: 'Học bài học đầu tiên',
+        isEarned: progress.earnedBadges.contains('starter'),
         color: AppColors.warning,
       ),
-      const _BadgeData(
+      _BadgeData(
+        id: 'streak_7',
         icon: '🔥',
         title: 'Kiên trì 7 ngày',
         desc: 'Học 7 ngày liên tiếp',
-        isEarned: false,
+        isEarned: progress.earnedBadges.contains('streak_7'),
         color: AppColors.secondary,
       ),
-      const _BadgeData(
+      _BadgeData(
+        id: 'theme_1_master',
         icon: '🏢',
         title: 'Bậc thầy Văn phòng',
-        desc: 'Hoàn thành Theme 1',
-        isEarned: false,
+        desc: 'Hoàn thành 100% Theme 1',
+        isEarned: progress.earnedBadges.contains('theme_1_master'),
         color: AppColors.primary,
       ),
-      const _BadgeData(
+      _BadgeData(
+        id: 'multi_context',
         icon: '📖',
         title: 'Đa bối cảnh',
-        desc: 'Gặp 1 từ trong 5 bối cảnh',
-        isEarned: false,
+        desc: 'Gặp 5 từ với 3+ lần lặp SRS',
+        isEarned: progress.earnedBadges.contains('multi_context'),
         color: AppColors.success,
       ),
-      const _BadgeData(
+      _BadgeData(
+        id: 'high_accuracy',
         icon: '🎯',
         title: 'Siêu chính xác',
-        desc: 'Đạt 100% trong 1 bài quiz',
-        isEarned: false,
+        desc: 'Hoàn thành trọn vẹn 2+ ngày học',
+        isEarned: progress.earnedBadges.contains('high_accuracy'),
         color: AppColors.primary,
       ),
-      const _BadgeData(
+      _BadgeData(
+        id: 'all_themes_master',
         icon: '🚀',
         title: 'Vô địch trí nhớ',
         desc: 'Hoàn thành tất cả 13 chủ đề',
-        isEarned: false,
+        isEarned: progress.earnedBadges.contains('all_themes_master'),
         color: AppColors.secondary,
       ),
     ];
@@ -247,17 +466,17 @@ class ProgressScreen extends StatelessWidget {
             crossAxisCount: 3,
             crossAxisSpacing: AppConstants.paddingS,
             mainAxisSpacing: AppConstants.paddingS,
-            childAspectRatio: 0.85,
+            childAspectRatio: 0.8,
           ),
           itemCount: badges.length,
           itemBuilder: (context, index) {
             return _BadgeCard(badge: badges[index])
                 .animate()
-                .fadeIn(delay: (300 + index * 80).ms)
+                .fadeIn(delay: (100 + index * 50).ms)
                 .scale(
-                  begin: const Offset(0.8, 0.8),
+                  begin: const Offset(0.9, 0.9),
                   end: const Offset(1, 1),
-                  delay: (300 + index * 80).ms,
+                  delay: (100 + index * 50).ms,
                 );
           },
         ),
@@ -290,19 +509,19 @@ class _StatCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppConstants.radiusL),
         boxShadow: [
           BoxShadow(
-            color: color.withValues(alpha: 0.12),
-            blurRadius: 12,
+            color: color.withValues(alpha: 0.1),
+            blurRadius: 10,
             offset: const Offset(0, 4),
           ),
         ],
-        border: Border.all(color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withValues(alpha: 0.15)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Text(icon, style: const TextStyle(fontSize: 22)),
+              Text(icon, style: const TextStyle(fontSize: 24)),
               const Spacer(),
               Container(
                 width: 8,
@@ -313,10 +532,13 @@ class _StatCard extends StatelessWidget {
           ),
           const SizedBox(height: AppConstants.paddingS),
           Text(value, style: AppTextStyles.h2.copyWith(color: color)),
+          const SizedBox(height: 2),
           Text(
             label,
             style: AppTextStyles.caption.copyWith(
               color: AppColors.textSecondary,
+              fontSize: 10,
+              height: 1.2,
             ),
           ),
         ],
@@ -326,6 +548,7 @@ class _StatCard extends StatelessWidget {
 }
 
 class _BadgeData {
+  final String id;
   final String icon;
   final String title;
   final String desc;
@@ -333,6 +556,7 @@ class _BadgeData {
   final Color color;
 
   const _BadgeData({
+    required this.id,
     required this.icon,
     required this.title,
     required this.desc,
@@ -349,7 +573,7 @@ class _BadgeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingS),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: badge.isEarned
             ? badge.color.withValues(alpha: 0.08)
@@ -374,7 +598,7 @@ class _BadgeCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: badge.isEarned
                       ? badge.color.withValues(alpha: 0.15)
-                      : Colors.grey.withValues(alpha: 0.1),
+                      : Colors.grey.withValues(alpha: 0.08),
                   shape: BoxShape.circle,
                 ),
                 child: Center(
@@ -402,7 +626,20 @@ class _BadgeCard extends StatelessWidget {
             badge.title,
             style: AppTextStyles.caption.copyWith(
               fontWeight: FontWeight.w600,
+              fontSize: 11,
               color: badge.isEarned ? badge.color : AppColors.textHint,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 2),
+          Text(
+            badge.desc,
+            style: const TextStyle(
+              fontSize: 9,
+              color: AppColors.textSecondary,
+              height: 1.1,
             ),
             textAlign: TextAlign.center,
             maxLines: 2,

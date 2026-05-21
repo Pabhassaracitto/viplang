@@ -1049,92 +1049,54 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
       progress.longestStreak = progress.currentStreak;
     }
 
+    // 1. Cập nhật bài học đã hoàn thành
+    final lessonKey = '${widget.themeId}_day_${widget.dayNumber}';
+    if (!progress.completedLessons.contains(lessonKey)) {
+      progress.completedLessons.add(lessonKey);
+      // Tăng số từ học ước tính (mỗi bài có 15 từ vựng mới)
+      progress.totalWordsLearned += 15;
+      // Cộng thêm 15 phút rèn luyện cho bài học mới
+      progress.totalStudyMinutes += 15;
+    } else {
+      // Nếu học lại, chỉ cộng thêm 5 phút rèn luyện
+      progress.totalStudyMinutes += 5;
+    }
+
+    // 2. Cập nhật tiến độ của Theme hiện tại
+    final totalDays = AllThemesRegistry.getTotalDays(widget.themeId);
+    final completedDays = widget.dayNumber;
+    final progressPercent = totalDays > 0 ? completedDays / totalDays : 0.0;
+    progress.themeProgress[widget.themeId] = progressPercent;
+
+    // 3. Tăng XP tích lũy
     progress.totalXP += xpEarned;
     progress.lastStudyDate = now;
 
+    // 4. Đồng bộ hóa số lượng từ thực tế từ SRS (nếu có thể)
+    try {
+      final learnedCount = HiveService.vocabBox.values
+          .where((v) => v.nextReview != null || v.repetitionCount > 0)
+          .length;
+      if (learnedCount > 0) {
+        progress.totalWordsLearned = learnedCount;
+      }
+    } catch (_) {}
+
+    // 5. Kiểm tra huy hiệu
+    if (!progress.earnedBadges.contains('starter') &&
+        progress.completedLessons.isNotEmpty) {
+      progress.earnedBadges.add('starter');
+    }
+    if (!progress.earnedBadges.contains('streak_7') &&
+        progress.longestStreak >= 7) {
+      progress.earnedBadges.add('streak_7');
+    }
+    if (!progress.earnedBadges.contains('theme_1_master') &&
+        (progress.themeProgress['theme_01_offices'] ?? 0.0) >= 1.0) {
+      progress.earnedBadges.add('theme_1_master');
+    }
+
     box.put('current_user', progress);
-  }
-}
-
-class _VocabListTile extends StatelessWidget {
-  final VocabModel vocab;
-  const _VocabListTile({required this.vocab});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 6),
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.paddingM,
-        vertical: AppConstants.paddingS,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppConstants.radiusM),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Row(
-        children: [
-          // POS badge
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Text(
-              vocab.partOfSpeech,
-              style: AppTextStyles.caption.copyWith(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w700,
-                fontSize: 10,
-              ),
-            ),
-          ),
-          const SizedBox(width: AppConstants.paddingS),
-
-          // Word + pronunciation + meaning
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      vocab.wordEn,
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      vocab.pronunciation,
-                      style: AppTextStyles.caption.copyWith(
-                        color: AppColors.textSecondary,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  vocab.wordVi,
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: AppColors.textSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          // ✅ NÚT LỌA THẬT THAY SNackBar
-          VocabularySpeakerButton(
-            text: vocab.wordEn,
-            size: 18,
-            color: AppColors.primary,
-          ),
-        ],
-      ),
-    );
   }
 }
 
