@@ -7,6 +7,8 @@ import '../../../core/constants/app_text_styles.dart';
 import '../../../data/content/all_themes_registry.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/models/theme_model.dart';
+import '../../../data/models/vocab_model.dart';
+import '../../widgets/vocabulary_speaker_button.dart';
 import 'lesson_day_screen.dart';
 
 class LessonSelectorScreen extends StatelessWidget {
@@ -228,7 +230,15 @@ class LessonSelectorScreen extends StatelessWidget {
             const Spacer(),
             TextButton(
               onPressed: () {
-                // Navigate to full vocabulary list
+                showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.transparent,
+                  isScrollControlled: true,
+                  builder: (_) => _ThemeVocabSheet(
+                    vocabs: vocabs,
+                    themeTitle: theme.titleEn,
+                  ),
+                );
               },
               child: Text(
                 'Xem tất cả (${vocabs.length})',
@@ -762,6 +772,399 @@ class _QuickActionButton extends StatelessWidget {
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Theme Vocab Bottom Sheet ───────────────────────────────────────────────
+class _ThemeVocabSheet extends StatefulWidget {
+  final List<VocabModel> vocabs;
+  final String themeTitle;
+
+  const _ThemeVocabSheet({required this.vocabs, required this.themeTitle});
+
+  @override
+  State<_ThemeVocabSheet> createState() => _ThemeVocabSheetState();
+}
+
+class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
+  final TextEditingController _searchController = TextEditingController();
+  String _query = '';
+  String _selectedPos = 'all';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  List<VocabModel> get _filteredVocabs {
+    return widget.vocabs.where((vocab) {
+      final matchQuery =
+          _query.isEmpty ||
+          vocab.wordEn.toLowerCase().contains(_query.toLowerCase()) ||
+          vocab.wordVi.toLowerCase().contains(_query.toLowerCase());
+      final matchPos =
+          _selectedPos == 'all' || vocab.partOfSpeech == _selectedPos;
+      return matchQuery && matchPos;
+    }).toList();
+  }
+
+  List<String> get _posList {
+    final posSet = widget.vocabs.map((v) => v.partOfSpeech).toSet().toList()
+      ..sort();
+    return ['all', ...posSet];
+  }
+
+  String _posLabel(String pos) {
+    switch (pos) {
+      case 'all':
+        return 'Tất cả';
+      case 'n':
+        return 'Danh từ';
+      case 'np':
+        return 'Cụm DT';
+      case 'v':
+        return 'Động từ';
+      case 'vp':
+        return 'Cụm ĐT';
+      case 'adj':
+        return 'Tính từ';
+      case 'adv':
+        return 'Trạng từ';
+      default:
+        return pos.toUpperCase();
+    }
+  }
+
+  Color _posColor(String pos) {
+    switch (pos) {
+      case 'n':
+      case 'np':
+        return AppColors.primary;
+      case 'v':
+      case 'vp':
+        return AppColors.success;
+      case 'adj':
+        return AppColors.warning;
+      case 'adv':
+        return AppColors.secondary;
+      default:
+        return AppColors.textSecondary;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = _filteredVocabs;
+
+    return DraggableScrollableSheet(
+      initialChildSize: 0.85,
+      minChildSize: 0.5,
+      maxChildSize: 0.95,
+      builder: (_, scrollController) => Container(
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppConstants.radiusXL),
+          ),
+        ),
+        child: Column(
+          children: [
+            // Pull handle
+            Container(
+              margin: const EdgeInsets.only(top: 12, bottom: 4),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: AppColors.border,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+
+            // Header
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingM,
+                vertical: AppConstants.paddingS,
+              ),
+              child: Row(
+                children: [
+                  const Text('📖', style: TextStyle(fontSize: 22)),
+                  const SizedBox(width: AppConstants.paddingS),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Tủ từ vựng chủ đề',
+                          style: AppTextStyles.h3.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          widget.themeTitle,
+                          style: AppTextStyles.caption.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.close,
+                      color: AppColors.textSecondary,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+            ),
+
+            const Divider(height: 1),
+
+            // Search bar
+            Padding(
+              padding: const EdgeInsets.all(AppConstants.paddingM),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (v) => setState(() => _query = v),
+                decoration: InputDecoration(
+                  hintText: 'Tìm từ tiếng Anh hoặc tiếng Việt...',
+                  hintStyle: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.textHint,
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.textHint,
+                    size: 20,
+                  ),
+                  suffixIcon: _query.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.clear, size: 18),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() => _query = '');
+                          },
+                        )
+                      : null,
+                  filled: true,
+                  fillColor: AppColors.background,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.paddingM,
+                    vertical: AppConstants.paddingS,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+            ),
+
+            // Filter tags (horizontal list)
+            SizedBox(
+              height: 38,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingM,
+                ),
+                itemCount: _posList.length,
+                itemBuilder: (_, i) {
+                  final pos = _posList[i];
+                  final isSelected = _selectedPos == pos;
+                  final chipColor = _posColor(pos);
+
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: GestureDetector(
+                      onTap: () => setState(() => _selectedPos = pos),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? chipColor
+                              : chipColor.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.radiusM,
+                          ),
+                          border: Border.all(
+                            color: isSelected
+                                ? chipColor
+                                : chipColor.withValues(alpha: 0.25),
+                          ),
+                        ),
+                        child: Text(
+                          _posLabel(pos),
+                          style: AppTextStyles.caption.copyWith(
+                            color: isSelected ? Colors.white : chipColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: AppConstants.paddingM),
+
+            // Vocabulary List
+            Expanded(
+              child: filtered.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text('🔍', style: TextStyle(fontSize: 40)),
+                          const SizedBox(height: AppConstants.paddingM),
+                          Text(
+                            'Không tìm thấy từ vựng phù hợp.',
+                            style: AppTextStyles.bodyMedium.copyWith(
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      controller: scrollController,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.paddingM,
+                      ),
+                      itemCount: filtered.length,
+                      itemBuilder: (_, i) {
+                        final vocab = filtered[i];
+                        final posColor = _posColor(vocab.partOfSpeech);
+
+                        return Container(
+                          margin: const EdgeInsets.only(
+                            bottom: AppConstants.paddingS,
+                          ),
+                          padding: const EdgeInsets.all(AppConstants.paddingM),
+                          decoration: BoxDecoration(
+                            color: AppColors.background,
+                            borderRadius: BorderRadius.circular(
+                              AppConstants.radiusL,
+                            ),
+                            border: Border.all(color: AppColors.border),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  // Part of speech
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: posColor.withValues(alpha: 0.15),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      vocab.partOfSpeech.toUpperCase(),
+                                      style: AppTextStyles.caption.copyWith(
+                                        color: posColor,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: AppConstants.paddingS),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          vocab.wordEn,
+                                          style: AppTextStyles.bodyMedium
+                                              .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.textPrimary,
+                                              ),
+                                        ),
+                                        Text(
+                                          vocab.pronunciation,
+                                          style: AppTextStyles.caption.copyWith(
+                                            color: AppColors.textSecondary,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  VocabularySpeakerButton(
+                                    text: vocab.wordEn,
+                                    size: 18,
+                                    color: AppColors.primary,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                vocab.wordVi,
+                                style: AppTextStyles.bodyMedium.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              if (vocab.exampleEn != null &&
+                                  vocab.exampleEn!.isNotEmpty) ...[
+                                const SizedBox(height: 8),
+                                Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(
+                                    AppConstants.paddingS,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surface,
+                                    borderRadius: BorderRadius.circular(
+                                      AppConstants.radiusS,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        vocab.exampleEn!,
+                                        style: AppTextStyles.caption.copyWith(
+                                          color: AppColors.textPrimary,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                      if (vocab.exampleVi != null &&
+                                          vocab.exampleVi!.isNotEmpty) ...[
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          vocab.exampleVi!,
+                                          style: AppTextStyles.caption.copyWith(
+                                            color: AppColors.textSecondary,
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ],
+                          ),
+                        );
+                      },
+                    ),
             ),
           ],
         ),

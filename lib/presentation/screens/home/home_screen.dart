@@ -23,25 +23,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  // ✅ FIX: Không dùng const vì SRS cần callback
-  late final List<Widget> _pages;
-
-  @override
-  void initState() {
-    super.initState();
-    _pages = [
-      const _HomeTab(),
-      const ThemeListScreen(),
-      SrsReviewScreen(onClose: () => setState(() => _selectedIndex = 0)),
-      const ProgressScreen(),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: IndexedStack(index: _selectedIndex, children: _pages),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: [
+          const _HomeTab(),
+          const ThemeListScreen(),
+          SrsReviewScreen(
+            key: ValueKey('srs_review_${_selectedIndex == 2}'),
+            onClose: () => setState(() => _selectedIndex = 0),
+          ),
+          const ProgressScreen(),
+        ],
+      ),
       bottomNavigationBar: _buildBottomNav(),
     );
   }

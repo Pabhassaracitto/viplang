@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/progress/progress_bloc.dart';
 import '../blocs/progress/progress_state.dart';
+import '../screens/vocab/srs_review_screen.dart';
 import 'vocabulary_speaker_button.dart';
 
 class VocabOfTheDayWidget extends StatelessWidget {
@@ -156,9 +157,8 @@ class VocabOfTheDayWidget extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: () {
                   // ✅ FIX: Điều hướng đến SRS screen thay vì BLoC event
-                  Navigator.of(context).pushNamed(
-                    '/srs-review',
-                    // Có thể thêm arguments nếu cần filter vocab này
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const SrsReviewScreen()),
                   );
                 },
                 icon: const Icon(Icons.replay, size: 16),

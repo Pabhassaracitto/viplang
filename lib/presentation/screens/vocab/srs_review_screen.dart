@@ -56,9 +56,6 @@ class SrsReviewScreen extends StatefulWidget {
   State<SrsReviewScreen> createState() => _SrsReviewScreenState();
 }
 
-@override
-State<SrsReviewScreen> createState() => _SrsReviewScreenState();
-
 class _SrsReviewScreenState extends State<SrsReviewScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _flipController;
@@ -83,36 +80,55 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     super.initState();
 
     final box = HiveService.vocabBox;
+    final progressBox = HiveService.progressBox;
+    final progress =
+        progressBox.get('current_user') ??
+        UserProgressModel(userId: 'local_user');
+
+    // 1. Chỉ lấy các themeId của những bài học đã hoàn thành thực tế
+    final completedThemeIds = progress.completedLessons
+        .map((key) => key.split('_day_')[0])
+        .toSet();
 
     if (box.isNotEmpty) {
-      // ✅ Lọc due cards
-      final due = box.values.where((v) => v.isDueForReview).toList();
+      // 2. Chỉ lọc những từ của theme đã học HOẶC từ vựng đã có lịch sử ôn tập (repetitionCount > 0 hoặc nextReview != null)
+      final eligibleVocabs = box.values.where((v) {
+        if (v.nextReview != null || v.repetitionCount > 0) {
+          return true;
+        }
+        return completedThemeIds.contains(v.themeId);
+      }).toList();
 
-      if (due.isNotEmpty) {
-        // ✅ NEW: Giới hạn 50 từ/ngày
-        // Ưu tiên: sắp xếp theo nextReview (due sớm nhất lên trước)
-        due.sort((a, b) {
-          final aDate = a.nextReview ?? DateTime(2000);
-          final bDate = b.nextReview ?? DateTime(2000);
-          return aDate.compareTo(bDate);
-        });
+      final now = DateTime.now();
 
-        final dailyLimit = 50; // Giới hạn hàng ngày
-        _reviewCards.addAll(due.take(dailyLimit));
+      // 3. Phân nhóm thẻ sang Thẻ đến hạn (Due Cards) và Thẻ mới (New Cards)
+      final dueCards = eligibleVocabs.where((v) {
+        return v.nextReview != null && now.isAfter(v.nextReview!);
+      }).toList();
 
-        debugPrint(
-          '📚 SRS Review: ${_reviewCards.length} due cards (từ ${due.length} total)',
-        );
-      } else {
-        // Fallback: nếu không có due, lấy từ mới chưa học
-        final newCards = box.values.where((v) => v.nextReview == null).toList();
+      final newCards = eligibleVocabs.where((v) {
+        return v.nextReview == null;
+      }).toList();
 
-        _reviewCards.addAll(newCards.take(20)); // Giới hạn 20 từ mới/ngày
+      // 4. Sắp xếp thẻ đến hạn theo thứ tự khẩn cấp (quá hạn lâu nhất, easeFactor thấp nhất)
+      dueCards.sort((a, b) {
+        final aDate = a.nextReview ?? DateTime(2000);
+        final bDate = b.nextReview ?? DateTime(2000);
+        int cmp = aDate.compareTo(bDate);
+        if (cmp != 0) return cmp;
+        return a.easeFactor.compareTo(b.easeFactor);
+      });
 
-        debugPrint(
-          '📚 SRS Review: ${_reviewCards.length} new cards (chưa có due)',
-        );
-      }
+      // 5. Áp dụng mục tiêu hàng ngày (Tối đa 20 thẻ đến hạn + 10 thẻ học từ mới)
+      final selectedDue = dueCards.take(20).toList();
+      final selectedNew = newCards.take(10).toList();
+
+      _reviewCards.addAll(selectedDue);
+      _reviewCards.addAll(selectedNew);
+
+      debugPrint(
+        '📚 SRS Review: Khởi tạo ${_reviewCards.length} thẻ ôn tập hôm nay (Due: ${selectedDue.length}/${dueCards.length}, New: ${selectedNew.length}/${newCards.length})',
+      );
     } else {
       debugPrint('⚠️ vocabBox rỗng');
     }
@@ -312,9 +328,19 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
     final progress = (_currentIndex + 1) / _reviewCards.length;
 
     // ✅ NEW: Hiển thị thống kê SRS
-    final totalDue = HiveService.vocabBox.values
-        .where((v) => v.isDueForReview)
-        .length;
+    final progressBox = HiveService.progressBox;
+    final progressUser =
+        progressBox.get('current_user') ??
+        UserProgressModel(userId: 'local_user');
+    final completedThemeIds = progressUser.completedLessons
+        .map((key) => key.split('_day_')[0])
+        .toSet();
+
+    final totalDue = HiveService.vocabBox.values.where((v) {
+      if (v.nextReview == null) return false;
+      return DateTime.now().isAfter(v.nextReview!) &&
+          completedThemeIds.contains(v.themeId);
+    }).length;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -554,6 +580,21 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Icon(Icons.psychology, color: AppColors.primary, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Hãy cố gắng nhớ lại bối cảnh và nghĩa!',
+                style: AppTextStyles.caption.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               const Icon(Icons.touch_app, color: AppColors.textHint, size: 18),
               const SizedBox(width: 6),
               Text(
@@ -630,6 +671,30 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
             style: AppTextStyles.bodyMedium.copyWith(
               color: Colors.white.withValues(alpha: 0.8),
               fontStyle: FontStyle.italic,
+            ),
+          ),
+
+          const SizedBox(height: AppConstants.paddingM),
+          // 🎙️ Nói to phản xạ
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.15),
+              borderRadius: BorderRadius.circular(AppConstants.radiusS),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.mic, color: Colors.white, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  'Đọc TO phát âm để kích hoạt siêu trí nhớ!',
+                  style: AppTextStyles.caption.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
 
@@ -780,7 +845,71 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         ),
       ),
       body: Center(
-        // ... giữ nguyên
+        child: Padding(
+          padding: const EdgeInsets.all(AppConstants.paddingXL),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: AppColors.success.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Text('🎉', style: TextStyle(fontSize: 48)),
+                ),
+              ),
+              const SizedBox(height: AppConstants.paddingXL),
+              Text(
+                'Sạch hòm từ vựng!',
+                style: AppTextStyles.h2.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppConstants.paddingM),
+              Text(
+                'Tất cả từ vựng đã được ôn tập hoàn hảo hoặc bạn chưa bắt đầu bài học nào.\n\nHãy tiếp tục chinh phục bài mới hoặc ghim thêm từ vựng từ Tủ sách để rèn luyện nhé!',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textSecondary,
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppConstants.paddingXL),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await _tts.stop();
+                    if (widget.onClose != null) {
+                      widget.onClose!();
+                    } else if (mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                    ),
+                  ),
+                  child: Text(
+                    'Về Trang chủ',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95)),
+        ),
       ),
     );
   }

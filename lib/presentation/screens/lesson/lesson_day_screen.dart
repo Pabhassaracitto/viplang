@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
@@ -1118,6 +1119,7 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
   final TextEditingController _searchController = TextEditingController();
   String _query = '';
   String _selectedPos = 'all'; // filter loại từ
+  bool _showOnlyMine = true; // ✅ Mặc định hiện từ vựng của tôi
 
   @override
   void dispose() {
@@ -1127,12 +1129,36 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
 
   List<VocabModel> get _filtered {
     return widget.vocabs.where((v) {
+      // Lấy từ trong Hive để có thông tin srs mới nhất
+      final liveV = HiveService.vocabBox.get(v.id) ?? v;
+
       final matchQuery =
           _query.isEmpty ||
           v.wordEn.toLowerCase().contains(_query.toLowerCase()) ||
           v.wordVi.toLowerCase().contains(_query.toLowerCase());
       final matchPos = _selectedPos == 'all' || v.partOfSpeech == _selectedPos;
-      return matchQuery && matchPos;
+
+      if (!matchQuery || !matchPos) {
+        return false;
+      }
+
+      if (_showOnlyMine) {
+        final progressBox = HiveService.progressBox;
+        final progress =
+            progressBox.get('current_user') ??
+            UserProgressModel(userId: 'local_user');
+        final completedThemeIds = progress.completedLessons
+            .map((key) => key.split('_day_')[0])
+            .toSet();
+
+        final hasSrsHistory =
+            liveV.nextReview != null || liveV.repetitionCount > 0;
+        final isThemeCompleted = completedThemeIds.contains(liveV.themeId);
+
+        return hasSrsHistory || isThemeCompleted;
+      }
+
+      return true;
     }).toList();
   }
 
@@ -1187,6 +1213,101 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
 
     return Column(
       children: [
+        // ── Mode selector ───────────────────────────────────
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+            AppConstants.paddingM,
+            AppConstants.paddingS,
+            AppConstants.paddingM,
+            0,
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: AppColors.background,
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _showOnlyMine = true),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                        color: _showOnlyMine
+                            ? AppColors.primary
+                            : Colors.transparent,
+                        borderRadius: _showOnlyMine
+                            ? BorderRadius.circular(AppConstants.radiusS)
+                            : null,
+                        boxShadow: _showOnlyMine
+                            ? [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.2,
+                                  ),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: Text(
+                        '📚 Của tôi',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: _showOnlyMine
+                              ? Colors.white
+                              : AppColors.textSecondary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _showOnlyMine = false),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      decoration: BoxDecoration(
+                        color: !_showOnlyMine
+                            ? AppColors.primary
+                            : Colors.transparent,
+                        borderRadius: !_showOnlyMine
+                            ? BorderRadius.circular(AppConstants.radiusS)
+                            : null,
+                        boxShadow: !_showOnlyMine
+                            ? [
+                                BoxShadow(
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.2,
+                                  ),
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 2),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: Text(
+                        '✨ Tất cả tủ sách',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: !_showOnlyMine
+                              ? Colors.white
+                              : AppColors.textSecondary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
         // ── Search bar ────────────────────────────────────────
         Padding(
           padding: const EdgeInsets.fromLTRB(
@@ -1405,6 +1526,68 @@ class _VocabLibraryTile extends StatelessWidget {
                 text: vocab.wordEn,
                 size: 16,
                 color: AppColors.primary,
+              ),
+
+              const SizedBox(width: 4),
+
+              // ✅ NÚT GHIM ÔN TẬP THỦ CÔNG (PRIORITY/SRS PIN)
+              ValueListenableBuilder(
+                valueListenable: HiveService.vocabBox.listenable(
+                  keys: [vocab.id],
+                ),
+                builder: (context, Box<VocabModel> box, _) {
+                  final liveVocab = box.get(vocab.id) ?? vocab;
+                  final isPinned = liveVocab.nextReview != null;
+
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () async {
+                      if (isPinned) {
+                        liveVocab.nextReview = null;
+                        liveVocab.repetitionCount = 0;
+                        await liveVocab.save();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Đã bỏ "${liveVocab.wordEn}" khỏi danh sách ôn tập',
+                              ),
+                              backgroundColor: AppColors.textPrimary,
+                              duration: const Duration(seconds: 1),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        }
+                      } else {
+                        liveVocab.nextReview = DateTime.now();
+                        liveVocab.repetitionCount = 0;
+                        await liveVocab.save();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                '⚡ Đã ghim "${liveVocab.wordEn}" vào hàng chờ ôn tập!',
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: const Duration(milliseconds: 1500),
+                              behavior: SnackBarBehavior.floating,
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Icon(
+                        isPinned ? Icons.push_pin : Icons.push_pin_outlined,
+                        color: isPinned
+                            ? AppColors.warning
+                            : AppColors.textHint,
+                        size: 18,
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
