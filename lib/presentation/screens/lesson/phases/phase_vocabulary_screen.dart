@@ -4,8 +4,10 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/app_text_styles.dart';
+import '../../../../core/services/tts_service.dart';
 import '../../../../data/content/all_themes_registry.dart';
 import '../../../../data/models/vocab_model.dart';
+import '../../../widgets/vocabulary_speaker_button.dart';
 
 class PhaseVocabularyScreen extends StatefulWidget {
   final int dayNumber;
@@ -30,6 +32,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
   final Set<int> _knownIndices = {};
   final Set<int> _reviewIndices = {};
   bool _isSessionDone = false;
+  bool _autoPlayTts = true; // ✅ Tự động phát âm mặc định là true
 
   // ✅ FIX: Flip state per card
   final Map<int, bool> _flippedMap = {};
@@ -41,11 +44,23 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
     super.initState();
     // ✅ FIX: Đọc từ AllThemesRegistry thay vì hardcode
     _vocabList = AllThemesRegistry.getVocabulary(widget.themeId);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _speakCurrent();
+    });
+  }
+
+  void _speakCurrent() {
+    if (_autoPlayTts &&
+        _vocabList.isNotEmpty &&
+        _currentIndex < _vocabList.length) {
+      TtsService.instance.speak(_vocabList[_currentIndex].wordEn);
+    }
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    TtsService.instance.stop(); // ✅ Dừng đọc khi tắt màn hình
     super.dispose();
   }
 
@@ -118,7 +133,10 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
             controller: _pageController,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: _vocabList.length,
-            onPageChanged: (i) => setState(() => _currentIndex = i),
+            onPageChanged: (i) {
+              setState(() => _currentIndex = i);
+              _speakCurrent();
+            },
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -214,6 +232,48 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
               ),
               minHeight: 5,
             ),
+          ),
+          const SizedBox(height: 6),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Icon(
+                _autoPlayTts ? Icons.volume_up : Icons.volume_off,
+                size: 14,
+                color: _autoPlayTts ? AppColors.primary : AppColors.textHint,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'Tự động phát âm',
+                style: AppTextStyles.caption.copyWith(
+                  color: _autoPlayTts
+                      ? AppColors.textPrimary
+                      : AppColors.textHint,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 11,
+                ),
+              ),
+              const SizedBox(width: 6),
+              SizedBox(
+                height: 20,
+                width: 32,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Switch(
+                    value: _autoPlayTts,
+                    onChanged: (val) {
+                      setState(() {
+                        _autoPlayTts = val;
+                      });
+                      if (val) {
+                        _speakCurrent();
+                      }
+                    },
+                    activeColor: AppColors.primary,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -607,12 +667,23 @@ class _VocabCardWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    '📝 Ví dụ:',
-                    style: AppTextStyles.caption.copyWith(
-                      color: AppColors.textHint,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '📝 Ví dụ:',
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.textHint,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      if (vocab.exampleEn != null)
+                        VocabularySpeakerButton(
+                          text: vocab.exampleEn!,
+                          size: 16,
+                          color: AppColors.textSecondary,
+                        ),
+                    ],
                   ),
                   const SizedBox(height: 4),
                   if (vocab.exampleEn != null)
@@ -677,13 +748,23 @@ class _VocabCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppConstants.paddingM),
-          Text(
-            vocab.wordEn,
-            style: AppTextStyles.h1.copyWith(
-              fontSize: 38,
-              fontWeight: FontWeight.w900,
-            ),
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  vocab.wordEn,
+                  style: AppTextStyles.h1.copyWith(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w900,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(width: AppConstants.paddingS),
+              VocabularySpeakerButton(text: vocab.wordEn, size: 24),
+            ],
           ),
           const SizedBox(height: AppConstants.paddingXS),
           Text(
@@ -747,13 +828,27 @@ class _VocabCardWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: AppConstants.paddingM),
-          Text(
-            vocab.wordEn,
-            style: AppTextStyles.bodyMedium.copyWith(
-              color: AppColors.success.withValues(alpha: 0.7),
-              fontWeight: FontWeight.w600,
-            ),
-            textAlign: TextAlign.center,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  vocab.wordEn,
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.success.withValues(alpha: 0.7),
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(width: AppConstants.paddingS),
+              VocabularySpeakerButton(
+                text: vocab.wordEn,
+                size: 18,
+                color: AppColors.success,
+              ),
+            ],
           ),
           const SizedBox(height: AppConstants.paddingS),
           Text(

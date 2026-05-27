@@ -11,11 +11,15 @@ import '../../../../data/models/lesson_model.dart';
 class PhaseTranslateScreen extends StatefulWidget {
   final LessonPhase phase;
   final VoidCallback onComplete;
+  final String? fallbackContentEn;
+  final String? fallbackContentVi;
 
   const PhaseTranslateScreen({
     super.key,
     required this.phase,
     required this.onComplete,
+    this.fallbackContentEn,
+    this.fallbackContentVi,
   });
 
   @override
@@ -31,16 +35,26 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
   @override
   void initState() {
     super.initState();
-    // ✅ FIX: Đọc từ phase.contentEn/Vi (đã đúng), xóa _buildItems() hardcode
+    // ✅ FIX: Đọc từ phase.contentEn/Vi (đã đúng), có thể hồi phục từ fallback nếu null
     _items = _buildItemsFromPhase(widget.phase);
   }
 
   List<_TranslateItem> _buildItemsFromPhase(LessonPhase phase) {
-    final enSentences = (phase.contentEn ?? '')
+    String enText = phase.contentEn ?? '';
+    String viText = phase.contentVi ?? '';
+
+    if (enText.trim().isEmpty && widget.fallbackContentEn != null && widget.fallbackContentEn!.trim().isNotEmpty) {
+      enText = widget.fallbackContentEn!;
+    }
+    if (viText.trim().isEmpty && widget.fallbackContentVi != null && widget.fallbackContentVi!.trim().isNotEmpty) {
+      viText = widget.fallbackContentVi!;
+    }
+
+    final enSentences = enText
         .split('\n\n')
         .where((s) => s.trim().isNotEmpty)
         .toList();
-    final viSentences = (phase.contentVi ?? '')
+    final viSentences = viText
         .split('\n\n')
         .where((s) => s.trim().isNotEmpty)
         .toList();

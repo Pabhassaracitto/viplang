@@ -170,7 +170,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
               mini: true,
               child: const Text('📚', style: TextStyle(fontSize: 20)),
             ),
-            body: _buildPhase(context, state),
+            body: SafeArea(bottom: true, child: _buildPhase(context, state)),
           );
         }
 
@@ -561,6 +561,12 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                   ],
                 ),
               ),
+              const SizedBox(width: AppConstants.paddingS),
+              VocabularySpeakerButton(
+                text: item.phrase,
+                size: 18,
+                color: AppColors.success,
+              ),
             ],
           ),
         );
@@ -636,6 +642,12 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                     ],
                   ),
                 ),
+              ),
+              const SizedBox(width: AppConstants.paddingS),
+              VocabularySpeakerButton(
+                text: item.en,
+                size: 18,
+                color: AppColors.success,
               ),
             ],
           ),
@@ -783,135 +795,138 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
             top: Radius.circular(AppConstants.radiusXL),
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle
-            Container(
-              margin: const EdgeInsets.only(top: 12),
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.border,
-                borderRadius: BorderRadius.circular(2),
+        child: SafeArea(
+          bottom: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Handle
+              Container(
+                margin: const EdgeInsets.only(top: 12),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-            ),
 
-            // Title
-            Padding(
-              padding: const EdgeInsets.all(AppConstants.paddingM),
-              child: Row(
-                children: [
-                  const Text('📚', style: TextStyle(fontSize: 20)),
-                  const SizedBox(width: AppConstants.paddingS),
-                  Text(
-                    'Day ${widget.dayNumber} - Chọn phần học',
-                    style: AppTextStyles.h3,
-                  ),
-                ],
+              // Title
+              Padding(
+                padding: const EdgeInsets.all(AppConstants.paddingM),
+                child: Row(
+                  children: [
+                    const Text('📚', style: TextStyle(fontSize: 20)),
+                    const SizedBox(width: AppConstants.paddingS),
+                    Text(
+                      'Day ${widget.dayNumber} - Chọn phần học',
+                      style: AppTextStyles.h3,
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            const Divider(height: 1),
+              const Divider(height: 1),
 
-            // Phase list
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(AppConstants.paddingS),
-                itemCount: state.lessonDay.phases.length,
-                itemBuilder: (_, index) {
-                  final phase = state.lessonDay.phases[index];
-                  final isCurrent = index == state.currentPhaseIndex;
-                  final isCompleted = phase.isCompleted;
+              // Phase list
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(AppConstants.paddingS),
+                  itemCount: state.lessonDay.phases.length,
+                  itemBuilder: (_, index) {
+                    final phase = state.lessonDay.phases[index];
+                    final isCurrent = index == state.currentPhaseIndex;
+                    final isCompleted = phase.isCompleted;
 
-                  return ListTile(
-                    leading: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: isCurrent
-                            ? AppColors.primary
-                            : isCompleted
-                            ? AppColors.success.withValues(alpha: 0.1)
-                            : AppColors.background,
-                        shape: BoxShape.circle,
-                        border: Border.all(
+                    return ListTile(
+                      leading: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
                           color: isCurrent
                               ? AppColors.primary
                               : isCompleted
-                              ? AppColors.success
-                              : AppColors.border,
+                              ? AppColors.success.withValues(alpha: 0.1)
+                              : AppColors.background,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isCurrent
+                                ? AppColors.primary
+                                : isCompleted
+                                ? AppColors.success
+                                : AppColors.border,
+                          ),
+                        ),
+                        child: Center(
+                          child: isCurrent
+                              ? const Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 18,
+                                )
+                              : isCompleted
+                              ? const Icon(
+                                  Icons.check,
+                                  color: AppColors.success,
+                                  size: 18,
+                                )
+                              : Text(
+                                  '${index + 1}',
+                                  style: AppTextStyles.bodyMedium.copyWith(
+                                    color: AppColors.textSecondary,
+                                  ),
+                                ),
                         ),
                       ),
-                      child: Center(
-                        child: isCurrent
-                            ? const Icon(
-                                Icons.play_arrow,
-                                color: Colors.white,
-                                size: 18,
-                              )
-                            : isCompleted
-                            ? const Icon(
-                                Icons.check,
-                                color: AppColors.success,
-                                size: 18,
-                              )
-                            : Text(
-                                '${index + 1}',
-                                style: AppTextStyles.bodyMedium.copyWith(
-                                  color: AppColors.textSecondary,
+                      title: Text(
+                        phase.titleVi ?? phase.titleEn ?? 'Phase ${index + 1}',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          fontWeight: isCurrent
+                              ? FontWeight.w700
+                              : FontWeight.normal,
+                          color: isCurrent
+                              ? AppColors.primary
+                              : AppColors.textPrimary,
+                        ),
+                      ),
+                      subtitle: Text(
+                        _getPhaseTypeLabel(phase.phaseType),
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      trailing: isCurrent
+                          ? Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.primary.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                'Hiện tại',
+                                style: AppTextStyles.caption.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                      ),
-                    ),
-                    title: Text(
-                      phase.titleVi ?? phase.titleEn ?? 'Phase ${index + 1}',
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        fontWeight: isCurrent
-                            ? FontWeight.w700
-                            : FontWeight.normal,
-                        color: isCurrent
-                            ? AppColors.primary
-                            : AppColors.textPrimary,
-                      ),
-                    ),
-                    subtitle: Text(
-                      _getPhaseTypeLabel(phase.phaseType),
-                      style: AppTextStyles.caption.copyWith(
-                        color: AppColors.textSecondary,
-                      ),
-                    ),
-                    trailing: isCurrent
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.primary.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              'Hiện tại',
-                              style: AppTextStyles.caption.copyWith(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          )
-                        : null,
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      context.read<LessonBloc>().add(GoToPhaseEvent(index));
-                    },
-                  );
-                },
+                            )
+                          : null,
+                      onTap: () {
+                        Navigator.pop(ctx);
+                        context.read<LessonBloc>().add(GoToPhaseEvent(index));
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
 
-            const SizedBox(height: AppConstants.paddingM),
-          ],
+              const SizedBox(height: AppConstants.paddingM),
+            ],
+          ),
         ),
       ),
     );
@@ -952,7 +967,16 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
         );
 
       case PhaseType.translate:
-        return PhaseTranslateScreen(phase: phase, onComplete: onComplete);
+        final readListenPhase = state.lessonDay.phases.firstWhere(
+          (p) => p.phaseType == PhaseType.readListen,
+          orElse: () => phase,
+        );
+        return PhaseTranslateScreen(
+          phase: phase,
+          onComplete: onComplete,
+          fallbackContentEn: readListenPhase.contentEn,
+          fallbackContentVi: readListenPhase.contentVi,
+        );
 
       case PhaseType.mindGame:
         if (phase.mixedSegments != null && phase.mixedSegments!.isNotEmpty) {

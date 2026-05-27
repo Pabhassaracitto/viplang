@@ -40,48 +40,50 @@ class LessonSelectorScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppConstants.paddingM),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ── Theme Progress Summary ──────────────────────────────
-            _buildProgressSummary(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppConstants.paddingM),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ── Theme Progress Summary ──────────────────────────────
+              _buildProgressSummary(),
 
-            const SizedBox(height: AppConstants.paddingL),
+              const SizedBox(height: AppConstants.paddingL),
 
-            // ── Quick Actions ───────────────────────────────────────
-            _buildQuickActions(context),
+              // ── Quick Actions ───────────────────────────────────────
+              _buildQuickActions(context),
 
-            const SizedBox(height: AppConstants.paddingL),
+              const SizedBox(height: AppConstants.paddingL),
 
-            // ── Days List ───────────────────────────────────────────
-            const Text('📅 Các ngày học', style: AppTextStyles.h3),
-            const SizedBox(height: AppConstants.paddingS),
+              // ── Days List ───────────────────────────────────────────
+              const Text('📅 Các ngày học', style: AppTextStyles.h3),
+              const SizedBox(height: AppConstants.paddingS),
 
-            ...List.generate(theme.totalDays, (index) {
-              final dayNumber = index + 1;
-              final isCompleted = dayNumber <= theme.completedDays;
-              final isCurrent = dayNumber == theme.completedDays + 1;
-              final isLocked = dayNumber > theme.completedDays + 1;
+              ...List.generate(theme.totalDays, (index) {
+                final dayNumber = index + 1;
+                final isCompleted = dayNumber <= theme.completedDays;
+                final isCurrent = dayNumber == theme.completedDays + 1;
+                final isLocked = dayNumber > theme.completedDays + 1;
 
-              return _DayCard(
-                dayNumber: dayNumber,
-                themeId: theme.id,
-                themeTitle: theme.titleEn,
-                isCompleted: isCompleted,
-                isCurrent: isCurrent,
-                isLocked: isLocked,
-              ).animate(delay: (index * 100).ms).fadeIn().slideX(begin: 0.1);
-            }),
+                return _DayCard(
+                  dayNumber: dayNumber,
+                  themeId: theme.id,
+                  themeTitle: theme.titleEn,
+                  isCompleted: isCompleted,
+                  isCurrent: isCurrent,
+                  isLocked: isLocked,
+                ).animate(delay: (index * 100).ms).fadeIn().slideX(begin: 0.1);
+              }),
 
-            const SizedBox(height: AppConstants.paddingXL),
+              const SizedBox(height: AppConstants.paddingXL),
 
-            // ── Vocabulary Section ──────────────────────────────────
-            _buildVocabularySection(context),
+              // ── Vocabulary Section ──────────────────────────────────
+              _buildVocabularySection(context),
 
-            const SizedBox(height: AppConstants.paddingXL),
-          ],
+              const SizedBox(height: AppConstants.paddingXL),
+            ],
+          ),
         ),
       ),
     );
@@ -476,77 +478,58 @@ class _DayCard extends StatelessWidget {
             top: Radius.circular(AppConstants.radiusXL),
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle
-            Container(
-              margin: const EdgeInsets.only(top: 12),
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.border,
-                borderRadius: BorderRadius.circular(2),
+        child: SafeArea(
+          bottom: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Handle
+              Container(
+                margin: const EdgeInsets.only(top: 12),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-            ),
 
-            // Title
-            Padding(
-              padding: const EdgeInsets.all(AppConstants.paddingM),
-              child: Row(
-                children: [
-                  Text('📅 Ngày $dayNumber', style: AppTextStyles.h3),
-                  const Spacer(),
-                  if (isCompleted)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 2,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.success.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        '✅ Hoàn thành',
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.success,
-                          fontWeight: FontWeight.w600,
+              // Title
+              Padding(
+                padding: const EdgeInsets.all(AppConstants.paddingM),
+                child: Row(
+                  children: [
+                    Text('📅 Ngày $dayNumber', style: AppTextStyles.h3),
+                    const Spacer(),
+                    if (isCompleted)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.success.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text(
+                          '✅ Hoàn thành',
+                          style: AppTextStyles.caption.copyWith(
+                            color: AppColors.success,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-            const Divider(height: 1),
+              const Divider(height: 1),
 
-            // Options
-            ListTile(
-              leading: const Icon(Icons.play_arrow, color: AppColors.primary),
-              title: const Text('Học từ đầu'),
-              subtitle: const Text('Bắt đầu bài học mới'),
-              onTap: () {
-                Navigator.pop(ctx);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => LessonDayScreen(
-                      dayNumber: dayNumber,
-                      themeId: themeId,
-                      themeTitle: themeTitle,
-                      isReviewMode: false,
-                    ),
-                  ),
-                );
-              },
-            ),
-
-            if (isCompleted) ...[
+              // Options
               ListTile(
-                leading: const Icon(Icons.refresh, color: AppColors.success),
-                title: const Text('Ôn tập tự do'),
-                subtitle: const Text('Xem lại bất kỳ phần nào'),
+                leading: const Icon(Icons.play_arrow, color: AppColors.primary),
+                title: const Text('Học từ đầu'),
+                subtitle: const Text('Bắt đầu bài học mới'),
                 onTap: () {
                   Navigator.pop(ctx);
                   Navigator.push(
@@ -556,27 +539,49 @@ class _DayCard extends StatelessWidget {
                         dayNumber: dayNumber,
                         themeId: themeId,
                         themeTitle: themeTitle,
-                        isReviewMode: true,
+                        isReviewMode: false,
                       ),
                     ),
                   );
                 },
               ),
 
-              // ✅ NEW: Chọn phase cụ thể
-              ListTile(
-                leading: const Icon(Icons.list, color: AppColors.warning),
-                title: const Text('Chọn phần cụ thể'),
-                subtitle: Text('${lesson.phases.length} phần học'),
-                onTap: () {
-                  Navigator.pop(ctx);
-                  _showPhaseSelector(context, lesson);
-                },
-              ),
-            ],
+              if (isCompleted) ...[
+                ListTile(
+                  leading: const Icon(Icons.refresh, color: AppColors.success),
+                  title: const Text('Ôn tập tự do'),
+                  subtitle: const Text('Xem lại bất kỳ phần nào'),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => LessonDayScreen(
+                          dayNumber: dayNumber,
+                          themeId: themeId,
+                          themeTitle: themeTitle,
+                          isReviewMode: true,
+                        ),
+                      ),
+                    );
+                  },
+                ),
 
-            const SizedBox(height: AppConstants.paddingM),
-          ],
+                // ✅ NEW: Chọn phase cụ thể
+                ListTile(
+                  leading: const Icon(Icons.list, color: AppColors.warning),
+                  title: const Text('Chọn phần cụ thể'),
+                  subtitle: Text('${lesson.phases.length} phần học'),
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _showPhaseSelector(context, lesson);
+                  },
+                ),
+              ],
+
+              const SizedBox(height: AppConstants.paddingM),
+            ],
+          ),
         ),
       ),
     );
@@ -597,75 +602,78 @@ class _DayCard extends StatelessWidget {
             top: Radius.circular(AppConstants.radiusXL),
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle
-            Container(
-              margin: const EdgeInsets.only(top: 12),
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.border,
-                borderRadius: BorderRadius.circular(2),
+        child: SafeArea(
+          bottom: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Handle
+              Container(
+                margin: const EdgeInsets.only(top: 12),
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: AppColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-            ),
 
-            // Title
-            const Padding(
-              padding: EdgeInsets.all(AppConstants.paddingM),
-              child: Text('📋 Chọn phần để ôn tập', style: AppTextStyles.h3),
-            ),
+              // Title
+              const Padding(
+                padding: EdgeInsets.all(AppConstants.paddingM),
+                child: Text('📋 Chọn phần để ôn tập', style: AppTextStyles.h3),
+              ),
 
-            const Divider(height: 1),
+              const Divider(height: 1),
 
-            // Phase list
-            Flexible(
-              child: ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(AppConstants.paddingS),
-                itemCount: lesson.phases.length,
-                itemBuilder: (_, index) {
-                  final phase = lesson.phases[index];
+              // Phase list
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(AppConstants.paddingS),
+                  itemCount: lesson.phases.length,
+                  itemBuilder: (_, index) {
+                    final phase = lesson.phases[index];
 
-                  return ListTile(
-                    leading: _getPhaseIcon(phase.phaseType),
-                    title: Text(
-                      phase.titleVi ?? phase.titleEn ?? 'Phase ${index + 1}',
-                      style: AppTextStyles.bodyMedium,
-                    ),
-                    subtitle: Text(
-                      _getPhaseDescription(phase.phaseType),
-                      style: AppTextStyles.caption.copyWith(
+                    return ListTile(
+                      leading: _getPhaseIcon(phase.phaseType),
+                      title: Text(
+                        phase.titleVi ?? phase.titleEn ?? 'Phase ${index + 1}',
+                        style: AppTextStyles.bodyMedium,
+                      ),
+                      subtitle: Text(
+                        _getPhaseDescription(phase.phaseType),
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      trailing: const Icon(
+                        Icons.chevron_right,
                         color: AppColors.textSecondary,
                       ),
-                    ),
-                    trailing: const Icon(
-                      Icons.chevron_right,
-                      color: AppColors.textSecondary,
-                    ),
-                    onTap: () {
-                      Navigator.pop(ctx);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => LessonDayScreen(
-                            dayNumber: dayNumber,
-                            themeId: themeId,
-                            themeTitle: themeTitle,
-                            isReviewMode: true,
-                            startPhaseIndex: index,
+                      onTap: () {
+                        Navigator.pop(ctx);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => LessonDayScreen(
+                              dayNumber: dayNumber,
+                              themeId: themeId,
+                              themeTitle: themeTitle,
+                              isReviewMode: true,
+                              startPhaseIndex: index,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
 
-            const SizedBox(height: AppConstants.paddingM),
-          ],
+              const SizedBox(height: AppConstants.paddingM),
+            ],
+          ),
         ),
       ),
     );

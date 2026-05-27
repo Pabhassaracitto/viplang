@@ -383,97 +383,100 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
           ),
         ],
       ),
-      body: Column(
-        children: [
-          // Progress Bar
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingM,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(AppConstants.radiusS),
-              child: LinearProgressIndicator(
-                value: progress,
-                backgroundColor: AppColors.border,
-                valueColor: const AlwaysStoppedAnimation<Color>(
-                  AppColors.primary,
-                ),
-                minHeight: 6,
-              ),
-            ),
-          ),
-
-          const SizedBox(height: AppConstants.paddingM),
-
-          // Session Stats
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingM,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _SessionStat(
-                  icon: Icons.check_circle,
-                  value: _sessionCorrect,
-                  color: AppColors.success,
-                ),
-                const SizedBox(width: AppConstants.paddingL),
-                _SessionStat(
-                  icon: Icons.cancel,
-                  value: _sessionTotal - _sessionCorrect,
-                  color: AppColors.error,
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: AppConstants.paddingM),
-
-          // Vocab Quick Ref Bar (đã tích hợp TTS thật)
-          _buildVocabQuickRef(card),
-
-          const SizedBox(height: AppConstants.paddingS),
-
-          // Flashcard
-          Expanded(
-            child: Padding(
+      body: SafeArea(
+        bottom: true,
+        child: Column(
+          children: [
+            // Progress Bar
+            Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppConstants.paddingM,
               ),
-              child: GestureDetector(
-                onTap: _isFlipped ? null : _flipCard,
-                child: AnimatedBuilder(
-                  animation: _flipAnimation,
-                  builder: (context, child) {
-                    final isShowingBack = _flipAnimation.value > 0.5;
-                    return Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.identity()
-                        ..setEntry(3, 2, 0.001)
-                        ..rotateY(_flipAnimation.value * 3.14159),
-                      child: isShowingBack
-                          ? Transform(
-                              alignment: Alignment.center,
-                              transform: Matrix4.identity()..rotateY(3.14159),
-                              child: _buildBackCard(card),
-                            )
-                          : _buildFrontCard(card),
-                    );
-                  },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                child: LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: AppColors.border,
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.primary,
+                  ),
+                  minHeight: 6,
                 ),
               ),
             ),
-          ),
 
-          // Rating / Hint
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: _showRating ? _buildRatingButtons() : _buildTapHint(),
-          ),
+            const SizedBox(height: AppConstants.paddingM),
 
-          const SizedBox(height: AppConstants.paddingL),
-        ],
+            // Session Stats
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.paddingM,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _SessionStat(
+                    icon: Icons.check_circle,
+                    value: _sessionCorrect,
+                    color: AppColors.success,
+                  ),
+                  const SizedBox(width: AppConstants.paddingL),
+                  _SessionStat(
+                    icon: Icons.cancel,
+                    value: _sessionTotal - _sessionCorrect,
+                    color: AppColors.error,
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: AppConstants.paddingM),
+
+            // Vocab Quick Ref Bar (đã tích hợp TTS thật)
+            _buildVocabQuickRef(card),
+
+            const SizedBox(height: AppConstants.paddingS),
+
+            // Flashcard
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.paddingM,
+                ),
+                child: GestureDetector(
+                  onTap: _isFlipped ? null : _flipCard,
+                  child: AnimatedBuilder(
+                    animation: _flipAnimation,
+                    builder: (context, child) {
+                      final isShowingBack = _flipAnimation.value > 0.5;
+                      return Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(_flipAnimation.value * 3.14159),
+                        child: isShowingBack
+                            ? Transform(
+                                alignment: Alignment.center,
+                                transform: Matrix4.identity()..rotateY(3.14159),
+                                child: _buildBackCard(card),
+                              )
+                            : _buildFrontCard(card),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+
+            // Rating / Hint
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: _showRating ? _buildRatingButtons() : _buildTapHint(),
+            ),
+
+            const SizedBox(height: AppConstants.paddingL),
+          ],
+        ),
       ),
     );
   }
@@ -712,14 +715,29 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                 ),
                 child: Column(
                   children: [
-                    Text(
-                      vocab.exampleEn!,
-                      style: AppTextStyles.bodySmall.copyWith(
-                        color: Colors.white.withValues(alpha: 0.9),
-                        fontStyle: FontStyle.italic,
-                        height: 1.5,
-                      ),
-                      textAlign: TextAlign.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            vocab.exampleEn!,
+                            style: AppTextStyles.bodySmall.copyWith(
+                              color: Colors.white.withValues(alpha: 0.9),
+                              fontStyle: FontStyle.italic,
+                              height: 1.5,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        _SpeakerButton(
+                          text: vocab.exampleEn!,
+                          tts: _tts,
+                          color: Colors.white.withValues(alpha: 0.85),
+                          iconSize: 18,
+                        ),
+                      ],
                     ),
                     if (vocab.exampleVi != null) ...[
                       const SizedBox(height: 6),
@@ -844,71 +862,75 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
           },
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(AppConstants.paddingXL),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: AppColors.success.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: const Center(
-                  child: Text('🎉', style: TextStyle(fontSize: 48)),
-                ),
-              ),
-              const SizedBox(height: AppConstants.paddingXL),
-              Text(
-                'Sạch hòm từ vựng!',
-                style: AppTextStyles.h2.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppConstants.paddingM),
-              Text(
-                'Tất cả từ vựng đã được ôn tập hoàn hảo hoặc bạn chưa bắt đầu bài học nào.\n\nHãy tiếp tục chinh phục bài mới hoặc ghim thêm từ vựng từ Tủ sách để rèn luyện nhé!',
-                style: AppTextStyles.bodyMedium.copyWith(
-                  color: AppColors.textSecondary,
-                  height: 1.5,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: AppConstants.paddingXL),
-              SizedBox(
-                width: 200,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await _tts.stop();
-                    if (widget.onClose != null) {
-                      widget.onClose!();
-                    } else if (mounted) {
-                      Navigator.pop(context);
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                    ),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppConstants.paddingXL),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: AppColors.success.withValues(alpha: 0.1),
+                    shape: BoxShape.circle,
                   ),
-                  child: Text(
-                    'Về Trang chủ',
-                    style: AppTextStyles.bodyMedium.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: const Center(
+                    child: Text('🎉', style: TextStyle(fontSize: 48)),
                   ),
                 ),
-              ),
-            ],
-          ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95)),
+                const SizedBox(height: AppConstants.paddingXL),
+                Text(
+                  'Sạch hòm từ vựng!',
+                  style: AppTextStyles.h2.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppConstants.paddingM),
+                Text(
+                  'Tất cả từ vựng đã được ôn tập hoàn hảo hoặc bạn chưa bắt đầu bài học nào.\n\nHãy tiếp tục chinh phục bài mới hoặc ghim thêm từ vựng từ Tủ sách để rèn luyện nhé!',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: AppConstants.paddingXL),
+                SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await _tts.stop();
+                      if (widget.onClose != null) {
+                        widget.onClose!();
+                      } else if (mounted) {
+                        Navigator.pop(context);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusM,
+                        ),
+                      ),
+                    ),
+                    child: Text(
+                      'Về Trang chủ',
+                      style: AppTextStyles.bodyMedium.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95)),
+          ),
         ),
       ),
     );

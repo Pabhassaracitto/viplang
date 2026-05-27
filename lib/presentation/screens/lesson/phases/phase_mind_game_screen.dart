@@ -312,91 +312,110 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
       padding: const EdgeInsets.all(AppConstants.paddingM),
       color: AppColors.surface,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              // ✅ FIX: Sử dụng Expanded để tránh lỗi gạch sọc đen vàng khi text quá dài trong Row
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(AppConstants.paddingM),
-                  decoration: BoxDecoration(
-                    color: AppColors.warning.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(AppConstants.radiusM),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Text('🎮', style: TextStyle(fontSize: 18)),
-                          const SizedBox(width: AppConstants.paddingS),
-                          Text(
-                            'CHƠI TRÒ CHƠI TƯ DUY',
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              color: AppColors.warning,
-                              fontWeight: FontWeight.w900,
+          Container(
+            padding: const EdgeInsets.all(AppConstants.paddingM),
+            decoration: BoxDecoration(
+              color: AppColors.warning.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(AppConstants.radiusM),
+              border: Border.all(
+                color: AppColors.warning.withValues(alpha: 0.15),
+                width: 1,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text('🎮', style: TextStyle(fontSize: 18)),
+                    const SizedBox(width: AppConstants.paddingS),
+                    Expanded(
+                      child: Text(
+                        'CHƠI TRÒ CHƠI TƯ DUY',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          color: AppColors.warning,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: AppConstants.paddingS),
+                    // Back button integrated inside the box
+                    if (_currentIndex > 0) ...[
+                      GestureDetector(
+                        onTap: _previousParagraph,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.warning.withValues(alpha: 0.12),
+                            borderRadius: BorderRadius.circular(
+                              AppConstants.radiusS,
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: AppConstants.paddingS),
-                      Text(
-                        'Hãy NÓI TO những cụm từ tiếng Việt 🟡 thành tiếng Anh dựa vào bài đọc trước. '
-                        'Nhấn vào chip để kiểm tra đáp án 🟢.\n\n'
-                        '⚠️ Nếu bạn nói thầm hoặc chỉ nhìn bằng mắt, bạn sẽ không đạt tiến bộ đáng kể!',
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.warning,
-                          fontWeight: FontWeight.w500,
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ).animate().fadeIn(),
-              const SizedBox(width: AppConstants.paddingS),
-              // Nút quay lại đoạn trước
-              if (_currentIndex > 0)
-                GestureDetector(
-                  onTap: _previousParagraph,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppConstants.paddingS,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.surfaceVariant,
-                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.arrow_back_ios,
-                          size: 12,
-                          color: AppColors.textSecondary,
-                        ),
-                        const SizedBox(width: 2),
-                        Text(
-                          'Đoạn trước',
-                          style: AppTextStyles.caption.copyWith(
-                            color: AppColors.textSecondary,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.arrow_back_ios,
+                                size: 10,
+                                color: AppColors.warning,
+                              ),
+                              const SizedBox(width: 2),
+                              Text(
+                                'Đoạn trước',
+                                style: AppTextStyles.caption.copyWith(
+                                  color: AppColors.warning,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
+                      const SizedBox(width: 8),
+                    ],
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.warning.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(
+                          AppConstants.radiusS,
+                        ),
+                      ),
+                      child: Text(
+                        '${_currentIndex + 1}/$total đoạn',
+                        style: AppTextStyles.caption.copyWith(
+                          color: AppColors.warning,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                        ),
+                      ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: AppConstants.paddingM),
+                Text(
+                  'Hãy NÓI TO những cụm từ tiếng Việt 🟡 thành tiếng Anh dựa vào bài đọc trước. '
+                  'Nhấn vào chip để kiểm tra đáp án 🟢.\n\n'
+                  '⚠️ Nếu bạn nói thầm hoặc chỉ nhìn bằng mắt, bạn sẽ không đạt tiến bộ đáng kể!',
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.warning,
+                    fontWeight: FontWeight.w500,
+                    height: 1.5,
                   ),
                 ),
-              if (_currentIndex > 0)
-                const SizedBox(width: AppConstants.paddingS),
-              Text(
-                '${_currentIndex + 1}/$total đoạn',
-                style: AppTextStyles.caption.copyWith(
-                  color: AppColors.textSecondary,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppConstants.paddingS),
+              ],
+            ),
+          ).animate().fadeIn(),
+          const SizedBox(height: AppConstants.paddingM),
           ClipRRect(
             borderRadius: BorderRadius.circular(AppConstants.radiusS),
             child: LinearProgressIndicator(
