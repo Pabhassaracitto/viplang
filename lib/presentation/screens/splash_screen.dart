@@ -39,27 +39,47 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() => _statusMessage = 'Đang kiểm tra dữ liệu âm thanh...');
     await AudioPathResolver.instance.init();
 
-    // 3. Kiểm tra xem đã tải toàn bộ hoặc đã quyết định chọn tải thủ công trước đó chưa
+    // 3. Rà soát vật lý các file mp3 thực tế trên thiết bị
+    final themes = AllThemesRegistry.getAllThemes();
+    bool allFilesPresent = true;
+
+    for (final theme in themes) {
+      final files = AudioPathResolver.instance.getAllFileNamesForTheme(
+        theme.id,
+      );
+      for (final fileName in files) {
+        final exists = await DownloadService.instance.isDownloaded(fileName);
+        if (!exists) {
+          allFilesPresent = false;
+          break;
+        }
+      }
+      if (!allFilesPresent) break;
+    }
+
+    // Nếu quét thấy đã có đầy đủ file thì vào thẳng Home
+    if (allFilesPresent) {
+      await HiveService.settingsBox.put('full_audio_downloaded', true);
+      _goToHome();
+      return;
+    }
+
+    // 4. Nếu thiếu file, kiểm tra xem người dùng đã quyết định tải thủ công trước đó chưa
     final settingsBox = HiveService.settingsBox;
-    final isFullDownloaded = settingsBox.get(
-      'full_audio_downloaded',
-      defaultValue: false,
-    );
     final skipDownload = settingsBox.get(
       'skip_initial_download',
       defaultValue: false,
     );
 
-    if (isFullDownloaded || skipDownload) {
+    if (skipDownload) {
       _goToHome();
       return;
     }
 
-    // 4. Lần đầu mở app: Hiển thị giao diện lựa chọn download để bảo vệ dung lượng người dùng
+    // 5. Chỉ hiển thị lựa chọn nếu rà soát thấy thiếu file và chưa chọn "tải thủ công"
     setState(() {
       _showDownloadSelection = true;
-      _statusMessage =
-          'Dữ liệu âm thanh luyện nghe chất lượng cao chưa được tải.';
+      _statusMessage = 'Dữ liệu âm thanh luyện nghe chưa được tải đầy đủ.';
     });
   }
 
