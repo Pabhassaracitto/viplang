@@ -183,7 +183,13 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
     final commonEn = {
       'the', 'is', 'at', 'on', 'in', 'to', 'for', 'of', 'and', 'with',
       'but', 'not', 'you', 'we', 'that', 'this', 'have', 'be', 'are',
-      'up', 'out', 'off', 'down', 'about', 'back', 'will', 'right',
+      'up',
+      'out',
+      'off',
+      'down',
+      'about',
+      'back',
+      'right', // Removed duplicate 'will'
       'now',
       'it',
       'an',

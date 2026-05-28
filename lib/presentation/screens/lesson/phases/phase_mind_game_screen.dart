@@ -528,9 +528,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                 child: SizedBox(
                   width: double.infinity,
                   child: OutlinedButton.icon(
-                    onPressed: () {
-                      _revealAllCurrentParagraph();
-                    },
+                    onPressed: () => _revealAllCurrentParagraph(),
                     icon: const Icon(Icons.visibility, size: 16),
                     label: const Text(
                       'Xem tất cả đáp án',
