@@ -269,7 +269,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                         _speakCurrent();
                       }
                     },
-                    activeColor: AppColors.primary,
+                    activeThumbColor: AppColors.primary,
                   ),
                 ),
               ),

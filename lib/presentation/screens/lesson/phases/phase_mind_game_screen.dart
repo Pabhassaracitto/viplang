@@ -32,6 +32,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
   bool _currentParagraphDone = false;
   int _currentCorrect = 0;
   int _currentTotal = 0;
+  List<MixedParagraph> _paragraphs = []; // Thêm biến này để lưu trữ paragraphs
 
   // ✅ GlobalKey để gọi revealAll() trực tiếp trên MixedTextWidget
 
@@ -171,139 +172,154 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
     });
   }
 
-  void _revealAll() {
-    _mixedTextKey.currentState?.revealAll();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MindGameBloc, MindGameState>(
-      builder: (context, state) {
-        List<MixedParagraph> paragraphs;
-
+    return BlocListener<MindGameBloc, MindGameState>(
+      // Chỉ lắng nghe khi segments thay đổi hoặc khi trạng thái chuyển sang Active lần đầu
+      listenWhen: (previous, current) =>
+          (previous is! MindGameActive && current is MindGameActive) ||
+          (previous is MindGameActive &&
+              current is MindGameActive &&
+              previous.segments != current.segments),
+      listener: (context, state) {
         if (state is MindGameActive && state.segments.isNotEmpty) {
-          paragraphs = _splitToParagraphs(state.segments);
-        } else {
-          paragraphs = _getFallbackParagraphs();
+          // Chỉ tính toán paragraphs khi segments thực sự thay đổi từ Bloc
+          setState(() {
+            _paragraphs = _splitToParagraphs(state.segments);
+            _currentIndex = 0; // Reset index khi có segments mới
+            _currentParagraphDone = false;
+            _currentCorrect = 0;
+            _currentTotal = 0;
+          });
         }
+      },
+      child: BlocBuilder<MindGameBloc, MindGameState>(
+        builder: (context, state) {
+          // Sử dụng danh sách _paragraphs đã được lưu trữ
+          // Nếu _paragraphs rỗng (ví dụ: trạng thái ban đầu hoặc chưa có segments từ bloc),
+          // thì sử dụng fallback.
+          final paragraphsToDisplay = _paragraphs.isNotEmpty
+              ? _paragraphs
+              : _getFallbackParagraphs();
 
-        if (paragraphs.isEmpty) {
-          return Center(
-            child: ElevatedButton(
-              onPressed: widget.onComplete,
-              child: const Text('Tiếp tục'),
-            ),
-          );
-        }
+          if (paragraphsToDisplay.isEmpty) {
+            return Center(
+              child: ElevatedButton(
+                onPressed: widget.onComplete,
+                child: const Text('Tiếp tục'),
+              ),
+            );
+          }
 
-        // Clamp index phòng out of bounds
-        if (_currentIndex >= paragraphs.length) {
-          _currentIndex = paragraphs.length - 1;
-        }
+          // Đảm bảo index không vượt quá giới hạn
+          if (_currentIndex >= paragraphsToDisplay.length) {
+            _currentIndex = paragraphsToDisplay.length - 1;
+          }
 
-        final progress = (_currentIndex + 1) / paragraphs.length;
-        final isLast = _currentIndex >= paragraphs.length - 1;
-        final currentViCount = paragraphs[_currentIndex].segments
-            .where((s) => s.isVietnamese)
-            .length;
+          final progress = (_currentIndex + 1) / paragraphsToDisplay.length;
+          final isLast = _currentIndex >= paragraphsToDisplay.length - 1;
+          final currentViCount = paragraphsToDisplay[_currentIndex].segments
+              .where((s) => s.isVietnamese)
+              .length;
 
-        return Column(
-          children: [
-            // ── Header ──────────────────────────────────────────
-            _buildHeader(progress, paragraphs.length),
+          return Column(
+            children: [
+              // ── Header ──────────────────────────────────────────
+              _buildHeader(progress, paragraphsToDisplay.length),
 
-            // ── Content ─────────────────────────────────────────
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(AppConstants.paddingM),
-                child: Column(
-                  children: [
-                    // Instruction
-                    Container(
-                      padding: const EdgeInsets.all(AppConstants.paddingM),
-                      decoration: BoxDecoration(
-                        color: AppColors.warning.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusM,
+              // ── Content ─────────────────────────────────────────
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(AppConstants.paddingM),
+                  child: Column(
+                    children: [
+                      // Instruction
+                      Container(
+                        padding: const EdgeInsets.all(AppConstants.paddingM),
+                        decoration: BoxDecoration(
+                          color: AppColors.warning.withValues(alpha: 0.08),
+                          borderRadius: BorderRadius.circular(
+                            AppConstants.radiusM,
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          const Text('💡', style: TextStyle(fontSize: 20)),
-                          const SizedBox(width: AppConstants.paddingS),
-                          Expanded(
-                            child: Text(
-                              'Nhấn chip 🟡 → Nói to bằng tiếng Anh → Chip đổi sang 🟢 là đáp án!',
-                              style: AppTextStyles.bodySmall.copyWith(
-                                color: AppColors.warning,
-                                fontWeight: FontWeight.w600,
+                        child: Row(
+                          children: [
+                            const Text('💡', style: TextStyle(fontSize: 20)),
+                            const SizedBox(width: AppConstants.paddingS),
+                            Expanded(
+                              child: Text(
+                                'Nhấn chip 🟡 → Nói to bằng tiếng Anh → Chip đổi sang 🟢 là đáp án!',
+                                style: AppTextStyles.bodySmall.copyWith(
+                                  color: AppColors.warning,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
+                            ),
+                          ],
+                        ),
+                      ).animate().fadeIn(),
+
+                      const SizedBox(height: AppConstants.paddingM),
+
+                      // Paragraph info
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppConstants.paddingS,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(
+                                AppConstants.radiusS,
+                              ),
+                            ),
+                            child: Text(
+                              'Đoạn ${_currentIndex + 1}/${paragraphsToDisplay.length}',
+                              style: AppTextStyles.caption.copyWith(
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: AppConstants.paddingS),
+                          Text(
+                            '$currentViCount cụm từ cần dịch',
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ],
                       ),
-                    ).animate().fadeIn(),
 
-                    const SizedBox(height: AppConstants.paddingM),
-
-                    // Paragraph info
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: AppConstants.paddingS,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(
-                              AppConstants.radiusS,
-                            ),
-                          ),
-                          child: Text(
-                            'Đoạn ${_currentIndex + 1}/${paragraphs.length}',
-                            style: AppTextStyles.caption.copyWith(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: AppConstants.paddingS),
-                        Text(
-                          '$currentViCount cụm từ cần dịch',
-                          style: AppTextStyles.caption.copyWith(
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    const SizedBox(height: AppConstants.paddingM),
-
-                    // Mixed Text Widget
-                    MixedTextWidget(
-                      key: _mixedTextKey,
-                      paragraph: paragraphs[_currentIndex],
-                      onComplete: _onParagraphComplete,
-                    ),
-
-                    const SizedBox(height: AppConstants.paddingXL),
-
-                    // Score nếu đã hoàn thành paragraph
-                    if (_currentParagraphDone) ...[
-                      _buildParagraphScore(),
                       const SizedBox(height: AppConstants.paddingM),
+
+                      // Mixed Text Widget
+                      MixedTextWidget(
+                        key: _mixedTextKey,
+                        paragraph: paragraphsToDisplay[_currentIndex],
+                        onComplete: _onParagraphComplete,
+                      ),
+
+                      const SizedBox(height: AppConstants.paddingXL),
+
+                      // Score nếu đã hoàn thành paragraph
+                      if (_currentParagraphDone) ...[
+                        _buildParagraphScore(),
+                        const SizedBox(height: AppConstants.paddingM),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
               ),
-            ),
 
-            // ── Bottom Button ────────────────────────────────────
-            _buildBottomButton(isLast, paragraphs),
-          ],
-        );
-      },
+              // ── Bottom Button ──────────────────────────────────────────
+              _buildBottomButton(isLast, paragraphsToDisplay),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -513,7 +529,7 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     onPressed: () {
-                      _revealAllCurrentParagraph(paragraphs);
+                      _revealAllCurrentParagraph();
                     },
                     icon: const Icon(Icons.visibility, size: 16),
                     label: const Text(
@@ -567,17 +583,8 @@ class _PhaseMindGameScreenState extends State<PhaseMindGameScreen> {
     );
   }
 
-  void _revealAllCurrentParagraph(List<MixedParagraph> paragraphs) {
-    final currentPara = paragraphs[_currentIndex];
-    final totalVi = currentPara.segments.where((s) => s.isVietnamese).length;
-
-    setState(() {
-      _currentParagraphDone = true;
-      _currentCorrect = totalVi;
-      _currentTotal = totalVi;
-    });
-    // ✅ Chỉ reveal đoạn hiện tại, không ảnh hưởng đến logic dữ liệu của Bloc
-    _revealAll();
+  void _revealAllCurrentParagraph() {
+    _mixedTextKey.currentState?.revealAll();
   }
 
   List<MixedParagraph> _getFallbackParagraphs() {

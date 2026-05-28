@@ -351,7 +351,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
             }
           },
         ),
-        title: Text('Ôn tập SRS', style: AppTextStyles.h3),
+        title: const Text('Ôn tập SRS', style: AppTextStyles.h3),
         actions: [
           // ✅ Hiển thị: từ này / tổng ngày hôm nay | tổng due toàn bộ
           Tooltip(

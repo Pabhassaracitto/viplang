@@ -145,7 +145,7 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
   bool _isVietnamese(String s1, String s2) {
     // 1. Check for explicit Vietnamese accented characters (No raw-string regex bounds issue)
     final viSpecialChars = RegExp(
-      '[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ'
+      '[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ' // No change here
       'ÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÈÉẺẼẸÊẾỀỂỄỆÌÍỈĨỊÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÙÚỦŨỤƯỨỪỬỮỰỲÝỶỸỴĐ]'
     );
     final hasVi1 = viSpecialChars.hasMatch(s1);
@@ -162,7 +162,7 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
     }
 
     // 3. Clean strings to lowercase alphanumeric words for dictionary checking (Keep accents intact)
-    List<String> _getWords(String s) {
+    List<String> getWords(String s) {
       return s.toLowerCase()
           .replaceAll(RegExp(r'[^a-z0-9àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ\s]'), '')
           .split(RegExp(r'\s+'))
@@ -170,26 +170,26 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
           .toList();
     }
 
-    final words1 = _getWords(s1);
-    final words2 = _getWords(s2);
+    final words1 = getWords(s1);
+    final words2 = getWords(s2);
 
     // 4. Common English vocabulary check
     final commonEn = {
       'the', 'is', 'at', 'on', 'in', 'to', 'for', 'of', 'and', 'with', 
       'but', 'not', 'you', 'we', 'that', 'this', 'have', 'be', 'are', 
       'up', 'out', 'off', 'down', 'about', 'back', 'will', 'right', 
-      'now', 'it', 'an', 'our', 'their', 'your', 'my', 'his', 'her', 
-      'they', 'them', 'who', 'which', 'what', 'where', 'when', 'how', 
+      'now', 'it', 'an', 'our', 'their', 'your', 'my', 'his', 'her', // Removed duplicate 'will'
+      'they', 'them', 'who', 'which', 'what', 'where', 'when', 'how',
       'why', 'can', 'could', 'should', 'would', 'office', 'meeting',
       'equipment', 'procedure', 'procedures', 'member', 'space', 'team', 'people',
       'chair', 'desk', 'file', 'book', 'need', 'job', 'available',
-      'occur', 'will', 'section', 'sections', 'test', 'memos', 'memo',
-      'department', 'departments', 'processed', 'process', 'form', 'evaluation',
+      'occur', 'section', 'sections', 'test', 'memos', 'memo',
+      'department', 'departments', 'processed', 'form', 'evaluation',
       'human', 'resources', 'research', 'competitor', 'competitors', 'outperform'
     };
 
-    int enCount1 = words1.where((w) => commonEn.contains(w) || commonEn.contains(w + 's') || (w.endsWith('s') && commonEn.contains(w.substring(0, w.length - 1)))).length;
-    int enCount2 = words2.where((w) => commonEn.contains(w) || commonEn.contains(w + 's') || (w.endsWith('s') && commonEn.contains(w.substring(0, w.length - 1)))).length;
+    int enCount1 = words1.where((w) => commonEn.contains(w) || commonEn.contains('${w}s') || (w.endsWith('s') && commonEn.contains(w.substring(0, w.length - 1)))).length;
+    int enCount2 = words2.where((w) => commonEn.contains(w) || commonEn.contains('${w}s') || (w.endsWith('s') && commonEn.contains(w.substring(0, w.length - 1)))).length;
     if (enCount1 != enCount2) {
       return enCount1 < enCount2; // The one with FEWER English matched words is Vietnamese
     }
@@ -198,11 +198,11 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
     final commonVi = {
       'và', 'có', 'không', 'là', 'các', 'của', 'ngày', 'học', 'từ', 'trong', 'cho', 
       'bằng', 'với', 'được', 'này', 'tôi', 'bạn', 'ta', 'ra', 'đi', 'vào', 'lên', 
-      'xuống', 'một', 'nhiều', 'ít', 'quá', 'văn', 'phòng', 'máy', 'cần', 'thực',
+      'xuống', 'một', 'nhiều', 'ít', 'quá', 'văn', 'phòng', 'máy', 'thực',
       'tế', 'thế', 'nào', 'chúng', 'ông', 'bà', 'anh', 'em', 'nhất', 'hơn', 'đã',
       'đang', 'sẽ', 'chưa', 'bị', 'tự', 'mình', 'ngay', 'tập', 'lúc', 'nghiên', 'cứu',
       'chuyên', 'đề', 'bình', 'luận', 'phản', 'hồi', 'chiến', 'lược', 'phát', 'triển',
-      'thiết', 'bị', 'quy', 'trình', 'báo', 'cáo', 'quyết', 'định', 'thông', 'báo'
+      'thiết', 'quy', 'trình', 'báo', 'cáo', 'quyết', 'định', 'thông'
     };
 
     int viCount1 = words1.where((w) => commonVi.contains(w)).length;

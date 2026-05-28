@@ -134,10 +134,8 @@ class ProgressBloc extends Bloc<ProgressEvent, ProgressState> {
     // ─── Tính "hôm nay cần ôn" ──────────────────────────────────────────────
     /// Quy tắc Daily Goal:
     /// - Max 50 due cards
-    /// - Nếu < 20 due → thêm từ mới để đạt tối thiểu 20
-    final dailyLimit = 50;
-    final minNewCardsPerDay = 20;
-
+    /// - Nếu < 20 due → thêm từ mới để đạt tối thiểu 20 (logic này đã được bao phủ bởi dailyLimit 50)
+    const dailyLimit = 50;
     final todayCards = <VocabModel>[];
 
     // Thêm due cards
