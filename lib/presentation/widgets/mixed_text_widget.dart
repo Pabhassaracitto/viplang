@@ -146,7 +146,7 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
     // 1. Check for explicit Vietnamese accented characters (No raw-string regex bounds issue)
     final viSpecialChars = RegExp(
       '[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ' // No change here
-      'ÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÈÉẺẼẸÊẾỀỂỄỆÌÍỈĨỊÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÙÚỦŨỤƯỨỪỬỮỰỲÝỶỸỴĐ]'
+      'ÀÁẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬÈÉẺẼẸÊẾỀỂỄỆÌÍỈĨỊÒÓỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢÙÚỦŨỤƯỨỪỬỮỰỲÝỶỸỴĐ]',
     );
     final hasVi1 = viSpecialChars.hasMatch(s1);
     final hasVi2 = viSpecialChars.hasMatch(s2);
@@ -163,8 +163,14 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
 
     // 3. Clean strings to lowercase alphanumeric words for dictionary checking (Keep accents intact)
     List<String> getWords(String s) {
-      return s.toLowerCase()
-          .replaceAll(RegExp(r'[^a-z0-9àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ\s]'), '')
+      return s
+          .toLowerCase()
+          .replaceAll(
+            RegExp(
+              r'[^a-z0-9àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ\s]',
+            ),
+            '',
+          )
           .split(RegExp(r'\s+'))
           .where((w) => w.isNotEmpty)
           .toList();
@@ -175,34 +181,134 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
 
     // 4. Common English vocabulary check
     final commonEn = {
-      'the', 'is', 'at', 'on', 'in', 'to', 'for', 'of', 'and', 'with', 
-      'but', 'not', 'you', 'we', 'that', 'this', 'have', 'be', 'are', 
-      'up', 'out', 'off', 'down', 'about', 'back', 'will', 'right', 
-      'now', 'it', 'an', 'our', 'their', 'your', 'my', 'his', 'her', // Removed duplicate 'will'
+      'the', 'is', 'at', 'on', 'in', 'to', 'for', 'of', 'and', 'with',
+      'but', 'not', 'you', 'we', 'that', 'this', 'have', 'be', 'are',
+      'up', 'out', 'off', 'down', 'about', 'back', 'will', 'right',
+      'now',
+      'it',
+      'an',
+      'our',
+      'their',
+      'your',
+      'my',
+      'his',
+      'her', // Removed duplicate 'will'
       'they', 'them', 'who', 'which', 'what', 'where', 'when', 'how',
       'why', 'can', 'could', 'should', 'would', 'office', 'meeting',
-      'equipment', 'procedure', 'procedures', 'member', 'space', 'team', 'people',
+      'equipment',
+      'procedure',
+      'procedures',
+      'member',
+      'space',
+      'team',
+      'people',
       'chair', 'desk', 'file', 'book', 'need', 'job', 'available',
       'occur', 'section', 'sections', 'test', 'memos', 'memo',
       'department', 'departments', 'processed', 'form', 'evaluation',
-      'human', 'resources', 'research', 'competitor', 'competitors', 'outperform'
+      'human',
+      'resources',
+      'research',
+      'competitor',
+      'competitors',
+      'outperform',
     };
 
-    int enCount1 = words1.where((w) => commonEn.contains(w) || commonEn.contains('${w}s') || (w.endsWith('s') && commonEn.contains(w.substring(0, w.length - 1)))).length;
-    int enCount2 = words2.where((w) => commonEn.contains(w) || commonEn.contains('${w}s') || (w.endsWith('s') && commonEn.contains(w.substring(0, w.length - 1)))).length;
+    int enCount1 = words1
+        .where(
+          (w) =>
+              commonEn.contains(w) ||
+              commonEn.contains('${w}s') ||
+              (w.endsWith('s') &&
+                  commonEn.contains(w.substring(0, w.length - 1))),
+        )
+        .length;
+    int enCount2 = words2
+        .where(
+          (w) =>
+              commonEn.contains(w) ||
+              commonEn.contains('${w}s') ||
+              (w.endsWith('s') &&
+                  commonEn.contains(w.substring(0, w.length - 1))),
+        )
+        .length;
     if (enCount1 != enCount2) {
-      return enCount1 < enCount2; // The one with FEWER English matched words is Vietnamese
+      return enCount1 <
+          enCount2; // The one with FEWER English matched words is Vietnamese
     }
 
     // 5. Common Vietnamese vocabulary check
     final commonVi = {
-      'và', 'có', 'không', 'là', 'các', 'của', 'ngày', 'học', 'từ', 'trong', 'cho', 
-      'bằng', 'với', 'được', 'này', 'tôi', 'bạn', 'ta', 'ra', 'đi', 'vào', 'lên', 
-      'xuống', 'một', 'nhiều', 'ít', 'quá', 'văn', 'phòng', 'máy', 'thực',
-      'tế', 'thế', 'nào', 'chúng', 'ông', 'bà', 'anh', 'em', 'nhất', 'hơn', 'đã',
-      'đang', 'sẽ', 'chưa', 'bị', 'tự', 'mình', 'ngay', 'tập', 'lúc', 'nghiên', 'cứu',
-      'chuyên', 'đề', 'bình', 'luận', 'phản', 'hồi', 'chiến', 'lược', 'phát', 'triển',
-      'thiết', 'quy', 'trình', 'báo', 'cáo', 'quyết', 'định', 'thông'
+      'và',
+      'có',
+      'không',
+      'là',
+      'các',
+      'của',
+      'ngày',
+      'học',
+      'từ',
+      'trong',
+      'cho',
+      'bằng',
+      'với',
+      'được',
+      'này',
+      'tôi',
+      'bạn',
+      'ta',
+      'ra',
+      'đi',
+      'vào',
+      'lên',
+      'xuống',
+      'một',
+      'nhiều',
+      'ít',
+      'quá',
+      'văn',
+      'phòng',
+      'máy',
+      'thực',
+      'tế',
+      'thế',
+      'nào',
+      'chúng',
+      'ông',
+      'bà',
+      'anh',
+      'em',
+      'nhất',
+      'hơn',
+      'đã',
+      'đang',
+      'sẽ',
+      'chưa',
+      'bị',
+      'tự',
+      'mình',
+      'ngay',
+      'tập',
+      'lúc',
+      'nghiên',
+      'cứu',
+      'chuyên',
+      'đề',
+      'bình',
+      'luận',
+      'phản',
+      'hồi',
+      'chiến',
+      'lược',
+      'phát',
+      'triển',
+      'thiết',
+      'quy',
+      'trình',
+      'báo',
+      'cáo',
+      'quyết',
+      'định',
+      'thông',
     };
 
     int viCount1 = words1.where((w) => commonVi.contains(w)).length;
@@ -225,7 +331,7 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
     if (textIsVi) {
       return answer; // text is Vietnamese, so answer is English.
     } else {
-      return text;   // text is English.
+      return text; // text is English.
     }
   }
 
@@ -237,7 +343,7 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
     final textIsVi = _isVietnamese(text, answer);
 
     if (textIsVi) {
-      return text;   // text is Vietnamese.
+      return text; // text is Vietnamese.
     } else {
       return answer; // text is English, so answer is Vietnamese.
     }
@@ -286,7 +392,9 @@ class MixedTextWidgetState extends State<MixedTextWidget> {
                     : null,
               ),
               child: Text(
-                isRevealed ? _getEnglishText(segment) : _getVietnameseText(segment),
+                isRevealed
+                    ? _getEnglishText(segment)
+                    : _getVietnameseText(segment),
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 14,

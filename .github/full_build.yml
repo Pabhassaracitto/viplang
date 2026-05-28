@@ -1,4 +1,4 @@
-name: Flutter Full Build - Android, iOS, Windows
+name: Flutter Full Build - Android, iOS, Windows, Linux
 
 on:
   push:
@@ -129,6 +129,9 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Generate Launcher Icons (Ensure logo is set)
+        run: flutter pub run flutter_launcher_icons || true
+
       - name: Build iOS (no codesign)
         run: |
           flutter build ios --release --no-codesign \
@@ -168,6 +171,7 @@ jobs:
             artifacts/android-apk/*.apk
             artifacts/windows-zip/*.zip
             artifacts/ios-ipa/*.ipa
+            artifacts/linux-zip/*.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
