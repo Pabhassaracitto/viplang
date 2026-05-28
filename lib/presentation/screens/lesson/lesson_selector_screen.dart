@@ -48,24 +48,24 @@ class LessonSelectorScreen extends StatelessWidget {
             children: [
               // ── Theme Progress Summary ──────────────────────────────
               _buildProgressSummary(),
-
+  
               const SizedBox(height: AppConstants.paddingL),
-
+  
               // ── Quick Actions ───────────────────────────────────────
               _buildQuickActions(context),
-
+  
               const SizedBox(height: AppConstants.paddingL),
-
+  
               // ── Days List ───────────────────────────────────────────
               const Text('📅 Các ngày học', style: AppTextStyles.h3),
               const SizedBox(height: AppConstants.paddingS),
-
+  
               ...List.generate(theme.totalDays, (index) {
                 final dayNumber = index + 1;
                 final isCompleted = dayNumber <= theme.completedDays;
                 final isCurrent = dayNumber == theme.completedDays + 1;
                 final isLocked = dayNumber > theme.completedDays + 1;
-
+  
                 return _DayCard(
                   dayNumber: dayNumber,
                   themeId: theme.id,
@@ -75,12 +75,12 @@ class LessonSelectorScreen extends StatelessWidget {
                   isLocked: isLocked,
                 ).animate(delay: (index * 100).ms).fadeIn().slideX(begin: 0.1);
               }),
-
+  
               const SizedBox(height: AppConstants.paddingXL),
-
+  
               // ── Vocabulary Section ──────────────────────────────────
               _buildVocabularySection(context),
-
+  
               const SizedBox(height: AppConstants.paddingXL),
             ],
           ),
@@ -793,7 +793,10 @@ class _ThemeVocabSheet extends StatefulWidget {
   final List<VocabModel> vocabs;
   final String themeTitle;
 
-  const _ThemeVocabSheet({required this.vocabs, required this.themeTitle});
+  const _ThemeVocabSheet({
+    required this.vocabs,
+    required this.themeTitle,
+  });
 
   @override
   State<_ThemeVocabSheet> createState() => _ThemeVocabSheetState();
@@ -812,40 +815,29 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
 
   List<VocabModel> get _filteredVocabs {
     return widget.vocabs.where((vocab) {
-      final matchQuery =
-          _query.isEmpty ||
+      final matchQuery = _query.isEmpty ||
           vocab.wordEn.toLowerCase().contains(_query.toLowerCase()) ||
           vocab.wordVi.toLowerCase().contains(_query.toLowerCase());
-      final matchPos =
-          _selectedPos == 'all' || vocab.partOfSpeech == _selectedPos;
+      final matchPos = _selectedPos == 'all' || vocab.partOfSpeech == _selectedPos;
       return matchQuery && matchPos;
     }).toList();
   }
 
   List<String> get _posList {
-    final posSet = widget.vocabs.map((v) => v.partOfSpeech).toSet().toList()
-      ..sort();
+    final posSet = widget.vocabs.map((v) => v.partOfSpeech).toSet().toList()..sort();
     return ['all', ...posSet];
   }
 
   String _posLabel(String pos) {
     switch (pos) {
-      case 'all':
-        return 'Tất cả';
-      case 'n':
-        return 'Danh từ';
-      case 'np':
-        return 'Cụm DT';
-      case 'v':
-        return 'Động từ';
-      case 'vp':
-        return 'Cụm ĐT';
-      case 'adj':
-        return 'Tính từ';
-      case 'adv':
-        return 'Trạng từ';
-      default:
-        return pos.toUpperCase();
+      case 'all': return 'Tất cả';
+      case 'n': return 'Danh từ';
+      case 'np': return 'Cụm DT';
+      case 'v': return 'Động từ';
+      case 'vp': return 'Cụm ĐT';
+      case 'adj': return 'Tính từ';
+      case 'adv': return 'Trạng từ';
+      default: return pos.toUpperCase();
     }
   }
 
@@ -910,24 +902,17 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                       children: [
                         Text(
                           'Tủ từ vựng chủ đề',
-                          style: AppTextStyles.h3.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTextStyles.h3.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           widget.themeTitle,
-                          style: AppTextStyles.caption.copyWith(
-                            color: AppColors.textSecondary,
-                          ),
+                          style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
                         ),
                       ],
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                      color: AppColors.textSecondary,
-                    ),
+                    icon: const Icon(Icons.close, color: AppColors.textSecondary),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -980,9 +965,7 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
               height: 38,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.paddingM,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
                 itemCount: _posList.length,
                 itemBuilder: (_, i) {
                   final pos = _posList[i];
@@ -994,21 +977,12 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                     child: GestureDetector(
                       onTap: () => setState(() => _selectedPos = pos),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                         decoration: BoxDecoration(
-                          color: isSelected
-                              ? chipColor
-                              : chipColor.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(
-                            AppConstants.radiusM,
-                          ),
+                          color: isSelected ? chipColor : chipColor.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(AppConstants.radiusM),
                           border: Border.all(
-                            color: isSelected
-                                ? chipColor
-                                : chipColor.withValues(alpha: 0.25),
+                            color: isSelected ? chipColor : chipColor.withValues(alpha: 0.25),
                           ),
                         ),
                         child: Text(
@@ -1038,33 +1012,25 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                           const SizedBox(height: AppConstants.paddingM),
                           Text(
                             'Không tìm thấy từ vựng phù hợp.',
-                            style: AppTextStyles.bodyMedium.copyWith(
-                              color: AppColors.textSecondary,
-                            ),
+                            style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
                           ),
                         ],
                       ),
                     )
                   : ListView.builder(
                       controller: scrollController,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: AppConstants.paddingM,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: AppConstants.paddingM),
                       itemCount: filtered.length,
                       itemBuilder: (_, i) {
                         final vocab = filtered[i];
                         final posColor = _posColor(vocab.partOfSpeech);
 
                         return Container(
-                          margin: const EdgeInsets.only(
-                            bottom: AppConstants.paddingS,
-                          ),
+                          margin: const EdgeInsets.only(bottom: AppConstants.paddingS),
                           padding: const EdgeInsets.all(AppConstants.paddingM),
                           decoration: BoxDecoration(
                             color: AppColors.background,
-                            borderRadius: BorderRadius.circular(
-                              AppConstants.radiusL,
-                            ),
+                            borderRadius: BorderRadius.circular(AppConstants.radiusL),
                             border: Border.all(color: AppColors.border),
                           ),
                           child: Column(
@@ -1074,10 +1040,7 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                                 children: [
                                   // Part of speech
                                   Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 6,
-                                      vertical: 2,
-                                    ),
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                     decoration: BoxDecoration(
                                       color: posColor.withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(4),
@@ -1093,16 +1056,14 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                                   const SizedBox(width: AppConstants.paddingS),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           vocab.wordEn,
-                                          style: AppTextStyles.bodyMedium
-                                              .copyWith(
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColors.textPrimary,
-                                              ),
+                                          style: AppTextStyles.bodyMedium.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textPrimary,
+                                          ),
                                         ),
                                         Text(
                                           vocab.pronunciation,
@@ -1129,23 +1090,17 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              if (vocab.exampleEn != null &&
-                                  vocab.exampleEn!.isNotEmpty) ...[
+                              if (vocab.exampleEn != null && vocab.exampleEn!.isNotEmpty) ...[
                                 const SizedBox(height: 8),
                                 Container(
                                   width: double.infinity,
-                                  padding: const EdgeInsets.all(
-                                    AppConstants.paddingS,
-                                  ),
+                                  padding: const EdgeInsets.all(AppConstants.paddingS),
                                   decoration: BoxDecoration(
                                     color: AppColors.surface,
-                                    borderRadius: BorderRadius.circular(
-                                      AppConstants.radiusS,
-                                    ),
+                                    borderRadius: BorderRadius.circular(AppConstants.radiusS),
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         vocab.exampleEn!,
@@ -1154,8 +1109,7 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                                           fontStyle: FontStyle.italic,
                                         ),
                                       ),
-                                      if (vocab.exampleVi != null &&
-                                          vocab.exampleVi!.isNotEmpty) ...[
+                                      if (vocab.exampleVi != null && vocab.exampleVi!.isNotEmpty) ...[
                                         const SizedBox(height: 2),
                                         Text(
                                           vocab.exampleVi!,

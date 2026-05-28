@@ -170,7 +170,10 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
               mini: true,
               child: const Text('📚', style: TextStyle(fontSize: 20)),
             ),
-            body: SafeArea(bottom: true, child: _buildPhase(context, state)),
+            body: SafeArea(
+              bottom: true,
+              child: _buildPhase(context, state),
+            ),
           );
         }
 
@@ -1108,15 +1111,13 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     } catch (_) {}
 
     // 5. Kiểm tra huy hiệu
-    if (!progress.earnedBadges.contains('starter') &&
-        progress.completedLessons.isNotEmpty) {
+    if (!progress.earnedBadges.contains('starter') && progress.completedLessons.isNotEmpty) {
       progress.earnedBadges.add('starter');
     }
-    if (!progress.earnedBadges.contains('streak_7') &&
-        progress.longestStreak >= 7) {
+    if (!progress.earnedBadges.contains('streak_7') && progress.longestStreak >= 7) {
       progress.earnedBadges.add('streak_7');
     }
-    if (!progress.earnedBadges.contains('theme_1_master') &&
+    if (!progress.earnedBadges.contains('theme_1_master') && 
         (progress.themeProgress['theme_01_offices'] ?? 0.0) >= 1.0) {
       progress.earnedBadges.add('theme_1_master');
     }
@@ -1168,15 +1169,12 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
 
       if (_showOnlyMine) {
         final progressBox = HiveService.progressBox;
-        final progress =
-            progressBox.get('current_user') ??
-            UserProgressModel(userId: 'local_user');
+        final progress = progressBox.get('current_user') ?? UserProgressModel(userId: 'local_user');
         final completedThemeIds = progress.completedLessons
             .map((key) => key.split('_day_')[0])
             .toSet();
 
-        final hasSrsHistory =
-            liveV.nextReview != null || liveV.repetitionCount > 0;
+        final hasSrsHistory = liveV.nextReview != null || liveV.repetitionCount > 0;
         final isThemeCompleted = completedThemeIds.contains(liveV.themeId);
 
         return hasSrsHistory || isThemeCompleted;
@@ -1259,30 +1257,24 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color: _showOnlyMine
-                            ? AppColors.primary
-                            : Colors.transparent,
+                        color: _showOnlyMine ? AppColors.primary : Colors.transparent,
                         borderRadius: _showOnlyMine
                             ? BorderRadius.circular(AppConstants.radiusS)
                             : null,
                         boxShadow: _showOnlyMine
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primary.withValues(
-                                    alpha: 0.2,
-                                  ),
+                                  color: AppColors.primary.withValues(alpha: 0.2),
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
-                                ),
+                                )
                               ]
                             : null,
                       ),
                       child: Text(
                         '📚 Của tôi',
                         style: AppTextStyles.bodySmall.copyWith(
-                          color: _showOnlyMine
-                              ? Colors.white
-                              : AppColors.textSecondary,
+                          color: _showOnlyMine ? Colors.white : AppColors.textSecondary,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
@@ -1296,30 +1288,24 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       decoration: BoxDecoration(
-                        color: !_showOnlyMine
-                            ? AppColors.primary
-                            : Colors.transparent,
+                        color: !_showOnlyMine ? AppColors.primary : Colors.transparent,
                         borderRadius: !_showOnlyMine
                             ? BorderRadius.circular(AppConstants.radiusS)
                             : null,
                         boxShadow: !_showOnlyMine
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primary.withValues(
-                                    alpha: 0.2,
-                                  ),
+                                  color: AppColors.primary.withValues(alpha: 0.2),
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
-                                ),
+                                )
                               ]
                             : null,
                       ),
                       child: Text(
                         '✨ Tất cả tủ sách',
                         style: AppTextStyles.bodySmall.copyWith(
-                          color: !_showOnlyMine
-                              ? Colors.white
-                              : AppColors.textSecondary,
+                          color: !_showOnlyMine ? Colors.white : AppColors.textSecondary,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
@@ -1556,9 +1542,7 @@ class _VocabLibraryTile extends StatelessWidget {
 
               // ✅ NÚT GHIM ÔN TẬP THỦ CÔNG (PRIORITY/SRS PIN)
               ValueListenableBuilder(
-                valueListenable: HiveService.vocabBox.listenable(
-                  keys: [vocab.id],
-                ),
+                valueListenable: HiveService.vocabBox.listenable(keys: [vocab.id]),
                 builder: (context, Box<VocabModel> box, _) {
                   final liveVocab = box.get(vocab.id) ?? vocab;
                   final isPinned = liveVocab.nextReview != null;
@@ -1573,9 +1557,7 @@ class _VocabLibraryTile extends StatelessWidget {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(
-                                'Đã bỏ "${liveVocab.wordEn}" khỏi danh sách ôn tập',
-                              ),
+                              content: Text('Đã bỏ "${liveVocab.wordEn}" khỏi danh sách ôn tập'),
                               backgroundColor: AppColors.textPrimary,
                               duration: const Duration(seconds: 1),
                               behavior: SnackBarBehavior.floating,
@@ -1589,9 +1571,7 @@ class _VocabLibraryTile extends StatelessWidget {
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(
-                                '⚡ Đã ghim "${liveVocab.wordEn}" vào hàng chờ ôn tập!',
-                              ),
+                              content: Text('⚡ Đã ghim "${liveVocab.wordEn}" vào hàng chờ ôn tập!'),
                               backgroundColor: AppColors.primary,
                               duration: const Duration(milliseconds: 1500),
                               behavior: SnackBarBehavior.floating,
@@ -1604,9 +1584,7 @@ class _VocabLibraryTile extends StatelessWidget {
                       padding: const EdgeInsets.all(6),
                       child: Icon(
                         isPinned ? Icons.push_pin : Icons.push_pin_outlined,
-                        color: isPinned
-                            ? AppColors.warning
-                            : AppColors.textHint,
+                        color: isPinned ? AppColors.warning : AppColors.textHint,
                         size: 18,
                       ),
                     ),

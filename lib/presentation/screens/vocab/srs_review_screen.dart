@@ -81,9 +81,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
 
     final box = HiveService.vocabBox;
     final progressBox = HiveService.progressBox;
-    final progress =
-        progressBox.get('current_user') ??
-        UserProgressModel(userId: 'local_user');
+    final progress = progressBox.get('current_user') ?? UserProgressModel(userId: 'local_user');
 
     // 1. Chỉ lấy các themeId của những bài học đã hoàn thành thực tế
     final completedThemeIds = progress.completedLessons
@@ -269,12 +267,10 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       progress.lastStudyDate = now;
 
       // Badge check
-      if (!progress.earnedBadges.contains('starter') &&
-          (progress.completedLessons.isNotEmpty || learnedCount > 0)) {
+      if (!progress.earnedBadges.contains('starter') && (progress.completedLessons.isNotEmpty || learnedCount > 0)) {
         progress.earnedBadges.add('starter');
       }
-      if (!progress.earnedBadges.contains('streak_7') &&
-          progress.longestStreak >= 7) {
+      if (!progress.earnedBadges.contains('streak_7') && progress.longestStreak >= 7) {
         progress.earnedBadges.add('streak_7');
       }
 
@@ -329,17 +325,14 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
 
     // ✅ NEW: Hiển thị thống kê SRS
     final progressBox = HiveService.progressBox;
-    final progressUser =
-        progressBox.get('current_user') ??
-        UserProgressModel(userId: 'local_user');
+    final progressUser = progressBox.get('current_user') ?? UserProgressModel(userId: 'local_user');
     final completedThemeIds = progressUser.completedLessons
         .map((key) => key.split('_day_')[0])
         .toSet();
 
     final totalDue = HiveService.vocabBox.values.where((v) {
       if (v.nextReview == null) return false;
-      return DateTime.now().isAfter(v.nextReview!) &&
-          completedThemeIds.contains(v.themeId);
+      return DateTime.now().isAfter(v.nextReview!) && completedThemeIds.contains(v.themeId);
     }).length;
 
     return Scaffold(
@@ -404,9 +397,9 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                 ),
               ),
             ),
-
+  
             const SizedBox(height: AppConstants.paddingM),
-
+  
             // Session Stats
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -429,14 +422,14 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                 ],
               ),
             ),
-
+  
             const SizedBox(height: AppConstants.paddingM),
-
+  
             // Vocab Quick Ref Bar (đã tích hợp TTS thật)
             _buildVocabQuickRef(card),
-
+  
             const SizedBox(height: AppConstants.paddingS),
-
+  
             // Flashcard
             Expanded(
               child: Padding(
@@ -467,13 +460,13 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
                 ),
               ),
             ),
-
+  
             // Rating / Hint
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: _showRating ? _buildRatingButtons() : _buildTapHint(),
             ),
-
+  
             const SizedBox(height: AppConstants.paddingL),
           ],
         ),
@@ -866,75 +859,76 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(AppConstants.paddingXL),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: AppColors.success.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Center(
-                    child: Text('🎉', style: TextStyle(fontSize: 48)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: AppColors.success.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
+                  child: Text(
+                    '🎉',
+                    style: TextStyle(fontSize: 48),
                   ),
                 ),
-                const SizedBox(height: AppConstants.paddingXL),
-                Text(
-                  'Sạch hòm từ vựng!',
-                  style: AppTextStyles.h2.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
-                  ),
-                  textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppConstants.paddingXL),
+              Text(
+                'Sạch hòm từ vựng!',
+                style: AppTextStyles.h2.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
                 ),
-                const SizedBox(height: AppConstants.paddingM),
-                Text(
-                  'Tất cả từ vựng đã được ôn tập hoàn hảo hoặc bạn chưa bắt đầu bài học nào.\n\nHãy tiếp tục chinh phục bài mới hoặc ghim thêm từ vựng từ Tủ sách để rèn luyện nhé!',
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColors.textSecondary,
-                    height: 1.5,
-                  ),
-                  textAlign: TextAlign.center,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppConstants.paddingM),
+              Text(
+                'Tất cả từ vựng đã được ôn tập hoàn hảo hoặc bạn chưa bắt đầu bài học nào.\n\nHãy tiếp tục chinh phục bài mới hoặc ghim thêm từ vựng từ Tủ sách để rèn luyện nhé!',
+                style: AppTextStyles.bodyMedium.copyWith(
+                  color: AppColors.textSecondary,
+                  height: 1.5,
                 ),
-                const SizedBox(height: AppConstants.paddingXL),
-                SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await _tts.stop();
-                      if (widget.onClose != null) {
-                        widget.onClose!();
-                      } else if (mounted) {
-                        Navigator.pop(context);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.radiusM,
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      'Về Trang chủ',
-                      style: AppTextStyles.bodyMedium.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: AppConstants.paddingXL),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await _tts.stop();
+                    if (widget.onClose != null) {
+                      widget.onClose!();
+                    } else if (mounted) {
+                      Navigator.pop(context);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
                     ),
                   ),
+                  child: Text(
+                    'Về Trang chủ',
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ],
-            ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95)),
-          ),
+              ),
+            ],
+          ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95)),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 // ─── Speaker Button Widget ───────────────────────────────────────────────────

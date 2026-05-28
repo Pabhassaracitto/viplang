@@ -1,7 +1,6 @@
 // lib/presentation/widgets/audio_player_widget.dart
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -58,9 +57,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   Future<void> _rewind() async {
     if (!_isAudioAvailable || _hasError) return;
     final newPosition = _position - const Duration(seconds: 5);
-    await _player.seek(
-      newPosition < Duration.zero ? Duration.zero : newPosition,
-    );
+    await _player.seek(newPosition < Duration.zero ? Duration.zero : newPosition);
   }
 
   Future<void> _forward() async {
@@ -103,35 +100,23 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     _player.positionStream.listen((p) {
       if (!mounted) return;
       setState(() => _position = p);
-
+      
       // ✅ Fix: Khi bật chế độ lặp (hoặc phát bình thường), nếu vị trí phát đạt >= 95% thời lượng hoặc cách cuối < 1s,
       // coi như đã nghe xong để kích hoạt nút "Tiếp tục" ở Phase 1.
       if (_duration > Duration.zero &&
-          (p >= _duration - const Duration(seconds: 1) ||
-              p.inMilliseconds >= _duration.inMilliseconds * 0.95)) {
+          (p >= _duration - const Duration(seconds: 1) || 
+           p.inMilliseconds >= _duration.inMilliseconds * 0.95)) {
         widget.onPlayComplete?.call();
       }
     });
 
     // Kiểm tra tính khả dụng trước
-    debugPrint(
-      '[AudioPlayer] _initAudio: url=${widget.audioUrl}, themeId=${widget.themeId}, trackNum=${widget.trackNum}',
-    );
+    debugPrint('[AudioPlayer] _initAudio: url=${widget.audioUrl}, themeId=${widget.themeId}, trackNum=${widget.trackNum}');
     if (widget.themeId != null && widget.trackNum != null) {
-      _fileName = AudioPathResolver.instance.getFileName(
-        widget.themeId!,
-        widget.trackNum!,
-      );
+      _fileName = AudioPathResolver.instance.getFileName(widget.themeId!, widget.trackNum!);
       final isLocal = await DownloadService.instance.isDownloaded(_fileName);
-      final available =
-          isLocal ||
-          await SafeAudioService.instance.isAudioAvailable(
-            widget.themeId!,
-            widget.trackNum!,
-          );
-      final serverAvailable = AudioPathResolver.instance.isServerFileAvailable(
-        _fileName,
-      );
+      final available = isLocal || await SafeAudioService.instance.isAudioAvailable(widget.themeId!, widget.trackNum!);
+      final serverAvailable = AudioPathResolver.instance.isServerFileAvailable(_fileName);
       setState(() {
         _isAudioAvailable = available;
         _isLocalAvailable = isLocal;
@@ -140,14 +125,12 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     } else if (widget.audioUrl != null && widget.audioUrl!.isNotEmpty) {
       final pathParts = widget.audioUrl!.split('/');
       _fileName = pathParts.last;
-
+      
       final isLocal = await DownloadService.instance.isDownloaded(_fileName);
       final isAssetAvailable = widget.audioUrl!.startsWith('assets/')
           ? await SafeAudioService.instance.isAssetAvailable(widget.audioUrl!)
           : true; // URL http luôn coi là Streamable
-      final serverAvailable = AudioPathResolver.instance.isServerFileAvailable(
-        _fileName,
-      );
+      final serverAvailable = AudioPathResolver.instance.isServerFileAvailable(_fileName);
 
       setState(() {
         _isAudioAvailable = isLocal || isAssetAvailable;
@@ -177,13 +160,9 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     try {
       // 1. Thử tải từ file local đã download trước (cho tất cả trường hợp có _fileName)
       if (_fileName.isNotEmpty) {
-        final isDownloaded = await DownloadService.instance.isDownloaded(
-          _fileName,
-        );
+        final isDownloaded = await DownloadService.instance.isDownloaded(_fileName);
         if (isDownloaded) {
-          final localPath = await DownloadService.instance.getLocalPathForFile(
-            _fileName,
-          );
+          final localPath = await DownloadService.instance.getLocalPathForFile(_fileName);
           final file = File(localPath);
           if (await file.exists()) {
             await _player.setFilePath(localPath);
@@ -208,7 +187,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           await _player.setAsset(widget.audioUrl!);
         }
       }
-
+      
       setState(() => _isLoading = false);
     } catch (e) {
       if (!mounted) return;
@@ -239,9 +218,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text(
-                'Tải file học thất bại. Vui lòng kiểm tra lại kết nối mạng.',
-              ),
+              content: Text('Tải file học thất bại. Vui lòng kiểm tra lại kết nối mạng.'),
               backgroundColor: AppColors.error,
             ),
           );
@@ -352,7 +329,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                 ),
                 child: Slider(
                   value: _duration.inMilliseconds > 0
-                      ? (_position.inMilliseconds / _duration.inMilliseconds)
+                      ? (_position.inMilliseconds /
+                                _duration.inMilliseconds)
                             .clamp(0.0, 1.0)
                       : 0.0,
                   onChanged: (_duration.inMilliseconds > 0 && _isAudioAvailable)
@@ -388,9 +366,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                             ? 'Nhấn nút cam để tải Audio học ngoại tuyến (<1MB)'
                             : 'Bài học này chưa hỗ trợ Audio',
                         style: AppTextStyles.caption.copyWith(
-                          color: _isServerAvailable
-                              ? Colors.amber.shade800
-                              : Colors.grey.shade500,
+                          color: _isServerAvailable ? Colors.amber.shade800 : Colors.grey.shade500,
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
@@ -427,9 +403,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               Tooltip(
                 message: _isLooping ? 'Tắt lặp lại' : 'Lặp lại vô cực',
                 child: GestureDetector(
-                  onTap: _isAudioAvailable && !_hasError && !_isLoading
-                      ? _toggleLoop
-                      : null,
+                  onTap: _isAudioAvailable && !_hasError && !_isLoading ? _toggleLoop : null,
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -442,9 +416,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                       Icons.repeat_one_rounded,
                       color: _isLooping
                           ? AppColors.primary
-                          : (_isAudioAvailable && !_hasError
-                                ? AppColors.textSecondary
-                                : Colors.grey.shade400),
+                          : (_isAudioAvailable && !_hasError ? AppColors.textSecondary : Colors.grey.shade400),
                       size: 24,
                     ),
                   ),
@@ -456,9 +428,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               Tooltip(
                 message: 'Lùi lại 5s',
                 child: IconButton(
-                  onPressed: _isAudioAvailable && !_hasError && !_isLoading
-                      ? _rewind
-                      : null,
+                  onPressed: _isAudioAvailable && !_hasError && !_isLoading ? _rewind : null,
                   icon: const Icon(Icons.replay_5_rounded),
                   iconSize: 26,
                   color: AppColors.primary,
@@ -472,32 +442,24 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                 onTap: _isDownloading
                     ? null
                     : ((!_isAudioAvailable || (_hasError && !_isLocalAvailable))
-                          ? (_isServerAvailable ? _downloadOnDemand : null)
-                          : (_isLoading ? null : _togglePlay)),
+                        ? (_isServerAvailable ? _downloadOnDemand : null)
+                        : (_isLoading ? null : _togglePlay)),
                 child: Container(
                   width: 52,
                   height: 52,
                   decoration: BoxDecoration(
                     color: _isDownloading
                         ? AppColors.primary.withValues(alpha: 0.5)
-                        : ((!_isAudioAvailable ||
-                                  (_hasError && !_isLocalAvailable))
-                              ? (_isServerAvailable
-                                    ? Colors.amber.shade700
-                                    : Colors.grey.shade300)
-                              : (_hasError
-                                    ? AppColors.error
-                                    : AppColors.primary)),
+                        : ((!_isAudioAvailable || (_hasError && !_isLocalAvailable))
+                            ? (_isServerAvailable ? Colors.amber.shade700 : Colors.grey.shade300)
+                            : (_hasError ? AppColors.error : AppColors.primary)),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color:
-                            ((!_isAudioAvailable ||
-                                    (_hasError && !_isLocalAvailable)) &&
-                                !_isDownloading)
+                        color: ((!_isAudioAvailable || (_hasError && !_isLocalAvailable)) && !_isDownloading)
                             ? (_isServerAvailable
-                                  ? Colors.amber.withValues(alpha: 0.3)
-                                  : Colors.transparent)
+                                ? Colors.amber.withValues(alpha: 0.3)
+                                : Colors.transparent)
                             : AppColors.primary.withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
@@ -512,34 +474,31 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                             strokeWidth: 2,
                           ),
                         )
-                      : ((!_isAudioAvailable ||
-                                (_hasError && !_isLocalAvailable))
-                            ? Icon(
-                                _isServerAvailable
-                                    ? Icons.download_for_offline_rounded
-                                    : Icons.music_off_rounded,
-                                color: _isServerAvailable
-                                    ? Colors.white
-                                    : Colors.grey.shade500,
-                                size: 26,
-                              )
-                            : (_isLoading
-                                  ? const Padding(
-                                      padding: EdgeInsets.all(14),
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                        strokeWidth: 2,
-                                      ),
-                                    )
-                                  : Icon(
-                                      _hasError
-                                          ? Icons.refresh_rounded
-                                          : _isPlaying
-                                          ? Icons.pause_rounded
-                                          : Icons.play_arrow_rounded,
-                                      color: Colors.white,
-                                      size: 28,
-                                    ))),
+                      : ((!_isAudioAvailable || (_hasError && !_isLocalAvailable))
+                          ? Icon(
+                              _isServerAvailable
+                                  ? Icons.download_for_offline_rounded
+                                  : Icons.music_off_rounded,
+                              color: _isServerAvailable ? Colors.white : Colors.grey.shade500,
+                              size: 26,
+                            )
+                          : (_isLoading
+                              ? const Padding(
+                                  padding: EdgeInsets.all(14),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                )
+                              : Icon(
+                                  _hasError
+                                      ? Icons.refresh_rounded
+                                      : _isPlaying
+                                      ? Icons.pause_rounded
+                                      : Icons.play_arrow_rounded,
+                                  color: Colors.white,
+                                  size: 28,
+                                ))),
                 ),
               ),
               const SizedBox(width: AppConstants.paddingS),
@@ -548,9 +507,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               Tooltip(
                 message: 'Tiến lên 5s',
                 child: IconButton(
-                  onPressed: _isAudioAvailable && !_hasError && !_isLoading
-                      ? _forward
-                      : null,
+                  onPressed: _isAudioAvailable && !_hasError && !_isLoading ? _forward : null,
                   icon: const Icon(Icons.forward_5_rounded),
                   iconSize: 26,
                   color: AppColors.primary,
