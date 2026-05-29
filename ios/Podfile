@@ -3,6 +3,9 @@
 # --- KHÔNG ĐƯỢC THAY ĐỔI ĐOẠN NÀY ---
 # Tự động tìm đường dẫn Flutter SDK từ tệp Generated.xcconfig
 def find_flutter_root
+  # Ưu tiên sử dụng biến môi trường nếu có (đặc biệt hữu ích trên GitHub Actions)
+  return ENV['FLUTTER_ROOT'] if ENV['FLUTTER_ROOT']
+
   generated_xcconfig_path = File.expand_path(File.join('Flutter', 'Generated.xcconfig'), __dir__)
   unless File.exist?(generated_xcconfig_path)
     raise "Generated.xcconfig không tồn tại. Hãy đảm bảo đã chạy 'flutter pub get'."
