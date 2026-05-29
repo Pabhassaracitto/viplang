@@ -1,6 +1,6 @@
 # Podfile for VipLang iOS project
 
-post_install_path = File.expand_path('../Flutter/podhelper.rb', __dir__)
+post_install_path = File.expand_path('Flutter/podhelper.rb', __dir__)
 require post_install_path
 
 platform :ios, '13.0'
