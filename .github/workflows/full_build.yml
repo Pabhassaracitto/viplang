@@ -29,6 +29,9 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
+
       - name: Get dependencies
         run: flutter pub get
 
@@ -75,6 +78,10 @@ jobs:
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
 
+      - name: Create empty asset directories if missing
+        shell: bash
+        run: mkdir -p assets/animations assets/audio assets/data
+
       - name: Get dependencies
         run: flutter pub get
 
@@ -107,6 +114,12 @@ jobs:
         with:
           channel: 'stable'
           cache: true
+
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
+
+      - name: Disable Swift Package Manager
+        run: flutter config --no-enable-swift-package-manager
 
       - name: Get dependencies
         run: flutter pub get
@@ -150,6 +163,9 @@ jobs:
 
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
+
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
 
       - name: Get dependencies
         run: flutter pub get
