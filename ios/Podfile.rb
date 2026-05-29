@@ -1,7 +1,19 @@
 # Podfile for VipLang iOS project
 
-post_install_path = File.expand_path('Flutter/podhelper.rb', __dir__)
-require post_install_path
+# Tự động tìm đường dẫn Flutter SDK từ tệp Generated.xcconfig
+def find_flutter_root
+  generated_xcconfig_path = File.expand_path(File.join('Flutter', 'Generated.xcconfig'), __dir__)
+  unless File.exist?(generated_xcconfig_path)
+    raise "Generated.xcconfig không tồn tại. Hãy đảm bảo đã chạy 'flutter pub get'."
+  end
+  File.foreach(generated_xcconfig_path) do |line|
+    matches = line.match(/\AFLUTTER_ROOT=(.*)\z/)
+    return matches[1].strip if matches
+  end
+  raise "Không tìm thấy FLUTTER_ROOT trong Generated.xcconfig."
+end
+
+load File.join(find_flutter_root, 'packages', 'flutter_tools', 'bin', 'podhelper.rb')
 
 platform :ios, '13.0'
 
