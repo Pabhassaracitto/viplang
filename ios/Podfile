@@ -1,5 +1,8 @@
 # Podfile for VipLang iOS project
 
+post_install_path = File.join(File.dirname(File.realpath(__FILE__)), 'Flutter', 'podhelper.rb')
+require post_install_path
+
 platform :ios, '13.0'
 
 # CocoaPods analytics sends usage stats so we can improve the tool.
