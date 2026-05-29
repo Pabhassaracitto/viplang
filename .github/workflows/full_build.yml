@@ -121,14 +121,24 @@ jobs:
       - name: Disable Swift Package Manager
         run: flutter config --no-enable-swift-package-manager
 
+      - name: Precache iOS artifacts
+        run: flutter precache --ios
+
       - name: Get dependencies
         run: flutter pub get
 
       - name: Generate Launcher Icons (Ensure logo is set)
-        run: flutter pub run flutter_launcher_icons || true
+        run: dart run flutter_launcher_icons || true
+
+      - name: Install Pods
+        run: |
+          cd ios
+          pod repo update
+          pod install
 
       - name: Build iOS (no codesign)
-        run: flutter build ios --release --no-codesign
+        # Sử dụng --no-pub vì chúng ta đã get dependencies và install pods ở bước trên
+        run: flutter build ios --release --no-codesign --no-pub
 
       - name: Create IPA
         run: |
