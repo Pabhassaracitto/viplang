@@ -39,23 +39,30 @@ jobs:
           code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           # Emit GitHub annotations cho từng lỗi (xem được qua API, không cần tải log)
-          # Dạng: severity • message • path:line:col
           python3 - <<'PY'
-          import re, os
+          import re
           out = open("analyze_out.txt").read().splitlines()
           n = 0
+          # Gộp toàn bộ issues vào 1 annotation lớn (API limit ~64KB)
+          issues = []
           for line in out:
-              m = re.match(r"^(error|warning|info)\s+•\s+(.*?)\s+•\s+([^:]+):(\d+):(\d+)", line)
+              s = line.strip()
+              m = re.match(r"^(error|warning|info)\s+•\s+(.*?)\s+•\s+([^:]+):(\d+):(\d+)", s)
               if m:
                   sev, msg, path, lno, col = m.groups()
                   level = {"error": "error", "warning": "warning", "info": "notice"}[sev]
-                  msg_escaped = msg.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
-                  path = path.strip()
-                  print(f"::{level} file={path},line={lno},col={col}::{msg_escaped}")
+                  msg_e = msg.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+                  print(f"::{level} file={path.strip()},line={lno},col={col}::{msg_e}")
+                  issues.append(f"[{sev}] {path.strip()}:{lno}:{col} {msg}")
                   n += 1
-              elif re.search(r"\d+\s+issues?\s+found|No issues found", line):
-                  print(f"::notice::{line.strip()}")
-          print(f"::notice::Emitted {n} analyze annotations", flush=True)
+              elif re.search(r"\d+\s+issues?\s+found|No issues found", s):
+                  issues.append(s)
+          # Annotation tổng hợp để không bị mất khi regex lệch format
+          if n == 0 or len(issues) <= 2:
+              body = "\n".join(out)[:60000]
+              body_e = body.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::warning::{body_e}")
+          print(f"::notice::issues_parsed={n}", flush=True)
           PY
           {
             echo '## flutter analyze'
