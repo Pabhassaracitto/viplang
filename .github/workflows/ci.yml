@@ -81,4 +81,38 @@ jobs:
           if-no-files-found: ignore
 
       - name: Run tests
-        run: flutter test --reporter expanded
+        run: |
+          set +e
+          flutter test --reporter expanded 2>&1 | tee test_out.txt
+          code=${PIPESTATUS[0]}
+          # Dump toàn bộ output test vào annotation khi fail (network chặn tải log)
+          if [ "$code" -ne 0 ]; then
+            python3 - <<'PY'
+          body = open("test_out.txt").read()
+          # Giữ phần lỗi chính (bỏ dòng progress dư)
+          lines = [l for l in body.splitlines() if l.strip()]
+          # Ưu tiên từ dòng đầu có [E] hoặc failure
+          keep = []
+          capture = False
+          for l in lines:
+              if "[E]" in l or "Expected" in l or "Actual" in l or "Which:" in l \
+                 or "Test failed" in l or "Some tests failed" in l or "loading" in l \
+                 or l.startswith("  ") or l.startswith("═") or "Failed to load" in l \
+                 or "Exception" in l or "Error:" in l:
+                  capture = True
+              if capture:
+                  keep.append(l)
+          text = "\n".join(keep if keep else lines[-80:])[:60000]
+          text_e = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print(f"::error::TEST FAILED\n{text_e}")
+          PY
+          fi
+          exit $code
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test_out.txt
+          if-no-files-found: ignore
