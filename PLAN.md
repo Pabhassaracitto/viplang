@@ -113,7 +113,14 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 - [x] **R11 — Fix `SrsAlgorithm._exp`:** dùng `dart:math` `exp` thật + guard `interval ≤ 0`.
 - [x] **R9 — README** viết lại: mô tả app, tính năng, run/build/test, kiến trúc, release, link PLAN.
 
-**Còn lại cho v1.1:** chạy CI xanh lần đầu → quyết `applicationId` + keystore (R2) → tag **v1.1** + APK signed release.
+**Còn lại cho v1.1:**
+- [x] **CI xanh lần đầu** — analyze + 27+ unit/widget tests pass trên GitHub Actions (run `35902346953`, 23/09/2026)
+- [ ] **R2 còn lại:** quyết định `applicationId` thật + tạo keystore + khai GitHub Secrets (`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`) → tag **v1.1** + APK signed release
+
+**Fix nội dung phát hiện khi chạy ContentValidator CI:**
+- Theme 1 dùng orientation `(EN, VI)` của `MixedSegment.vietnamese` — validator giờ khớp cả 2 chiều
+- Theme 8 fabAnswers số ít/đa lệch segment → đồng bộ số nhiều
+- Duplicate `fabAnswers.vi` theo ngữ cảnh (Để nghe → To hear/To listen to) → warning
 
 ---
 
