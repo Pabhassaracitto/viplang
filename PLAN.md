@@ -95,7 +95,7 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 
 ## 4. Lộ trình các giai đoạn tiếp theo
 
-### 🏁 Giai đoạn 2 — “Vững chắc v1.1” (Ước tính 2–3 tuần) — *ĐANG LÀM*
+### 🏁 Giai đoạn 2 — “Vững chắc v1.1” (Ước tính 2–3 tuần) — *✅ ~95% XONG*
 
 **Mục tiêu:** khoá regression, sửa bug chặn release, chuẩn bị lên store.
 
