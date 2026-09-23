@@ -51,13 +51,13 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 | 2 | **Luồng học 5 phase** | 🟢 **~90%** | Đầy đủ UI 5 phase, review mode, resume theo phase |
 | 3 | **Audio pipeline** | 🟢 **~85%** | Path resolver tập trung, download on‑demand + bulk khi splash, fallback asset, chặn HTML lỗi |
 | 4 | **SRS (SM‑2)** | 🟢 **~80%** | Algorithm + màn ôn tập + vocab library; chưa có lịch nhắc thông báo |
-| 5 | **Gamification** | 🟡 **~60%** | XP, streak, 3 badge; **thiếu** streak freeze UI, Goal (UserGoal chưa đặt được), charts (fl_chart chưa dùng) |
-| 6 | **Tiến độ & thống kê** | 🟡 **~65%** | Progress screen có badge/stats; chưa có biểu đồ xu hướng theo ngày/tuần |
+| 5 | **Gamification** | 🟢 **~85%** | XP, streak, 6 badge, **streak freeze 1 lượt/tuần (đã có logic + UI)**, **mục tiêu UserGoal đặt được qua Onboarding**; còn: nhiệm vụ tuần |
+| 6 | **Tiến độ & thống kê** | 🟢 **~85%** | Progress screen có badge/stats + **heatmap 7 ngày + line chart XP (fl_chart) + thẻ mục tiêu**; còn: heatmap 30 ngày, chart theo theme |
 | 7 | **Trạng thái / tài khoản** | 🔴 **~5%** | Firebase *không* init, không màn login, không sync cloud — chỉ Hive local |
 | 8 | **Kiểm thử** | 🔴 **~5%** | Chỉ `widget_test` mẫu (chưa chắc pass); chưa test SRS/content/bloc |
-| 9 | **CI/CD & Release** | 🟢 **~80%** | Build 4 nền tảng OK, Release v1.0 có artifact; **thiếu job `analyze`/`test`** |
-| 10 | **Phát hành store** | 🟡 **~40%** | `applicationId = com.example.viplang`, release **sign bằng debug key**, chưa có keystore/App Bundle signing, chưa Play/App Store listing |
-| 11 | **UX tinh chỉnh** | 🟡 **~55%** | Chưa có Settings, Onboarding, dark mode toggle, i18n (đang hardcode tiếng Việt) |
+| 9 | **CI/CD & Release** | 🟢 **~95%** | Build 4 nền tảng + job `analyze`/`test` chạy mọi push (CI xanh); annotation lỗi chi tiết |
+| 10 | **Phát hành store** | 🟡 **~55%** | ✅ `applicationId = com.viplang.app` (chốt 24/09/2026, đổi cả iOS/macOS/Linux), ✅ có `docs/KEYSTORE.md` hướng dẫn ký; **còn chờ chủ app tạo keystore + khai 4 GitHub Secrets**, chưa có Play listing |
+| 11 | **UX tinh chỉnh** | 🟡 **~70%** | ✅ Settings, ✅ Onboarding 3 màn; còn: dark mode toggle, i18n (đang hardcode tiếng Việt), thông báo nhắc học |
 
 **Tổng tiến độ ước tính (weighted): ~70%** — sản phẩm đã *học được end‑to‑end*, phần còn lại chủ yếu là **chất lượng, kiểm thử, monetization/nội dung mở rộng và phát hành store**.
 
@@ -80,15 +80,15 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 | # | Mức độ | Vấn đề | Vị trí |
 |---|---|---|---|
 | R1 | 🔴 Cao | **`themeOrder` chỉ có 11/13 theme** → hoàn thành theme 11 sẽ **không unlock theme 12 & 13** | `theme_bloc.dart:40` |
-| R2 | 🔴 Cao | Release Android **sign bằng debug key** + `applicationId` vẫn `com.example.viplang` → không thể up Play, đổi ID = mất user data | `android/app/build.gradle.kts` |
+| R2 | 🟡 Còn 1 bước | ✅ `applicationId = com.viplang.app` đã chốt + signing config sẵn; **còn chờ chủ app tạo keystore & khai 4 GitHub Secrets** (xem `docs/KEYSTORE.md`) | `android/app/build.gradle.kts`, `docs/KEYSTORE.md` |
 | R3 | 🔴 Cao | **Không có test thực sự**; CI không chạy `flutter analyze`/`flutter test` → regression dễ lọt | `test/`, workflow |
 | R4 | 🟡 Trung | Dual source of truth: metadata theme bị **hardcode lần 2** trong `ThemeBloc._getAllThemes()` thay vì dùng `AllThemesRegistry` → dễ lệch nội dung | `theme_bloc.dart:126` |
 | R5 | 🟡 Trung | Firebase packages khai báo nhưng **không dùng** (không init, không google-services.json) → tăng dung lượng, gây nhầm lẫn; `AudioBloc` viết nhưng không gắn vào app | `pubspec.yaml`, `audio_bloc.dart` |
-| R6 | 🟡 Trung | `go_router` khai báo nhưng điều hướng vẫn `Navigator.push` thủ công 34 chỗ → chưa có deep link / URL scheme | toàn app |
+| R6 | 🟡 Trung | `go_router` khai báo nhưng điều hướng vẫn `Navigator.push` thủ công → chưa có deep link / URL scheme (**đang để lại cuối Giai đoạn 3**) | toàn app |
 | R7 | 🟡 Trung | `downloadMultiple` tải tuần tự từng file, **không retry/timeout/pause/resume**; 52 file ≥ nhiều MB → lần đầu offline/3G dễ fail giữa chừng (flag `full_audio_downloaded` vẫn set true nếu loop chạy hết nhưng fail một phần — cần kiểm lại cờ) | `download_service.dart` |
 | R8 | 🟡 Trung | Dependency chết: `fl_chart`, `google_fonts`, `lottie`, `shimmer`, `flutter_svg`, `cached_network_image`, `audioplayers`, `audio_session`, `connectivity_plus`, `shared_preferences`, `permission_handler`, `firebase_*` — **0 import trong `lib/`** | `pubspec.yaml` |
 | R9 | 🟢 Thấp | README vẫn là template Flutter; không có CONTRIBUTING/CHANGELOG; `assets/audio|data|animations` trống (CI phải `mkdir`) | root |
-| R10 | 🟢 Thấp | Streak freeze có hằng số `streakFreezeMaxPerWeek` nhưng **chưa có logic/UI**; `UserGoal` model + adapter có sẵn nhưng chưa màn hình đặt mục tiêu | `app_constants`, models |
+| R10 | ✅ Xong | ~~Streak freeze chưa có logic/UI; UserGoal chưa đặt được~~ → đã làm ở Giai đoạn 3 (`StreakService`, `OnboardingScreen`) |  |
 | R11 | 🟢 Thấp | `_exp` trong `SrsAlgorithm.calculateRetention` là xấp xỉ sai với `x>0` (`1/(1-x)` blow-up) — nên dùng `math.exp` | `srs_algorithm.dart` |
 
 ---
@@ -115,7 +115,9 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 
 **Còn lại cho v1.1:**
 - [x] **CI xanh lần đầu** — analyze + 27+ unit/widget tests pass trên GitHub Actions (run `35902346953`, 23/09/2026)
-- [ ] **R2 còn lại:** quyết định `applicationId` thật + tạo keystore + khai GitHub Secrets (`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`) → tag **v1.1** + APK signed release
+- [x] **Chốt `applicationId` = `com.viplang.app`** (24/09/2026) — đã áp cho Android namespace + iOS/macOS bundle id + Linux app id
+- [x] **Hướng dẫn ký release** → `docs/KEYSTORE.md` (tạo keystore, base64, khai 4 secrets, build, checklist Play)
+- [ ] **Còn lại (chủ app làm):** tạo keystore → khai 4 GitHub Secrets → tag **v1.1** + APK signed release
 
 **Fix nội dung phát hiện khi chạy ContentValidator CI:**
 - Theme 1 dùng orientation `(EN, VI)` của `MixedSegment.vietnamese` — validator giờ khớp cả 2 chiều
@@ -124,18 +126,20 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 
 ---
 
-### 🚀 Giai đoạn 3 — “Trải nghiệm & Giữ chân người dùng” (Ước 3–5 tuần)
+### 🚀 Giai đoạn 3 — “Trải nghiệm & Giữ chân người dùng” (Ước 3–5 tuần) — *🔄 ĐANG LÀM (~60%)*
 
 **Mục tiêu:** biến app “học được” thành app “học đều mỗi ngày”.
 
-1. **Onboarding 3 màn:** chào → đặt mục tiêu (**hoàn thiện `UserGoal`**: điểm TOEIC mục tiêu, phút học/ngày, ngày thi) → hướng dẫn cơ bản.
-2. **Progress bằng biểu đồ (`fl_chart`):** heatmap 7/30 ngày, line chart XP/tuần, % từng theme (bar).
-3. **Streak freeze:** dùng `streakFreezeMaxPerWeek`, nút “Đóng băng streak” khi mất ngày.
-4. **Nhắc học (local notifications):** khung giờ người dùng đặt; **không** cần Firebase.
-5. **Nâng SRS:** lịch ôn tập ngày mai trên Home (“Hôm nay bạn có 12 từ đến hạn”), badge due‑count ở tab Ôn tập, ôn tập sau mỗi phase vocabulary.
-6. **Điều hướng chuẩn hoá:** migrate sang `go_router` (đã cài) → deep link `viplang://theme/05/day/2`, easier test.
-7. **Dark mode** + toggle trong Settings (`AppColors` hiện light-only).
-8. **Tối ưu audio UX:** phát chậm 0.75x đã có — thêm A/B “nghe cả câu sau khi chọn đáp án quiz”, transcript tự động hiện khi sai.
+- [x] **1. Onboarding 3 màn:** chào → **đặt mục tiêu** (điểm TOEIC, phút/ngày, ngày thi `UserGoal`) → hướng dẫn 5 phase; gate ở Splash (`onboarding_done`), sửa lại được từ Cài đặt & màn Tiến độ.
+- [x] **2. Progress bằng biểu đồ (`fl_chart`):** heatmap 7 ngày + **line chart XP** (fl_chart) + tổng/trung bình tuần + **thanh % từng theme** (`ThemeProgressBar`); XP ghi theo ngày vào `UserProgressModel.dailyXP`.
+- [x] **3. Streak freeze:** `StreakService` (hàm thuần, có test) — 1 lượt/tuần, tự reset theo tuần, cứu streak khi bỏ lỡ 1 ngày; Home cảnh báo “dùng ❄️ để cứu chuỗi”, Settings hiện số lượt còn lại.
+- [x] **5. Nâng SRS:** Home hiện “Hôm nay bạn có N từ đến hạn”, badge due‑count ở tab Ôn tập + thẻ hành động nhanh, mục tiêu “Ôn từ” tick theo `last_srs_date`.
+- [ ] **4. Nhắc học (local notifications):** khung giờ người dùng đặt — cần thêm plugin `flutter_local_notifications` + quyền Android 13.
+- [ ] **6. Điều hướng chuẩn hoá:** migrate sang `go_router` → deep link `viplang://theme/05/day/2`.
+- [ ] **7. Dark mode** + toggle trong Settings (`AppColors` hiện light-only).
+- [ ] **8. Tối ưu audio UX:** A/B “nghe cả câu sau khi chọn đáp án quiz”, transcript tự hiện khi sai.
+
+**Đã xong ở lượt này:** onboarding + UserGoal, streak freeze, charts, SRS due‑count, chốt `applicationId = com.viplang.app`, `docs/KEYSTORE.md`.
 
 **Deliverable:** v1.2 — onboarding, charts, streak freeze, notifications, go_router.
 
@@ -186,7 +190,7 @@ P3 (chiến lược)  │ Auth + sync · store listing · analytics
 
 ## 6. Câu hỏi cần quyết trước khi làm tiếp
 
-1. **ID ứng dụng thật** (`com.viplang.app` hay `com.pabhassaracitto.viplang`…) — đổi sớm trước khi có user.
+1. ~~**ID ứng dụng thật**~~ → ✅ đã chốt **`com.viplang.app`** (24/09/2026).
 2. **Hướng Giai đoạn 4:** A (content remote, giữ local‑first) hay B (Firebase sync)?
 3. **Mục tiêu phát hành:** chỉ distribute APK/GitHub, hay thật sự lên **Google Play** trong quý này? (ảnh hưởng việc ký release & privacy policy).
 4. **Ngôn ngữ UI:** giữ tiếng Việt hardcode hay thêm i18n (en) cho người học nước ngoài?

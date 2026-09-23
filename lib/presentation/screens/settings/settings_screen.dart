@@ -458,9 +458,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           // ── Về app ──
           const _SectionTitle('Về ứng dụng'),
-          _Card(
+          const _Card(
             child: Column(
-              children: const [
+              children: [
                 _InfoRow(
                   icon: Icons.info_outline_rounded,
                   label: 'Phiên bản',

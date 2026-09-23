@@ -346,11 +346,12 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         leading: IconButton(
           icon: const Icon(Icons.close, color: AppColors.textPrimary),
           onPressed: () async {
+            final navigator = Navigator.of(context);
             await _tts.stop();
             if (widget.onClose != null) {
               widget.onClose!();
-            } else if (mounted) {
-              Navigator.pop(context);
+            } else {
+              navigator.pop();
             }
           },
         ),
