@@ -18,7 +18,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace = "com.example.viplang"
+    namespace = "com.viplang.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -32,9 +32,8 @@ android {
     }
 
     defaultConfig {
-        // TODO(chờ quyết định chủ app): đổi sang ID thật (vd. com.viplang.app)
-        // TRƯỚC khi lên Play Store — đổi sau sẽ mất dữ liệu user đã cài.
-        applicationId = "com.example.viplang"
+        // Đã chốt ID thật (24/09/2026) — KHÔNG đổi nữa khi đã có user trên store.
+        applicationId = "com.viplang.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

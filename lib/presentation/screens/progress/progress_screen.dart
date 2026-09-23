@@ -5,8 +5,11 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/hive_service.dart';
+import '../../../core/services/streak_service.dart';
 import '../../../data/models/user_progress_model.dart';
 import '../../../data/models/theme_model.dart';
+import '../../widgets/activity_charts.dart';
+import '../onboarding/onboarding_screen.dart';
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
@@ -136,6 +139,14 @@ class ProgressScreen extends StatelessWidget {
                       _buildStatsOverview(progress),
                       const SizedBox(height: AppConstants.paddingL),
 
+                      // Mục tiêu học tập (Giai đoạn 3)
+                      _buildGoalCard(context, progress),
+                      const SizedBox(height: AppConstants.paddingL),
+
+                      // Hoạt động 7 ngày + biểu đồ XP (fl_chart)
+                      _buildActivity(progress),
+                      const SizedBox(height: AppConstants.paddingL),
+
                       // 13 Bí mật (dựa trên themes)
                       _buildSecretsProgress(themes),
                       const SizedBox(height: AppConstants.paddingL),
@@ -152,6 +163,193 @@ class ProgressScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // ─── Mục tiêu học tập ──────────────────────────────────────────────────────
+  Future<void> _openGoalEditor(BuildContext context, UserGoal? goal) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => OnboardingScreen(initialGoal: goal, isEditing: true),
+      ),
+    );
+  }
+
+  Widget _buildGoalCard(BuildContext context, UserProgressModel progress) {
+    final goal = progress.goal;
+    final daysLeft = goal?.targetDate.difference(DateTime.now()).inDays;
+
+    final String subtitle;
+    if (goal == null) {
+      subtitle = 'Đặt mục tiêu rõ ràng là bí mật số 1 để học hiệu quả';
+    } else if (daysLeft == null || daysLeft <= 0) {
+      subtitle = '${goal.dailyMinutes} phút/ngày · đã tới ngày thi';
+    } else {
+      subtitle = '${goal.dailyMinutes} phút/ngày · còn $daysLeft ngày';
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(AppConstants.paddingM),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.primary.withValues(alpha: 0.09),
+            AppColors.secondary.withValues(alpha: 0.06),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(AppConstants.radiusL),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Text('🎯', style: TextStyle(fontSize: 26)),
+              const SizedBox(width: AppConstants.paddingM),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      goal == null
+                          ? 'Chưa đặt mục tiêu'
+                          : 'Mục tiêu TOEIC ${goal.targetScore}+',
+                      style: AppTextStyles.h3,
+                    ),
+                    Text(
+                      subtitle,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                        height: 1.3,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              TextButton(
+                onPressed: () => _openGoalEditor(context, goal),
+                child: Text(goal == null ? 'Đặt' : 'Sửa'),
+              ),
+            ],
+          ),
+          if (goal == null) ...[
+            const SizedBox(height: AppConstants.paddingS),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () => _openGoalEditor(context, null),
+                icon: const Icon(Icons.flag_rounded, size: 18),
+                label: const Text('Đặt mục tiêu học tập'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.primary,
+                  side: const BorderSide(color: AppColors.primary),
+                ),
+              ),
+            ),
+          ] else ...[
+            const SizedBox(height: AppConstants.paddingM),
+            Row(
+              children: [
+                Expanded(
+                  child: _GoalPill(
+                    label: 'Điểm mục tiêu',
+                    value: '${goal.targetScore}+',
+                  ),
+                ),
+                const SizedBox(width: AppConstants.paddingS),
+                Expanded(
+                  child: _GoalPill(
+                    label: 'Mỗi ngày',
+                    value: '${goal.dailyMinutes} phút',
+                  ),
+                ),
+                const SizedBox(width: AppConstants.paddingS),
+                Expanded(
+                  child: _GoalPill(
+                    label: 'Ngày thi',
+                    value:
+                        '${goal.targetDate.day.toString().padLeft(2, '0')}/${goal.targetDate.month.toString().padLeft(2, '0')}/${goal.targetDate.year}',
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
+      ),
+    ).animate().fadeIn(duration: 350.ms);
+  }
+
+  // ─── Hoạt động 7 ngày + biểu đồ XP ─────────────────────────────────────────
+  Widget _buildActivity(UserProgressModel progress) {
+    final now = DateTime.now();
+    final week = StudyLog.lastNDaysXp(progress, 7, now: now);
+    final weekTotal = StudyLog.sum(week);
+    final rawWeekStart = HiveService.settingsBox.get('streak_freeze_week_start');
+    final freezesLeft = StreakService.freezesRemaining(
+      now: now,
+      freezesUsedThisWeek: progress.streakFreezesUsedThisWeek,
+      freezeWeekStart: rawWeekStart is DateTime ? rawWeekStart : null,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Hoạt động 7 ngày', style: AppTextStyles.h3),
+        const SizedBox(height: AppConstants.paddingS),
+        Container(
+          padding: const EdgeInsets.all(AppConstants.paddingM),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(AppConstants.radiusL),
+            border: Border.all(color: AppColors.border),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.04),
+                blurRadius: 10,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              WeeklyActivityHeatmap(xpPerDay: week, today: now),
+              const SizedBox(height: AppConstants.paddingL),
+              XpTrendChart(xpPerDay: week, today: now),
+              const SizedBox(height: AppConstants.paddingS),
+              Row(
+                children: [
+                  Text(
+                    'Tổng tuần: $weekTotal XP',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    'Trung bình ${(weekTotal / 7).round()} XP/ngày',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '❄️ $freezesLeft',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    ).animate().fadeIn(duration: 400.ms);
   }
 
   Widget _buildStatsOverview(UserProgressModel progress) {
@@ -486,6 +684,46 @@ class ProgressScreen extends StatelessWidget {
 }
 
 // ─── Sub-widgets ────────────────────────────────────────────────────────────
+
+class _GoalPill extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _GoalPill({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.surface.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(AppConstants.radiusM),
+      ),
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: AppTextStyles.bodyMedium.copyWith(
+              fontWeight: FontWeight.w700,
+              color: AppColors.primary,
+              fontSize: 13,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: AppTextStyles.caption.copyWith(
+              fontSize: 10,
+              color: AppColors.textSecondary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class _StatCard extends StatelessWidget {
   final String icon;

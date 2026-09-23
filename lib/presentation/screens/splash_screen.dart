@@ -11,6 +11,7 @@ import '../../core/services/download_service.dart';
 import '../../core/services/hive_service.dart';
 import '../../data/content/all_themes_registry.dart';
 import 'home/home_screen.dart';
+import 'onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -143,11 +144,20 @@ class _SplashScreenState extends State<SplashScreen> {
     _goToHome();
   }
 
+  /// Vào màn kế tiếp: Onboarding (lần đầu) hoặc Home.
   void _goToHome() {
     if (!mounted) return;
+    final onboardingDone =
+        HiveService.settingsBox.get('onboarding_done', defaultValue: false) ==
+        true;
+
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const HomeScreen()),
+      MaterialPageRoute(
+        builder: (_) => onboardingDone
+            ? const HomeScreen()
+            : const OnboardingScreen(),
+      ),
     );
   }
 

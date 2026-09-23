@@ -7,8 +7,11 @@ import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/audio_path_resolver.dart';
 import '../../../core/services/download_service.dart';
 import '../../../core/services/hive_service.dart';
+import '../../../core/services/streak_service.dart';
 import '../../../data/content/all_themes_registry.dart';
+import '../../../data/models/user_progress_model.dart';
 import '../../blocs/theme_bloc/theme_bloc.dart';
+import '../onboarding/onboarding_screen.dart';
 
 /// Màn Cài đặt: quản lý audio, TTS, tốc độ phát, reset tiến độ.
 class SettingsScreen extends StatefulWidget {
@@ -26,12 +29,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool _busy = false;
   double _downloadProgress = 0;
   String? _statusMessage;
+  UserGoal? _goal;
+  int _freezesRemaining = AppConstants.streakFreezeMaxPerWeek;
 
   @override
   void initState() {
     super.initState();
     _loadSettings();
     _loadAudioStats();
+    _loadGoal();
+  }
+
+  // ─── Mục tiêu học tập (Giai đoạn 3) ────────────────────────────────────────
+  void _loadGoal() {
+    try {
+      final progress = HiveService.progressBox.get('current_user');
+      final rawWeekStart = HiveService.settingsBox.get(
+        'streak_freeze_week_start',
+      );
+      _goal = progress?.goal;
+      _freezesRemaining = StreakService.freezesRemaining(
+        now: DateTime.now(),
+        freezesUsedThisWeek: progress?.streakFreezesUsedThisWeek ?? 0,
+        freezeWeekStart: rawWeekStart is DateTime ? rawWeekStart : null,
+      );
+    } catch (e) {
+      debugPrint('⚠️ Không đọc được mục tiêu: $e');
+    }
+  }
+
+  Future<void> _editGoal() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => OnboardingScreen(initialGoal: _goal, isEditing: true),
+      ),
+    );
+    if (!mounted) return;
+    setState(_loadGoal);
+  }
+
+  String _goalSummary() {
+    final goal = _goal;
+    if (goal == null) return 'Chưa đặt';
+    final daysLeft = goal.targetDate.difference(DateTime.now()).inDays;
+    final suffix = daysLeft > 0 ? ' · còn $daysLeft ngày' : '';
+    return 'TOEIC ${goal.targetScore}+ · ${goal.dailyMinutes} phút/ngày$suffix';
   }
 
   Future<void> _loadSettings() async {
@@ -366,6 +409,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       await HiveService.settingsBox.put('playback_speed', v);
                     },
                   ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingL),
+
+          // ── Mục tiêu ──
+          const _SectionTitle('Mục tiêu học tập'),
+          _Card(
+            child: Column(
+              children: [
+                _InfoRow(
+                  icon: Icons.flag_rounded,
+                  label: 'Mục tiêu hiện tại',
+                  value: _goalSummary(),
+                ),
+                const Divider(height: 1, color: AppColors.divider),
+                _InfoRow(
+                  icon: Icons.ac_unit_rounded,
+                  label: 'Đóng băng streak còn lại',
+                  value: '$_freezesRemaining lượt tuần này',
+                ),
+                const Divider(height: 1, color: AppColors.divider),
+                _ActionRow(
+                  icon: Icons.edit_rounded,
+                  label: _goal == null
+                      ? 'Đặt mục tiêu học tập'
+                      : 'Sửa mục tiêu học tập',
+                  onTap: _editGoal,
                 ),
               ],
             ),

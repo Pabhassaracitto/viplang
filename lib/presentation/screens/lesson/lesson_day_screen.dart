@@ -8,6 +8,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/hive_service.dart';
+import '../../../core/services/streak_service.dart';
 import '../../../data/content/all_themes_registry.dart';
 import '../../../data/models/lesson_model.dart';
 import '../../../data/models/user_progress_model.dart';
@@ -1053,28 +1054,25 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     progress ??= UserProgressModel(userId: 'local_user');
 
     final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final lastStudyDate = progress.lastStudyDate;
+    final settings = HiveService.settingsBox;
+    final rawWeekStart = settings.get('streak_freeze_week_start');
+    final freezeWeekStart = rawWeekStart is DateTime ? rawWeekStart : null;
 
-    if (lastStudyDate != null) {
-      final lastStudy = DateTime(
-        lastStudyDate.year,
-        lastStudyDate.month,
-        lastStudyDate.day,
-      );
-      final diff = today.difference(lastStudy).inDays;
-
-      if (diff == 1) {
-        progress.currentStreak++;
-      } else if (diff > 1) {
-        progress.currentStreak = 1;
-      }
-    } else {
-      progress.currentStreak = 1;
-    }
-
-    if (progress.currentStreak > progress.longestStreak) {
-      progress.longestStreak = progress.currentStreak;
+    // Ghi nhận ngày học: streak + đóng băng (logic thuần trong StreakService)
+    final streakOutcome = StreakService.registerStudyDay(
+      now: now,
+      currentStreak: progress.currentStreak,
+      longestStreak: progress.longestStreak,
+      lastStudyDate: progress.lastStudyDate,
+      freezesUsedThisWeek: progress.streakFreezesUsedThisWeek,
+      freezeWeekStart: freezeWeekStart,
+    );
+    progress.currentStreak = streakOutcome.currentStreak;
+    progress.longestStreak = streakOutcome.longestStreak;
+    progress.streakFreezesUsedThisWeek = streakOutcome.freezesUsedThisWeek;
+    settings.put('streak_freeze_week_start', StreakService.weekStartOf(now));
+    if (streakOutcome.freezeApplied) {
+      debugPrint('❄️ Đã dùng đóng băng streak — chuỗi vẫn còn!');
     }
 
     // 1. Cập nhật bài học đã hoàn thành
@@ -1096,8 +1094,8 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     final progressPercent = totalDays > 0 ? completedDays / totalDays : 0.0;
     progress.themeProgress[widget.themeId] = progressPercent;
 
-    // 3. Tăng XP tích lũy
-    progress.totalXP += xpEarned;
+    // 3. Tăng XP tích lũy (kèm log XP theo ngày để vẽ biểu đồ)
+    StudyLog.addXp(progress, xpEarned, at: now);
     progress.lastStudyDate = now;
 
     // 4. Đồng bộ hóa số lượng từ thực tế từ SRS (nếu có thể)

@@ -7,6 +7,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/hive_service.dart';
+import '../../../core/services/streak_service.dart';
 import '../../../core/utils/srs_algorithm.dart';
 import '../../../data/models/vocab_model.dart';
 import '../../../presentation/blocs/progress/progress_event.dart';
@@ -233,7 +234,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       progress ??= UserProgressModel(userId: 'local_user');
 
       final xpEarned = _sessionCorrect * 2;
-      progress.totalXP += xpEarned;
+      StudyLog.addXp(progress, xpEarned);
 
       final minutesEarned = (_sessionTotal * 0.25).clamp(2.0, 30.0).round();
       progress.totalStudyMinutes += minutesEarned;
@@ -245,26 +246,28 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
       progress.totalWordsLearned = learnedCount;
 
       final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
-      if (progress.lastStudyDate != null) {
-        final lastStudy = DateTime(
-          progress.lastStudyDate!.year,
-          progress.lastStudyDate!.month,
-          progress.lastStudyDate!.day,
-        );
-        final diff = today.difference(lastStudy).inDays;
-        if (diff == 1) {
-          progress.currentStreak++;
-        } else if (diff > 1) {
-          progress.currentStreak = 1;
-        }
-      } else {
-        progress.currentStreak = 1;
-      }
-      if (progress.currentStreak > progress.longestStreak) {
-        progress.longestStreak = progress.currentStreak;
+      final settings = HiveService.settingsBox;
+      final rawWeekStart = settings.get('streak_freeze_week_start');
+      final freezeWeekStart = rawWeekStart is DateTime ? rawWeekStart : null;
+
+      final streakOutcome = StreakService.registerStudyDay(
+        now: now,
+        currentStreak: progress.currentStreak,
+        longestStreak: progress.longestStreak,
+        lastStudyDate: progress.lastStudyDate,
+        freezesUsedThisWeek: progress.streakFreezesUsedThisWeek,
+        freezeWeekStart: freezeWeekStart,
+      );
+      progress.currentStreak = streakOutcome.currentStreak;
+      progress.longestStreak = streakOutcome.longestStreak;
+      progress.streakFreezesUsedThisWeek = streakOutcome.freezesUsedThisWeek;
+      settings.put('streak_freeze_week_start', StreakService.weekStartOf(now));
+      if (streakOutcome.freezeApplied) {
+        debugPrint('❄️ Đã dùng đóng băng streak — chuỗi vẫn còn!');
       }
       progress.lastStudyDate = now;
+      // Đánh dấu đã ôn tập hôm nay (cho "Mục tiêu hôm nay" ở Home)
+      settings.put('last_srs_date', StudyLog.dayKey(now));
 
       // Badge check
       if (!progress.earnedBadges.contains('starter') && (progress.completedLessons.isNotEmpty || learnedCount > 0)) {

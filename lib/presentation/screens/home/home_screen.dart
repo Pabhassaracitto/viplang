@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../core/services/hive_service.dart';
+import '../../../core/services/streak_service.dart';
+import '../../../data/models/user_progress_model.dart';
 import '../../blocs/progress/progress_bloc.dart';
 import '../../blocs/progress/progress_state.dart';
 import '../lesson/lesson_day_screen.dart';
@@ -126,14 +130,14 @@ class _HomeTab extends StatelessWidget {
           children: [
             _buildHeader(context),
             const SizedBox(height: AppConstants.paddingL),
-            _buildStreakCard(),
+            const _StreakCard(),
             const SizedBox(height: AppConstants.paddingL),
 
             // ✅ NEW: Widget "Từ vựng hôm nay"
             const VocabOfTheDayWidget(),
             const SizedBox(height: AppConstants.paddingL),
 
-            _buildDailyGoal(context),
+            const _DailyGoalCard(),
             const SizedBox(height: AppConstants.paddingL),
             _buildContinueLearning(context),
             const SizedBox(height: AppConstants.paddingL),
@@ -201,197 +205,6 @@ class _HomeTab extends StatelessWidget {
         ),
       ],
     ).animate().fadeIn(duration: 400.ms);
-  }
-
-  Widget _buildStreakCard() {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingL),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFFFF6B35), Color(0xFFFF8C00)],
-        ),
-        borderRadius: BorderRadius.circular(AppConstants.radiusXL),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.secondary.withValues(alpha: 0.35),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          const Text('🔥', style: TextStyle(fontSize: 48)),
-          const SizedBox(width: AppConstants.paddingM),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '0 ngày streak',
-                  style: AppTextStyles.h2.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                Text(
-                  'Bắt đầu hành trình hôm nay!',
-                  style: AppTextStyles.bodySmall.copyWith(
-                    color: Colors.white.withValues(alpha: 0.85),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppConstants.paddingM,
-              vertical: AppConstants.paddingS,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.25),
-              borderRadius: BorderRadius.circular(AppConstants.radiusM),
-            ),
-            child: Text(
-              'Kỷ lục: 0',
-              style: AppTextStyles.caption.copyWith(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ).animate().fadeIn(delay: 100.ms).slideX(begin: -0.1);
-  }
-
-  // ✅ FIX: Đổi dueCount → todayGoal
-  Widget _buildDailyGoal(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppConstants.paddingM),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppConstants.radiusL),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Text('Mục tiêu hôm nay', style: AppTextStyles.h3),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.paddingS,
-                  vertical: 2,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                ),
-                child: Text(
-                  '0/3 hoàn thành',
-                  style: AppTextStyles.caption.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: AppConstants.paddingS),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(AppConstants.radiusS),
-            child: const LinearProgressIndicator(
-              value: 0.0,
-              backgroundColor: AppColors.border,
-              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
-              minHeight: 8,
-            ),
-          ),
-          const SizedBox(height: AppConstants.paddingM),
-          Row(
-            children: [
-              _GoalItem(
-                icon: '📖',
-                label: 'Đọc bài',
-                isDone: false,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const LessonDayScreen(
-                      dayNumber: 1,
-                      themeId: 'theme_01_offices',
-                      themeTitle: 'Offices - Văn phòng',
-                    ),
-                  ),
-                ),
-              ),
-              _GoalItem(
-                icon: '🎧',
-                label: 'Nghe',
-                isDone: false,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const LessonDayScreen(
-                      dayNumber: 1,
-                      themeId: 'theme_01_offices',
-                      themeTitle: 'Offices - Văn phòng',
-                    ),
-                  ),
-                ),
-              ),
-              _GoalItem(
-                icon: '🎮',
-                label: 'Trò chơi',
-                isDone: false,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const LessonDayScreen(
-                      dayNumber: 1,
-                      themeId: 'theme_01_offices',
-                      themeTitle: 'Offices - Văn phòng',
-                    ),
-                  ),
-                ),
-              ),
-              // ✅ FIX: todayGoal thay vì dueCount
-              BlocBuilder<ProgressBloc, ProgressState>(
-                builder: (context, state) {
-                  int todayGoal = 0;
-                  if (state is ProgressLoaded) {
-                    todayGoal = state.todayGoal;
-                  }
-                  return _GoalItem(
-                    icon: '🃏',
-                    label: 'Ôn từ',
-                    isDone: false,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const SrsReviewScreen(),
-                      ),
-                    ),
-                    badgeCount: todayGoal,
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    ).animate().fadeIn(delay: 200.ms);
   }
 
   Widget _buildContinueLearning(BuildContext context) {
@@ -882,6 +695,290 @@ class _QuickActionCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// ─── Streak card (dữ liệu thật từ Hive) ──────────────────────────────────────
+
+class _StreakCard extends StatelessWidget {
+  const _StreakCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<Box<UserProgressModel>>(
+      valueListenable: HiveService.progressBox.listenable(),
+      builder: (context, box, _) {
+        final now = DateTime.now();
+        final progress =
+            box.get('current_user') ?? UserProgressModel(userId: 'local_user');
+
+        final rawWeekStart = HiveService.settingsBox.get(
+          'streak_freeze_week_start',
+        );
+        final freezesLeft = StreakService.freezesRemaining(
+          now: now,
+          freezesUsedThisWeek: progress.streakFreezesUsedThisWeek,
+          freezeWeekStart: rawWeekStart is DateTime ? rawWeekStart : null,
+        );
+        final broken = StreakService.hasBrokenStreak(
+          now: now,
+          lastStudyDate: progress.lastStudyDate,
+          currentStreak: progress.currentStreak,
+        );
+
+        final String subtitle;
+        if (progress.hasStudiedToday) {
+          subtitle = 'Đã học hôm nay — giữ vững phong độ! ✅';
+        } else if (broken && freezesLeft > 0) {
+          subtitle = 'Bạn đã bỏ lỡ ngày học — dùng ❄️ để cứu chuỗi!';
+        } else if (progress.currentStreak == 0) {
+          subtitle = 'Bắt đầu hành trình hôm nay!';
+        } else {
+          subtitle = 'Học hôm nay để nối tiếp chuỗi 🔥';
+        }
+
+        return Container(
+          padding: const EdgeInsets.all(AppConstants.paddingL),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFFFF6B35), Color(0xFFFF8C00)],
+            ),
+            borderRadius: BorderRadius.circular(AppConstants.radiusXL),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.secondary.withValues(alpha: 0.35),
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Text('🔥', style: TextStyle(fontSize: 44)),
+                  const SizedBox(width: AppConstants.paddingM),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${progress.currentStreak} ngày streak',
+                          style: AppTextStyles.h2.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        Text(
+                          subtitle,
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: Colors.white.withValues(alpha: 0.9),
+                            height: 1.3,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppConstants.paddingM,
+                      vertical: AppConstants.paddingS,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.25),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                    ),
+                    child: Text(
+                      'Kỷ lục: ${progress.longestStreak}',
+                      style: AppTextStyles.caption.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppConstants.paddingM),
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.22),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                    ),
+                    child: Text(
+                      '❄️ Đóng băng: $freezesLeft/${AppConstants.streakFreezeMaxPerWeek} tuần này',
+                      style: AppTextStyles.caption.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '⚡ ${progress.totalXP} XP',
+                    style: AppTextStyles.caption.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ).animate().fadeIn(delay: 100.ms).slideX(begin: -0.1);
+      },
+    );
+  }
+}
+
+// ─── Mục tiêu hôm nay (dữ liệu thật) ─────────────────────────────────────────
+
+class _DailyGoalCard extends StatelessWidget {
+  const _DailyGoalCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<Box<UserProgressModel>>(
+      valueListenable: HiveService.progressBox.listenable(),
+      builder: (context, box, _) {
+        final now = DateTime.now();
+        final progress =
+            box.get('current_user') ?? UserProgressModel(userId: 'local_user');
+
+        final studied = progress.hasStudiedToday;
+        final srsDone =
+            HiveService.settingsBox.get('last_srs_date') == StudyLog.dayKey(now);
+        final todayXp = StudyLog.xpOn(progress, now);
+        final doneCount = [studied, srsDone, todayXp > 0].where((e) => e).length;
+        final ratio = doneCount / 3;
+
+        return Container(
+          padding: const EdgeInsets.all(AppConstants.paddingM),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(AppConstants.radiusL),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Text('Mục tiêu hôm nay', style: AppTextStyles.h3),
+                  const Spacer(),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppConstants.paddingS,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                    ),
+                    child: Text(
+                      '$doneCount/3 hoàn thành',
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppConstants.paddingS),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(AppConstants.radiusS),
+                child: LinearProgressIndicator(
+                  value: ratio,
+                  backgroundColor: AppColors.border,
+                  valueColor: const AlwaysStoppedAnimation<Color>(
+                    AppColors.primary,
+                  ),
+                  minHeight: 8,
+                ),
+              ),
+              const SizedBox(height: AppConstants.paddingM),
+              Row(
+                children: [
+                  _GoalItem(
+                    icon: '📖',
+                    label: 'Học bài',
+                    isDone: studied,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const LessonDayScreen(
+                          dayNumber: 1,
+                          themeId: 'theme_01_offices',
+                          themeTitle: 'Offices - Văn phòng',
+                        ),
+                      ),
+                    ),
+                  ),
+                  BlocBuilder<ProgressBloc, ProgressState>(
+                    builder: (context, state) {
+                      final due = state is ProgressLoaded ? state.todayGoal : 0;
+                      return _GoalItem(
+                        icon: '🃏',
+                        label: srsDone ? 'Đã ôn' : 'Ôn từ',
+                        isDone: srsDone,
+                        badgeCount: srsDone ? 0 : due,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SrsReviewScreen(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  _GoalItem(
+                    icon: '⚡',
+                    label: 'Kiếm XP',
+                    isDone: todayXp > 0,
+                    badgeCount: 0,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ProgressScreen()),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppConstants.paddingS),
+              BlocBuilder<ProgressBloc, ProgressState>(
+                builder: (context, state) {
+                  if (state is! ProgressLoaded) return const SizedBox.shrink();
+                  final due = state.dueCount;
+                  return Text(
+                    due > 0
+                        ? '📚 Hôm nay bạn có $due từ đến hạn ôn tập'
+                        : '📚 Không còn từ nào đến hạn — giỏi lắm!',
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ).animate().fadeIn(delay: 200.ms);
+      },
     );
   }
 }
