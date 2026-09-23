@@ -32,7 +32,29 @@ jobs:
         run: dart format --output=none --set-exit-if-changed lib test || true
 
       - name: Analyze
-        run: flutter analyze --no-fatal-infos
+        id: analyze
+        run: |
+          set +e
+          flutter analyze --no-fatal-infos 2>&1 | tee analyze_out.txt
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # Ghi tóm tắt vào job summary (xem được cả khi log bị truncate)
+          {
+            echo '## flutter analyze'
+            echo '```'
+            # Chỉ giữ dòng error/warning + dòng tổng
+            grep -E 'error •|warning •|issues found|No issues' analyze_out.txt | tail -n 100 || tail -n 50 analyze_out.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $code
+
+      - name: Upload analyze report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyze-report
+          path: analyze_out.txt
+          if-no-files-found: ignore
 
       - name: Run tests
         run: flutter test --reporter expanded
