@@ -196,20 +196,38 @@ class ContentValidator {
       map[key] = val;
     }
 
-    // 3) Every VI segment must exist in fabAnswers and match answer
+    // 3) Every VI segment must match a FabAnswerItem.
+    //    Convention data KHÔNG nhất quán giữa các theme:
+    //    - theme1: MixedSegment.vietnamese(EN, VI)  → text=EN, answer=VI
+    //    - theme2–13: MixedSegment.vietnamese(VI, EN) → text=VI, answer=EN
+    //    UI tự nhận diện bằng _isVietnamese(); validator cũng phải khớp cả 2 chiều:
+    //    segment (text, answer) khớp item (vi, en) nếu {text,answer} == {vi,en}
+    //    đúng phía ngôn ngữ.
     for (final s in viSegments) {
-      final key = s.text.trim();
-      final expected = map[key];
+      final t = s.text.trim();
+      final a = (s.answer ?? '').trim();
 
-      if (expected == null) {
-        errors.add(
-          '$phaseLabel: Missing FabAnswerItem for Vietnamese segment "$key".',
-        );
-      } else {
-        final actual = (s.answer ?? '').trim();
-        if (actual != expected) {
+      bool matched = false;
+      for (final item in fabAnswers) {
+        final vi = item.vi.trim();
+        final en = item.en.trim();
+        if ((vi == t && en == a) || (vi == a && en == t)) {
+          matched = true;
+          break;
+        }
+      }
+
+      if (!matched) {
+        // Phân biệt "thiếu item" vs "sai đáp án" để message rõ hơn
+        final hasViOnEitherSide = map.containsKey(t) || map.containsKey(a);
+        if (hasViOnEitherSide) {
           errors.add(
-            '$phaseLabel: Answer mismatch for "$key": segment.answer="$actual" vs fabAnswers.en="$expected".',
+            '$phaseLabel: Answer mismatch for "$t" / "$a" vs fabAnswers.',
+          );
+        } else {
+          errors.add(
+            '$phaseLabel: Missing FabAnswerItem for segment '
+            '"$t" ↔ "$a".',
           );
         }
       }

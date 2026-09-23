@@ -532,7 +532,7 @@ class Theme8Content {
       en: 'performance reviews',
     ),
     FabAnswerItem(vi: 'các vấn đề về y tế', en: 'medical issues'),
-    FabAnswerItem(vi: 'sự vắng mặt', en: 'absence'),
+    FabAnswerItem(vi: 'sự vắng mặt', en: 'absences'),
     FabAnswerItem(vi: 'sự đi muộn', en: 'tardiness'),
     FabAnswerItem(vi: 'quen thuộc với', en: 'familiar with'),
     FabAnswerItem(
