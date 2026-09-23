@@ -134,7 +134,7 @@ class XpTrendChart extends StatelessWidget {
             drawVerticalLine: false,
             horizontalInterval: interval,
             getDrawingHorizontalLine: (value) =>
-                const FlLine(color: AppColors.border, strokeWidth: 1),
+                FlLine(color: AppColors.border, strokeWidth: 1),
           ),
           borderData: FlBorderData(show: false),
           titlesData: FlTitlesData(

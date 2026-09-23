@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
+/// Kiểu chữ dùng chung.
+///
+/// Các style chứa màu trung tính là **getter** (đổi theo [AppColors.brightness]);
+/// style thuần kích thước (như [caption]) giữ `const` để không tạo object mới.
 class AppTextStyles {
   AppTextStyles._();
+
   static const TextStyle caption = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
   );
+
   // Display
-  static const TextStyle displayLarge = TextStyle(
+  static TextStyle get displayLarge => TextStyle(
     fontFamily: 'Poppins',
     fontSize: 32,
     fontWeight: FontWeight.w700,
@@ -16,7 +22,7 @@ class AppTextStyles {
     height: 1.2,
   );
 
-  static const TextStyle displayMedium = TextStyle(
+  static TextStyle get displayMedium => TextStyle(
     fontFamily: 'Poppins',
     fontSize: 26,
     fontWeight: FontWeight.w700,
@@ -25,7 +31,7 @@ class AppTextStyles {
   );
 
   // Heading
-  static const TextStyle h1 = TextStyle(
+  static TextStyle get h1 => TextStyle(
     fontFamily: 'Poppins',
     fontSize: 22,
     fontWeight: FontWeight.w700,
@@ -33,7 +39,7 @@ class AppTextStyles {
     height: 1.3,
   );
 
-  static const TextStyle h2 = TextStyle(
+  static TextStyle get h2 => TextStyle(
     fontFamily: 'Poppins',
     fontSize: 18,
     fontWeight: FontWeight.w600,
@@ -41,7 +47,7 @@ class AppTextStyles {
     height: 1.4,
   );
 
-  static const TextStyle h3 = TextStyle(
+  static TextStyle get h3 => TextStyle(
     fontFamily: 'Poppins',
     fontSize: 16,
     fontWeight: FontWeight.w600,
@@ -50,7 +56,7 @@ class AppTextStyles {
   );
 
   // Body
-  static const TextStyle bodyLarge = TextStyle(
+  static TextStyle get bodyLarge => TextStyle(
     fontFamily: 'Inter',
     fontSize: 16,
     fontWeight: FontWeight.w400,
@@ -58,7 +64,7 @@ class AppTextStyles {
     height: 1.6,
   );
 
-  static const TextStyle bodyMedium = TextStyle(
+  static TextStyle get bodyMedium => TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: FontWeight.w400,
@@ -66,7 +72,7 @@ class AppTextStyles {
     height: 1.6,
   );
 
-  static const TextStyle bodySmall = TextStyle(
+  static TextStyle get bodySmall => TextStyle(
     fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -75,7 +81,7 @@ class AppTextStyles {
   );
 
   // Label
-  static const TextStyle labelLarge = TextStyle(
+  static TextStyle get labelLarge => TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: FontWeight.w500,
@@ -83,7 +89,7 @@ class AppTextStyles {
     letterSpacing: 0.1,
   );
 
-  static const TextStyle labelMedium = TextStyle(
+  static TextStyle get labelMedium => TextStyle(
     fontFamily: 'Inter',
     fontSize: 12,
     fontWeight: FontWeight.w500,
@@ -91,7 +97,7 @@ class AppTextStyles {
     letterSpacing: 0.5,
   );
 
-  static const TextStyle labelSmall = TextStyle(
+  static TextStyle get labelSmall => TextStyle(
     fontFamily: 'Inter',
     fontSize: 10,
     fontWeight: FontWeight.w500,
@@ -100,7 +106,7 @@ class AppTextStyles {
   );
 
   // Special
-  static const TextStyle phonetic = TextStyle(
+  static TextStyle get phonetic => TextStyle(
     fontFamily: 'Inter',
     fontSize: 13,
     fontWeight: FontWeight.w400,
@@ -109,7 +115,7 @@ class AppTextStyles {
     height: 1.4,
   );
 
-  static const TextStyle englishText = TextStyle(
+  static TextStyle get englishText => TextStyle(
     fontFamily: 'Inter',
     fontSize: 15,
     fontWeight: FontWeight.w400,
@@ -117,7 +123,7 @@ class AppTextStyles {
     height: 1.8,
   );
 
-  static const TextStyle viChipText = TextStyle(
+  static TextStyle get viChipText => TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: FontWeight.w600,
@@ -125,7 +131,7 @@ class AppTextStyles {
     height: 1.4,
   );
 
-  static const TextStyle enRevealText = TextStyle(
+  static TextStyle get enRevealText => TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
     fontWeight: FontWeight.w600,

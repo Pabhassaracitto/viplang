@@ -344,7 +344,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColors.textPrimary),
+          icon: Icon(Icons.close, color: AppColors.textPrimary),
           onPressed: () async {
             final navigator = Navigator.of(context);
             await _tts.stop();
@@ -355,7 +355,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
             }
           },
         ),
-        title: const Text('Ôn tập SRS', style: AppTextStyles.h3),
+        title: Text('Ôn tập SRS', style: AppTextStyles.h3),
         actions: [
           // ✅ Hiển thị: từ này / tổng ngày hôm nay | tổng due toàn bộ
           Tooltip(
@@ -595,7 +595,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.touch_app, color: AppColors.textHint, size: 18),
+              Icon(Icons.touch_app, color: AppColors.textHint, size: 18),
               const SizedBox(width: 6),
               Text(
                 'Nhớ lại nghĩa → Nhấn để lật thẻ',
@@ -848,7 +848,7 @@ class _SrsReviewScreenState extends State<SrsReviewScreen>
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColors.textPrimary),
+          icon: Icon(Icons.close, color: AppColors.textPrimary),
           onPressed: () async {
             await _tts.stop();
             if (widget.onClose != null) {
@@ -1141,7 +1141,7 @@ class _SessionCompleteDialog extends StatelessWidget {
               style: const TextStyle(fontSize: 56),
             ).animate().scale(duration: 400.ms, curve: Curves.elasticOut),
             const SizedBox(height: AppConstants.paddingM),
-            const Text('Phiên ôn tập hoàn thành!', style: AppTextStyles.h3),
+            Text('Phiên ôn tập hoàn thành!', style: AppTextStyles.h3),
             const SizedBox(height: AppConstants.paddingS),
             Text(
               '$correct/$total từ chính xác ($percentage%)',

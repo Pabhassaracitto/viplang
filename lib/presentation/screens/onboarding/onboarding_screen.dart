@@ -11,13 +11,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/hive_service.dart';
 import '../../../data/models/user_progress_model.dart';
-import '../home/home_screen.dart';
+import '../../../core/router/app_router.dart';
 
 class OnboardingScreen extends StatefulWidget {
   /// Mục tiêu hiện tại (khi sửa) để điền sẵn.
@@ -90,10 +91,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       return;
     }
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const HomeScreen()),
-    );
+    context.go(AppRoutes.home);
   }
 
   Future<void> _pickTargetDate() async {
@@ -320,7 +318,7 @@ class _GoalPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: AppConstants.paddingM),
-          const Text('Mục tiêu của bạn 🎯', style: AppTextStyles.h1),
+          Text('Mục tiêu của bạn 🎯', style: AppTextStyles.h1),
           const SizedBox(height: AppConstants.paddingS),
           Text(
             'Đặt mục tiêu rõ ràng là bí mật số 1 để học hiệu quả. '
@@ -332,7 +330,7 @@ class _GoalPage extends StatelessWidget {
           ),
           const SizedBox(height: AppConstants.paddingL),
 
-          const Text('Điểm TOEIC mục tiêu', style: AppTextStyles.h3),
+          Text('Điểm TOEIC mục tiêu', style: AppTextStyles.h3),
           const SizedBox(height: AppConstants.paddingS),
           Wrap(
             spacing: AppConstants.paddingS,
@@ -348,7 +346,7 @@ class _GoalPage extends StatelessWidget {
           ),
           const SizedBox(height: AppConstants.paddingL),
 
-          const Text('Thời gian học mỗi ngày', style: AppTextStyles.h3),
+          Text('Thời gian học mỗi ngày', style: AppTextStyles.h3),
           const SizedBox(height: AppConstants.paddingS),
           Wrap(
             spacing: AppConstants.paddingS,
@@ -364,7 +362,7 @@ class _GoalPage extends StatelessWidget {
           ),
           const SizedBox(height: AppConstants.paddingL),
 
-          const Text(
+          Text(
             'Ngày dự kiến thi (không bắt buộc)',
             style: AppTextStyles.h3,
           ),
@@ -450,7 +448,7 @@ class _HowItWorksPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: AppConstants.paddingM),
-          const Text('Mỗi ngày học thế nào? 📚', style: AppTextStyles.h1),
+          Text('Mỗi ngày học thế nào? 📚', style: AppTextStyles.h1),
           const SizedBox(height: AppConstants.paddingS),
           Text(
             'Một bài học gồm 5 bước, khoảng 15–20 phút:',

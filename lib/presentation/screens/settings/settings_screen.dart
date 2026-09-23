@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../core/services/app_settings.dart';
 import '../../../core/services/audio_path_resolver.dart';
 import '../../../core/services/download_service.dart';
 import '../../../core/services/hive_service.dart';
+import '../../../core/services/notification_service.dart';
 import '../../../core/services/streak_service.dart';
 import '../../../data/content/all_themes_registry.dart';
 import '../../../data/models/user_progress_model.dart';
@@ -67,6 +69,64 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
     if (!mounted) return;
     setState(_loadGoal);
+  }
+
+  // ─── Nhắc học (local notification, Giai đoạn 3) ───────────────────────────
+  Future<void> _toggleReminder(bool enabled) async {
+    final settings = AppSettings.instance;
+
+    if (!enabled) {
+      await settings.setReminderEnabled(false);
+      await NotificationService.instance.cancelDailyReminder();
+      if (mounted) setState(() {});
+      return;
+    }
+
+    final granted = await NotificationService.instance.requestPermission();
+    if (!granted) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Cần cho phép thông báo để bật nhắc học (Cài đặt hệ thống → Thông báo).',
+          ),
+          backgroundColor: AppColors.error,
+        ),
+      );
+      return;
+    }
+
+    final ok = await NotificationService.instance.scheduleDailyReminderAt(
+      settings.reminderTime,
+    );
+    await settings.setReminderEnabled(ok);
+
+    if (!mounted) return;
+    setState(() {});
+    if (!ok) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Thiết bị này không hẹn được thông báo.'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
+  Future<void> _pickReminderTime() async {
+    final settings = AppSettings.instance;
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: settings.reminderTime,
+      helpText: 'Chọn giờ nhắc học',
+    );
+    if (picked == null) return;
+
+    await settings.setReminderTime(picked.hour, picked.minute);
+    if (settings.reminderEnabled) {
+      await NotificationService.instance.scheduleDailyReminderAt(picked);
+    }
+    if (mounted) setState(() {});
   }
 
   String _goalSummary() {
@@ -306,7 +366,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Cài đặt', style: AppTextStyles.h2),
+        title: Text('Cài đặt', style: AppTextStyles.h2),
         backgroundColor: AppColors.surface,
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
@@ -314,6 +374,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         padding: const EdgeInsets.all(AppConstants.paddingM),
         children: [
+          // ── Giao diện (sáng / tối / theo hệ thống) ──
+          const _SectionTitle('Giao diện'),
+          _Card(
+            child: ListenableBuilder(
+              listenable: AppSettings.instance,
+              builder: (context, _) {
+                final current = AppSettings.instance.themeMode;
+                return Column(
+                  children: [
+                    for (final mode in AppThemeMode.values) ...[
+                      if (mode != AppThemeMode.values.first)
+                        Divider(height: 1, color: AppColors.divider),
+                      _ThemeModeTile(
+                        mode: mode,
+                        selected: current == mode,
+                        onTap: () => AppSettings.instance.setThemeMode(mode),
+                      ),
+                    ],
+                  ],
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingL),
+
           // ── Audio ──
           const _SectionTitle('Dữ liệu âm thanh'),
           _Card(
@@ -324,7 +409,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   label: 'Đã tải',
                   value: '$_audioFileCount file · ${_formatBytes(_audioBytes)}',
                 ),
-                const Divider(height: 1, color: AppColors.divider),
+                Divider(height: 1, color: AppColors.divider),
                 if (_busy) ...[
                   const SizedBox(height: AppConstants.paddingM),
                   LinearProgressIndicator(
@@ -360,7 +445,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: _redownloadMissing,
                   enabled: !_busy,
                 ),
-                const Divider(height: 1, color: AppColors.divider),
+                Divider(height: 1, color: AppColors.divider),
                 _ActionRow(
                   icon: Icons.refresh_rounded,
                   label: 'Tải lại toàn bộ audio',
@@ -385,13 +470,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     await HiveService.settingsBox.put('tts_enabled', v);
                   },
                   title: const Text('Đọc từ bằng TTS'),
-                  subtitle: const Text(
+                  subtitle: Text(
                     'Tắt để chỉ phát audio bài học có sẵn',
                     style: AppTextStyles.bodySmall,
                   ),
                   activeColor: AppColors.primary, // ignore: deprecated_member_use
                 ),
-                const Divider(height: 1, color: AppColors.divider),
+                Divider(height: 1, color: AppColors.divider),
                 ListTile(
                   title: const Text('Tốc độ phát mặc định'),
                   trailing: DropdownButton<double>(
@@ -425,13 +510,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   label: 'Mục tiêu hiện tại',
                   value: _goalSummary(),
                 ),
-                const Divider(height: 1, color: AppColors.divider),
+                Divider(height: 1, color: AppColors.divider),
                 _InfoRow(
                   icon: Icons.ac_unit_rounded,
                   label: 'Đóng băng streak còn lại',
                   value: '$_freezesRemaining lượt tuần này',
                 ),
-                const Divider(height: 1, color: AppColors.divider),
+                Divider(height: 1, color: AppColors.divider),
                 _ActionRow(
                   icon: Icons.edit_rounded,
                   label: _goal == null
@@ -440,6 +525,51 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: _editGoal,
                 ),
               ],
+            ),
+          ),
+          const SizedBox(height: AppConstants.paddingL),
+
+          // ── Nhắc học ──
+          const _SectionTitle('Nhắc học'),
+          _Card(
+            child: ListenableBuilder(
+              listenable: AppSettings.instance,
+              builder: (context, _) {
+                final settings = AppSettings.instance;
+                return Column(
+                  children: [
+                    SwitchListTile(
+                      value: settings.reminderEnabled,
+                      onChanged: NotificationService.isSupportedPlatform
+                          ? _toggleReminder
+                          : null,
+                      // ignore: deprecated_member_use
+                      activeColor: AppColors.primary,
+                      title: Text(
+                        'Nhắc học mỗi ngày',
+                        style: AppTextStyles.bodyMedium,
+                      ),
+                      subtitle: Text(
+                        NotificationService.isSupportedPlatform
+                            ? (settings.reminderEnabled
+                                  ? 'Thông báo lúc ${settings.reminderTimeLabel}'
+                                  : 'Bật để không quên học và mất streak')
+                            : 'Chỉ hỗ trợ trên Android / iOS',
+                        style: AppTextStyles.bodySmall,
+                      ),
+                    ),
+                    if (settings.reminderEnabled &&
+                        NotificationService.isSupportedPlatform) ...[
+                      Divider(height: 1, color: AppColors.divider),
+                      _ActionRow(
+                        icon: Icons.schedule_rounded,
+                        label: 'Đổi giờ nhắc (${settings.reminderTimeLabel})',
+                        onTap: _pickReminderTime,
+                      ),
+                    ],
+                  ],
+                );
+              },
             ),
           ),
           const SizedBox(height: AppConstants.paddingL),
@@ -458,7 +588,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           // ── Về app ──
           const _SectionTitle('Về ứng dụng'),
-          const _Card(
+          _Card(
             child: Column(
               children: [
                 _InfoRow(
@@ -519,6 +649,44 @@ class _Card extends StatelessWidget {
         ],
       ),
       child: child,
+    );
+  }
+}
+
+class _ThemeModeTile extends StatelessWidget {
+  final AppThemeMode mode;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _ThemeModeTile({
+    required this.mode,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      leading: Icon(
+        mode.icon,
+        color: selected ? AppColors.primary : AppColors.textTertiary,
+        size: 22,
+      ),
+      title: Text(
+        mode.label,
+        style: AppTextStyles.bodyMedium.copyWith(
+          color: selected ? AppColors.primary : AppColors.textPrimary,
+          fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+        ),
+      ),
+      trailing: selected
+          ? const Icon(Icons.check_circle_rounded, color: AppColors.primary)
+          : Icon(
+              Icons.circle_outlined,
+              color: AppColors.textDisabled,
+              size: 20,
+            ),
     );
   }
 }

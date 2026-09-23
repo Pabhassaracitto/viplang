@@ -1,6 +1,7 @@
 // lib/presentation/screens/splash_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../core/constants/app_colors.dart';
@@ -10,8 +11,7 @@ import '../../core/services/audio_path_resolver.dart';
 import '../../core/services/download_service.dart';
 import '../../core/services/hive_service.dart';
 import '../../data/content/all_themes_registry.dart';
-import 'home/home_screen.dart';
-import 'onboarding/onboarding_screen.dart';
+import '../../core/router/app_router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -151,14 +151,7 @@ class _SplashScreenState extends State<SplashScreen> {
         HiveService.settingsBox.get('onboarding_done', defaultValue: false) ==
         true;
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (_) => onboardingDone
-            ? const HomeScreen()
-            : const OnboardingScreen(),
-      ),
-    );
+    context.go(onboardingDone ? AppRoutes.home : AppRoutes.onboarding);
   }
 
   @override

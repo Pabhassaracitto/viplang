@@ -321,7 +321,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
                           ),
                           border: Border.all(color: AppColors.border),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.arrow_back_ios_new,
                           size: 16,
                           color: AppColors.textSecondary,
@@ -419,7 +419,7 @@ class _PhaseVocabularyScreenState extends State<PhaseVocabularyScreen> {
             style: const TextStyle(fontSize: 64),
           ).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
           const SizedBox(height: AppConstants.paddingM),
-          const Text(
+          Text(
             'Tổng kết từ vựng',
             style: AppTextStyles.h2,
           ).animate().fadeIn(delay: 200.ms),
@@ -639,7 +639,7 @@ class _VocabCardWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.touch_app, size: 14, color: AppColors.textHint),
+              Icon(Icons.touch_app, size: 14, color: AppColors.textHint),
               const SizedBox(width: 4),
               Text(
                 isFlipped

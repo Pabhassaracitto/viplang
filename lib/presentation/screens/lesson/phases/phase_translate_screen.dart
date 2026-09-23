@@ -466,7 +466,7 @@ class _PhaseTranslateScreenState extends State<PhaseTranslateScreen> {
                         onPressed: _previous,
                         style: OutlinedButton.styleFrom(
                           foregroundColor: AppColors.textSecondary,
-                          side: const BorderSide(color: AppColors.border),
+                          side: BorderSide(color: AppColors.border),
                           padding: const EdgeInsets.symmetric(
                             vertical: 14,
                             horizontal: AppConstants.paddingM,

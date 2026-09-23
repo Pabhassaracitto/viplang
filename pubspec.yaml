@@ -22,6 +22,11 @@ dependencies:
   just_audio: ^0.9.36
   flutter_tts: ^4.0.2
 
+  # Nhắc học hằng ngày (Giai đoạn 3) — local notification, không cần server
+  flutter_local_notifications: ^19.0.0
+  timezone: ^0.10.0
+  flutter_timezone: ^5.1.0
+
   # UI
   flutter_animate: ^4.3.0
 
