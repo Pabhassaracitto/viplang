@@ -9,6 +9,7 @@ import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_text_styles.dart';
 import '../../core/services/audio_path_resolver.dart';
 import '../../core/services/download_service.dart';
+import '../../core/services/hive_service.dart';
 import '../../core/services/safe_audio_service.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
@@ -70,7 +71,20 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   void initState() {
     super.initState();
     _player = AudioPlayer();
+    _loadPreferredSpeed();
     _initAudio();
+  }
+
+  /// Đọc tốc độ phát mặc định từ Settings (nếu có)
+  void _loadPreferredSpeed() {
+    try {
+      final stored = HiveService.settingsBox.get('playback_speed');
+      if (stored is num) {
+        _speed = stored.toDouble();
+      }
+    } catch (_) {
+      // Chưa init Hive → giữ 1.0
+    }
   }
 
   Future<void> _initAudio() async {
@@ -148,6 +162,11 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     // Load audio nếu file đã có sẵn
     if (_isAudioAvailable) {
       await _loadAudio();
+    }
+
+    // Áp dụng tốc độ mặc định đã lưu (sau khi player sẵn sàng)
+    if (_speed != 1.0) {
+      await _player.setSpeed(_speed);
     }
   }
 

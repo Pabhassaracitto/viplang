@@ -100,25 +100,34 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     try {
-      await DownloadService.instance.downloadMultiple(
+      final allOk = await DownloadService.instance.downloadMultiple(
         filesToDownload,
-        onProgress: (p) {
+        onProgress: (double p) {
           setState(() {
-            _progress = p;
-            _statusMessage = 'Đang tải tài nguyên: ${(p * 100).toInt()}%';
+            _progress = p.clamp(0.0, 1.0);
+            _statusMessage =
+                'Đang tải tài nguyên: ${(_progress * 100).toInt()}%';
           });
         },
       );
 
-      // Lưu flag đã tải xong
-      await HiveService.settingsBox.put('full_audio_downloaded', true);
+      // ✅ Chỉ đánh dấu hoàn tất khi TẤT CẢ file OK
+      await HiveService.settingsBox.put('full_audio_downloaded', allOk);
       await HiveService.settingsBox.put('skip_initial_download', false);
 
-      setState(() => _statusMessage = 'Đã hoàn tất tải dữ liệu!');
-      await Future.delayed(1.seconds);
+      if (allOk) {
+        setState(() => _statusMessage = 'Đã hoàn tất tải dữ liệu!');
+      } else {
+        setState(
+          () => _statusMessage =
+              'Một số file chưa tải được. Bạn có thể tải lại trong Cài đặt.',
+        );
+      }
+      await Future.delayed(1.5.seconds);
       _goToHome();
     } catch (e) {
       debugPrint('Error downloading all: $e');
+      await HiveService.settingsBox.put('full_audio_downloaded', false);
       setState(
         () => _statusMessage =
             'Có lỗi khi tải dữ liệu. Bạn có thể tải sau trong bài học.',

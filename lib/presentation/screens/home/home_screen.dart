@@ -9,6 +9,7 @@ import '../../blocs/progress/progress_bloc.dart';
 import '../../blocs/progress/progress_state.dart';
 import '../lesson/lesson_day_screen.dart';
 import '../progress/progress_screen.dart';
+import '../settings/settings_screen.dart';
 import '../themes/theme_list_screen.dart';
 import '../vocab/srs_review_screen.dart';
 import '../../widgets/vocab_of_the_day_widget.dart';
@@ -177,7 +178,12 @@ class _HomeTab extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SettingsScreen()),
+            );
+          },
           child: Container(
             width: 46,
             height: 46,

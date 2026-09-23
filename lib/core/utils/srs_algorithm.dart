@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import '../../data/models/vocab_model.dart';
 
 /// SM-2 Spaced Repetition Algorithm
@@ -61,9 +63,8 @@ class SrsAlgorithm {
 
     // R = e^(-t/S) where S = stability (interval in days)
     final stability = vocab.intervalDays.toDouble();
-    final retention = _exp(-daysSinceReview / (stability * 1.5));
+    if (stability <= 0) return 0.0;
+    final retention = math.exp(-daysSinceReview / (stability * 1.5));
     return retention.clamp(0.0, 1.0);
   }
-
-  static double _exp(double x) => x >= 0 ? 1.0 : (1.0 / (1.0 - x));
 }
