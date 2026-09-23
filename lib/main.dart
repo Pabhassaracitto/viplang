@@ -126,7 +126,7 @@ class VipLangApp extends StatelessWidget {
           // AppColors đọc tĩnh → cập nhật trước khi build cây widget
           AppColors.setBrightness(brightness);
 
-          return MaterialApp(
+          return MaterialApp.router(
             // Đổi key ⇒ remount cây widget để MỌI màu tĩnh được đọc lại.
             // GoRouter giữ nguyên vị trí hiện tại nên người dùng không bị nhảy màn hình.
             key: ValueKey('viplang-${brightness.name}'),

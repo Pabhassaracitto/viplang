@@ -117,7 +117,7 @@ class _DeepLinkError extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('VipLang', style: AppTextStyles.h2),
+        title: Text('VipLang', style: AppTextStyles.h2),
         backgroundColor: AppColors.surface,
         foregroundColor: AppColors.textPrimary,
         elevation: 0,
