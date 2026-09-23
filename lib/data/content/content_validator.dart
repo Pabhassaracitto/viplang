@@ -188,8 +188,12 @@ class ContentValidator {
       }
 
       if (map.containsKey(key) && map[key] != val) {
-        errors.add(
-          '$phaseLabel: Duplicate FabAnswerItem.vi="$key" with different en values.',
+        // Hợp lệ khi 1 cụm VI có nhiều EN theo ngữ cảnh
+        // (vd. "Để nghe" → "To hear" / "To listen to").
+        // Match theo cặp (vi,en) trong list vẫn đúng → warning.
+        warnings.add(
+          '$phaseLabel: Duplicate FabAnswerItem.vi="$key" with different en '
+          'values ("${map[key]}" vs "$val") — dùng cặp theo ngữ cảnh.',
         );
       }
 
