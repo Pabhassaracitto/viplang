@@ -39,21 +39,24 @@ jobs:
           code=${PIPESTATUS[0]}
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           # Emit GitHub annotations cho từng lỗi (xem được qua API, không cần tải log)
-          # Dạng: path:line:col: severity - message  |  info • message • path:line:col
-          while IFS= read -r line; do
-            if [[ "$line" =~ ^(error|warning)[[:space:]]+•[[:space:]]+(.*)[[:space:]]+•[[:space:]]+([^:]+):([0-9]+):([0-9]+) ]]; then
-              sev="${BASH_REMATCH[1]}"
-              msg="${BASH_REMATCH[2]}"
-              path="${BASH_REMATCH[3]}"
-              lno="${BASH_REMATCH[4]}"
-              col="${BASH_REMATCH[5]}"
-              gh_level="warning"
-              [[ "$sev" == "error" ]] && gh_level="error"
-              echo "::${gh_level} file=${path},line=${lno},col=${col}::${msg}"
-            elif [[ "$line" =~ ^[0-9]+[[:space:]]+issues?[[:space:]]+found ]] || [[ "$line" == *"No issues found"* ]]; then
-              echo "::notice::${line}"
-            fi
-          done < analyze_out.txt
+          # Dạng: severity • message • path:line:col
+          python3 - <<'PY'
+          import re, os
+          out = open("analyze_out.txt").read().splitlines()
+          n = 0
+          for line in out:
+              m = re.match(r"^(error|warning|info)\s+•\s+(.*?)\s+•\s+([^:]+):(\d+):(\d+)", line)
+              if m:
+                  sev, msg, path, lno, col = m.groups()
+                  level = {"error": "error", "warning": "warning", "info": "notice"}[sev]
+                  msg_escaped = msg.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+                  path = path.strip()
+                  print(f"::{level} file={path},line={lno},col={col}::{msg_escaped}")
+                  n += 1
+              elif re.search(r"\d+\s+issues?\s+found|No issues found", line):
+                  print(f"::notice::{line.strip()}")
+          print(f"::notice::Emitted {n} analyze annotations", flush=True)
+          PY
           {
             echo '## flutter analyze'
             echo '```'
