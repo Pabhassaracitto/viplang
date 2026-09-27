@@ -89,7 +89,7 @@ class _LessonCompleteScreenState extends State<LessonCompleteScreen> {
                   _buildTrophy(),
                   const SizedBox(height: AppConstants.paddingL),
                   if (_showContent) ...[
-                    const Text(
+                    Text(
                       'Bài học hoàn thành!',
                       style: AppTextStyles.h1,
                       textAlign: TextAlign.center,

@@ -32,6 +32,9 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   bool _hasAnswered = false;
   int _correctCount = 0;
 
+  /// Tăng lên mỗi lần cần phát lại audio (đổi key ⇒ AudioPlayerWidget tạo mới + autoPlay).
+  int _audioReplayTick = 0;
+
   late AnimationController _resultController;
   late Animation<double> _resultAnimation;
 
@@ -41,6 +44,14 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
 
   String get _currentAudioPath =>
       _resolveAudioPath(_currentQuestion.audioTrackKey);
+
+  /// Số thứ tự track trong theme (`track_03` → 3) để tìm file đã tải về máy.
+  int? get _trackNumber {
+    final key = _currentQuestion.audioTrackKey;
+    if (key == null) return null;
+    final match = RegExp(r'(\d+)').firstMatch(key);
+    return match == null ? null : int.tryParse(match.group(1)!);
+  }
 
   String _resolveAudioPath(String? trackKey) {
     const map = {
@@ -155,13 +166,21 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
   void _selectAnswer(int index) {
     if (_hasAnswered) return;
 
+    final isCorrect = index == _currentQuestion.correctIndex;
+
     setState(() {
       _selectedAnswerIndex = index;
       _hasAnswered = true;
-      if (index == _currentQuestion.correctIndex) _correctCount++;
+      if (isCorrect) _correctCount++;
+      // Nghe lại cả câu sau khi trả lời: đúng thì nghe để khắc sâu,
+      // sai thì nghe lại để nhận ra chỗ nghe nhầm.
+      _audioReplayTick++;
     });
     _resultController.forward(from: 0);
   }
+
+  /// Người dùng bấm nút "Nghe lại" trong phần audio.
+  void _replayAudio() => setState(() => _audioReplayTick++);
 
   void _nextQuestion() {
     if (_isLastQuestion) {
@@ -173,6 +192,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       _currentQuestionIndex++;
       _selectedAnswerIndex = null;
       _hasAnswered = false;
+      _audioReplayTick++; // câu mới ⇒ tự phát audio mới
     });
     _resultController.reset();
   }
@@ -183,6 +203,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
       _currentQuestionIndex--;
       _selectedAnswerIndex = null;
       _hasAnswered = false;
+      _audioReplayTick++;
     });
     _resultController.reset();
   }
@@ -194,13 +215,13 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.quiz_outlined,
               size: 48,
               color: AppColors.textTertiary,
             ),
             const SizedBox(height: AppConstants.paddingM),
-            const Text('Không có câu hỏi', style: AppTextStyles.bodyMedium),
+            Text('Không có câu hỏi', style: AppTextStyles.bodyMedium),
             const SizedBox(height: AppConstants.paddingM),
             ElevatedButton(
               onPressed: widget.onComplete,
@@ -287,6 +308,15 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                     ),
                   ),
                 ),
+                // Nghe lại cả câu (không tính là lần nghe đầu)
+                IconButton(
+                  onPressed: _replayAudio,
+                  icon: const Icon(Icons.replay_rounded),
+                  color: AppColors.primary,
+                  iconSize: 20,
+                  visualDensity: VisualDensity.compact,
+                  tooltip: 'Nghe lại',
+                ),
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -317,13 +347,16 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                 AppConstants.paddingS,
               ),
               child: AudioPlayerWidget(
-                key: ValueKey('player_$audioPath'),
+                key: ValueKey('player_${audioPath}_$_audioReplayTick'),
                 audioUrl: audioPath,
+                themeId: widget.themeId,
+                trackNum: _trackNumber,
                 title:
                     _currentQuestion.audioTrackKey
                         ?.replaceAll('_', ' ')
                         .toUpperCase() ??
                     'Audio',
+                autoPlay: true,
               ),
             )
           else
@@ -758,7 +791,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                   onPressed: _previousQuestion,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AppColors.textSecondary,
-                    side: const BorderSide(color: AppColors.border),
+                    side: BorderSide(color: AppColors.border),
                     padding: const EdgeInsets.symmetric(
                       vertical: 14,
                       horizontal: AppConstants.paddingM,

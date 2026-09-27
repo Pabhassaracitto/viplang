@@ -128,8 +128,8 @@ class ProgressScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Tiến độ học tập', style: AppTextStyles.h1),
-                      const Text(
+                      Text('Tiến độ học tập', style: AppTextStyles.h1),
+                      Text(
                         'Theo dõi hành trình của bạn',
                         style: AppTextStyles.bodyMedium,
                       ),
@@ -297,7 +297,7 @@ class ProgressScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Hoạt động 7 ngày', style: AppTextStyles.h3),
+        Text('Hoạt động 7 ngày', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         Container(
           padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -356,7 +356,7 @@ class ProgressScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Tổng quan', style: AppTextStyles.h3),
+        Text('Tổng quan', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
@@ -425,8 +425,8 @@ class ProgressScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('13 Bí mật học tập VIPLANG', style: AppTextStyles.h3),
-        const Text(
+        Text('13 Bí mật học tập VIPLANG', style: AppTextStyles.h3),
+        Text(
           'Dựa trên 13 chủ đề tiếng Anh cốt lõi và các nguyên lý siêu trí nhớ',
           style: TextStyle(
             fontSize: 12,
@@ -453,7 +453,7 @@ class ProgressScreen extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: secrets.length,
             separatorBuilder: (_, __) =>
-                const Divider(height: 1, color: AppColors.border),
+                Divider(height: 1, color: AppColors.border),
             itemBuilder: (context, index) {
               final secret = secrets[index];
               // Tìm theme tương ứng bằng index
@@ -585,7 +585,7 @@ class ProgressScreen extends StatelessWidget {
                         size: 20,
                       )
                     else
-                      const Icon(
+                      Icon(
                         Icons.lock_rounded,
                         color: AppColors.textHint,
                         size: 18,
@@ -655,7 +655,7 @@ class ProgressScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Huy hiệu thành tích', style: AppTextStyles.h3),
+        Text('Huy hiệu thành tích', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         GridView.builder(
           shrinkWrap: true,
@@ -874,7 +874,7 @@ class _BadgeCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             badge.desc,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 9,
               color: AppColors.textSecondary,
               height: 1.1,

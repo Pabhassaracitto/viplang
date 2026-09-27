@@ -36,7 +36,7 @@ class LessonSelectorScreen extends StatelessWidget {
           ],
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+          icon: Icon(Icons.arrow_back, color: AppColors.textPrimary),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -57,7 +57,7 @@ class LessonSelectorScreen extends StatelessWidget {
               const SizedBox(height: AppConstants.paddingL),
   
               // ── Days List ───────────────────────────────────────────
-              const Text('📅 Các ngày học', style: AppTextStyles.h3),
+              Text('📅 Các ngày học', style: AppTextStyles.h3),
               const SizedBox(height: AppConstants.paddingS),
   
               ...List.generate(theme.totalDays, (index) {
@@ -228,7 +228,7 @@ class LessonSelectorScreen extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('📚 Từ vựng chủ đề', style: AppTextStyles.h3),
+            Text('📚 Từ vựng chủ đề', style: AppTextStyles.h3),
             const Spacer(),
             TextButton(
               onPressed: () {
@@ -378,7 +378,7 @@ class _DayCard extends StatelessWidget {
               ),
               child: Center(
                 child: isLocked
-                    ? const Icon(
+                    ? Icon(
                         Icons.lock,
                         color: AppColors.textTertiary,
                         size: 18,
@@ -472,7 +472,7 @@ class _DayCard extends StatelessWidget {
       context: context,
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppConstants.radiusXL),
@@ -596,7 +596,7 @@ class _DayCard extends StatelessWidget {
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.7,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppConstants.radiusXL),
@@ -619,7 +619,7 @@ class _DayCard extends StatelessWidget {
               ),
 
               // Title
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(AppConstants.paddingM),
                 child: Text('📋 Chọn phần để ôn tập', style: AppTextStyles.h3),
               ),
@@ -647,7 +647,7 @@ class _DayCard extends StatelessWidget {
                           color: AppColors.textSecondary,
                         ),
                       ),
-                      trailing: const Icon(
+                      trailing: Icon(
                         Icons.chevron_right,
                         color: AppColors.textSecondary,
                       ),
@@ -867,7 +867,7 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
       minChildSize: 0.5,
       maxChildSize: 0.95,
       builder: (_, scrollController) => Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppConstants.radiusXL),
@@ -912,7 +912,7 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.textSecondary),
+                    icon: Icon(Icons.close, color: AppColors.textSecondary),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -932,7 +932,7 @@ class _ThemeVocabSheetState extends State<_ThemeVocabSheet> {
                   hintStyle: AppTextStyles.bodySmall.copyWith(
                     color: AppColors.textHint,
                   ),
-                  prefixIcon: const Icon(
+                  prefixIcon: Icon(
                     Icons.search,
                     color: AppColors.textHint,
                     size: 20,
