@@ -2,8 +2,6 @@ name: CI
 
 # Chạy analyze + test trên mọi push/PR — cổng chất lượng trước khi merge/tag
 on:
-  push:
-    branches: [master, main, 'arena/**']
   pull_request:
     branches: [master, main]
 
