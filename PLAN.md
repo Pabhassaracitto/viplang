@@ -68,7 +68,7 @@ Splash → (tải audio lần đầu) → Home (4 tab: Home / 13 Chủ đề / �
 1. **Core app shell:** Splash (kiểm tra + tải audio lần đầu, cho phép skip), Home 4 tab, theme Material 3, font Poppins/Inter, splash/icon riêng.
 2. **Toàn bộ nội dung học:** 13 chủ đề (Offices → Health), mỗi chủ đề 2 ngày với 5 loại phase; 556 từ vựng trường đầy đủ cho SRS.
 3. **5 phase học hoàn chỉnh:** đọc–nghe, từ vựng (TTS), dịch Anh–Việt, mind game điền chỗ trống (mixed text), quiz nghe hiểu.
-4. **Hệ thống audio:** `AudioPathResolver` (52 file server, naming chuẩn), `DownloadService` (Supabase public URL), `SafeAudioService` (local → asset → báo lỗi UI có nút tải), `AudioPlayerWidget` (tải on‑demand, tốc độ phát 0.75x/1x).
+4. **Hệ thống audio:** `AudioPathResolver` (52 file server, naming chuẩn), `DownloadService` (mirror ưu tiên Supabase → GitHub Releases, retry có phân loại lỗi — docs/AUDIO_HOSTING.md), `SafeAudioService` (local → asset → báo lỗi UI có nút tải), `AudioPlayerWidget` (tải on‑demand, thông báo lỗi theo nguyên nhân, tốc độ phát 0.75x/1x).
 5. **SRS SM‑2:** thuật toán chuẩn (EF ≥ 1.3), màn ôn tập flashcard + TTS, tủ từ có search/filter.
 6. **Tiến độ cục bộ:** streak hiện tại/cao nhất, XP, badge, % mỗi theme, unlock tuần tự theme kế, seeding Hive khi lần đầu chạy.
 7. **CI/CD:** workflow manual build Android/iOS/Windows/Linux; đã chạy thành công, **Release v1.0** đính kèm APK/IPA/2 zip.

@@ -238,32 +238,63 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   }
 
   Future<void> _downloadOnDemand() async {
-    if (_isDownloading) return;
+    if (_isDownloading || !mounted) return;
     setState(() {
       _isDownloading = true;
     });
 
     try {
-      final file = await DownloadService.instance.downloadAudio(_fileName);
-      if (file != null) {
+      // Thử theo thứ tự ưu tiên: Supabase → mirror dự phòng (GitHub Releases)
+      final result = await DownloadService.instance.downloadAudioDetailed(
+        _fileName,
+      );
+      if (!mounted) return;
+
+      if (result.isSuccess) {
         setState(() {
           _isAudioAvailable = true;
           _isLocalAvailable = true;
           _hasError = false;
         });
         await _loadAudio();
-      } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Tải file học thất bại. Vui lòng kiểm tra lại kết nối mạng.'),
-              backgroundColor: AppColors.error,
+              content: Text('Đã tải xong, có thể nghe ngoại tuyến ✅'),
+              backgroundColor: AppColors.success,
             ),
           );
         }
+      } else {
+        // Báo đúng nguyên nhân: mất mạng thiết bị vs sự cố máy chủ dữ liệu
+        final kind = result.error ?? DownloadErrorKind.unknown;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              DownloadService.describeError(
+                kind,
+                statusCode: result.statusCode,
+              ),
+            ),
+            backgroundColor: AppColors.error,
+            action: SnackBarAction(
+              label: 'Thử lại',
+              textColor: Colors.white,
+              onPressed: _downloadOnDemand,
+            ),
+          ),
+        );
       }
     } catch (e) {
       debugPrint('Error on-demand download: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Tải file học thất bại. Vui lòng thử lại sau.'),
+            backgroundColor: AppColors.error,
+          ),
+        );
+      }
     } finally {
       if (mounted) {
         setState(() {
