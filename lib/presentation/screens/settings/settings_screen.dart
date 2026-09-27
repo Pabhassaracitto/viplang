@@ -361,6 +361,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Future<void> _unlockThemes() async {
+    final ok = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: const Text('Mở khóa theo chủ đề?'), content: const Text('Học tuần tự được khuyến khích để nhớ lâu hơn. Bạn cần xác nhận hai lần để mở khóa tự do.'), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Để sau')), ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Tiếp tục'))]));
+    if (ok != true || !mounted) return;
+    final confirm = await showDialog<bool>(context: context, builder: (ctx) => AlertDialog(title: const Text('Xác nhận lần cuối'), content: const Text('Mở khóa tất cả chủ đề ngay bây giờ?'), actions: [TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Hủy')), ElevatedButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Mở khóa'))]));
+    if (confirm == true) { for (final theme in AllThemesRegistry.getAllThemes()) { theme.isUnlocked = true; } if (mounted) ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Đã mở khóa chủ đề.'))); }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -397,6 +404,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
           ),
+          const SizedBox(height: AppConstants.paddingL),
+          const _SectionTitle('Lộ trình học'),
+          _Card(child: ListTile(leading: const Icon(Icons.lock_open), title: const Text('Mở khóa chủ đề tự do'), subtitle: const Text('Nên học tuần tự trước để có nền tảng'), trailing: const Icon(Icons.chevron_right), onTap: _unlockThemes)),
           const SizedBox(height: AppConstants.paddingL),
 
           // ── Audio ──
