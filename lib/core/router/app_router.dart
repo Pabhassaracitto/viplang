@@ -21,6 +21,7 @@ import '../../presentation/screens/settings/settings_screen.dart';
 import '../../presentation/screens/splash_screen.dart';
 import '../../presentation/screens/themes/theme_list_screen.dart';
 import '../../presentation/screens/vocab/srs_review_screen.dart';
+import '../../presentation/screens/audio/audio_playlist_screen.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 import '../constants/app_text_styles.dart';
@@ -35,6 +36,7 @@ class AppRoutes {
   static const String srs = '/srs';
   static const String progress = '/progress';
   static const String settings = '/settings';
+  static const String audio = '/audio';
 
   static String lesson(int themeNumber, int dayNumber) =>
       '/theme/$themeNumber/day/$dayNumber';
@@ -65,6 +67,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: AppRoutes.srs, builder: (_, __) => const SrsReviewScreen()),
     GoRoute(path: AppRoutes.progress, builder: (_, __) => const ProgressScreen()),
     GoRoute(path: AppRoutes.settings, builder: (_, __) => const SettingsScreen()),
+    GoRoute(path: AppRoutes.audio, builder: (_, __) => const AudioPlaylistScreen()),
 
     // Deep link bài học: viplang://theme/05/day/2
     GoRoute(
