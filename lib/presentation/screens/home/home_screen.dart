@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
+import '../../../core/router/app_router.dart';
 import '../../../core/services/hive_service.dart';
 import '../../../core/services/streak_service.dart';
 import '../../../data/models/user_progress_model.dart';
 import '../../blocs/progress/progress_bloc.dart';
 import '../../blocs/progress/progress_state.dart';
-import '../lesson/lesson_day_screen.dart';
 import '../progress/progress_screen.dart';
-import '../settings/settings_screen.dart';
 import '../themes/theme_list_screen.dart';
 import '../vocab/srs_review_screen.dart';
 import '../../widgets/vocab_of_the_day_widget.dart';
@@ -183,10 +183,7 @@ class _HomeTab extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const SettingsScreen()),
-            );
+            context.push(AppRoutes.settings);
           },
           child: Container(
             width: 46,
@@ -213,13 +210,10 @@ class _HomeTab extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('Tiếp tục học', style: AppTextStyles.h3),
+            Text('Tiếp tục học', style: AppTextStyles.h3),
             const Spacer(),
             GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ThemeListScreen()),
-              ),
+              onTap: () => context.push(AppRoutes.themes),
               child: Text(
                 'Xem tất cả',
                 style: AppTextStyles.bodySmall.copyWith(
@@ -241,7 +235,7 @@ class _HomeTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Hành động nhanh', style: AppTextStyles.h3),
+        Text('Hành động nhanh', style: AppTextStyles.h3),
         const SizedBox(height: AppConstants.paddingS),
         Row(
           children: [
@@ -260,12 +254,7 @@ class _HomeTab extends StatelessWidget {
                         icon: '🃏',
                         label: 'Ôn từ SRS',
                         color: AppColors.primary,
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const SrsReviewScreen(),
-                          ),
-                        ),
+                        onTap: () => context.push(AppRoutes.srs),
                       ),
                       if (todayGoal > 0)
                         Positioned(
@@ -302,10 +291,7 @@ class _HomeTab extends StatelessWidget {
                 icon: '📊',
                 label: 'Xem tiến độ',
                 color: AppColors.success,
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProgressScreen()),
-                ),
+                onTap: () => context.push(AppRoutes.progress),
               ),
             ),
           ],
@@ -564,16 +550,7 @@ class _CurrentLessonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const LessonDayScreen(
-            dayNumber: 1,
-            themeId: 'theme_01_offices',
-            themeTitle: 'Offices - Văn phòng',
-          ),
-        ),
-      ),
+      onTap: () => context.push(AppRoutes.lesson(1, 1)),
       child: Container(
         padding: const EdgeInsets.all(AppConstants.paddingM),
         decoration: BoxDecoration(
@@ -621,7 +598,7 @@ class _CurrentLessonCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
-                    child: const LinearProgressIndicator(
+                    child: LinearProgressIndicator(
                       value: 0.0,
                       backgroundColor: AppColors.border,
                       valueColor: AlwaysStoppedAnimation<Color>(
@@ -880,7 +857,7 @@ class _DailyGoalCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Text('Mục tiêu hôm nay', style: AppTextStyles.h3),
+                  Text('Mục tiêu hôm nay', style: AppTextStyles.h3),
                   const Spacer(),
                   Container(
                     padding: const EdgeInsets.symmetric(
@@ -920,16 +897,7 @@ class _DailyGoalCard extends StatelessWidget {
                     icon: '📖',
                     label: 'Học bài',
                     isDone: studied,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const LessonDayScreen(
-                          dayNumber: 1,
-                          themeId: 'theme_01_offices',
-                          themeTitle: 'Offices - Văn phòng',
-                        ),
-                      ),
-                    ),
+                    onTap: () => context.push(AppRoutes.lesson(1, 1)),
                   ),
                   BlocBuilder<ProgressBloc, ProgressState>(
                     builder: (context, state) {
@@ -939,12 +907,7 @@ class _DailyGoalCard extends StatelessWidget {
                         label: srsDone ? 'Đã ôn' : 'Ôn từ',
                         isDone: srsDone,
                         badgeCount: srsDone ? 0 : due,
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const SrsReviewScreen(),
-                          ),
-                        ),
+                        onTap: () => context.push(AppRoutes.srs),
                       );
                     },
                   ),
@@ -953,10 +916,7 @@ class _DailyGoalCard extends StatelessWidget {
                     label: 'Kiếm XP',
                     isDone: todayXp > 0,
                     badgeCount: 0,
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const ProgressScreen()),
-                    ),
+                    onTap: () => context.push(AppRoutes.progress),
                   ),
                 ],
               ),

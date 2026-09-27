@@ -19,6 +19,9 @@ class AudioPlayerWidget extends StatefulWidget {
   final String title;
   final VoidCallback? onPlayComplete;
 
+  /// Tự phát ngay khi tải xong (dùng cho quiz nghe hiểu).
+  final bool autoPlay;
+
   const AudioPlayerWidget({
     super.key,
     this.audioUrl,
@@ -26,6 +29,7 @@ class AudioPlayerWidget extends StatefulWidget {
     this.trackNum,
     required this.title,
     this.onPlayComplete,
+    this.autoPlay = false,
   });
 
   @override
@@ -186,6 +190,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
           if (await file.exists()) {
             await _player.setFilePath(localPath);
             setState(() => _isLoading = false);
+            await _maybeAutoPlay();
             return;
           }
         }
@@ -208,6 +213,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
       }
       
       setState(() => _isLoading = false);
+      await _maybeAutoPlay();
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -215,6 +221,19 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         _hasError = true;
       });
       debugPrint('AudioPlayer error: $e');
+    }
+  }
+
+  /// Tự phát nếu widget yêu cầu (quiz nghe hiểu / nghe lại câu).
+  Future<void> _maybeAutoPlay() async {
+    if (!widget.autoPlay || _hasError || !mounted) return;
+    try {
+      if (_player.processingState == ProcessingState.completed) {
+        await _player.seek(Duration.zero);
+      }
+      await _player.play();
+    } catch (e) {
+      debugPrint('AutoPlay error: $e');
     }
   }
 

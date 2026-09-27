@@ -124,7 +124,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
       },
       builder: (context, state) {
         if (state is LessonLoading || state is LessonInitial) {
-          return const Scaffold(
+          return Scaffold(
             backgroundColor: AppColors.background,
             body: Center(
               child: CircularProgressIndicator(color: AppColors.primary),
@@ -178,7 +178,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
           );
         }
 
-        return const Scaffold(
+        return Scaffold(
           backgroundColor: AppColors.background,
           body: Center(
             child: CircularProgressIndicator(color: AppColors.primary),
@@ -222,7 +222,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
         minChildSize: 0.4,
         maxChildSize: 0.95,
         builder: (_, scrollController) => Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(AppConstants.radiusXL),
@@ -672,7 +672,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
       backgroundColor: AppColors.surface,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.close, color: AppColors.textPrimary),
+        icon: Icon(Icons.close, color: AppColors.textPrimary),
         onPressed: () => _showExitDialog(context),
       ),
       title: GestureDetector(
@@ -724,7 +724,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Icon(
+                Icon(
                   Icons.expand_more,
                   size: 16,
                   color: AppColors.textSecondary,
@@ -738,7 +738,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
         // ✅ NEW: Nút quay lại phase trước
         if (!state.isFirstPhase)
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios,
               size: 18,
               color: AppColors.textSecondary,
@@ -793,7 +793,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
         constraints: BoxConstraints(
           maxHeight: MediaQuery.of(context).size.height * 0.6,
         ),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppConstants.radiusXL),
@@ -1027,7 +1027,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(
+            child: Text(
               'Tiếp tục học',
               style: TextStyle(color: AppColors.textSecondary),
             ),
@@ -1332,7 +1332,7 @@ class _VocabLibraryWidgetState extends State<_VocabLibraryWidget> {
               hintStyle: AppTextStyles.bodySmall.copyWith(
                 color: AppColors.textHint,
               ),
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.search,
                 color: AppColors.textHint,
                 size: 20,
