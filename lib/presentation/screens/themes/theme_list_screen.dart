@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
@@ -57,6 +58,30 @@ class _ThemeListScreenState extends State<ThemeListScreen> {
     );
   }
 
+  /// Màn hình này được dùng ở 2 nơi:
+  /// - Tab "Học tập" trong HomeScreen (IndexedStack) → KHÔNG có gì để quay lại.
+  /// - Được push từ "Xem tất cả" ở tab Trang chủ → CẦN nút thoát.
+  /// Chỉ hiện nút quay lại khi stack điều hướng thực sự có route để pop,
+  /// tránh chiếm chỗ / gây hiểu nhầm ở tab bottom navigation.
+  ///
+  /// Kiểm tra cả GoRouter lẫn Navigator: một số phiên bản go_router báo
+  /// canPop() sai cho route push kiểu imperative, trong khi Navigator
+  /// (page-based) luôn phản ánh đúng stack hiện tại.
+  bool _canGoBack() {
+    final router = GoRouter.maybeOf(context);
+    if (router != null && router.canPop()) return true;
+    return Navigator.of(context).canPop();
+  }
+
+  void _goBack() {
+    final router = GoRouter.maybeOf(context);
+    if (router != null && router.canPop()) {
+      router.pop();
+    } else {
+      Navigator.of(context).maybePop();
+    }
+  }
+
   Widget _buildHeader() {
     return Container(
       padding: const EdgeInsets.all(AppConstants.paddingM),
@@ -72,6 +97,30 @@ class _ThemeListScreenState extends State<ThemeListScreen> {
       ),
       child: Row(
         children: [
+          // ✅ Nút thoát — chỉ hiện khi màn hình được push (vd: từ "Xem tất cả")
+          if (_canGoBack()) ...[
+            Tooltip(
+              message: 'Quay lại',
+              child: Material(
+                color: AppColors.primarySurface,
+                borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                child: InkWell(
+                  key: const Key('theme_list_back_button'),
+                  borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                  onTap: _goBack,
+                  child: const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColors.primary,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: AppConstants.paddingS),
+          ],
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
