@@ -520,9 +520,9 @@ class Theme8Content {
     ),
     FabAnswerItem(vi: 'xử lý lương', en: 'dealing with salaries'),
     FabAnswerItem(vi: 'những sự thăng tiến', en: 'promotions'),
-    FabAnswerItem(vi: 'hồ sơ xin việc', en: 'job application'),
-    FabAnswerItem(vi: 'quảng cáo tuyển dụng', en: 'job advertisement'),
-    FabAnswerItem(vi: 'lương hưu', en: 'pension'),
+    FabAnswerItem(vi: 'hồ sơ xin việc', en: 'job applications'),
+    FabAnswerItem(vi: 'quảng cáo tuyển dụng', en: 'job advertisements'),
+    FabAnswerItem(vi: 'lương hưu', en: 'pensions'),
     FabAnswerItem(
       vi: 'các phúc lợi khác của công ty',
       en: 'other company benefits',
@@ -532,7 +532,7 @@ class Theme8Content {
       en: 'performance reviews',
     ),
     FabAnswerItem(vi: 'các vấn đề về y tế', en: 'medical issues'),
-    FabAnswerItem(vi: 'sự vắng mặt', en: 'absence'),
+    FabAnswerItem(vi: 'sự vắng mặt', en: 'absences'),
     FabAnswerItem(vi: 'sự đi muộn', en: 'tardiness'),
     FabAnswerItem(vi: 'quen thuộc với', en: 'familiar with'),
     FabAnswerItem(
