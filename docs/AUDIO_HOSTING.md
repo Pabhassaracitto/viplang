@@ -57,3 +57,6 @@ Sau khi thử hết mọi mirror, app báo đúng nguyên nhân (`DownloadErrorK
 
 Nguyên tắc: chỉ khi **tất cả** mirror cùng lỗi socket mới kết luận lỗi mạng
 phía thiết bị — tránh lặp lại tình trạng báo sai khi máy chủ chết.
+
+## Karaoke khi chưa có MP3
+`KaraokeTextWidget` dùng TTS đọc câu và bộ đếm từ để tô sáng từ đang phát, nên bài học vẫn hoạt động offline khi chưa có MP3. Khi audio thật sẵn sàng, giữ nguyên widget và gọi `setExternalWordIndex(index)` từ listener vị trí của `just_audio` (tính index theo `position / duration * wordCount`), đồng thời tắt `autoStart` để không chạy TTS song song.
