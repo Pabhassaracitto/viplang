@@ -1,4 +1,4 @@
-package com.example.viplang
+package com.viplang.app
 
 import io.flutter.embedding.android.FlutterActivity
 
