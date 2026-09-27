@@ -117,6 +117,10 @@ class AudioPathResolver {
 
   /// Lấy tên file chuẩn hóa cho một track
   String getFileName(String themeId, int trackNum) {
+    assert(
+      trackNum >= 1 && trackNum <= 4,
+      'trackNum phải từ 1–4, nhận được: $trackNum',
+    );
     final numStr = _extractThemeNumber(themeId);
     final numInt = int.parse(numStr);
     final absTrackIndex = (numInt - 1) * 4 + trackNum + 2;
