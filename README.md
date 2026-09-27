@@ -12,17 +12,29 @@
 | 🎧 **5 phase / bài** | Đọc–nghe · Từ vựng · Dịch · Mind game · Quiz nghe |
 | 🔁 **Ôn tập SRS** | Thuật toán SM-2, flashcard đến hạn, TTS đọc từ |
 | 📊 **Tiến độ** | Streak, XP, badge, % mỗi chủ đề, unlock tuần tự |
-| 🎵 **Audio offline** | Tải 52 track từ Supabase Storage, phát ngoại tuyến |
-| ⚙️ **Cài đặt** | Quản lý audio, TTS on/off, tốc độ phát, reset tiến độ |
+| 🎵 **Audio offline** | Tải 52 track từ Supabase Storage (retry + tải song song), phát ngoại tuyến |
+| 🎯 **Mục tiêu & Onboarding** | 3 màn đầu: chào → đặt mục tiêu TOEIC (điểm/phút mỗi ngày/ngày thi) → hướng dẫn 5 phase |
+| 📈 **Biểu đồ tiến độ** | Heatmap 7 ngày, line chart XP (`fl_chart`), % từng chủ đề |
+| ❄️ **Streak freeze** | 1 lượt/tuần cứu chuỗi khi bỏ lỡ 1 ngày |
+| 🔔 **Nhắc học hằng ngày** | Local notification theo giờ tự chọn (không cần server) |
+| 🌗 **Sáng / Tối / Theo hệ thống** | Chọn trong Cài đặt |
+| ⚙️ **Cài đặt** | Audio, TTS, tốc độ phát, nhắc học, giao diện, reset tiến độ |
 
 ## 📸 Màn hình chính
 
+- **Onboarding** — chào → mục tiêu → cách học (chỉ hiện lần đầu)
 - **Splash** — kiểm tra & tải audio lần đầu (cho phép bỏ qua)
-- **Home** — streak, từ vựng hôm nay, tiếp tục học, hành động nhanh
+- **Home** — streak thật, mục tiêu hôm nay, từ vựng hôm nay, hành động nhanh
 - **13 Chủ đề** — danh sách theme khóa/mở theo tiến độ
-- **Bài học** — 5 phase với audio player, mixed-text mind game
-- **Ôn tập** — SRS review due cards
-- **Cài đặt** — audio, TTS, reset
+- **Bài học** — 5 phase với audio player (tự phát + nghe lại), mixed-text mind game
+- **Ôn tập** — SRS review due cards, badge số từ đến hạn
+- **Tiến độ** — mục tiêu, heatmap/line chart, 13 bí mật, huy hiệu
+- **Cài đặt** — giao diện, nhắc học, audio, TTS, mục tiêu, reset
+
+Ngoài ra app hỗ trợ **deep link**: `viplang://theme/05/day/2` mở thẳng bài học.
+
+> Hướng dẫn kiểm thử (tự động + thủ công): [`docs/TESTING.md`](docs/TESTING.md)
+> Ký release Android: [`docs/KEYSTORE.md`](docs/KEYSTORE.md)
 
 ## 🛠️ Phát triển
 
