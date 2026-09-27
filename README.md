@@ -12,7 +12,7 @@
 | 🎧 **5 phase / bài** | Đọc–nghe · Từ vựng · Dịch · Mind game · Quiz nghe |
 | 🔁 **Ôn tập SRS** | Thuật toán SM-2, flashcard đến hạn, TTS đọc từ |
 | 📊 **Tiến độ** | Streak, XP, badge, % mỗi chủ đề, unlock tuần tự |
-| 🎵 **Audio offline** | Tải 52 track từ Supabase Storage (retry + tải song song), phát ngoại tuyến |
+| 🎵 **Audio offline** | Tải 52 track: ưu tiên Supabase Storage, **tự chuyển GitHub Releases khi lỗi** (retry + tải song song), phát ngoại tuyến |
 | 🎯 **Mục tiêu & Onboarding** | 3 màn đầu: chào → đặt mục tiêu TOEIC (điểm/phút mỗi ngày/ngày thi) → hướng dẫn 5 phase |
 | 📈 **Biểu đồ tiến độ** | Heatmap 7 ngày, line chart XP (`fl_chart`), % từng chủ đề |
 | ❄️ **Streak freeze** | 1 lượt/tuần cứu chuỗi khi bỏ lỡ 1 ngày |
@@ -93,7 +93,7 @@ File này nằm trong `.gitignore` — **không commit**. CI dùng GitHub Secret
 lib/
 ├── core/
 │   ├── constants/     # AppColors, AppTextStyles, AppConstants
-│   ├── services/      # Hive, Download (Supabase), TTS, SafeAudio, AudioPathResolver
+│   ├── services/      # Hive, Download (mirror Supabase → GitHub Releases), TTS, SafeAudio
 │   └── utils/         # SrsAlgorithm (SM-2)
 ├── data/
 │   ├── content/       # 13 file nội dung (theme1..13) + ContentValidator + Registry
@@ -108,7 +108,7 @@ lib/
 
 - **Local-first** — tiến độ lưu Hive, không bắt buộc tài khoản
 - **Một nguồn sự thật cho nội dung** — `AllThemesRegistry` (metadata theme, lesson, vocab)
-- **Audio path tập trung** — `AudioPathResolver` (52 file whitelist trên Supabase)
+- **Audio path tập trung** — `AudioPathResolver` (52 file whitelist, xem [docs/AUDIO_HOSTING.md](docs/AUDIO_HOSTING.md))
 - **Validate nội dung** — `ContentValidator` chạy trong test CI (26 LessonDay)
 
 ## 📦 Phát hành
