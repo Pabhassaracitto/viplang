@@ -32,7 +32,87 @@ jobs:
         run: dart format --output=none --set-exit-if-changed lib test || true
 
       - name: Analyze
-        run: flutter analyze --no-fatal-infos
+        id: analyze
+        run: |
+          set +e
+          flutter analyze --no-fatal-infos 2>&1 | tee analyze_out.txt
+          code=${PIPESTATUS[0]}
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          # Emit GitHub annotations cho từng lỗi (xem được qua API, không cần tải log)
+          python3 - <<'PY'
+          import re
+          out = open("analyze_out.txt").read().splitlines()
+          n = 0
+          # Gộp toàn bộ issues vào 1 annotation lớn (API limit ~64KB)
+          issues = []
+          for line in out:
+              s = line.strip()
+              m = re.match(r"^(error|warning|info)\s+•\s+(.*?)\s+•\s+([^:]+):(\d+):(\d+)", s)
+              if m:
+                  sev, msg, path, lno, col = m.groups()
+                  level = {"error": "error", "warning": "warning", "info": "notice"}[sev]
+                  msg_e = msg.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+                  print(f"::{level} file={path.strip()},line={lno},col={col}::{msg_e}")
+                  issues.append(f"[{sev}] {path.strip()}:{lno}:{col} {msg}")
+                  n += 1
+              elif re.search(r"\d+\s+issues?\s+found|No issues found", s):
+                  issues.append(s)
+          # Annotation tổng hợp để không bị mất khi regex lệch format
+          if n == 0 or len(issues) <= 2:
+              body = "\n".join(out)[:60000]
+              body_e = body.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+              print(f"::warning::{body_e}")
+          print(f"::notice::issues_parsed={n}", flush=True)
+          PY
+          {
+            echo '## flutter analyze'
+            echo '```'
+            grep -E 'error •|warning •|issues found|No issues' analyze_out.txt | tail -n 100 || tail -n 50 analyze_out.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $code
+
+      - name: Upload analyze report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyze-report
+          path: analyze_out.txt
+          if-no-files-found: ignore
 
       - name: Run tests
-        run: flutter test --reporter expanded
+        run: |
+          set +e
+          flutter test --reporter expanded 2>&1 | tee test_out.txt
+          code=${PIPESTATUS[0]}
+          # Dump toàn bộ output test vào annotation khi fail (network chặn tải log)
+          if [ "$code" -ne 0 ]; then
+            python3 - <<'PY'
+          body = open("test_out.txt").read()
+          # Giữ phần lỗi chính (bỏ dòng progress dư)
+          lines = [l for l in body.splitlines() if l.strip()]
+          # Ưu tiên từ dòng đầu có [E] hoặc failure
+          keep = []
+          capture = False
+          for l in lines:
+              if "[E]" in l or "Expected" in l or "Actual" in l or "Which:" in l \
+                 or "Test failed" in l or "Some tests failed" in l or "loading" in l \
+                 or l.startswith("  ") or l.startswith("═") or "Failed to load" in l \
+                 or "Exception" in l or "Error:" in l:
+                  capture = True
+              if capture:
+                  keep.append(l)
+          text = "\n".join(keep if keep else lines[-80:])[:60000]
+          text_e = text.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print(f"::error::TEST FAILED\n{text_e}")
+          PY
+          fi
+          exit $code
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: test_out.txt
+          if-no-files-found: ignore
