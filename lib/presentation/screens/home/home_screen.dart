@@ -181,6 +181,12 @@ class _HomeTab extends StatelessWidget {
             ],
           ),
         ),
+        IconButton(
+          tooltip: 'List audio',
+          onPressed: () => context.push(AppRoutes.audio),
+          icon: const Icon(Icons.headphones_rounded),
+          color: AppColors.primary,
+        ),
         GestureDetector(
           onTap: () {
             context.push(AppRoutes.settings);
