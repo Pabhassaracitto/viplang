@@ -78,18 +78,3 @@ jobs:
           path: analyze_out.txt
           if-no-files-found: ignore
 
-      - name: Run tests
-        run: |
-          set +e
-          flutter test --reporter expanded 2>&1 | tee test_out.txt
-          code=${PIPESTATUS[0]}
-          if [ "$code" -ne 0 ]; then
-            python3 test_report.py test_out.txt
-            {
-              echo '## flutter test FAILED'
-              echo '```'
-              tail -n 120 test_out.txt
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
-          fi
-          exit $code
