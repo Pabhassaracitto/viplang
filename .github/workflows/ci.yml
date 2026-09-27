@@ -1,0 +1,38 @@
+name: CI
+
+# Chạy analyze + test trên mọi push/PR — cổng chất lượng trước khi merge/tag
+on:
+  push:
+    branches: [master, main, 'arena/**']
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  analyze-and-test:
+    name: flutter analyze & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      # Format có thể lệch theo từng bản Flutter — chỉ cảnh báo, không chặn
+      - name: Check formatting (info only)
+        run: dart format --output=none --set-exit-if-changed lib test || true
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+
+      - name: Run tests
+        run: flutter test --reporter expanded

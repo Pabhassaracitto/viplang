@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/services/hive_service.dart';
-import '../../../data/content/theme1_content.dart';
+import '../../../data/content/all_themes_registry.dart';
 import '../../../data/models/theme_model.dart';
 
 // Events
@@ -35,22 +35,16 @@ class UpdateThemeProgressEvent extends ThemeEvent {
   List<Object?> get props => [themeId, progress, completedDays];
 }
 
-// ✅ Thêm hàm unlock theme tiếp theo:
+/// Danh sách theme ID theo thứ tự học — nguồn sự thật: AllThemesRegistry.
+List<String> _orderedThemeIds() {
+  final themes = List.of(AllThemesRegistry.getAllThemes())
+    ..sort((a, b) => a.themeNumber.compareTo(b.themeNumber));
+  return themes.map((t) => t.id).toList();
+}
+
+// ✅ Mở theme kế tiếp khi hoàn thành theme hiện tại (đủ 13/13 chủ đề)
 Future<void> _unlockNextTheme(String currentThemeId, dynamic box) async {
-  const themeOrder = [
-    'theme_01_offices',
-    'theme_02_general_business',
-    'theme_03_technical_areas',
-    'theme_04_travel',
-    'theme_05_entertainment',
-    'theme_06_purchasing',
-    'theme_07_dining_out',
-    'theme_08_personnel',
-    'theme_09_finance_budgeting',
-    'theme_10_corporate_development',
-    'theme_11_manufacturing',
-    // ... thêm các theme khác
-  ];
+  final themeOrder = _orderedThemeIds();
 
   final currentIdx = themeOrder.indexOf(currentThemeId);
   if (currentIdx >= 0 && currentIdx < themeOrder.length - 1) {
@@ -116,124 +110,14 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     }
   }
 
+  /// Seed từ AllThemesRegistry — một nguồn sự thật duy nhất cho metadata
+  /// (tránh hardcode lệch nội dung; theme 1 mở sẵn, các theme sau khóa tuần tự).
   Future<void> _seedThemes(dynamic box) async {
-    final allThemes = _getAllThemes();
+    final allThemes = AllThemesRegistry.getAllThemes();
     for (final theme in allThemes) {
       await box.put(theme.id, theme);
     }
   }
-
-  List<ThemeModel> _getAllThemes() => [
-    Theme1Content.theme,
-    ThemeModel(
-      id: 'theme_02_general_business',
-      themeNumber: 2,
-      titleEn: 'General Business',
-      titleVi: 'Thương Mại Tổng Quát',
-      description: 'Bán hàng, tiếp thị, lập kế hoạch, đàm phán, hợp đồng...',
-      iconEmoji: '💼',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_03_technical_areas',
-      themeNumber: 3,
-      titleEn: 'Technical Areas',
-      titleVi: 'Các Vấn Đề Kỹ Thuật',
-      description: 'Công nghệ, máy tính, thiết bị điện tử, phòng thí nghiệm...',
-      iconEmoji: '💻',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_04_travel',
-      themeNumber: 4,
-      titleEn: 'Travel',
-      titleVi: 'Đi Lại và Công Tác',
-      description: 'Phương tiện giao thông, mua vé, lịch trình, thuê xe...',
-      iconEmoji: '✈️',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_05_entertainment',
-      themeNumber: 5,
-      titleEn: 'Entertainment',
-      titleVi: 'Giải Trí và Chiêu Đãi',
-      description: 'Rạp hát, xem phim, bảo tàng, triển lãm...',
-      iconEmoji: '🎭',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_06_purchasing',
-      themeNumber: 6,
-      titleEn: 'Purchasing',
-      titleVi: 'Mua Sắm Doanh Nghiệp',
-      description: 'Đặt mua hàng, cung ứng, hóa đơn mua bán...',
-      iconEmoji: '🛒',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_07_dining_out',
-      themeNumber: 7,
-      titleEn: 'Dining Out',
-      titleVi: 'Đi Ăn Nhà Hàng',
-      description: 'Đặt bàn, gọi món từ thực đơn, thanh toán hoá đơn...',
-      iconEmoji: '🍽️',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_08_personnel',
-      themeNumber: 8,
-      titleEn: 'Personnel',
-      titleVi: 'Nhân Sự',
-      description: 'Tuyển dụng, lương bổng, thăng tiến, đơn xin việc...',
-      iconEmoji: '👥',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_09_finance_budgeting',
-      themeNumber: 9,
-      titleEn: 'Finance & Budgeting',
-      titleVi: 'Tài Chính và Ngân Sách',
-      description: 'Tài chính, ngân hàng, kế toán, đầu tư, cổ phiếu, thuế...',
-      iconEmoji: '💰',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_10_corporate_development',
-      themeNumber: 10,
-      titleEn: 'Corporate Development',
-      titleVi: 'Phát Triển Doanh Nghiệp',
-      description: 'Nghiên cứu và phát triển sản phẩm...',
-      iconEmoji: '📈',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_11_manufacturing',
-      themeNumber: 11,
-      titleEn: 'Manufacturing',
-      titleVi: 'Sản Xuất',
-      description: 'Dây chuyền sản xuất, quản lý chất lượng...',
-      iconEmoji: '🏭',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_12_housing_property',
-      themeNumber: 12,
-      titleEn: 'Housing/Corporate Property',
-      titleVi: 'Nhà Đất và Tài Sản',
-      description: 'Mua bán, thuê mướn tài sản, xây dựng...',
-      iconEmoji: '🏠',
-      isUnlocked: true,
-    ),
-    ThemeModel(
-      id: 'theme_13_health',
-      themeNumber: 13,
-      titleEn: 'Health',
-      titleVi: 'Sức Khỏe và Y Tế',
-      description: 'Thăm khám bác sỹ, bảo hiểm y tế, bệnh viện...',
-      iconEmoji: '🏥',
-      isUnlocked: true,
-    ),
-  ];
 
   Future<void> _onUnlockTheme(
     UnlockThemeEvent event,

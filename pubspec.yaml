@@ -1,7 +1,7 @@
 name: viplang
 description: VipLang - Học tiếng Anh theo phương pháp Do Thái
 publish_to: 'none'
-version: 1.0.0+1
+version: 1.1.0+2
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
@@ -18,39 +18,21 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
 
-  # Firebase
-  firebase_core: ^3.0.0
-  firebase_auth: ^5.1.1
-  cloud_firestore: ^5.0.0
-  firebase_storage: ^12.0.0
-
   # Audio
   just_audio: ^0.9.36
-  audio_session: ^0.1.18
   flutter_tts: ^4.0.2
-  audioplayers: ^5.0.0
 
   # UI
   flutter_animate: ^4.3.0
-  lottie: ^2.7.0
-  google_fonts: ^6.1.0
-  fl_chart: ^0.65.0
-  cached_network_image: ^3.3.0
-  shimmer: ^3.0.0
-  flutter_svg: ^2.0.9
 
-  # Navigation
+  # Navigation — Giai đoạn 3 sẽ migrate sang go_router (đang giữ sẵn)
   go_router: ^12.1.3
 
-  # Utils
-  uuid: ^4.2.2
-  intl: ^0.18.1
-  connectivity_plus: ^5.0.2
-  shared_preferences: ^2.2.2
-  path_provider: ^2.1.1
-  permission_handler: ^11.1.0
-  
+  # Charts — Giai đoạn 3: biểu đồ tiến độ (fl_chart)
+  fl_chart: ^0.65.0
 
+  # Utils
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -64,14 +46,15 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/logo_viplang.png" # Đường dẫn đến ảnh của con
+  image_path: "assets/images/logo_viplang.png"
   min_sdk_android: 21
-  
+
 flutter_native_splash:
-  color: "#ffffff" # Màu nền của màn hình chờ (ví dụ màu trắng)
-  image: "assets/images/logo_viplang.png" # Icon cá nhân của con sẽ hiện ở giữa
+  color: "#ffffff"
+  image: "assets/images/logo_viplang.png"
   android_12:
     image: "assets/images/logo_viplang.png"
+
 flutter:
   uses-material-design: true
   assets:
