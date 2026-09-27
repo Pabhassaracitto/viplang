@@ -1,0 +1,56 @@
+name: Android build check
+
+# Biên dịch thử APK debug để chắc chắn phần native/plugin vẫn build được
+# (CI analyze+test không phát hiện lỗi Gradle/plugin).
+on:
+  push:
+    branches:
+      - arena/01a0cecc-viplang
+      - master
+    paths:
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'android/**'
+      - 'lib/**'
+      - '.github/workflows/android_check.yml'
+  pull_request:
+    paths:
+      - 'pubspec.yaml'
+      - 'android/**'
+      - 'lib/**'
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    name: flutter build apk --debug
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build debug APK
+        run: flutter build apk --debug
+
+      - name: Report failure as annotation
+        if: failure()
+        run: |
+          echo "::error title=Android build failed::Xem log bước 'Build debug APK' phía trên."
