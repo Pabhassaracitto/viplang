@@ -1,0 +1,34 @@
+name: PR guard
+
+# Chạy khi mở/cập nhật PR: kiểm tra quy ước commit, dấu xung đột, file cấm commit.
+# Bổ sung cho `CI` (analyze + test) và `Android build check`.
+on:
+  pull_request:
+    branches: [master, main]
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: quy ước commit & xung đột
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # cần đủ lịch sử để so với base
+
+      - name: Fetch base branch
+        run: git fetch origin "${{ github.base_ref || 'master' }}" --depth=200
+
+      - name: Run PR guard
+        env:
+          BASE_SHA: origin/${{ github.base_ref || 'master' }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          chmod +x tools/pr_guard.sh
+          tools/pr_guard.sh "$BASE_SHA" "$HEAD_SHA"
