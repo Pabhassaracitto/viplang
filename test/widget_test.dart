@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:viplang/core/constants/app_colors.dart';
 import 'package:viplang/core/constants/app_text_styles.dart';
@@ -54,6 +55,74 @@ void main() {
 
     // Theme 1 (Offices) phải xuất hiện
     expect(find.textContaining('Offices'), findsWidgets);
+  });
+
+  group('ThemeListScreen - nút quay lại', () {
+    testWidgets('hiện nút thoát khi được push (vd: từ "Xem tất cả")', (
+      tester,
+    ) async {
+      final router = GoRouter(
+        initialLocation: '/',
+        routes: [
+          GoRoute(
+            path: '/',
+            builder: (context, state) => Scaffold(
+              body: Center(
+                child: ElevatedButton(
+                  onPressed: () => context.push('/themes'),
+                  child: const Text('Xem tất cả'),
+                ),
+              ),
+            ),
+          ),
+          GoRoute(
+            path: '/themes',
+            builder: (context, state) => BlocProvider<ThemeBloc>(
+              create: (_) => ThemeBloc()..add(LoadThemesEvent()),
+              child: const ThemeListScreen(),
+            ),
+          ),
+        ],
+      );
+
+      await tester.pumpWidget(MaterialApp.router(routerConfig: router));
+      await tester.pumpAndSettle();
+
+      // Nhấn "Xem tất cả" → vào danh sách 13 chủ đề
+      await tester.tap(find.text('Xem tất cả'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('13 Chủ đề TOEIC'), findsOneWidget);
+      expect(find.byKey(const Key('theme_list_back_button')), findsOneWidget);
+
+      // Nhấn nút quay lại → thoát về trang trước
+      await tester.tap(find.byKey(const Key('theme_list_back_button')));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Xem tất cả'), findsOneWidget);
+      expect(find.text('13 Chủ đề TOEIC'), findsNothing);
+    });
+
+    testWidgets('không hiện nút thoát khi là tab (không có route để pop)', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: ThemeData(useMaterial3: true),
+          home: BlocProvider<ThemeBloc>(
+            create: (_) => ThemeBloc()..add(LoadThemesEvent()),
+            child: const ThemeListScreen(),
+          ),
+        ),
+      );
+
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump(const Duration(milliseconds: 400));
+
+      expect(find.text('13 Chủ đề TOEIC'), findsOneWidget);
+      expect(find.byKey(const Key('theme_list_back_button')), findsNothing);
+    });
   });
 
   test('App palette + text styles khởi tạo ổn định', () {
