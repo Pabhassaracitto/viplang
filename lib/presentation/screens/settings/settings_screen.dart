@@ -272,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.all(AppConstants.paddingM),
         children: [
           // ── Audio ──
-          _SectionTitle('Dữ liệu âm thanh'),
+          const _SectionTitle('Dữ liệu âm thanh'),
           _Card(
             child: Column(
               children: [
@@ -331,7 +331,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: AppConstants.paddingL),
 
           // ── Phát âm ──
-          _SectionTitle('Phát âm'),
+          const _SectionTitle('Phát âm'),
           _Card(
             child: Column(
               children: [
@@ -346,7 +346,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     'Tắt để chỉ phát audio bài học có sẵn',
                     style: AppTextStyles.bodySmall,
                   ),
-                  activeColor: AppColors.primary,
+                  activeColor: AppColors.primary, // ignore: deprecated_member_use
                 ),
                 const Divider(height: 1, color: AppColors.divider),
                 ListTile(
@@ -373,7 +373,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: AppConstants.paddingL),
 
           // ── Dữ liệu ──
-          _SectionTitle('Dữ liệu học tập'),
+          const _SectionTitle('Dữ liệu học tập'),
           _Card(
             child: _ActionRow(
               icon: Icons.delete_forever_rounded,
@@ -385,7 +385,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: AppConstants.paddingL),
 
           // ── Về app ──
-          _SectionTitle('Về ứng dụng'),
+          const _SectionTitle('Về ứng dụng'),
           _Card(
             child: Column(
               children: const [

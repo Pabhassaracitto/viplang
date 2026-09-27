@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 /// - Chỉ báo thành công khi TẤT CẢ file OK
 class DownloadService {
   DownloadService._();
-  static final DownloadService.instance = DownloadService._();
+  static final DownloadService instance = DownloadService._();
 
   static const int maxRetries = 3;
   static const Duration timeout = Duration(seconds: 30);
