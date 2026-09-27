@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+import 'hive_service.dart';
+
 class TtsService {
   TtsService._();
   static final TtsService instance = TtsService._();
@@ -8,6 +10,16 @@ class TtsService {
   final FlutterTts _tts = FlutterTts();
   bool _isInitialized = false;
   bool _isSpeaking = false;
+
+  /// Người dùng tắt TTS trong Settings thì speak() thành no-op
+  bool get _enabled {
+    try {
+      return HiveService.settingsBox.get('tts_enabled', defaultValue: true)
+          as bool;
+    } catch (_) {
+      return true;
+    }
+  }
 
   Future<void> _ensureInitialized() async {
     if (_isInitialized) return;
@@ -46,6 +58,7 @@ class TtsService {
   /// Phát âm thanh — tự động dừng nếu đang phát
   Future<void> speak(String text) async {
     if (text.trim().isEmpty) return;
+    if (!_enabled) return; // Đã tắt trong Cài đặt
 
     await _ensureInitialized();
 

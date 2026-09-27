@@ -56,3 +56,7 @@ linux/
 windows/
 macos/
 /.grapuco/config.json
+# Android release signing (không bong lech credentials)
+/android/key.properties
+*.keystore
+*.jks
