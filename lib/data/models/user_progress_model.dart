@@ -62,6 +62,10 @@ class UserProgressModel extends HiveObject {
   @HiveField(11)
   UserGoal? goal;
 
+  /// XP kiếm được theo từng ngày, key `yyyy-MM-dd` (dùng cho biểu đồ Giai đoạn 3).
+  @HiveField(12)
+  Map<String, int> dailyXP;
+
   UserProgressModel({
     required this.userId,
     this.currentStreak = 0,
@@ -75,9 +79,11 @@ class UserProgressModel extends HiveObject {
     List<String>? earnedBadges,
     this.totalXP = 0,
     this.goal,
+    Map<String, int>? dailyXP,
   })  : themeProgress = themeProgress ?? {},
         completedLessons = completedLessons ?? [],
-        earnedBadges = earnedBadges ?? [];
+        earnedBadges = earnedBadges ?? [],
+        dailyXP = dailyXP ?? {};
 
   bool get hasStudiedToday {
     if (lastStudyDate == null) return false;

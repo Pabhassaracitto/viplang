@@ -72,13 +72,14 @@ class UserProgressModelAdapter extends TypeAdapter<UserProgressModel> {
       earnedBadges: (fields[9] as List?)?.cast<String>(),
       totalXP: fields[10] as int,
       goal: fields[11] as UserGoal?,
+      dailyXP: (fields[12] as Map?)?.cast<String, int>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProgressModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.userId)
       ..writeByte(1)
@@ -102,7 +103,9 @@ class UserProgressModelAdapter extends TypeAdapter<UserProgressModel> {
       ..writeByte(10)
       ..write(obj.totalXP)
       ..writeByte(11)
-      ..write(obj.goal);
+      ..write(obj.goal)
+      ..writeByte(12)
+      ..write(obj.dailyXP);
   }
 
   @override
