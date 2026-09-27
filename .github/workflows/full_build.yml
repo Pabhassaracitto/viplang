@@ -1,59 +1,63 @@
 name: Flutter Full Build - Android, iOS, Windows, Linux
-
 on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch: # Mở tính năng kích hoạt thủ công từ giao diện GitHub
+      - '[0-9]+.[0-9]+*'
+  workflow_dispatch: # Cho phép kích hoạt thủ công từ giao diện GitHub Actions với tuỳ chỉnh tag và nền tảng
     inputs:
-      build_android:
-        description: 'Build Android?'
+      tag_name:
+        description: 'Tag / Phiên bản build (vd: v1.1.0 - để trống sẽ tự lấy tag hoặc tên nhánh)'
+        required: false
+        type: string
+        default: ''
+      create_release:
+        description: 'Tạo GitHub Release cho tag này?'
+        required: false
         type: boolean
         default: false
+      build_android:
+        description: 'Build Android (APK & AppBundle)?'
+        type: boolean
+        default: true
       build_ios:
-        description: 'Build iOS?'
+        description: 'Build iOS (IPA)?'
         type: boolean
         default: true
       build_windows:
-        description: 'Build Windows?'
+        description: 'Build Windows (.zip)?'
         type: boolean
         default: false
       build_linux:
-        description: 'Build Linux?'
+        description: 'Build Linux (.zip)?'
         type: boolean
         default: false
-
 permissions:
   contents: write
-
+env:
+  TAG_NAME: ${{ github.event.inputs.tag_name != '' && github.event.inputs.tag_name || github.ref_name }}
 jobs:
   build-android:
     name: Build Android APK
-    if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.build_android == 'true'
+    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.build_android == 'true'
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
-
       - name: Create empty asset directories if missing
         run: mkdir -p assets/animations assets/audio assets/data
-
       - name: Get dependencies
         run: flutter pub get
-
       - name: Setup Android release keystore (optional)
         env:
           KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
@@ -70,187 +74,157 @@ jobs:
           else
             echo "No KEYSTORE_BASE64 secret — fallback debug signing."
           fi
-
       - name: Generate Launcher Icons (Ensure logo is set)
         run: flutter pub run flutter_launcher_icons || true
-
       - name: Build APK (ARM64 only)
         run: |
           flutter build apk --release --target-platform android-arm64 -v
-          mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/VipLang-Android-ARM64-${{ github.ref_name }}.apk
-
+          mv build/app/outputs/flutter-apk/app-release.apk "build/app/outputs/flutter-apk/VipLang-Android-ARM64-${{ env.TAG_NAME }}.apk"
       - name: Build AppBundle (Optional - for Google Play)
-        run: flutter build appbundle --release
-
+        run: |
+          flutter build appbundle --release
+          mv build/app/outputs/bundle/release/app-release.aab "build/app/outputs/bundle/release/VipLang-Android-${{ env.TAG_NAME }}.aab" || true
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
           path: build/app/outputs/flutter-apk/VipLang-Android-ARM64-*.apk
-
       - name: Upload AppBundle artifact (Optional)
         uses: actions/upload-artifact@v4
         with:
           name: android-appbundle
-          path: build/app/outputs/bundle/release/app-release.aab
-
+          path: build/app/outputs/bundle/release/VipLang-Android-*.aab
   build-windows:
     name: Build Windows App
-    if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.build_windows == 'true'
+    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.build_windows == 'true'
     runs-on: windows-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: false
-
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
-
       - name: Create empty asset directories if missing
         shell: bash
         run: mkdir -p assets/animations assets/audio assets/data
-
       - name: Get dependencies
         run: flutter pub get
-
       - name: Build Windows
         shell: bash
         run: flutter build windows --release
-
       - name: Zip Windows build
         shell: powershell
         run: |
+          $tag = "${{ env.TAG_NAME }}"
           $absolutePath = "$env:GITHUB_WORKSPACE\build\windows\x64\runner\Release\*"
-          Compress-Archive -Path $absolutePath -DestinationPath VipLang-Windows-${{ github.ref_name }}.zip
-
+          Compress-Archive -Path $absolutePath -DestinationPath "VipLang-Windows-$tag.zip"
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-zip
           path: VipLang-Windows-*.zip
-
   build-ios:
     name: Build iOS IPA (sideload)
-    if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.build_ios == 'true'
+    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.build_ios == 'true'
     runs-on: macos-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
-
       - name: Create empty asset directories if missing
         run: mkdir -p assets/animations assets/audio assets/data
-
       - name: Disable Swift Package Manager
         run: flutter config --no-enable-swift-package-manager
-
       - name: Precache iOS artifacts
         run: flutter precache --ios
-
       - name: Get dependencies
         run: flutter pub get
-
       - name: Generate Launcher Icons (Ensure logo is set)
         run: dart run flutter_launcher_icons || true
-
       - name: Install Pods
         run: |
           cd ios
           pod repo update
           pod install
-
       - name: Build iOS (no codesign)
         # Sử dụng --no-pub vì chúng ta đã get dependencies và install pods ở bước trên
         run: flutter build ios --release --no-codesign --no-pub
-
       - name: Create IPA
         run: |
           mkdir -p Payload
           cp -r build/ios/iphoneos/Runner.app Payload/
-          zip -r VipLang-iOS-${{ github.ref_name }}.ipa Payload
+          zip -r "VipLang-iOS-${{ env.TAG_NAME }}.ipa" Payload
           rm -rf Payload
-
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
           name: ios-ipa
           path: VipLang-iOS-*.ipa
-
   build-linux:
     name: Build Linux App
-    if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.build_linux == 'true'
+    if: startsWith(github.ref, 'refs/tags/') || github.event.inputs.build_linux == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Install Linux dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-
       - name: Enable Linux Desktop
         run: flutter config --enable-linux-desktop
-
       - name: Create empty asset directories if missing
         run: mkdir -p assets/animations assets/audio assets/data
-
       - name: Get dependencies
         run: flutter pub get
-
       - name: Build Linux
         run: flutter build linux --release
-
       - name: Zip Linux build
         run: |
           cd build/linux/x64/release/bundle
-          zip -r ../../../../../VipLang-Linux-${{ github.ref_name }}.zip .
-
+          zip -r "../../../../../VipLang-Linux-${{ env.TAG_NAME }}.zip" .
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
           name: linux-zip
           path: VipLang-Linux-*.zip
-
   create-release:
     name: Create Release
     needs: [build-android, build-windows, build-ios, build-linux]
-    # Chỉ tạo Release thật sự khi push Tag, không tạo khi build thủ công để debug
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Tạo Release khi push Tag hoặc khi kích hoạt thủ công có bật create_release / nhập tag_name
+    if: |
+      !cancelled() &&
+      !contains(needs.*.result, 'failure') &&
+      (startsWith(github.ref, 'refs/tags/') || github.event.inputs.create_release == 'true' || (github.event.inputs.tag_name != '' && github.event.inputs.tag_name != null))
     runs-on: ubuntu-latest
     steps:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
           path: artifacts
-
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
-          name: Release ${{ github.ref_name }}
+          tag_name: ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
+          target_commitish: ${{ github.sha }}
           files: |
             artifacts/android-apk/*.apk
+            artifacts/android-appbundle/*.aab
             artifacts/windows-zip/*.zip
             artifacts/ios-ipa/*.ipa
             artifacts/linux-zip/*.zip
