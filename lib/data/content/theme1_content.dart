@@ -708,10 +708,14 @@ class Theme1Content {
         titleEn: 'Step 1: Read & Listen',
         titleVi: 'Bước 1: Đọc và Nghe',
         audioTrackKey: 'track_03',
+        // ⚠️ Mỗi đoạn tiếng Anh PHẢI có đúng 1 đoạn tiếng Việt tương ứng
+        // (UI ghép cặp theo thứ tự đoạn — xem PhaseReadListenScreen).
         contentEn:
             '''This familiar theme will occur in all seven sections of the TOEIC test. It is generally about office situations such as meetings, conferences, office equipment, policies and procedures and is related directly to both the Personnel and Purchasing themes (see 'things in the office' in the Purchasing section).
 
-In the office, situations will be about all kinds of meetings, memos, letters, faxes, emails, departments, all kinds of equipment that has to be looked after such as photocopiers, fax machines, computers, air conditioners, telephones. It is helpful to understand collocations such as 'to hold a meeting', 'to downsize a department', or idiomatic/slang expressions such as 'to sack someone', 'to fire someone' or 'show someone the door' or 'let someone go' all of which mean to terminate (end) someone's employment. To repeat an earlier point, single words and their synonyms are not enough to do well on the TOEIC test, this is particularly the case in conversations of an informal nature where the chance of hearing 'common' or idiomatic language increases. The office theme also uses verbal announcements and written memos to communicate important news to the employees, these would tend to be more formal and thus less difficult to comprehend than face-to-face conversations.''',
+In the office, situations will be about all kinds of meetings, memos, letters, faxes, emails, departments, all kinds of equipment that has to be looked after such as photocopiers, fax machines, computers, air conditioners, telephones. It is helpful to understand collocations such as 'to hold a meeting', 'to downsize a department', or idiomatic/slang expressions such as 'to sack someone', 'to fire someone' or 'show someone the door' or 'let someone go' all of which mean to terminate (end) someone's employment.
+
+To repeat an earlier point, single words and their synonyms are not enough to do well on the TOEIC test, this is particularly the case in conversations of an informal nature where the chance of hearing 'common' or idiomatic language increases. The office theme also uses verbal announcements and written memos to communicate important news to the employees, these would tend to be more formal and thus less difficult to comprehend than face-to-face conversations.''',
         contentVi:
             '''Chủ đề quen thuộc này sẽ xuất hiện ở tất cả bảy phần của bài thi TOEIC. Chủ đề này nói về các tình huống trong văn phòng nói chung như là các cuộc họp, hội nghị, trang thiết bị trong văn phòng, các chính sách và các quy trình công việc trong công ty, và liên quan trực tiếp tới các chuyên đề Nhân sự và chuyên đề Mua sắm trong doanh nghiệp.
 

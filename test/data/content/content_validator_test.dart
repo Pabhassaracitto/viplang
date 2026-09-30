@@ -108,4 +108,77 @@ void main() {
           reason: 'Cần ≥100 câu quiz cho 26 bài');
     });
   });
+
+  // ───────────────────────────────────────────────────────────────────────
+  // Nội dung song ngữ: UI ghép cặp đoạn EN[i] ↔ VI[i]
+  // (PhaseReadListenScreen / PhaseTranslateScreen). Lệch số đoạn = học viên
+  // đọc đoạn tiếng Anh không khớp bản dịch → phải chặn từ CI.
+  // ───────────────────────────────────────────────────────────────────────
+  group('Nội dung song ngữ EN ↔ VI khớp từng đoạn', () {
+    test('mọi phase read_listen/translate có số đoạn EN = số đoạn VI', () {
+      final errors = <String>[];
+      final warnings = <String>[];
+      var checked = 0;
+
+      for (final theme in AllThemesRegistry.getAllThemes()) {
+        for (final dayNum in [1, 2]) {
+          final day = AllThemesRegistry.getLesson(theme.id, dayNum)!;
+          for (final phase in day.phases) {
+            if (phase.phaseTypeStr != 'read_listen' &&
+                phase.phaseTypeStr != 'translate') {
+              continue;
+            }
+            checked++;
+            ContentValidator.validateBilingualPhase(
+              phase,
+              dayLabel: day.id,
+              errors: errors,
+              warnings: warnings,
+            );
+          }
+        }
+      }
+
+      expect(checked, greaterThanOrEqualTo(26));
+      expect(errors, isEmpty, reason: errors.join('\n'));
+    });
+
+    test('Chủ đề Offices (theme 1) — Day 1 / Bước 1 khớp đoạn', () {
+      final day1 = AllThemesRegistry.getLesson('theme_01_offices', 1)!;
+      final phase1 = day1.phases.firstWhere(
+        (p) => p.phaseTypeStr == 'read_listen',
+      );
+      final en = ContentValidator.splitParagraphs(phase1.contentEn);
+      final vi = ContentValidator.splitParagraphs(phase1.contentVi);
+
+      expect(en.length, vi.length);
+      expect(en.length, 3);
+      expect(en.first, startsWith('This familiar theme'));
+      expect(vi.first, startsWith('Chủ đề quen thuộc này'));
+      expect(en[2], startsWith('To repeat an earlier point'));
+      expect(vi[2], startsWith('Nhắc lại một điểm trước đó'));
+    });
+
+    test('Chủ đề General Business (theme 2) — Day 1 / Bước 1 khớp đoạn', () {
+      final day1 = AllThemesRegistry.getLesson(
+        'theme_02_general_business',
+        1,
+      )!;
+      final phase1 = day1.phases.firstWhere(
+        (p) => p.phaseTypeStr == 'read_listen',
+      );
+      final en = ContentValidator.splitParagraphs(phase1.contentEn);
+      final vi = ContentValidator.splitParagraphs(phase1.contentVi);
+
+      expect(en.length, vi.length);
+      expect(en.length, 4);
+      // Đoạn 2 tiếng Anh trước đây bị thiếu bản dịch (EN=3 / VI=2)
+      expect(en[1], contains('This theme will introduce negotiations'));
+      expect(vi[1], contains('đàm phán'));
+      expect(en[3], contains('Small business conversations'));
+      expect(vi[3], contains('doanh nghiệp nhỏ'));
+      // Không còn dấu phân cách thô sót lại trong bản dịch
+      expect(phase1.contentVi, isNot(contains('\n---')));
+    });
+  });
 }
