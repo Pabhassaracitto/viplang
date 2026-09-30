@@ -79,6 +79,11 @@ class AudioPathResolver {
     'theme13_track54.mp3',
   };
 
+  /// Track đầu tiên/cuối cùng theo cách đánh số của sách (đĩa CD gốc):
+  /// track 01–02 là phần giới thiệu, 03–54 là 52 bài nghe của 13 chủ đề.
+  static const int firstAbsoluteTrack = 3;
+  static const int lastAbsoluteTrack = 54;
+
   /// Khởi tạo đường dẫn local (nên gọi lúc app start)
   Future<void> init() async {
     final directory = await getApplicationDocumentsDirectory();
@@ -89,6 +94,31 @@ class AudioPathResolver {
   bool isServerFileAvailable(String fileName) {
     return _existingServerFiles.contains(fileName);
   }
+
+  /// Tên file chuẩn của track số [absoluteTrack] (3–54) theo số thứ tự đĩa CD.
+  ///
+  /// Ví dụ: 7 → `theme02_track07.mp3` (chủ đề 2, bài nghe đầu tiên).
+  /// Trả về `null` nếu số track nằm ngoài 3–54.
+  static String? fileNameForAbsoluteTrack(int absoluteTrack) {
+    if (absoluteTrack < firstAbsoluteTrack ||
+        absoluteTrack > lastAbsoluteTrack) {
+      return null;
+    }
+    final themeNumber = ((absoluteTrack - firstAbsoluteTrack) ~/ 4) + 1;
+    final themeStr = themeNumber.toString().padLeft(2, '0');
+    final trackStr = absoluteTrack.toString().padLeft(2, '0');
+    return 'theme${themeStr}_track$trackStr.mp3';
+  }
+
+  /// Toàn bộ 52 tên file chuẩn của app (theme01_track03 → theme13_track54).
+  static List<String> get allTrackFileNames => [
+    for (var n = firstAbsoluteTrack; n <= lastAbsoluteTrack; n++)
+      fileNameForAbsoluteTrack(n)!,
+  ];
+
+  /// File này có phải một track hợp lệ của app không (dùng khi import thủ công).
+  static bool isKnownTrackFileName(String fileName) =>
+      allTrackFileNames.contains(fileName.trim().toLowerCase());
 
   /// trackNum convention:
   /// 1 = Day 1 Reading

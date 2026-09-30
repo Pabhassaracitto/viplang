@@ -100,6 +100,9 @@ class DownloadService {
     return directory.path;
   }
 
+  /// Thư mục chứa toàn bộ MP3 của app (tải từ máy chủ **và** import thủ công).
+  Future<String> get audioDirectoryPath async => _localPath;
+
   /// Kiểm tra xem file đã được tải về local chưa
   Future<bool> isDownloaded(String fileName) async {
     final path = await _localPath;

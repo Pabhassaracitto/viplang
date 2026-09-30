@@ -39,6 +39,9 @@ dependencies:
   # Utils
   path_provider: ^2.1.1
 
+  # Nhập MP3 có sẵn từ máy (Cài đặt → Dữ liệu âm thanh → Nhập MP3)
+  file_picker: ^13.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

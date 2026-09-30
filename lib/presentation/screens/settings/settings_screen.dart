@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,6 +6,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_constants.dart';
 import '../../../core/constants/app_text_styles.dart';
 import '../../../core/services/app_settings.dart';
+import '../../../core/services/audio_import_service.dart';
 import '../../../core/services/audio_path_resolver.dart';
 import '../../../core/services/download_service.dart';
 import '../../../core/services/hive_service.dart';
@@ -297,6 +299,267 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  // ─── Nhập MP3 có sẵn từ máy ────────────────────────────────────────────
+  //
+  // Ưu tiên của app luôn là MP3 thật. Ai đã có sẵn file (đĩa CD của sách,
+  // thư mục đã tải bằng máy tính…) thì nhập thẳng, không cần mạng và không
+  // phải nghe giọng đọc máy.
+
+  Future<void> _showImportSheet() async {
+    if (_busy) return;
+    await showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppConstants.radiusL),
+        ),
+      ),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+              child: Row(
+                children: [
+                  const Icon(Icons.library_music_rounded,
+                      color: AppColors.primary),
+                  const SizedBox(width: AppConstants.paddingS),
+                  Expanded(
+                    child: Text('Nhập MP3 có sẵn', style: AppTextStyles.h3),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+              child: Text(
+                'App nhận diện file theo số track của sách (3–54): '
+                '"theme02_track07.mp3", "Track 07.mp3", "07 - General Business.mp3"… '
+                'File nhập vào được dùng NGAY, không cần tải lại từ máy chủ.',
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+            Divider(height: 1, color: AppColors.divider),
+            ListTile(
+              leading: const Icon(Icons.audio_file_rounded,
+                  color: AppColors.primary),
+              title: const Text('Chọn file MP3…'),
+              subtitle: Text(
+                'Chọn một hoặc nhiều file',
+                style: AppTextStyles.bodySmall,
+              ),
+              onTap: () {
+                Navigator.pop(ctx);
+                _importFromFiles();
+              },
+            ),
+            Divider(height: 1, color: AppColors.divider),
+            ListTile(
+              leading: const Icon(Icons.folder_open_rounded,
+                  color: AppColors.primary),
+              title: const Text('Chọn thư mục chứa MP3…'),
+              subtitle: Text(
+                'Quét cả thư mục con',
+                style: AppTextStyles.bodySmall,
+              ),
+              onTap: () {
+                Navigator.pop(ctx);
+                _importFromFolder();
+              },
+            ),
+            const SizedBox(height: AppConstants.paddingS),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _importFromFiles() async {
+    if (_busy) return;
+    List<PlatformFile> picked;
+    try {
+      picked = await FilePicker.pickFiles(
+        dialogTitle: 'Chọn file MP3 bài học',
+        type: FileType.custom,
+        allowedExtensions: const ['mp3'],
+      );
+    } catch (e) {
+      debugPrint('⚠️ pickFiles lỗi ($e) → thử lại với bộ lọc mặc định');
+      try {
+        picked = await FilePicker.pickFiles(
+          dialogTitle: 'Chọn file MP3 bài học',
+        );
+      } catch (e2) {
+        _showImportError('Không mở được trình chọn file: $e2');
+        return;
+      }
+    }
+
+    if (picked.isEmpty) return; // người dùng huỷ
+
+    final sources = picked
+        .map(
+          (f) => ImportSource(
+            name: f.name,
+            path: f.path,
+            readBytes: f.readAsBytes,
+          ),
+        )
+        .toList();
+
+    await _runImport(
+      'Đang nhập ${sources.length} file MP3...',
+      () => AudioImportService.instance.importSources(sources),
+    );
+  }
+
+  Future<void> _importFromFolder() async {
+    if (_busy) return;
+    String? dir;
+    try {
+      dir = await FilePicker.getDirectoryPath(
+        dialogTitle: 'Chọn thư mục chứa MP3',
+      );
+    } catch (e) {
+      _showImportError('Thiết bị không hỗ trợ chọn thư mục: $e');
+      return;
+    }
+    final folder = dir;
+    if (folder == null || folder.isEmpty) return; // người dùng huỷ
+
+    await _runImport(
+      'Đang quét thư mục...',
+      () => AudioImportService.instance.importFolder(folder),
+      emptyMessage:
+          'Không đọc được file MP3 nào trong thư mục này. '
+          'Trên Android hãy dùng "Chọn file MP3…" thay cho chọn thư mục.',
+    );
+  }
+
+  Future<void> _runImport(
+    String progressMessage,
+    Future<AudioImportResult> Function() task, {
+    String? emptyMessage,
+  }) async {
+    setState(() {
+      _busy = true;
+      _downloadProgress = 0;
+      _statusMessage = progressMessage;
+    });
+
+    AudioImportResult result;
+    try {
+      result = await task();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _busy = false;
+        _statusMessage = null;
+      });
+      _showImportError('Nhập MP3 thất bại: $e');
+      return;
+    }
+
+    await _loadAudioStats();
+    if (!mounted) return;
+
+    setState(() {
+      _busy = false;
+      _statusMessage = result.isEmpty ? null : result.summary;
+    });
+
+    if (result.isEmpty) {
+      _showImportError(emptyMessage ?? 'Không có file MP3 nào được chọn.');
+      return;
+    }
+
+    await _showImportResult(result);
+    if (!mounted) return;
+    await Future.delayed(const Duration(seconds: 2));
+    if (mounted) setState(() => _statusMessage = null);
+  }
+
+  void _showImportError(String message) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: AppColors.warning),
+    );
+  }
+
+  Future<void> _showImportResult(AudioImportResult result) async {
+    if (!mounted) return;
+    const maxLines = 8;
+
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstants.radiusL),
+        ),
+        title: Text(
+          result.importedCount > 0 ? 'Nhập MP3 xong' : 'Chưa nhập được file nào',
+        ),
+        content: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(result.summary, style: AppTextStyles.bodyMedium),
+              if (result.imported.isNotEmpty) ...[
+                const SizedBox(height: AppConstants.paddingM),
+                Text('Đã thêm vào kho audio:', style: AppTextStyles.labelMedium),
+                const SizedBox(height: 4),
+                ...result.imported
+                    .take(maxLines)
+                    .map(
+                      (t) => Text(
+                        '• ${t.sourceName} → ${t.targetName}'
+                        '${t.replaced ? ' (ghi đè)' : ''}',
+                        style: AppTextStyles.bodySmall,
+                      ),
+                    ),
+                if (result.imported.length > maxLines)
+                  Text(
+                    '… và ${result.imported.length - maxLines} file nữa',
+                    style: AppTextStyles.bodySmall,
+                  ),
+              ],
+              if (result.skipped.isNotEmpty) ...[
+                const SizedBox(height: AppConstants.paddingM),
+                Text('Bỏ qua:', style: AppTextStyles.labelMedium),
+                const SizedBox(height: 4),
+                ...result.skipped
+                    .take(maxLines)
+                    .map(
+                      (s) => Text(
+                        '• ${s.sourceName}: ${s.reason}',
+                        style: AppTextStyles.bodySmall.copyWith(
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                if (result.skipped.length > maxLines)
+                  Text(
+                    '… và ${result.skipped.length - maxLines} file nữa',
+                    style: AppTextStyles.bodySmall,
+                  ),
+              ],
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Xong'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _resetProgress() async {
     final confirmed = await showDialog<bool>(
       context: context,
@@ -449,6 +712,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   const SizedBox(height: AppConstants.paddingS),
                 ],
+                _ActionRow(
+                  icon: Icons.library_music_rounded,
+                  label: 'Nhập MP3 có sẵn từ máy',
+                  onTap: _showImportSheet,
+                  enabled: !_busy,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppConstants.paddingM,
+                    0,
+                    AppConstants.paddingM,
+                    AppConstants.paddingS,
+                  ),
+                  child: Text(
+                    'Chọn file hoặc cả thư mục MP3 — dùng được ngay, không cần mạng.',
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+                Divider(height: 1, color: AppColors.divider),
                 _ActionRow(
                   icon: Icons.download_rounded,
                   label: 'Tải lại file còn thiếu',
