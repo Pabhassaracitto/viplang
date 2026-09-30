@@ -1,0 +1,26 @@
+name: TEMP test run
+
+# Workflow tạm: chạy `flutter test` cho nhánh làm việc này rồi sẽ được gỡ bỏ.
+# (PR gate cố tình chỉ chạy analyze — xem commit "skip test and build jobs".)
+on:
+  push:
+    branches: ['arena/01a0f3c8-viplang']
+
+jobs:
+  test:
+    name: flutter test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
+
+      - run: flutter pub get
+
+      - run: flutter test --reporter expanded
