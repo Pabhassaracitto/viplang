@@ -27,6 +27,10 @@ class PhaseReadListenScreen extends StatefulWidget {
 class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
   bool _hasListened = false;
 
+  /// Có bài đọc tiếng Anh để TTS đọc thay khi chưa có MP3 hay không.
+  bool _hasReadingText(LessonPhase phase) =>
+      (phase.contentEn ?? '').trim().isNotEmpty;
+
   // Map audioTrackKey → tên file thực
   String _resolveAudioPath(String? trackKey) {
     const map = {
@@ -150,17 +154,19 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
           const SizedBox(height: AppConstants.paddingL),
 
           // ── Audio Player ────────────────────────────────────
-          if (audioPath.isNotEmpty)
+          // Ưu tiên MP3 thật; nếu chưa tải được, widget tự đề xuất nghe TTS.
+          if (audioPath.isNotEmpty || _hasReadingText(phase))
             AudioPlayerWidget(
-              audioUrl: audioPath,
+              audioUrl: audioPath.isEmpty ? null : audioPath,
               key: ValueKey(
-                'player_$audioPath',
+                'player_${audioPath}_${phase.id}',
               ), // Thêm key để buộc rebuild khi audioPath thay đổi
               title:
                   phase.audioTrackKey?.replaceAll('_', ' ').toUpperCase() ??
                   'Audio',
+              ttsText: phase.contentEn,
               onPlayComplete: () {
-                setState(() => _hasListened = true);
+                if (!_hasListened) setState(() => _hasListened = true);
               },
             )
           else
@@ -298,28 +304,42 @@ class _PhaseReadListenScreenState extends State<PhaseReadListenScreen> {
                 // Tiếng Việt (nếu có)
                 if (i < paragraphsVi.length) ...[
                   const SizedBox(height: AppConstants.paddingS),
-                  Container(
-                    padding: const EdgeInsets.all(AppConstants.paddingS),
-                    decoration: BoxDecoration(
-                      color: AppColors.primarySurface,
-                      borderRadius: BorderRadius.circular(AppConstants.radiusS),
-                    ),
-                    child: Text(
-                      paragraphsVi[i].trim(),
-                      style: AppTextStyles.bodySmall.copyWith(
-                        height: 1.7,
-                        color: AppColors.primary,
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ),
+                  _buildViParagraph(paragraphsVi[i]),
                 ],
                 const SizedBox(height: AppConstants.paddingM),
               ],
             );
           }),
+
+          // Bản dịch dư khi dữ liệu lệch số đoạn: vẫn hiển thị để học viên
+          // không mất nội dung (ContentValidator sẽ báo lỗi để sửa data).
+          ...paragraphsVi.skip(paragraphsEn.length).map(
+            (vi) => Padding(
+              padding: const EdgeInsets.only(bottom: AppConstants.paddingM),
+              child: _buildViParagraph(vi),
+            ),
+          ),
         ],
       ),
     ).animate().fadeIn(delay: 200.ms);
+  }
+
+  Widget _buildViParagraph(String text) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(AppConstants.paddingS),
+      decoration: BoxDecoration(
+        color: AppColors.primarySurface,
+        borderRadius: BorderRadius.circular(AppConstants.radiusS),
+      ),
+      child: Text(
+        text.trim(),
+        style: AppTextStyles.bodySmall.copyWith(
+          height: 1.7,
+          color: AppColors.primary,
+          fontStyle: FontStyle.italic,
+        ),
+      ),
+    );
   }
 }
