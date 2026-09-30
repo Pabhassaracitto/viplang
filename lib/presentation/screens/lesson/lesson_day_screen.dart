@@ -951,6 +951,21 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
     }
   }
 
+  /// Gom lời thoại tiếng Anh theo track của bài học hiện tại.
+  ///
+  /// Dùng cho phương án dự phòng TTS trong quiz nghe: khi chưa tải được MP3,
+  /// học viên vẫn nghe được nội dung bằng giọng đọc máy.
+  Map<String, String> _buildTranscriptMap(LessonDay day) {
+    final map = <String, String>{};
+    for (final p in day.phases) {
+      final key = p.audioTrackKey;
+      final text = p.contentEn;
+      if (key == null || text == null || text.trim().isEmpty) continue;
+      map.putIfAbsent(key, () => text);
+    }
+    return map;
+  }
+
   // ── Phase Builder ──────────────────────────────────────────────
   Widget _buildPhase(BuildContext context, LessonLoaded state) {
     final phase = state.currentPhase;
@@ -1006,6 +1021,7 @@ class _LessonDayScreenState extends State<LessonDayScreen> {
           phase: phase,
           themeId: widget.themeId,
           onComplete: onComplete,
+          transcripts: _buildTranscriptMap(state.lessonDay),
         );
     }
   }

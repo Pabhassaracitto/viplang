@@ -14,11 +14,16 @@ class PhaseQuizScreen extends StatefulWidget {
   final String themeId;
   final VoidCallback onComplete;
 
+  /// Lời thoại tiếng Anh theo `audioTrackKey` — chỉ dùng để đọc bằng TTS
+  /// khi chưa có/chưa tải được MP3 thật.
+  final Map<String, String> transcripts;
+
   const PhaseQuizScreen({
     super.key,
     required this.phase,
     required this.themeId,
     required this.onComplete,
+    this.transcripts = const {},
   });
 
   @override
@@ -44,6 +49,15 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
 
   String get _currentAudioPath =>
       _resolveAudioPath(_currentQuestion.audioTrackKey);
+
+  /// Lời thoại để đọc bằng TTS khi chưa có MP3 (ưu tiên transcript của câu hỏi).
+  String? get _ttsTranscript {
+    final own = _currentQuestion.transcriptEn;
+    if (own != null && own.trim().isNotEmpty) return own;
+    final key = _currentQuestion.audioTrackKey;
+    if (key == null) return null;
+    return widget.transcripts[key];
+  }
 
   /// Số thứ tự track trong theme (`track_03` → 3) để tìm file đã tải về máy.
   int? get _trackNumber {
@@ -357,6 +371,7 @@ class _PhaseQuizScreenState extends State<PhaseQuizScreen>
                         .toUpperCase() ??
                     'Audio',
                 autoPlay: true,
+                ttsText: _ttsTranscript,
               ),
             )
           else

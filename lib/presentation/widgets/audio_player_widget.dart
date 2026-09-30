@@ -1,6 +1,8 @@
 // lib/presentation/widgets/audio_player_widget.dart
 
+import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -11,7 +13,16 @@ import '../../core/services/audio_path_resolver.dart';
 import '../../core/services/download_service.dart';
 import '../../core/services/hive_service.dart';
 import '../../core/services/safe_audio_service.dart';
+import '../../core/services/tts_service.dart';
 
+/// Trình phát audio của bài học.
+///
+/// **Thứ tự ưu tiên nguồn nghe (không đổi):**
+/// 1. MP3 thật đã có sẵn trong máy (file đã tải về / import thủ công).
+/// 2. MP3 đóng gói sẵn trong assets.
+/// 3. Tải MP3 từ máy chủ (Supabase → GitHub Releases) khi bấm nút cam.
+/// 4. **Chỉ khi 3 bước trên không dùng được** mới hiện lựa chọn nghe bằng
+///    giọng đọc máy (TTS) để buổi học không bị tắc — xem [ttsText].
 class AudioPlayerWidget extends StatefulWidget {
   final String? audioUrl;
   final String? themeId;
@@ -22,6 +33,10 @@ class AudioPlayerWidget extends StatefulWidget {
   /// Tự phát ngay khi tải xong (dùng cho quiz nghe hiểu).
   final bool autoPlay;
 
+  /// Văn bản tiếng Anh của bài — dùng cho phương án dự phòng TTS khi
+  /// chưa có/chưa tải được MP3. Để `null` nếu không muốn hiện lựa chọn này.
+  final String? ttsText;
+
   const AudioPlayerWidget({
     super.key,
     this.audioUrl,
@@ -30,6 +45,7 @@ class AudioPlayerWidget extends StatefulWidget {
     required this.title,
     this.onPlayComplete,
     this.autoPlay = false,
+    this.ttsText,
   });
 
   @override
@@ -51,6 +67,18 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
   bool _isLocalAvailable = false;
   bool _isServerAvailable = true;
   String _fileName = '';
+
+  /// Đang đọc bài bằng TTS (phương án dự phòng khi chưa có MP3).
+  bool _isTtsSpeaking = false;
+
+  /// Có nội dung để đọc bằng TTS hay không.
+  bool get _hasTtsText => (widget.ttsText ?? '').trim().isNotEmpty;
+
+  /// MP3 thật KHÔNG dùng được → mới đề xuất nghe TTS.
+  bool get _mp3Unavailable =>
+      !_isAudioAvailable || (_hasError && !_isLocalAvailable);
+
+  bool get _showTtsFallback => _hasTtsText && _mp3Unavailable;
 
   Future<void> _toggleLoop() async {
     setState(() {
@@ -156,10 +184,11 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
         _isServerAvailable = serverAvailable;
       });
     } else {
+      // Không có nguồn MP3 nào (bài chưa gán track) → chỉ còn lựa chọn TTS.
       setState(() {
-        _isAudioAvailable = true;
+        _isAudioAvailable = false;
         _isLocalAvailable = false;
-        _isServerAvailable = true;
+        _isServerAvailable = false;
       });
     }
 
@@ -325,6 +354,38 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     await _player.setSpeed(speed);
   }
 
+  // ── Phương án dự phòng: đọc bài bằng TTS khi chưa có MP3 ─────────────
+  Future<void> _toggleTts() async {
+    if (!_hasTtsText) return;
+
+    if (_isTtsSpeaking) {
+      await TtsService.instance.stop();
+      if (mounted) setState(() => _isTtsSpeaking = false);
+      return;
+    }
+
+    if (!TtsService.instance.isEnabled) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Giọng đọc máy đang tắt. Bật lại ở Cài đặt → Phát âm → "Đọc từ bằng TTS".',
+          ),
+          backgroundColor: AppColors.warning,
+        ),
+      );
+      return;
+    }
+
+    setState(() => _isTtsSpeaking = true);
+    final finished = await TtsService.instance.speakLongText(widget.ttsText!);
+    if (!mounted) return;
+    setState(() => _isTtsSpeaking = false);
+
+    // Nghe hết bài bằng TTS cũng tính là đã nghe → mở nút "Tiếp tục".
+    if (finished) widget.onPlayComplete?.call();
+  }
+
   String _formatDuration(Duration d) {
     final m = d.inMinutes.remainder(60).toString().padLeft(2, '0');
     final s = d.inSeconds.remainder(60).toString().padLeft(2, '0');
@@ -333,6 +394,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   @override
   void dispose() {
+    // Chỉ dừng TTS nếu chính widget này đang đọc (tránh cắt lời màn khác).
+    if (_isTtsSpeaking) {
+      unawaited(TtsService.instance.stop());
+    }
     _player.dispose();
     super.dispose();
   }
@@ -429,11 +494,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                         fontSize: 10,
                       ),
                     ),
-                    if (!_isAudioAvailable || (_hasError && !_isLocalAvailable))
+                    if (_mp3Unavailable)
                       Text(
                         _isServerAvailable
                             ? 'Nhấn nút cam để tải Audio học ngoại tuyến (<1MB)'
-                            : 'Bài học này chưa hỗ trợ Audio',
+                            : (_hasTtsText
+                                  ? 'Chưa có MP3 — có thể nghe bằng giọng đọc máy'
+                                  : 'Bài học này chưa hỗ trợ Audio'),
                         style: AppTextStyles.caption.copyWith(
                           color: _isServerAvailable ? Colors.amber.shade800 : Colors.grey.shade500,
                           fontSize: 10,
@@ -510,7 +577,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               GestureDetector(
                 onTap: _isDownloading
                     ? null
-                    : ((!_isAudioAvailable || (_hasError && !_isLocalAvailable))
+                    : (_mp3Unavailable
                         ? (_isServerAvailable ? _downloadOnDemand : null)
                         : (_isLoading ? null : _togglePlay)),
                 child: Container(
@@ -519,13 +586,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                   decoration: BoxDecoration(
                     color: _isDownloading
                         ? AppColors.primary.withValues(alpha: 0.5)
-                        : ((!_isAudioAvailable || (_hasError && !_isLocalAvailable))
+                        : (_mp3Unavailable
                             ? (_isServerAvailable ? Colors.amber.shade700 : Colors.grey.shade300)
                             : (_hasError ? AppColors.error : AppColors.primary)),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: ((!_isAudioAvailable || (_hasError && !_isLocalAvailable)) && !_isDownloading)
+                        color: (_mp3Unavailable && !_isDownloading)
                             ? (_isServerAvailable
                                 ? Colors.amber.withValues(alpha: 0.3)
                                 : Colors.transparent)
@@ -543,7 +610,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                             strokeWidth: 2,
                           ),
                         )
-                      : ((!_isAudioAvailable || (_hasError && !_isLocalAvailable))
+                      : (_mp3Unavailable
                           ? Icon(
                               _isServerAvailable
                                   ? Icons.download_for_offline_rounded
@@ -585,6 +652,69 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
               ),
               const SizedBox(width: AppConstants.paddingM),
             ],
+          ),
+
+          // ── Dự phòng: nghe bằng giọng đọc máy khi chưa có MP3 ─────
+          if (_showTtsFallback) _buildTtsFallback(),
+        ],
+      ),
+    );
+  }
+
+  /// Chỉ hiện khi MP3 thật chưa dùng được — không bao giờ thay thế MP3.
+  Widget _buildTtsFallback() {
+    return Padding(
+      padding: const EdgeInsets.only(top: AppConstants.paddingS),
+      child: Column(
+        children: [
+          Divider(color: AppColors.border, height: AppConstants.paddingL),
+          Row(
+            children: [
+              Icon(
+                Icons.record_voice_over_rounded,
+                size: 16,
+                color: AppColors.textSecondary,
+              ),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  _isDownloading
+                      ? 'Đang tải MP3…'
+                      : 'Chưa tải được MP3? Nghe tạm bằng giọng đọc máy.',
+                  style: AppTextStyles.caption.copyWith(
+                    color: AppColors.textSecondary,
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: _isDownloading ? null : _toggleTts,
+              icon: Icon(
+                _isTtsSpeaking ? Icons.stop_rounded : Icons.headset_mic_rounded,
+                size: 18,
+              ),
+              label: Text(
+                _isTtsSpeaking ? 'Dừng đọc' : 'Nghe bằng giọng đọc máy (TTS)',
+                style: AppTextStyles.bodySmall.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.primary,
+                side: BorderSide(
+                  color: AppColors.primary.withValues(alpha: 0.4),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppConstants.radiusM),
+                ),
+              ),
+            ),
           ),
         ],
       ),
