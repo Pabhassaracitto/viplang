@@ -682,17 +682,24 @@ class Theme2Content {
         titleEn: 'Step 1: Read & Listen',
         titleVi: 'Bước 1: Đọc và Nghe',
         audioTrackKey: 'track_07',
+        // ⚠️ Mỗi đoạn tiếng Anh PHẢI có đúng 1 đoạn tiếng Việt tương ứng
+        // (UI ghép cặp theo thứ tự đoạn — xem PhaseReadListenScreen).
         contentEn:
             '''This theme is anything but 'general'. As in finance, there are a lot of specific terms that need to be learned. The terms are related to 'corporate' business rather than small entrepreneurial businesses.
 
+This theme will introduce negotiations, mergers, acquisitions, legal contracts, guarantees and warranties, marketing strategies, sales performance, labour relations, franchises, consultancy services, compensation, buy-outs, take-overs. There will often be references to the legal profession such as lawyer, solicitor, legal counsel. Other common general nouns: subsidiary, headquarters, chief executive officer, chief financial officer, chairman, board of directors, mutual funds, bonds, stock options.
+
 Corporate business tends to be national and international rather than local and students will need to understand such terms as divisions, departments, branches, chain, and how a large enterprise works.
 
-This theme will introduce negotiations, corporate mergers, acquisitions, legal contracts, guarantees and warranties, marketing strategies, sales, human relations, franchises, consultancy services, compensation, buy-outs. We will also meet some people such as professional consultants, attorneys or lawyers, and legal counsel. Useful nouns would be: branch, headquarters, CEO (chief executive officer), CFO (chief financial officer), president, board of directors, mutual fund, stock options.''',
+Small business conversations will also be heard but these usually come under different themes such as 'Retailing' or 'Offices' and relate to local businesses. Conversations here are usually about small meetings, computers or photocopiers that need fixing, small advertisements for local newspapers, flyers and brochures, and buying office supplies. Shopping is involved, usually at local markets, supermarkets, small retail shops as well as department stores.''',
         contentVi:
-            '''Chuyên đề này đề cập tới mọi chủ đề nhưng chỉ ở mức độ tổng quát. Như khi nói về tài chính, sẽ có rất nhiều các thuật ngữ cụ thể cần được học. Các thuật ngữ liên quan tới các doanh nghiệp lớn nhiều hơn là những doanh nghiệp nhỏ hay hộ kinh doanh. Chuyên đề này sẽ giới thiệu các nội dung về đàm phán, sáp nhập doanh nghiệp, mua bán doanh nghiệp, hợp đồng pháp lý, bảo hành và bảo dưỡng, chiến lược marketing, việc bán hàng, các quan hệ nhân sự, nhượng quyền thương mại, dịch vụ tư vấn, bồi thường hợp đồng lao động, thôn tính doanh nghiệp. Chúng ta cũng sẽ gặp những từ về nghề luật như luật sư, luật sư đại diện, cố vấn pháp lý. Những danh từ phổ biến hay dùng có thể là: chi nhánh, trụ sở chính, tổng giám đốc điều hành, tổng giám đốc tài chính, chủ tịch, ban giám đốc, quỹ tương hỗ, trái phiếu, quyền chọn cổ phiếu.
+            '''Chuyên đề này thực ra không hề "tổng quát" chút nào. Cũng như trong lĩnh vực tài chính, sẽ có rất nhiều các thuật ngữ cụ thể cần được học. Các thuật ngữ liên quan tới các doanh nghiệp lớn nhiều hơn là những doanh nghiệp nhỏ hay hộ kinh doanh.
 
----
-Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người học sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động. Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ nhưng những hội thoại này thường xuất hiện ở những chuyên đề khác như Bán lẻ hay Văn phòng mà có liên quan tới doanh nghiệp địa phương. Các hội thoại đó thường nói về các cuộc họp nhỏ, máy tính hay máy phô-tô mà cần sửa chữa, những mẩu quảng cáo nhỏ cho báo địa phương, tờ rơi, tờ giới thiệu, và mua sắm đồ văn phòng. Việc đi mua sắm cũng được nhắc đến, nhưng thường ở chợ địa phương hay siêu thị, cửa hàng bán lẻ nhỏ và cửa hàng bách hóa.''',
+Chuyên đề này sẽ giới thiệu các nội dung về đàm phán, sáp nhập doanh nghiệp, mua bán doanh nghiệp, hợp đồng pháp lý, bảo hành và bảo dưỡng, chiến lược marketing, hiệu quả bán hàng, các quan hệ lao động, nhượng quyền thương mại, dịch vụ tư vấn, bồi thường hợp đồng lao động, thôn tính doanh nghiệp. Nội dung cũng thường nhắc tới nghề luật như luật sư, luật sư đại diện, cố vấn pháp lý. Những danh từ phổ biến hay dùng có thể là: chi nhánh, trụ sở chính, tổng giám đốc điều hành, tổng giám đốc tài chính, chủ tịch, ban giám đốc, quỹ tương hỗ, trái phiếu, quyền chọn cổ phiếu.
+
+Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người học sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động.
+
+Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ nhưng những hội thoại này thường xuất hiện ở những chuyên đề khác như Bán lẻ hay Văn phòng mà có liên quan tới doanh nghiệp địa phương. Các hội thoại đó thường nói về các cuộc họp nhỏ, máy tính hay máy phô-tô mà cần sửa chữa, những mẩu quảng cáo nhỏ cho báo địa phương, tờ rơi, tờ giới thiệu, và mua sắm đồ văn phòng. Việc đi mua sắm cũng được nhắc đến, nhưng thường ở chợ địa phương hay siêu thị, cửa hàng bán lẻ nhỏ và cửa hàng bách hóa.''',
         fabVocab: Theme2Content.readingVocab,
         fabPhrases: Theme2Content.readingPhrases,
       ),
@@ -711,7 +718,7 @@ Corporate business tends to be national and international rather than local and 
 
 Small business conversations will also be heard but these usually come under different themes such as 'Retailing' or 'Offices' and relate to local businesses.''',
         contentVi:
-            '''Chuyên đề này đề cập tới mọi chủ đề nhưng chỉ ở mức độ tổng quát. Như khi nói về tài chính, sẽ có rất nhiều các thuật ngữ cụ thể cần được học. Các thuật ngữ liên quan tới các doanh nghiệp lớn nhiều hơn là những doanh nghiệp nhỏ hay hộ kinh doanh.
+            '''Chuyên đề này thực ra không hề "tổng quát" chút nào. Cũng như trong lĩnh vực tài chính, sẽ có rất nhiều các thuật ngữ cụ thể cần được học. Các thuật ngữ liên quan tới các doanh nghiệp lớn nhiều hơn là những doanh nghiệp nhỏ hay hộ kinh doanh.
 
 Các doanh nghiệp ở đây thường có phạm vi quốc gia và quốc tế hơn là các công ty địa phương, và người học sẽ cần phải hiểu những thuật ngữ như các ban, các phòng, chi nhánh, chuỗi, và cách mà một doanh nghiệp lớn hoạt động.
 
@@ -770,7 +777,7 @@ Bạn cũng có thể nghe những hội thoại trong doanh nghiệp nhỏ như
     const MixedSegment.vietnamese('hiệu quả bán hàng', 'sales performance'),
     const MixedSegment.english(', labour relations, '),
     const MixedSegment.vietnamese('việc nhượng quyền kinh doanh', 'franchises'),
-    const MixedSegment.english(', consultancy, '),
+    const MixedSegment.english(', consultancy services, compensation, '),
     const MixedSegment.vietnamese('thôn tính doanh nghiệp', 'buy-outs'),
     const MixedSegment.english(
       ', take-overs. There will often be references to the ',

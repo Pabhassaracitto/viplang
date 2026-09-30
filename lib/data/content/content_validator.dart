@@ -41,6 +41,16 @@ class ContentValidator {
           warnings: warnings,
         );
       }
+
+      if (phase.phaseTypeStr == 'read_listen' ||
+          phase.phaseTypeStr == 'translate') {
+        validateBilingualPhase(
+          phase,
+          dayLabel: dayLabel,
+          errors: errors,
+          warnings: warnings,
+        );
+      }
     }
 
     final result = ContentValidationResult(
@@ -243,6 +253,78 @@ class ContentValidator {
       if (!viSet.contains(a.vi.trim())) {
         warnings.add(
           '$phaseLabel: Extra FabAnswerItem not used in segments: "${a.vi}"',
+        );
+      }
+    }
+  }
+
+  /// Tách nội dung song ngữ thành các đoạn (bỏ đoạn rỗng).
+  ///
+  /// Dùng CHUNG với `PhaseReadListenScreen` / `PhaseTranslateScreen` để
+  /// validator đếm đúng số đoạn mà UI sẽ render.
+  static List<String> splitParagraphs(String? content) {
+    if (content == null) return const [];
+    return content
+        .replaceAll('\r\n', '\n')
+        .split('\n\n')
+        .map((p) => p.trim())
+        .where((p) => p.isNotEmpty)
+        .toList();
+  }
+
+  /// Kiểm tra phase song ngữ (read_listen / translate).
+  ///
+  /// UI ghép cặp đoạn EN[i] ↔ VI[i], nên lệch số đoạn sẽ khiến học viên thấy
+  /// đoạn tiếng Anh không khớp bản dịch (hoặc mất hẳn bản dịch cuối bài).
+  static void validateBilingualPhase(
+    LessonPhase phase, {
+    required String dayLabel,
+    required List<String> errors,
+    required List<String> warnings,
+  }) {
+    final phaseLabel = '$dayLabel / ${phase.id}';
+
+    final en = splitParagraphs(phase.contentEn);
+    final vi = splitParagraphs(phase.contentVi);
+
+    // Phase không có nội dung chữ (chỉ audio) → bỏ qua.
+    if (en.isEmpty && vi.isEmpty) return;
+
+    if (en.isEmpty) {
+      errors.add('$phaseLabel: contentEn trống nhưng contentVi có nội dung.');
+      return;
+    }
+    if (vi.isEmpty) {
+      errors.add('$phaseLabel: contentVi trống nhưng contentEn có nội dung.');
+      return;
+    }
+
+    if (en.length != vi.length) {
+      errors.add(
+        '$phaseLabel: lệch số đoạn EN/VI (EN=${en.length}, VI=${vi.length}) — '
+        'UI ghép cặp theo thứ tự đoạn nên bản dịch sẽ hiển thị sai đoạn.',
+      );
+    }
+
+    // Dấu phân cách sót lại từ lúc soạn nội dung (---, ***, ===)
+    for (final block in [...en, ...vi]) {
+      if (RegExp(r'^\s*(-{3,}|\*{3,}|={3,})\s*$', multiLine: true)
+          .hasMatch(block)) {
+        errors.add(
+          '$phaseLabel: còn dấu phân cách thô (--- / *** / ===) trong nội dung.',
+        );
+        break;
+      }
+    }
+
+    // Đoạn dài bất thường thường là dấu hiệu gộp nhầm 2 đoạn vào 1.
+    for (var i = 0; i < en.length && i < vi.length; i++) {
+      final ratio = vi[i].length / en[i].length;
+      if (ratio > 3.0 || ratio < 0.34) {
+        warnings.add(
+          '$phaseLabel: đoạn ${i + 1} lệch độ dài bất thường '
+          '(EN=${en[i].length} ký tự, VI=${vi[i].length} ký tự) — '
+          'kiểm tra lại xem có gộp/thiếu câu không.',
         );
       }
     }
