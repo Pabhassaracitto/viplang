@@ -58,5 +58,46 @@ Sau khi thử hết mọi mirror, app báo đúng nguyên nhân (`DownloadErrorK
 Nguyên tắc: chỉ khi **tất cả** mirror cùng lỗi socket mới kết luận lỗi mạng
 phía thiết bị — tránh lặp lại tình trạng báo sai khi máy chủ chết.
 
+## 5. Thứ tự ưu tiên nguồn nghe trong app
+
+App **luôn ưu tiên MP3 thật**, TTS chỉ là lưới an toàn cuối cùng:
+
+| Ưu tiên | Nguồn | Ghi chú |
+|---|---|---|
+| 1 | MP3 trong thư mục dữ liệu app | Đã tải về **hoặc** người dùng tự nhập (mục 6) |
+| 2 | MP3 đóng gói trong `assets/audio/` | Repo không commit audio nên thường trống |
+| 3 | Tải từ mirror (Supabase → GitHub Releases) | Nút cam trên trình phát |
+| 4 | Giọng đọc máy (TTS) | Chỉ hiện khi 1–3 đều không dùng được |
+
+Lựa chọn TTS nằm ngay dưới trình phát (`AudioPlayerWidget.ttsText`), đọc hết
+bài thì tính là "đã nghe" để mở nút *Tiếp tục*. Tôn trọng công tắc
+**Cài đặt → Phát âm → Đọc từ bằng TTS**: nếu người dùng đã tắt, app nhắc bật
+lại thay vì im lặng không phát.
+
+## 6. Nhập MP3 có sẵn từ máy (không cần mạng)
+
+**Cài đặt → Dữ liệu âm thanh → Nhập MP3 có sẵn từ máy** cho phép chọn từng
+file hoặc cả một thư mục (quét cả thư mục con). File được chép vào đúng thư
+mục mà `DownloadService` tìm kiếm nên dùng được ngay, không cần tải lại.
+
+`AudioImportService` tự suy ra track theo số thứ tự đĩa CD gốc (**3–54**, track
+01–02 là phần giới thiệu) rồi đổi tên về chuẩn `themeNN_trackMM.mp3`:
+
+| Tên file người dùng chọn | Nhận diện |
+|---|---|
+| `theme02_track07.mp3` | ✅ track 7 → chủ đề 2 |
+| `Track 07.mp3`, `track_07.mp3`, `TRACK-7.mp3` | ✅ track 7 |
+| `600 Essential Words - Track 03.mp3` | ✅ track 3 (ưu tiên số sau chữ "track") |
+| `07 - General Business.mp3`, `07.mp3`, `Unit 12.mp3` | ✅ số đầu/cuối tên file |
+| `01.mp3`, `intro.mp3`, `podcast.mp3` | ❌ bỏ qua, báo lý do cho người dùng |
+
+Công thức: `themeNumber = ((track - 3) ~/ 4) + 1` — xem
+`AudioPathResolver.fileNameForAbsoluteTrack`.
+
+File rỗng/quá nhỏ (<1KB) hoặc thực chất là HTML (hay gặp khi tải lỗi) bị loại
+và liệt kê trong hộp thoại kết quả. Trên Android, chọn *thư mục* phụ thuộc
+Storage Access Framework — nếu không đọc được, app hướng dẫn chuyển sang
+*Chọn file MP3…*.
+
 ## Karaoke khi chưa có MP3
 `KaraokeTextWidget` dùng TTS đọc câu và bộ đếm từ để tô sáng từ đang phát, nên bài học vẫn hoạt động offline khi chưa có MP3. Khi audio thật sẵn sàng, giữ nguyên widget và gọi `setExternalWordIndex(index)` từ listener vị trí của `just_audio` (tính index theo `position / duration * wordCount`), đồng thời tắt `autoStart` để không chạy TTS song song.

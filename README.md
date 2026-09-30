@@ -13,6 +13,8 @@
 | 🔁 **Ôn tập SRS** | Thuật toán SM-2, flashcard đến hạn, TTS đọc từ |
 | 📊 **Tiến độ** | Streak, XP, badge, % mỗi chủ đề, unlock tuần tự |
 | 🎵 **Audio offline** | Tải 52 track: ưu tiên Supabase Storage, **tự chuyển GitHub Releases khi lỗi** (retry + tải song song), phát ngoại tuyến |
+| 📥 **Nhập MP3 có sẵn** | Cài đặt → Dữ liệu âm thanh → chọn file hoặc cả thư mục MP3 trong máy, app tự đổi tên về chuẩn track 3–54 |
+| 🔊 **Dự phòng TTS** | Chưa có / chưa tải được MP3 thì đọc cả bài bằng giọng máy để buổi học không bị tắc |
 | 🎯 **Mục tiêu & Onboarding** | 3 màn đầu: chào → đặt mục tiêu TOEIC (điểm/phút mỗi ngày/ngày thi) → hướng dẫn 5 phase |
 | 📈 **Biểu đồ tiến độ** | Heatmap 7 ngày, line chart XP (`fl_chart`), % từng chủ đề |
 | ❄️ **Streak freeze** | 1 lượt/tuần cứu chuỗi khi bỏ lỡ 1 ngày |
