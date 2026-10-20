@@ -16,7 +16,4 @@ jobs:
       - run: mkdir -p assets/animations assets/audio assets/data
       - run: flutter pub get
       - name: flutter test
-        run: flutter test 2>&1 | tee test_out.txt
-      - name: summary
-        if: always()
-        run: tail -n 40 test_out.txt
+        run: flutter test --reporter expanded
