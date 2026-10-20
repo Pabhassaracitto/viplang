@@ -138,9 +138,9 @@ void main() {
 
       // File nằm đúng chỗ DownloadService tìm kiếm → app phát MP3 thật ngay.
       final stored = File(
-        await DownloadService.instance.getLocalPathForFile(
+        (await DownloadService.instance.getLocalPathForFile(
           'theme02_track07.mp3',
-        ),
+        ))!,
       );
       expect(await stored.exists(), isTrue);
       expect(await stored.length(), await src.length());
@@ -163,9 +163,9 @@ void main() {
       expect(result.importedCount, 1);
       expect(result.imported.single.replaced, isTrue);
       final stored = File(
-        await DownloadService.instance.getLocalPathForFile(
+        (await DownloadService.instance.getLocalPathForFile(
           'theme02_track07.mp3',
-        ),
+        ))!,
       );
       expect(await stored.length(), await second.length());
     });

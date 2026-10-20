@@ -1,0 +1,75 @@
+name: Web — build & GitHub Pages
+
+# Build bản web (Flutter Web) và đưa lên GitHub Pages.
+# • Pull request → chỉ build để kiểm tra, KHÔNG deploy.
+# • Push vào master (hoặc chạy thủ công trên master) → build + deploy.
+# Địa chỉ sau khi deploy: https://<owner>.github.io/<tên-repo>/
+#
+# Yêu cầu một lần: Settings → Pages → Build and deployment → Source = "GitHub Actions".
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Flutter Web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Create empty asset directories if missing
+        run: mkdir -p assets/animations assets/audio assets/data
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      # base-href = /<tên-repo>/ để asset đúng khi chạy dưới github.io/<repo>/
+      - name: Build web
+        run: |
+          flutter build web --release \
+            --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Chuẩn bị file cho GitHub Pages
+        run: |
+          # 404.html = index.html: F5 trên URL sâu (vd. /theme/05/day/2) vẫn mở đúng app
+          cp build/web/index.html build/web/404.html
+          # Tắt Jekyll để Pages phục vụ nguyên các file do Flutter sinh ra
+          touch build/web/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

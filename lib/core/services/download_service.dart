@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
+
+import 'local_file_store.dart';
 
 /// Phân loại nguyên nhân tải thất bại — để UI báo đúng lỗi thay vì
 /// luôn báo "lỗi kết nối mạng" của thiết bị.
@@ -26,18 +24,20 @@ enum DownloadErrorKind {
 
 /// Kết quả chi tiết của một lần tải audio.
 class DownloadResult {
-  final File? file;
+  /// Đường dẫn file đã lưu trong máy (null nếu thất bại hoặc trên Web).
+  final String? localPath;
   final DownloadErrorKind? error;
   final int? statusCode;
 
-  const DownloadResult({this.file, this.error, this.statusCode});
+  const DownloadResult({this.localPath, this.error, this.statusCode});
 
-  factory DownloadResult.success(File file) => DownloadResult(file: file);
+  factory DownloadResult.success(String localPath) =>
+      DownloadResult(localPath: localPath);
 
   factory DownloadResult.failure(DownloadErrorKind error, {int? statusCode}) =>
       DownloadResult(error: error, statusCode: statusCode);
 
-  bool get isSuccess => file != null;
+  bool get isSuccess => localPath != null;
 }
 
 /// Dịch vụ quản lý việc tải toàn bộ audio về máy.
@@ -49,6 +49,9 @@ class DownloadResult {
 /// Khi mirror ưu tiên lỗi (server chết, DNS mất, timeout, 404…), dịch vụ
 /// TỰ ĐỘNG chuyển sang mirror kế tiếp. Lỗi trả về được phân loại
 /// [DownloadErrorKind] để UI hiển thị đúng nguyên nhân.
+///
+/// Trên Web (không có hệ thống file) dịch vụ không tải/lưu gì cả: audio
+/// được phát trực tiếp từ các mirror qua [remoteUrlsFor].
 class DownloadService {
   DownloadService._();
   static final DownloadService instance = DownloadService._();
@@ -92,28 +95,38 @@ class DownloadService {
         .toList();
   }
 
-  /// Thư mục chứa file đã tải
-  Future<String> get _localPath async {
+  /// Thư mục chứa file đã tải (null nếu nền tảng không có hệ thống file).
+  Future<String?> get _localPath async {
     final override = debugLocalPath;
     if (override != null) return override;
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+    return LocalFileStore.documentsPath();
   }
 
   /// Thư mục chứa toàn bộ MP3 của app (tải từ máy chủ **và** import thủ công).
-  Future<String> get audioDirectoryPath async => _localPath;
+  /// `null` trên Web.
+  Future<String?> get audioDirectoryPath async => _localPath;
+
+  /// Có tải / lưu audio vào máy được không (false trên Web).
+  bool get supportsOfflineStorage => LocalFileStore.isSupported;
+
+  /// URL phát trực tiếp của một file theo thứ tự mirror (Supabase → GitHub).
+  /// Dùng cho Web, và cũng là danh sách mirror khi tải về máy.
+  List<String> remoteUrlsFor(String fileName) => [
+    for (final base in _baseUrls) '$base/$fileName',
+  ];
 
   /// Kiểm tra xem file đã được tải về local chưa
   Future<bool> isDownloaded(String fileName) async {
     final path = await _localPath;
-    final file = File('$path/$fileName');
-    return await file.exists();
+    if (path == null) return false;
+    return LocalFileStore.exists(joinLocalPath(path, fileName));
   }
 
   /// Lấy đường dẫn cục bộ (local path) của một file đã tải
-  Future<String> getLocalPathForFile(String fileName) async {
+  Future<String?> getLocalPathForFile(String fileName) async {
     final path = await _localPath;
-    return '$path/$fileName';
+    if (path == null) return null;
+    return joinLocalPath(path, fileName);
   }
 
   /// Kiểm tra xem tất cả tracks của một theme đã được tải chưa
@@ -127,16 +140,14 @@ class DownloadService {
   /// Tổng số file audio đã tải + tổng dung lượng (bytes)
   Future<({int fileCount, int totalBytes})> getDownloadedStats() async {
     final path = await _localPath;
-    final dir = Directory(path);
     var fileCount = 0;
     var totalBytes = 0;
-    if (await dir.exists()) {
-      await for (final entity in dir.list()) {
-        if (entity is File && entity.path.endsWith('.mp3')) {
-          fileCount++;
-          totalBytes += await entity.length();
-        }
-      }
+    if (path == null) return (fileCount: 0, totalBytes: 0);
+
+    for (final filePath in await LocalFileStore.listFilePaths(path)) {
+      if (!filePath.endsWith('.mp3')) continue;
+      fileCount++;
+      totalBytes += await LocalFileStore.length(filePath);
     }
     return (fileCount: fileCount, totalBytes: totalBytes);
   }
@@ -144,15 +155,13 @@ class DownloadService {
   /// Xóa toàn bộ audio đã tải (để tải lại từ đầu)
   Future<int> deleteAllAudio() async {
     final path = await _localPath;
-    final dir = Directory(path);
+    if (path == null) return 0;
+
     var deleted = 0;
-    if (await dir.exists()) {
-      await for (final entity in dir.list()) {
-        if (entity is File && entity.path.endsWith('.mp3')) {
-          await entity.delete();
-          deleted++;
-        }
-      }
+    for (final filePath in await LocalFileStore.listFilePaths(path)) {
+      if (!filePath.endsWith('.mp3')) continue;
+      await LocalFileStore.delete(filePath);
+      deleted++;
     }
     return deleted;
   }
@@ -202,10 +211,14 @@ class DownloadService {
   }
 
   /// Tải một file audio (API cũ, giữ tương thích).
-  /// Trả về null nếu thất bại — dùng [downloadAudioDetailed] để biết lý do.
-  Future<File?> downloadAudio(String fileName, {int retries = maxRetries}) async {
+  /// Trả về đường dẫn file hoặc null nếu thất bại — dùng [downloadAudioDetailed]
+  /// để biết lý do.
+  Future<String?> downloadAudio(
+    String fileName, {
+    int retries = maxRetries,
+  }) async {
     final result = await downloadAudioDetailed(fileName, retries: retries);
-    return result.file;
+    return result.localPath;
   }
 
   /// Tải một file audio theo thứ tự ưu tiên mirror:
@@ -217,6 +230,11 @@ class DownloadService {
     // File đã có sẵn (và không rỗng) → không cần mạng
     final existing = await _existingFile(fileName);
     if (existing != null) return DownloadResult.success(existing);
+
+    // Web: không có nơi lưu file → không tải (audio được phát trực tiếp).
+    if (!supportsOfflineStorage) {
+      return DownloadResult.failure(DownloadErrorKind.unknown);
+    }
 
     final mirrors = _baseUrls;
     if (mirrors.isEmpty) {
@@ -232,9 +250,9 @@ class DownloadService {
 
       for (var attempt = 1; attempt <= retries; attempt++) {
         final r = await _downloadOnce(baseUrl, fileName);
-        if (r.file != null) {
+        if (r.localPath != null) {
           debugPrint('✅ Đã tải: $fileName (mirror ${mi + 1}/${mirrors.length})');
-          return DownloadResult.success(r.file!);
+          return DownloadResult.success(r.localPath!);
         }
 
         lastKind = r.error ?? DownloadErrorKind.unknown;
@@ -264,88 +282,104 @@ class DownloadService {
     return DownloadResult.failure(kind, statusCode: lastStatus);
   }
 
-  Future<File?> _existingFile(String fileName) async {
+  Future<String?> _existingFile(String fileName) async {
     final path = await _localPath;
-    final file = File('$path/$fileName');
-    if (await file.exists() && await file.length() > 0) return file;
+    if (path == null) return null;
+    final filePath = joinLocalPath(path, fileName);
+    if (await LocalFileStore.exists(filePath) &&
+        await LocalFileStore.length(filePath) > 0) {
+      return filePath;
+    }
     return null;
   }
 
   /// Một lượt GET duy nhất tới [baseUrl]/[fileName].
-  Future<({File? file, DownloadErrorKind? error, int? statusCode, bool permanent})>
-      _downloadOnce(String baseUrl, String fileName) async {
-    HttpClient? client;
-    try {
-      final path = await _localPath;
-      final filePath = '$path/$fileName';
-      final file = File(filePath);
-
-      // Tạo thư mục cha nếu chưa có
-      if (!await file.parent.exists()) {
-        await file.parent.create(recursive: true);
-      }
-
-      final url = '$baseUrl/$fileName';
-      client = HttpClient()..connectionTimeout = timeout;
-      final request = await client.getUrl(Uri.parse(url)).timeout(timeout);
-      final response = await request.close().timeout(timeout);
-
-      if (response.statusCode == 200) {
-        final bytes = await consolidateHttpClientResponseBytes(
-          response,
-        ).timeout(timeout);
-        if (bytes.isEmpty) {
-          debugPrint('❌ File rỗng: $fileName ($baseUrl)');
-          return (
-            file: null,
-            error: DownloadErrorKind.serverError,
-            statusCode: 200,
-            permanent: true,
-          );
-        }
-        await file.writeAsBytes(bytes, flush: true);
-        return (file: file, error: null, statusCode: 200, permanent: false);
-      }
-
-      final kind = _kindFromStatus(response.statusCode);
-      debugPrint(
-        '❌ Lỗi tải $fileName từ $baseUrl — HTTP ${response.statusCode}',
-      );
+  Future<({String? localPath, DownloadErrorKind? error, int? statusCode, bool permanent})>
+  _downloadOnce(String baseUrl, String fileName) async {
+    final path = await _localPath;
+    if (path == null) {
       return (
-        file: null,
-        error: kind,
-        statusCode: response.statusCode,
-        permanent: _isPermanentStatus(response.statusCode),
+        localPath: null,
+        error: DownloadErrorKind.unknown,
+        statusCode: null,
+        permanent: true,
       );
-    } on SocketException {
+    }
+    final filePath = joinLocalPath(path, fileName);
+
+    final url = '$baseUrl/$fileName';
+    final r = await LocalFileStore.httpGet(url, timeout: timeout);
+
+    if (r.statusCode == 200 && r.bytes != null) {
+      final bytes = r.bytes!;
+      if (bytes.isEmpty) {
+        debugPrint('❌ File rỗng: $fileName ($baseUrl)');
+        return (
+          localPath: null,
+          error: DownloadErrorKind.serverError,
+          statusCode: 200,
+          permanent: true,
+        );
+      }
+      try {
+        await LocalFileStore.write(filePath, bytes);
+      } catch (e) {
+        debugPrint('❌ Không ghi được $fileName: $e');
+        return (
+          localPath: null,
+          error: DownloadErrorKind.unknown,
+          statusCode: 200,
+          permanent: false,
+        );
+      }
+      return (
+        localPath: filePath,
+        error: null,
+        statusCode: 200,
+        permanent: false,
+      );
+    }
+
+    final status = r.statusCode;
+    if (status != null) {
+      debugPrint('❌ Lỗi tải $fileName từ $baseUrl — HTTP $status');
+      return (
+        localPath: null,
+        error: _kindFromStatus(status),
+        statusCode: status,
+        permanent: _isPermanentStatus(status),
+      );
+    }
+
+    // Không nhận được phản hồi HTTP nào.
+    final failure = r.failure ?? FetchFailure.other;
+    if (failure == FetchFailure.network) {
       // DNS không phân giải / không route / connection refused —
       // máy chủ chết hoặc thiết bị mất mạng (phân biệt ở combineErrors).
       debugPrint('❌ Không kết nối được $baseUrl cho $fileName');
       return (
-        file: null,
+        localPath: null,
         error: DownloadErrorKind.network,
         statusCode: null,
         permanent: false,
       );
-    } on TimeoutException {
+    }
+    if (failure == FetchFailure.timeout) {
       debugPrint('❌ Timeout tải $fileName từ $baseUrl');
       return (
-        file: null,
+        localPath: null,
         error: DownloadErrorKind.timeout,
         statusCode: null,
         permanent: false,
       );
-    } catch (e) {
-      debugPrint('❌ Lỗi tải file $fileName từ $baseUrl: $e');
-      return (
-        file: null,
-        error: DownloadErrorKind.unknown,
-        statusCode: null,
-        permanent: false,
-      );
-    } finally {
-      client?.close(force: true);
     }
+    debugPrint('❌ Lỗi tải file $fileName từ $baseUrl');
+    return (
+      localPath: null,
+      error: DownloadErrorKind.unknown,
+      statusCode: null,
+      permanent: false,
+    );
   }
 
   static DownloadErrorKind _kindFromStatus(int status) {
@@ -395,8 +429,8 @@ class DownloadService {
         if (!iterator.moveNext()) break;
         name = iterator.current;
 
-        final file = await downloadAudio(name);
-        if (file != null) successCount++;
+        final localPath = await downloadAudio(name);
+        if (localPath != null) successCount++;
         completed++;
         notifyProgress();
       }

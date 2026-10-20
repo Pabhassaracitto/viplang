@@ -1,8 +1,8 @@
 // lib/presentation/widgets/audio_player_widget.dart
 
 import 'dart:async';
-import 'dart:io';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -12,6 +12,7 @@ import '../../core/constants/app_text_styles.dart';
 import '../../core/services/audio_path_resolver.dart';
 import '../../core/services/download_service.dart';
 import '../../core/services/hive_service.dart';
+import '../../core/services/local_file_store.dart';
 import '../../core/services/safe_audio_service.dart';
 import '../../core/services/tts_service.dart';
 
@@ -211,12 +212,12 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
     try {
       // 1. Thử tải từ file local đã download trước (cho tất cả trường hợp có _fileName)
+      //    Trên Web không có file local → bỏ qua, phát trực tiếp từ máy chủ.
       if (_fileName.isNotEmpty) {
         final isDownloaded = await DownloadService.instance.isDownloaded(_fileName);
         if (isDownloaded) {
           final localPath = await DownloadService.instance.getLocalPathForFile(_fileName);
-          final file = File(localPath);
-          if (await file.exists()) {
+          if (localPath != null && await LocalFileStore.exists(localPath)) {
             await _player.setFilePath(localPath);
             setState(() => _isLoading = false);
             await _maybeAutoPlay();
@@ -268,6 +269,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
 
   Future<void> _downloadOnDemand() async {
     if (_isDownloading || !mounted) return;
+
+    // Web: không tải về máy được — nút này thành "thử phát lại" từ máy chủ.
+    if (kIsWeb) {
+      await _loadAudio();
+      return;
+    }
+
     setState(() {
       _isDownloading = true;
     });
@@ -497,7 +505,9 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
                     if (_mp3Unavailable)
                       Text(
                         _isServerAvailable
-                            ? 'Nhấn nút cam để tải Audio học ngoại tuyến (<1MB)'
+                            ? (kIsWeb
+                                  ? 'Không phát được audio — nhấn nút cam để thử lại'
+                                  : 'Nhấn nút cam để tải Audio học ngoại tuyến (<1MB)')
                             : (_hasTtsText
                                   ? 'Chưa có MP3 — có thể nghe bằng giọng đọc máy'
                                   : 'Bài học này chưa hỗ trợ Audio'),

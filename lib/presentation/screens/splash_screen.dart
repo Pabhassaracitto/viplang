@@ -1,5 +1,6 @@
 // lib/presentation/screens/splash_screen.dart
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -39,6 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
     // 2. Init AudioPathResolver (lấy docs path)
     setState(() => _statusMessage = 'Đang kiểm tra dữ liệu âm thanh...');
     await AudioPathResolver.instance.init();
+
+    // Web: audio được phát trực tiếp từ máy chủ, không có bước tải về máy
+    // → vào thẳng app (không hiện lựa chọn tải toàn bộ).
+    if (kIsWeb) {
+      _goToHome();
+      return;
+    }
 
     // 3. Rà soát vật lý các file mp3 thực tế trên thiết bị
     final themes = AllThemesRegistry.getAllThemes();
