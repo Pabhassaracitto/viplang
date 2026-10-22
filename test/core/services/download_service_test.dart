@@ -56,7 +56,19 @@ void main() {
     );
 
     expect(result.isSuccess, isTrue);
-    expect(await result.file!.readAsBytes(), payload);
+    expect(await File(result.localPath!).readAsBytes(), payload);
+  });
+
+  test('remoteUrlsFor trả URL phát trực tiếp theo thứ tự mirror', () {
+    DownloadService.instance.debugBaseUrls = [
+      'https://a.example/audio/',
+      ' https://b.example/audio ',
+      '',
+    ];
+    expect(DownloadService.instance.remoteUrlsFor('theme01_track03.mp3'), [
+      'https://a.example/audio/theme01_track03.mp3',
+      'https://b.example/audio/theme01_track03.mp3',
+    ]);
   });
 
   test('báo notFound khi mọi mirror đều trả 404', () async {

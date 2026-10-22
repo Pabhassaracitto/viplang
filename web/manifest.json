@@ -1,11 +1,11 @@
 {
-    "name": "viplang",
-    "short_name": "viplang",
+    "name": "VipLang — Học tiếng Anh công sở",
+    "short_name": "VipLang",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#ffffff",
+    "theme_color": "#1565C0",
+    "description": "Học tiếng Anh giao tiếp công sở theo 13 chủ đề TOEIC, phương pháp Do Thái.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

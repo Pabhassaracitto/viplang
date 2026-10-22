@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart';
+import 'local_file_store.dart';
 
 /// Quản lý tập trung toàn bộ đường dẫn audio cho 13 chủ đề.
 /// Không còn hardcode path rải rác trong từng màn hình.
@@ -85,9 +83,9 @@ class AudioPathResolver {
   static const int lastAbsoluteTrack = 54;
 
   /// Khởi tạo đường dẫn local (nên gọi lúc app start)
+  /// Trên Web `documentsPath` là null → không có file cục bộ, chỉ phát trực tiếp.
   Future<void> init() async {
-    final directory = await getApplicationDocumentsDirectory();
-    _localDirPath = directory.path;
+    _localDirPath = await LocalFileStore.documentsPath();
   }
 
   /// Kiểm tra xem file audio này có tồn tại trên máy chủ hay không
@@ -134,10 +132,11 @@ class AudioPathResolver {
     final fileName = getFileName(themeId, trackNum);
 
     // 1. Kiểm tra local storage trước
-    if (_localDirPath != null) {
-      final localFile = File('$_localDirPath/$fileName');
-      if (await localFile.exists()) {
-        return localFile.path;
+    final localDir = _localDirPath;
+    if (localDir != null) {
+      final localPath = joinLocalPath(localDir, fileName);
+      if (await LocalFileStore.exists(localPath)) {
+        return localPath;
       }
     }
 

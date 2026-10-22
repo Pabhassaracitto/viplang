@@ -35,6 +35,8 @@
 
 Ngoài ra app hỗ trợ **deep link**: `viplang://theme/05/day/2` mở thẳng bài học.
 
+> 🌐 **Chạy trên web:** bản Flutter Web tự deploy lên GitHub Pages — xem [`docs/WEB.md`](docs/WEB.md)
+>
 > Hướng dẫn kiểm thử (tự động + thủ công): [`docs/TESTING.md`](docs/TESTING.md)
 > Ký release Android: [`docs/KEYSTORE.md`](docs/KEYSTORE.md)
 
@@ -54,6 +56,15 @@ mkdir -p assets/animations assets/audio assets/data
 flutter pub get
 flutter run
 ```
+
+### Chạy trên web
+
+```bash
+flutter run -d chrome          # chạy thử trên trình duyệt
+flutter build web --release --base-href "/viplang/"   # giống CI / GitHub Pages
+```
+
+Chi tiết và các khác biệt so với app native: [docs/WEB.md](docs/WEB.md).
 
 ### Kiểm thử & analyze
 

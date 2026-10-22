@@ -1,10 +1,15 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
+
 import 'audio_path_resolver.dart';
+import 'download_service.dart';
+import 'local_file_store.dart';
 
 /// Lớp bọc an toàn để xử lý audio logic.
-/// Đảm bảo kiểm tra file ở cả Assets và Local Storage.
+///
+/// Thứ tự nguồn (native): file đã tải/nhập trong máy → asset đóng gói → lỗi.
+/// Thứ tự nguồn (Web): phát trực tiếp từ mirror (Supabase → GitHub Releases).
 class SafeAudioService {
   SafeAudioService._();
   static final SafeAudioService instance = SafeAudioService._();
@@ -15,6 +20,13 @@ class SafeAudioService {
     String themeId,
     int trackNum,
   ) async {
+    // Web: không có file cục bộ → stream trực tiếp từ máy chủ.
+    if (kIsWeb) {
+      final fileName = AudioPathResolver.instance.getFileName(themeId, trackNum);
+      await _setStreamingSource(player, fileName);
+      return;
+    }
+
     final path = await AudioPathResolver.instance.getListeningPath(
       themeId,
       trackNum,
@@ -22,8 +34,7 @@ class SafeAudioService {
 
     // 1. Kiểm tra nếu là đường dẫn local (từ path_provider)
     if (!path.startsWith('assets/')) {
-      final file = File(path);
-      if (await file.exists()) {
+      if (await LocalFileStore.exists(path)) {
         await player.setFilePath(path);
         return;
       }
@@ -52,15 +63,37 @@ class SafeAudioService {
     }
   }
 
+  /// Phát trực tiếp từ URL, thử lần lượt từng mirror (Supabase → GitHub).
+  /// Thẻ `<audio>` của trình duyệt phát được cross-origin nên không cần CORS.
+  Future<void> _setStreamingSource(AudioPlayer player, String fileName) async {
+    Object? lastError;
+    for (final url in DownloadService.instance.remoteUrlsFor(fileName)) {
+      try {
+        await player.setUrl(url);
+        return;
+      } catch (e) {
+        lastError = e;
+        debugPrint('⚠️ Không phát được $url: $e');
+      }
+    }
+    throw Exception('Audio file NOT found: $fileName (${lastError ?? 'không có mirror'})');
+  }
+
   /// Kiểm tra xem file có sẵn để phát không (Asset hoặc Local)
   Future<bool> isAudioAvailable(String themeId, int trackNum) async {
+    // Web: sẵn sàng nếu track nằm trong danh sách file trên máy chủ.
+    if (kIsWeb) {
+      final fileName = AudioPathResolver.instance.getFileName(themeId, trackNum);
+      return AudioPathResolver.instance.isServerFileAvailable(fileName);
+    }
+
     final path = await AudioPathResolver.instance.getListeningPath(
       themeId,
       trackNum,
     );
 
     if (!path.startsWith('assets/')) {
-      return File(path).existsSync();
+      return LocalFileStore.exists(path);
     }
 
     return isAssetAvailable(path);

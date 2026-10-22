@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -674,6 +675,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           // ── Audio ──
           const _SectionTitle('Dữ liệu âm thanh'),
+          if (kIsWeb)
+            _Card(
+              child: ListTile(
+                leading: const Icon(Icons.cloud_done_rounded),
+                title: const Text('Phát trực tiếp từ máy chủ'),
+                subtitle: const Text(
+                  'Trên trình duyệt, audio được phát trực tiếp khi học — không cần tải hay nhập file. Muốn nghe ngoại tuyến, hãy dùng ứng dụng Android / iOS / Windows / Linux.',
+                ),
+              ),
+            )
+          else
           _Card(
             child: Column(
               children: [

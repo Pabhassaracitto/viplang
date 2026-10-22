@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 
 import 'audio_path_resolver.dart';
 import 'download_service.dart';
+import 'local_file_store.dart';
 
 /// Một nguồn MP3 người dùng chọn.
 ///
@@ -155,28 +154,18 @@ class AudioImportService {
   // ─── Quét thư mục ──────────────────────────────────────────────────────
 
   /// Liệt kê mọi file `.mp3` trong thư mục (mặc định quét cả thư mục con).
+  /// Trên Web không có hệ thống file → luôn rỗng.
   Future<List<String>> findMp3Files(
     String directoryPath, {
     bool recursive = true,
   }) async {
-    final dir = Directory(directoryPath);
-    if (!await dir.exists()) return const [];
-
-    final files = <String>[];
-    try {
-      await for (final entity in dir.list(
-        recursive: recursive,
-        followLinks: false,
-      )) {
-        if (entity is! File) continue;
-        if (!entity.path.toLowerCase().endsWith(supportedExtension)) continue;
-        files.add(entity.path);
-      }
-    } on FileSystemException catch (e) {
-      // Android SAF / thiếu quyền đọc → báo rỗng để UI hướng dẫn chọn file.
-      debugPrint('❌ Không đọc được thư mục $directoryPath: $e');
-      return const [];
-    }
+    final paths = await LocalFileStore.listFilePaths(
+      directoryPath,
+      recursive: recursive,
+    );
+    final files = paths
+        .where((p) => p.toLowerCase().endsWith(supportedExtension))
+        .toList();
 
     files.sort();
     return files;
@@ -204,7 +193,17 @@ class AudioImportService {
     final skipped = <SkippedFile>[];
     final targetDir = await DownloadService.instance.audioDirectoryPath;
 
-    await Directory(targetDir).create(recursive: true);
+    // Web: không có kho audio trên máy → không nhập được.
+    if (targetDir == null) {
+      return AudioImportResult(
+        skipped: [
+          for (final s in sources)
+            SkippedFile(s.name, 'Nền tảng này không hỗ trợ nhập file vào máy'),
+        ],
+      );
+    }
+
+    await LocalFileStore.ensureDirectory(targetDir);
 
     for (final source in sources) {
       final name = source.name;
@@ -226,27 +225,27 @@ class AudioImportService {
         continue;
       }
 
-      final targetPath = '$targetDir${Platform.pathSeparator}$canonical';
+      final targetPath = joinLocalPath(targetDir, canonical);
 
       try {
-        final replaced = await File(targetPath).exists();
+        final replaced = await LocalFileStore.exists(targetPath);
         final int length;
 
         final path = source.path;
-        if (path != null && await File(path).exists()) {
-          final file = File(path);
-          length = await file.length();
+        if (path != null && await LocalFileStore.exists(path)) {
+          length = await LocalFileStore.length(path);
           if (length < minValidBytes) {
             skipped.add(SkippedFile(name, 'File rỗng hoặc quá nhỏ'));
             continue;
           }
-          if (!await _looksLikeAudio(file)) {
+          if (!await _looksLikeAudio(path)) {
             skipped.add(SkippedFile(name, 'Nội dung không phải audio hợp lệ'));
             continue;
           }
           // Import lại chính file đang nằm trong kho → không cần chép.
-          if (file.absolute.path != File(targetPath).absolute.path) {
-            await file.copy(targetPath);
+          if (LocalFileStore.absolutePath(path) !=
+              LocalFileStore.absolutePath(targetPath)) {
+            await LocalFileStore.copy(path, targetPath);
           }
         } else if (source.readBytes != null) {
           final bytes = await source.readBytes!();
@@ -259,7 +258,7 @@ class AudioImportService {
             skipped.add(SkippedFile(name, 'Nội dung không phải audio hợp lệ'));
             continue;
           }
-          await File(targetPath).writeAsBytes(bytes, flush: true);
+          await LocalFileStore.write(targetPath, bytes);
         } else {
           skipped.add(SkippedFile(name, 'Không mở được file'));
           continue;
@@ -286,15 +285,10 @@ class AudioImportService {
   }
 
   /// Chặn file HTML/rác được đổi đuôi thành .mp3 (hay gặp khi tải lỗi).
-  Future<bool> _looksLikeAudio(File file) async {
+  Future<bool> _looksLikeAudio(String path) async {
     try {
-      final raf = await file.open();
-      try {
-        final head = await raf.read(64);
-        return !_looksLikeHtml(head);
-      } finally {
-        await raf.close();
-      }
+      final head = await LocalFileStore.readHead(path, 64);
+      return !_looksLikeHtml(head);
     } catch (_) {
       return true; // Không đọc được phần đầu thì cứ cho qua, copy sẽ báo lỗi.
     }
